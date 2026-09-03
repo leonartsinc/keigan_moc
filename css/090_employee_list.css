@@ -1,0 +1,225 @@
+/* Component: EmployeeListTopBar */
+.eml-topbar {
+  margin-bottom: 14px;
+}
+.eml-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Component: EmployeeListPanel */
+.eml-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: EmployeeListFilterBar */
+.eml-filter-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 14px 0;
+}
+
+/* Component: EmployeeListFilterForm */
+table.eml-table {
+  width: 100%;
+  max-width: 640px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.eml-table td {
+  border: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+.eml-table td.eml-label {
+  background: #f3f4f6;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.eml-table td.eml-value {
+  padding: 5px 10px;
+  background: #fff;
+}
+.eml-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.eml-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+
+/* Component: EmployeeListDownloadButton */
+.eml-download-btn {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+.eml-download-btn:hover {
+  background: #e5e7eb;
+  border-color: #6b7280;
+}
+.eml-download-btn i {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Component: EmployeeListStatusTabs */
+.eml-status-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px 0;
+}
+.eml-status-tab {
+  height: 28px;
+  padding: 0 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.eml-status-tab:hover {
+  border-color: #fb923c;
+  color: #f97316;
+}
+.eml-status-tab.is-active {
+  background: #d1d5db;
+  border-color: #9ca3af;
+  color: #1f2937;
+}
+
+/* Component: EmployeeListTable */
+.eml-list-wrap {
+  margin: 14px 14px 10px;
+  overflow-x: auto;
+}
+table.eml-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.eml-list-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.eml-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+.eml-list-table tbody tr:hover {
+  background: #fff7ed;
+}
+.eml-empty-row {
+  text-align: center;
+  color: #9ca3af;
+  padding: 20px 10px !important;
+}
+
+/* Component: EmployeeDownloadModal */
+.eml-modal-field {
+  margin-bottom: 20px;
+}
+.eml-modal-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 10px;
+}
+.eml-modal-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+.eml-modal-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.eml-modal-note {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #6b7280;
+  margin-top: 10px;
+}
+.eml-modal-cancel-btn {
+  flex: 1;
+  height: 38px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  background: #fff;
+  color: #4b5563;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.eml-modal-cancel-btn:hover {
+  background: #f3f4f6;
+}
+.eml-modal-download-btn {
+  flex: 1;
+  height: 38px;
+  border: none;
+  border-radius: 5px;
+  background: #f97316;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.eml-modal-download-btn:hover {
+  background: #ea580c;
+}

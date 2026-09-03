@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜新規申込画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/000_new_application.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="flex-1 w-full">
+
+      <!-- Component: ApplyCard -->
+      <div class="apply-wrap">
+        <div class="apply-card">
+
+          <p class="apply-card-title">新規申込</p>
+          <p class="apply-card-sub">メールアドレスをご登録のうえ、お申込みください</p>
+
+          <form id="apply-form" onsubmit="return false;">
+
+            <div class="apply-field">
+              <label class="apply-label" for="apply-email">メールアドレス<span class="req-mark">*</span></label>
+              <input type="email" id="apply-email" class="apply-inp" placeholder="例）taro@example.com">
+              <p class="apply-err hidden" id="err-apply-email">メールアドレスを正しく入力してください</p>
+            </div>
+
+            <button type="button" class="apply-submit-btn" onclick="submitApplication()">
+              <i class="fa-solid fa-paper-plane"></i>申込メールを送信
+            </button>
+
+          </form>
+
+          <div class="apply-footer-links">
+            すでにアカウントをお持ちの方は<a href="020_login.html">こちら</a>
+          </div>
+
+        </div>
+      </div>
+      <!-- /Component: ApplyCard -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('新規申込画面');
+    mountFooter();
+
+    // ========== 申込送信（モック） ==========
+    function submitApplication() {
+      const email = document.getElementById('apply-email');
+      const errEmail = document.getElementById('err-apply-email');
+
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailOk = emailPattern.test(email.value.trim());
+
+      errEmail.classList.toggle('hidden', emailOk);
+      if (!emailOk) return;
+
+      const trimmedEmail = email.value.trim();
+      window.location.href = `005_mail_mock.html?email=${encodeURIComponent(trimmedEmail)}`;
+    }
+  </script>
+
+</body>
+</html>

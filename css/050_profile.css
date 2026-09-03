@@ -1,0 +1,551 @@
+/* Component: ProfileTopBar */
+.prf-topbar {
+  margin-bottom: 14px;
+}
+.prf-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Component: ProfileSidebar */
+.prf-side-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.prf-side-title {
+  background: #d1d5db;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid #9ca3af;
+}
+.prf-nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #374151;
+  background: #fff;
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.prf-nav-link:first-child {
+  border-top: none;
+}
+.prf-nav-link:hover {
+  background: #fff7ed;
+  color: #f97316;
+}
+.prf-nav-link.is-active {
+  background: #fff7ed;
+  color: #f97316;
+  font-weight: 600;
+  border-left-color: #f97316;
+}
+
+/* Component: ProfileActionButtons */
+.prf-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.prf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.prf-btn-resume {
+  background: #fff;
+  color: #2563eb;
+  border: 1px solid #2563eb;
+}
+.prf-btn-resume:hover {
+  background: #eff6ff;
+}
+.prf-btn-save {
+  background: #f97316;
+  color: #fff;
+  border: 1px solid #f97316;
+}
+.prf-btn-save:hover {
+  background: #ea580c;
+  border-color: #ea580c;
+}
+.prf-btn-cancel {
+  background: #fff;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+.prf-btn-cancel:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+/* Component: ProfilePanel */
+.prf-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+}
+.prf-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #d1d5db;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  padding: 8px 14px;
+  border-bottom: 1px solid #9ca3af;
+}
+.prf-toggle-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+}
+.prf-toggle-btn:hover {
+  color: #f97316;
+}
+
+/* Component: ProfileFormTable */
+.prf-basic-cols {
+  padding: 12px 14px 4px;
+}
+.prf-basic-cols > table {
+  min-width: 0;
+}
+table.prf-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.prf-table td {
+  border: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+.prf-table td.prf-label {
+  background: #f3f4f6;
+  width: 120px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.prf-table td.prf-value {
+  padding: 5px 10px;
+  background: #fff;
+}
+table.prf-table-login {
+  margin: 0 14px 10px;
+  width: calc(100% - 28px);
+}
+.req-mark {
+  color: #ef4444;
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+.prf-inp, .prf-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.prf-inp:focus, .prf-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.prf-textarea {
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  resize: vertical;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.prf-sep {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+.prf-computed {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  color: #6b7280;
+  margin-left: 6px;
+}
+.prf-computed-label {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* Component: ProfileBirthField（生年月日：年齢・和暦を折り返し表示） */
+.prf-birth-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.prf-birth-sub {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.prf-birth-sub .prf-computed {
+  margin-left: 0;
+}
+.prf-warn-note {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 11px;
+  color: #ef4444;
+}
+.prf-inline-label {
+  margin: 0 8px 0 14px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Component: ProfilePanelSummary（経歴／免許・資格の見出し横サマリー） */
+.prf-panel-summary {
+  flex: 1;
+  margin-left: 14px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+/* Component: ProfileAddButton（一覧見出しの＋追加ボタン） */
+.prf-add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.prf-add-btn:hover {
+  background: #f97316;
+  color: #fff;
+}
+
+/* Component: ProfileUsageTag（経歴一覧：利用／退会／申請中、承認：自／済／未） */
+.prf-usage-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.prf-usage-tag.is-active {
+  background: #d1fae5;
+  color: #059669;
+}
+.prf-usage-tag.is-withdrawn {
+  background: #f1f5f9;
+  color: #64748b;
+}
+.prf-usage-tag.is-pending {
+  background: transparent;
+  padding: 2px 0;
+  color: #ef4444;
+}
+.prf-usage-tag.is-self {
+  background: #f1f5f9;
+  color: #64748b;
+}
+.prf-usage-tag.is-done {
+  background: #d1fae5;
+  color: #059669;
+}
+.prf-usage-tag.is-review {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+/* Component: ProfileAttachmentIcon（免許・資格／研修・訓練：添付ファイル） */
+.prf-attach-link {
+  display: inline-flex;
+  color: #2563eb;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+.prf-attach-link:hover {
+  color: #1d4ed8;
+}
+.prf-attach-icon-disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+
+/* Component: ProfileEntryModal（経歴：編集／照会モーダル） */
+table.prf-table-modal {
+  margin: 4px 24px 0;
+  width: calc(100% - 48px);
+  table-layout: auto;
+}
+.prf-file-inp {
+  font-size: 12px;
+  color: #1f2937;
+}
+.prf-file-current {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+.prf-file-clear {
+  margin-left: 8px;
+  color: #ef4444;
+  text-decoration: none;
+  font-weight: 700;
+}
+.prf-file-clear:hover {
+  text-decoration: underline;
+}
+.prf-form-actions {
+  display: flex;
+  gap: 10px;
+  padding: 16px 24px 20px;
+}
+.prf-form-btn {
+  height: 30px;
+  padding: 0 18px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.prf-form-btn-save {
+  color: #2563eb;
+  border-color: #bfdbfe;
+}
+.prf-form-btn-save:hover {
+  background: #eff6ff;
+}
+.prf-form-btn-cancel {
+  color: #374151;
+}
+.prf-form-btn-cancel:hover {
+  background: #f9fafb;
+}
+.prf-form-btn-delete {
+  color: #ef4444;
+  border-color: #fecaca;
+}
+.prf-form-btn-delete:hover {
+  background: #fef2f2;
+}
+
+/* Component: ProfileStaticInfo（所属企業情報） */
+table.prf-table-static {
+  margin: 12px 14px 0;
+  width: calc(100% - 28px);
+}
+.prf-static {
+  font-size: 12px;
+  color: #1f2937;
+}
+.prf-link {
+  font-size: 12px;
+  color: #2563eb;
+  text-decoration: none;
+}
+.prf-link:hover {
+  text-decoration: underline;
+}
+.prf-status-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.prf-status-badge.is-active {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* Component: ProfileListSection（人事履歴／休職履歴／職歴） */
+.prf-subtitle {
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 14px;
+  margin-top: 16px;
+}
+.prf-list-wrap {
+  margin: 14px 14px 0;
+  overflow-x: hidden;
+}
+.prf-list-wrap-last {
+  margin-bottom: 12px;
+}
+table.prf-list-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.prf-list-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.prf-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.prf-list-table tbody tr:hover {
+  background: #fff7ed;
+}
+.prf-empty-row {
+  text-align: center;
+  color: #9ca3af;
+  padding: 20px 10px !important;
+}
+.prf-col-center {
+  text-align: center;
+}
+
+/* Component: ProfileListWrapScroll（職歴／MBO／アセスメント：列幅を保ったまま横スクロール） */
+.prf-list-wrap-scroll {
+  overflow-x: auto;
+}
+table.prf-list-table-wide {
+  table-layout: auto;
+  width: max-content;
+  min-width: 100%;
+}
+table.prf-list-table-wide th,
+table.prf-list-table-wide td {
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: clip;
+}
+
+/* Component: ProfileSortableHeader（経歴：列ソート） */
+.prf-sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+.prf-sortable:hover {
+  color: #f97316;
+}
+.prf-sort-icon {
+  margin-left: 5px;
+  font-size: 10px;
+  color: #cbd5e1;
+}
+.prf-sortable.is-sorted-asc,
+.prf-sortable.is-sorted-desc {
+  color: #f97316;
+}
+.prf-sortable.is-sorted-asc .prf-sort-icon,
+.prf-sortable.is-sorted-desc .prf-sort-icon {
+  color: #f97316;
+}
+.prf-sortable.is-sorted-desc .prf-sort-icon {
+  transform: scaleY(-1);
+  display: inline-block;
+}
+
+/* Component: ProfileFilterRow（所属企業情報：会社選択） */
+.prf-filter-row {
+  padding: 12px 14px 0;
+}
+
+/* Component: ProfileSectionDivider（研修・訓練／所属企業情報の区切り） */
+.prf-section-divider {
+  border: none;
+  border-top: 2px solid #d1d5db;
+  margin: 0 0 16px;
+}
+
+/* Component: ProfileCompanySelectBar（区切り線の下：会社選択。所属企業情報〜アセスメントに適用） */
+.prf-company-select-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.prf-company-select-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.prf-row-edit-icon {
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.prf-row-edit-icon:hover {
+  color: #f97316;
+}
+.prf-mbo-count {
+  color: #ea580c;
+  font-weight: 700;
+  text-align: center;
+}

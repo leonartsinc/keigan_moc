@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜招待メール（モック）</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/005_mail_mock.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Component: MailMockBadge -->
+  <div class="mail-badge">
+    <i class="fa-solid fa-flask"></i>モック画面（実際にはメールで届きます）
+  </div>
+  <!-- /Component: MailMockBadge -->
+
+  <!-- Component: MailPane -->
+  <div class="mail-wrap">
+    <div class="mail-pane">
+
+      <div class="mail-from">keigan@assessment.com</div>
+      <div class="mail-meta" id="mail-time"></div>
+
+      <div class="mail-to-row">To 自分</div>
+      <div class="mail-to-email"><span id="mail-recipient"></span> 様</div>
+
+      <div class="mail-body">
+        <p>はじめまして。KEIGAN管理者です。</p>
+        <p>KEIGANへ新規お申込みいただき、ありがとうございます。</p>
+        <p>以下のURLにアクセスして、メールアドレスの確認を完了してください。</p>
+        <p><a id="mail-confirm-link" class="mail-link" href="010_system_admin_registration.html?c=1">https://id.keigan.jp/users/invitation/accept?invitation_token=mock-token&lang=ja</a></p>
+        <p>
+          なお、本URLは <span id="mail-expire"></span> まで有効です。<br>
+          有効期限経過後は、以下のURLから申込メールの再送を行ってください。
+        </p>
+        <p><a class="mail-link" href="000_new_application.html">https://id.keigan.jp/users/invitation/new?lang=ja</a></p>
+      </div>
+
+      <div class="mail-divider"></div>
+      <div class="mail-sig">
+        <div>[メールアドレス] <span id="mail-sig-email"></span></div>
+        <div>[申込日時] <span id="mail-sig-datetime"></span></div>
+      </div>
+      <div class="mail-divider"></div>
+
+      <div class="mail-footnotes">
+        <p># 本メールはKEIGAN管理者より <span id="mail-footnote-email"></span> 様宛にお送りしています。</p>
+        <p># 本メールはシステムより自動送信されています。</p>
+        <p># 本メールに返信されましても、返答できませんのでご了承ください。</p>
+      </div>
+
+    </div>
+  </div>
+  <!-- /Component: MailPane -->
+
+  <script>
+    const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
+
+    function formatDateTime(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      const hh = String(date.getHours()).padStart(2, "0");
+      const mm = String(date.getMinutes()).padStart(2, "0");
+      return `${y}/${m}/${d} ${hh}:${mm}`;
+    }
+
+    function formatTime(date) {
+      const hh = String(date.getHours()).padStart(2, "0");
+      const mm = String(date.getMinutes()).padStart(2, "0");
+      return `${hh}:${mm}`;
+    }
+
+    function randomToken() {
+      return Array.from({ length: 20 }, () =>
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"[Math.floor(Math.random() * 62)]
+      ).join("");
+    }
+
+    // ========== 申込メールアドレス（クエリパラメータ）の反映 ==========
+    const params = new URLSearchParams(window.location.search);
+    const recipientEmail = params.get("email") || "sample@example.com";
+
+    document.getElementById("mail-recipient").textContent = recipientEmail;
+    document.getElementById("mail-sig-email").textContent = recipientEmail;
+    document.getElementById("mail-footnote-email").textContent = recipientEmail;
+
+    // ========== 日時（送信日時／有効期限）の反映 ==========
+    const now = new Date();
+    const expireDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+    document.getElementById("mail-time").textContent = `${formatTime(now)} (0 分前)`;
+    document.getElementById("mail-sig-datetime").textContent = formatDateTime(now);
+    document.getElementById("mail-expire").textContent = formatDateTime(expireDate);
+
+    // ========== 確認URLリンク（トークン付き・遷移先は登録画面） ==========
+    const confirmLink = document.getElementById("mail-confirm-link");
+    confirmLink.href = `010_system_admin_registration.html?c=1&email=${encodeURIComponent(recipientEmail)}`;
+    confirmLink.textContent = `https://id.keigan.jp/users/invitation/accept?invitation_token=${randomToken()}&lang=ja`;
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜プロフィール画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/050_profile.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: ProfileBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span>プロフィール</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="is-current" id="prf-breadcrumb-mode">編集</span>
+      </div>
+      <!-- /Component: ProfileBreadcrumb -->
+
+      <!-- Component: ProfileTopBar -->
+      <div class="prf-topbar">
+        <span class="prf-topbar-title">プロフィール</span>
+      </div>
+      <!-- /Component: ProfileTopBar -->
+
+      <div class="flex gap-5 items-start">
+
+        <!-- Component: ProfileSidebar -->
+        <aside class="w-44 shrink-0 sticky top-20">
+          <div class="prf-side-panel">
+            <div class="prf-side-title">プロフィール</div>
+            <nav id="prf-toc">
+              <a class="prf-nav-link is-active" onclick="tocScrollTo('prf-sec-basic')">基本情報</a>
+              <a class="prf-nav-link" onclick="tocScrollTo('prf-sec-career')">経歴</a>
+              <a class="prf-nav-link" onclick="tocScrollTo('prf-sec-license')">免許・資格</a>
+              <a class="prf-nav-link" onclick="tocScrollTo('prf-sec-training')">研修・訓練</a>
+              <a class="prf-nav-link" onclick="tocScrollTo('prf-sec-company')">所属企業情報</a>
+              <a class="prf-nav-link" onclick="tocScrollTo('prf-sec-work-history')">職歴</a>
+              <a class="prf-nav-link" onclick="tocScrollTo('prf-sec-mbo')">MBO</a>
+              <a class="prf-nav-link" onclick="tocScrollTo('prf-sec-assessment')">アセスメント</a>
+            </nav>
+          </div>
+
+          <!-- Component: ProfileActionButtons -->
+          <div class="prf-actions">
+            <button type="button" class="prf-btn prf-btn-resume" onclick="openCareerDocument()">
+              <i class="fa-solid fa-file-lines"></i>経歴書・職務経歴書
+            </button>
+            <button type="button" class="prf-btn prf-btn-save" onclick="submitProfile()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+            <button type="button" class="prf-btn prf-btn-cancel" onclick="cancelProfile()">
+              <i class="fa-solid fa-xmark"></i>キャンセル
+            </button>
+          </div>
+          <!-- /Component: ProfileActionButtons -->
+        </aside>
+        <!-- /Component: ProfileSidebar -->
+
+        <!-- Component: ProfileContent -->
+        <div class="flex-1 min-w-0">
+
+          <!-- Section: 基本情報 -->
+          <section id="prf-sec-basic" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>基本情報</span>
+            </div>
+
+            <div class="flex gap-4 items-start prf-basic-cols">
+
+              <!-- 本人情報 -->
+              <table class="prf-table flex-1">
+                <tbody>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>氏名</td>
+                    <td class="prf-value"><input type="text" id="prf-name" class="prf-inp w-40" value="獅子　太郎"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>カナ</td>
+                    <td class="prf-value"><input type="text" id="prf-kana" class="prf-inp w-40" value="シシ　タロウ"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>生年月日</td>
+                    <td class="prf-value">
+                      <div class="prf-birth-row">
+                        <input type="date" id="prf-birth-date" class="prf-inp w-36" value="1975-04-02" onchange="updateBirthComputed()">
+                        <span class="prf-computed" id="prf-birth-weekday">(木)</span>
+                      </div>
+                      <div class="prf-birth-sub">
+                        <span class="prf-computed-label">年齢</span>
+                        <span class="prf-computed" id="prf-age">48歳</span>
+                        <span class="prf-computed" id="prf-birth-era">昭和50年4月2日</span>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>現　郵便番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-zip1" class="prf-inp w-16 text-center" value="541" maxlength="3">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-zip2" class="prf-inp w-20 text-center" value="0156" maxlength="4">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>都道府県</td>
+                    <td class="prf-value"><select id="prf-prefecture" class="prf-sel w-32"></select></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>市区町村</td>
+                    <td class="prf-value"><input type="text" id="prf-city" class="prf-inp w-56" value="大阪市中央区太閤町"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>丁目番地号</td>
+                    <td class="prf-value"><input type="text" id="prf-block" class="prf-inp w-56" value="1丁目2番3号"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">建物名</td>
+                    <td class="prf-value"><input type="text" id="prf-building" class="prf-inp w-56" value="木町タワー1010"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">電話番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-tel1" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-tel2" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-tel3" class="prf-inp w-14 text-center" maxlength="4">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">FAX番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-fax1" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-fax2" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-fax3" class="prf-inp w-14 text-center" maxlength="4">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label"><span class="req-mark">*</span>携帯番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-mobile1" class="prf-inp w-14 text-center" value="090" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-mobile2" class="prf-inp w-14 text-center" value="1234" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-mobile3" class="prf-inp w-14 text-center" value="xxxx" maxlength="4">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">最寄駅1</td>
+                    <td class="prf-value"><input type="text" id="prf-station1" class="prf-inp w-64" value="大阪メトロ堺筋線　堺筋本町駅"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">最寄駅2</td>
+                    <td class="prf-value"><input type="text" id="prf-station2" class="prf-inp w-64" value="大阪メトロ御堂筋線　本町駅"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">最終学歴</td>
+                    <td class="prf-value">
+                      <select id="prf-education" class="prf-sel w-28">
+                        <option>高卒</option>
+                        <option>短大卒</option>
+                        <option>専門卒</option>
+                        <option selected>大卒</option>
+                        <option>大学院卒</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">性別</td>
+                    <td class="prf-value">
+                      <select id="prf-gender" class="prf-sel w-24">
+                        <option selected>男</option>
+                        <option>女</option>
+                        <option>その他</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">血液型</td>
+                    <td class="prf-value">
+                      <select id="prf-blood-type" class="prf-sel w-20">
+                        <option selected>A</option>
+                        <option>B</option>
+                        <option>O</option>
+                        <option>AB</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">MBTI</td>
+                    <td class="prf-value">
+                      <select id="prf-mbti" class="prf-sel w-28">
+                        <option>ISTJ-A</option><option>ISTJ-T</option>
+                        <option>ISFJ-A</option><option>ISFJ-T</option>
+                        <option>INFJ-A</option><option>INFJ-T</option>
+                        <option>INTJ-A</option><option>INTJ-T</option>
+                        <option>ISTP-A</option><option>ISTP-T</option>
+                        <option>ISFP-A</option><option>ISFP-T</option>
+                        <option>INFP-A</option><option>INFP-T</option>
+                        <option>INTP-A</option><option>INTP-T</option>
+                        <option>ESTP-A</option><option>ESTP-T</option>
+                        <option>ESFP-A</option><option>ESFP-T</option>
+                        <option>ENFP-A</option><option>ENFP-T</option>
+                        <option>ENTP-A</option><option>ENTP-T</option>
+                        <option>ESTJ-A</option><option>ESTJ-T</option>
+                        <option>ESFJ-A</option><option>ESFJ-T</option>
+                        <option>ENFJ-A</option><option>ENFJ-T</option>
+                        <option selected>ENTJ-A</option><option>ENTJ-T</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">世帯主</td>
+                    <td class="prf-value">
+                      <select id="prf-householder" class="prf-sel w-28">
+                        <option selected>世帯主</option>
+                        <option>非世帯主</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">配偶者</td>
+                    <td class="prf-value">
+                      <select id="prf-spouse" class="prf-sel w-20">
+                        <option selected>有</option>
+                        <option>無</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">扶養家族数</td>
+                    <td class="prf-value"><input type="number" id="prf-dependents" class="prf-inp w-16 text-center" value="4" min="0"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">備考</td>
+                    <td class="prf-value"><textarea id="prf-basic-note" class="prf-textarea w-full" rows="2"></textarea></td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <!-- 緊急連絡先 -->
+              <table class="prf-table flex-1">
+                <tbody>
+                  <tr>
+                    <td class="prf-label">緊急連絡先<br>氏名</td>
+                    <td class="prf-value"><input type="text" id="prf-emg-name" class="prf-inp w-40"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">カナ</td>
+                    <td class="prf-value"><input type="text" id="prf-emg-kana" class="prf-inp w-40"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">続柄</td>
+                    <td class="prf-value"><input type="text" id="prf-emg-relation" class="prf-inp w-40"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">郵便番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-emg-zip1" class="prf-inp w-16 text-center" maxlength="3">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-emg-zip2" class="prf-inp w-20 text-center" maxlength="4">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">都道府県</td>
+                    <td class="prf-value"><select id="prf-emg-prefecture" class="prf-sel w-32"></select></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">市区町村</td>
+                    <td class="prf-value"><input type="text" id="prf-emg-city" class="prf-inp w-56"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">丁目番地号</td>
+                    <td class="prf-value"><input type="text" id="prf-emg-block" class="prf-inp w-56"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">建物名</td>
+                    <td class="prf-value"><input type="text" id="prf-emg-building" class="prf-inp w-56"></td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">電話番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-emg-tel1" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-emg-tel2" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-emg-tel3" class="prf-inp w-14 text-center" maxlength="4">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">FAX番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-emg-fax1" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-emg-fax2" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-emg-fax3" class="prf-inp w-14 text-center" maxlength="4">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="prf-label">携帯番号</td>
+                    <td class="prf-value">
+                      <input type="text" id="prf-emg-mobile1" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-emg-mobile2" class="prf-inp w-14 text-center" maxlength="4">
+                      <span class="prf-sep">-</span>
+                      <input type="text" id="prf-emg-mobile3" class="prf-inp w-14 text-center" maxlength="4">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+
+            <!-- ログイン情報／退会 -->
+            <table class="prf-table prf-table-login">
+              <tbody>
+                <tr>
+                  <td class="prf-label"><span class="req-mark">*</span>ログインメール</td>
+                  <td class="prf-value"><input type="email" id="prf-login-email" class="prf-inp w-72" value="leoleo-xxxx@gmail.com"></td>
+                </tr>
+                <tr>
+                  <td class="prf-label"><span class="req-mark">*</span>パスワード</td>
+                  <td class="prf-value"><input type="password" id="prf-login-password" class="prf-inp w-56" value="lea0n@rts2026"></td>
+                </tr>
+                <tr>
+                  <td class="prf-label">退会サービスを</td>
+                  <td class="prf-value">
+                    <select id="prf-withdraw" class="prf-sel w-48">
+                      <option selected>利用しない（退会）</option>
+                      <option>利用する</option>
+                    </select>
+                    <span class="prf-warn-note">※（注意）利用しないを選択し、保存すると全ての情報が削除されます</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <!-- /Section: 基本情報 -->
+
+          <!-- Section: 経歴 -->
+          <section id="prf-sec-career" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>経歴</span>
+              <span class="prf-panel-summary" id="prf-career-summary"></span>
+              <button type="button" class="prf-add-btn" onclick="openCareerModal(null, 'edit')" title="経歴を追加">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="prf-list-wrap prf-list-wrap-last">
+              <table class="prf-list-table">
+                <colgroup>
+                  <col style="width: 6%">
+                  <col style="width: 11%">
+                  <col style="width: 23%">
+                  <col style="width: 7%">
+                  <col style="width: 15%">
+                  <col style="width: 9%">
+                  <col style="width: 13%">
+                  <col style="width: 10%">
+                  <col style="width: 6%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-col-center prf-sortable" onclick="sortCareerBy('approve', this)">承認<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortCareerBy('date', this)">日付<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortCareerBy('entry', this)">経歴<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortCareerBy('status', this)">状態<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortCareerBy('industry', this)">産業<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortCareerBy('category', this)">業種<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortCareerBy('note', this)">備考<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-col-center prf-sortable" onclick="sortCareerBy('usage', this)">利用<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-col-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-career-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 経歴 -->
+
+          <!-- Section: 免許・資格 -->
+          <section id="prf-sec-license" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>免許・資格</span>
+              <span class="prf-panel-summary" id="prf-license-summary"></span>
+              <button type="button" class="prf-add-btn" onclick="openLicenseModal(null)" title="免許・資格を追加">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="prf-list-wrap prf-list-wrap-last">
+              <table class="prf-list-table">
+                <colgroup>
+                  <col style="width: 6%">
+                  <col style="width: 13%">
+                  <col style="width: 35%">
+                  <col style="width: 12%">
+                  <col style="width: 24%">
+                  <col style="width: 10%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-col-center"></th>
+                    <th class="prf-sortable" onclick="sortLicenseBy('date', this)">日付<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortLicenseBy('name', this)">資格<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortLicenseBy('category', this)">分類<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortLicenseBy('note', this)">備考<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-col-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-license-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 免許・資格 -->
+
+          <!-- Section: 研修・訓練 -->
+          <section id="prf-sec-training" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>研修・訓練</span>
+              <button type="button" class="prf-add-btn" onclick="openTrainingModal(null)" title="研修・訓練を追加">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="prf-list-wrap prf-list-wrap-last">
+              <table class="prf-list-table">
+                <colgroup>
+                  <col style="width: 5%">
+                  <col style="width: 10%">
+                  <col style="width: 10%">
+                  <col style="width: 28%">
+                  <col style="width: 7%">
+                  <col style="width: 15%">
+                  <col style="width: 18%">
+                  <col style="width: 7%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-col-center"></th>
+                    <th class="prf-sortable" onclick="sortTrainingBy('from', this)">受講開始<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortTrainingBy('to', this)">受講終了<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortTrainingBy('name', this)">研修名<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortTrainingBy('hours', this)">時間<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortTrainingBy('provider', this)">提供機関<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortTrainingBy('note', this)">備考<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-col-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-training-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 研修・訓練 -->
+
+          <!-- Component: SectionDivider -->
+          <hr class="prf-section-divider">
+          <!-- /Component: SectionDivider -->
+
+          <!-- Component: CompanySelectBar -->
+          <div class="prf-company-select-bar">
+            <span class="prf-company-select-label">所属企業</span>
+            <select id="prf-company-select" class="prf-sel w-56" onchange="applyCompanySelection()"></select>
+          </div>
+          <!-- /Component: CompanySelectBar -->
+
+          <!-- Section: 所属企業情報 -->
+          <section id="prf-sec-company" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>所属企業情報</span>
+            </div>
+
+            <table class="prf-table prf-table-static">
+              <tbody>
+                <tr>
+                  <td class="prf-label">社員コード</td>
+                  <td class="prf-value"><span class="prf-static" id="prf-company-code">-</span></td>
+                </tr>
+                <tr>
+                  <td class="prf-label">入社日</td>
+                  <td class="prf-value">
+                    <span class="prf-static" id="prf-company-join-date">-</span>
+                    <span class="prf-status-badge" id="prf-company-status-badge"></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="prf-label">退職日</td>
+                  <td class="prf-value"><span class="prf-static" id="prf-company-leave-date">-</span></td>
+                </tr>
+                <tr>
+                  <td class="prf-label">メールアドレス</td>
+                  <td class="prf-value" id="prf-company-email">-</td>
+                </tr>
+                <tr>
+                  <td class="prf-label">会社携帯番号1</td>
+                  <td class="prf-value" id="prf-company-mobile1">-</td>
+                </tr>
+                <tr>
+                  <td class="prf-label">会社携帯番号2</td>
+                  <td class="prf-value" id="prf-company-mobile2">-</td>
+                </tr>
+                <tr>
+                  <td class="prf-label">会社携帯番号3</td>
+                  <td class="prf-value" id="prf-company-mobile3">-</td>
+                </tr>
+                <tr>
+                  <td class="prf-label">備考</td>
+                  <td class="prf-value" id="prf-company-note">-</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- 人事履歴 -->
+            <div class="prf-subtitle">人事履歴</div>
+            <div class="prf-list-wrap">
+              <table class="prf-list-table">
+                <colgroup>
+                  <col style="width: 13%">
+                  <col style="width: 13%">
+                  <col style="width: 20%">
+                  <col style="width: 17%">
+                  <col style="width: 37%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-sortable" onclick="sortPersonnelBy('date', this)">異動日<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortPersonnelBy('employment', this)">雇用形態<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortPersonnelBy('title', this)">役職<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortPersonnelBy('job', this)">職種<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortPersonnelBy('group', this)">グループ<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-personnel-history-body"></tbody>
+              </table>
+            </div>
+
+            <!-- 休職履歴 -->
+            <div class="prf-subtitle">休職履歴</div>
+            <div class="prf-list-wrap prf-list-wrap-last">
+              <table class="prf-list-table">
+                <colgroup>
+                  <col style="width: 22%">
+                  <col style="width: 22%">
+                  <col style="width: 56%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-sortable" onclick="sortLeaveBy('start', this)">休職開始日<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortLeaveBy('end', this)">休職終了日<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortLeaveBy('reason', this)">休職理由<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-leave-history-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 所属企業情報 -->
+
+          <!-- Section: 職歴 -->
+          <section id="prf-sec-work-history" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>職歴</span>
+              <button type="button" class="prf-add-btn hidden" id="prf-work-history-add-btn" onclick="addWorkHistoryEntry()" title="職務経歴を追加">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+
+            <div class="prf-list-wrap prf-list-wrap-last prf-list-wrap-scroll">
+              <table class="prf-list-table prf-list-table-wide">
+                <colgroup>
+                  <col style="width: 5%">
+                  <col style="width: 14%">
+                  <col style="width: 8%">
+                  <col style="width: 8%">
+                  <col style="width: 5%">
+                  <col style="width: 11%">
+                  <col style="width: 13%">
+                  <col style="width: 10%">
+                  <col style="width: 5%">
+                  <col style="width: 5%">
+                  <col style="width: 10%">
+                  <col style="width: 6%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-col-center prf-sortable" onclick="sortWorkHistoryBy('approve', this)">承認<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('company', this)">所属<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('start', this)">開始<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('end', this)">終了<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('period', this)">期間<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('industry', this)">対象産業<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('job', this)">職種<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('field', this)">専門分野<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('jtss', this)">JTSS<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('rating', this)">評価<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortWorkHistoryBy('note', this)">備考<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-col-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-work-history-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 職歴 -->
+
+          <!-- Section: MBO -->
+          <section id="prf-sec-mbo" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>MBO</span>
+              <button type="button" class="prf-add-btn hidden" id="prf-mbo-add-btn" onclick="addMboEntry()" title="MBOを追加">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="prf-list-wrap prf-list-wrap-last prf-list-wrap-scroll">
+              <table class="prf-list-table prf-list-table-wide">
+                <colgroup>
+                  <col style="width: 5%">
+                  <col style="width: 13%">
+                  <col style="width: 8%">
+                  <col style="width: 8%">
+                  <col style="width: 4%"><col style="width: 4%"><col style="width: 4%"><col style="width: 4%">
+                  <col style="width: 4%"><col style="width: 4%"><col style="width: 4%"><col style="width: 4%">
+                  <col style="width: 4%"><col style="width: 4%"><col style="width: 4%"><col style="width: 4%">
+                  <col style="width: 14%">
+                  <col style="width: 4%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-col-center prf-sortable" onclick="sortMboBy('approve', this)">承認<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortMboBy('company', this)">所属<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortMboBy('year', this)">年度<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortMboBy('follow', this)">フォロー予定<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th>4月</th><th>5月</th><th>6月</th><th>7月</th><th>8月</th><th>9月</th>
+                    <th>10月</th><th>11月</th><th>12月</th><th>1月</th><th>2月</th><th>3月</th>
+                    <th class="prf-sortable" onclick="sortMboBy('note', this)">備考<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-col-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-mbo-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: MBO -->
+
+          <!-- Section: アセスメント -->
+          <section id="prf-sec-assessment" class="prf-panel">
+            <div class="prf-panel-title">
+              <span>アセスメント</span>
+              <button type="button" class="prf-add-btn hidden" id="prf-assessment-add-btn" onclick="addAssessmentEntry()" title="アセスメントを追加">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            <div class="prf-list-wrap prf-list-wrap-last prf-list-wrap-scroll">
+              <table class="prf-list-table prf-list-table-wide">
+                <colgroup>
+                  <col style="width: 6%">
+                  <col style="width: 16%">
+                  <col style="width: 10%">
+                  <col style="width: 9%">
+                  <col style="width: 7%">
+                  <col style="width: 7%">
+                  <col style="width: 7%">
+                  <col style="width: 7%">
+                  <col style="width: 7%">
+                  <col style="width: 17%">
+                  <col style="width: 7%">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="prf-col-center prf-sortable" onclick="sortAssessmentBy('approve', this)">承認<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('company', this)">所属<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('year', this)">年度<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('total', this)">総合スコア<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('general', this)">一般<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('judge', this)">判断<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('assist', this)">補佐<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('manage', this)">管理<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('exec', this)">経営<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-sortable" onclick="sortAssessmentBy('note', this)">備考<i class="fa-solid fa-sort prf-sort-icon"></i></th>
+                    <th class="prf-col-center"></th>
+                  </tr>
+                </thead>
+                <tbody id="prf-assessment-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: アセスメント -->
+
+        </div>
+        <!-- /Component: ProfileContent -->
+
+      </div>
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <!-- Component: CareerEntryModal -->
+  <div id="prf-career-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeCareerModal()"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 overflow-hidden">
+
+      <div class="flex items-center justify-between px-6 pt-5 pb-3">
+        <h2 class="text-base font-semibold text-gray-800" id="prf-career-modal-title">経歴</h2>
+        <button onclick="closeCareerModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <table class="prf-table prf-table-modal">
+        <tbody>
+          <tr>
+            <td class="prf-label">利用</td>
+            <td class="prf-value">
+              <select id="prf-career-modal-use" class="prf-sel w-32">
+                <option selected>利用する</option>
+                <option>利用しない</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="prf-label">日付</td>
+            <td class="prf-value"><input type="date" id="prf-career-modal-date" class="prf-inp w-40"></td>
+          </tr>
+          <tr>
+            <td class="prf-label">経歴</td>
+            <td class="prf-value"><input type="text" id="prf-career-modal-entry" class="prf-inp w-full"></td>
+          </tr>
+          <tr>
+            <td class="prf-label">状態</td>
+            <td class="prf-value">
+              <select id="prf-career-modal-status" class="prf-sel w-40">
+                <option>入学</option><option>卒業</option><option>編入</option><option>中退</option>
+                <option>入社</option><option>退社</option><option>ー</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="prf-label">産業</td>
+            <td class="prf-value"><input type="text" id="prf-career-modal-industry" class="prf-inp w-full"></td>
+          </tr>
+          <tr>
+            <td class="prf-label">形態</td>
+            <td class="prf-value">
+              <select id="prf-career-modal-category" class="prf-sel w-40">
+                <option>高校</option><option>短期大学</option><option>大学</option><option>大学院</option>
+                <option>正社員</option><option>役員</option><option>自営業</option><option>契約社員</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="prf-label">備考</td>
+            <td class="prf-value"><textarea id="prf-career-modal-note" class="prf-textarea w-full" rows="3"></textarea></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="prf-form-actions">
+        <button type="button" class="prf-form-btn prf-form-btn-save" id="prf-career-modal-save" onclick="saveCareerModal()">保存</button>
+        <button type="button" class="prf-form-btn prf-form-btn-cancel" id="prf-career-modal-cancel" onclick="closeCareerModal()">キャンセル</button>
+        <button type="button" class="prf-form-btn prf-form-btn-delete" id="prf-career-modal-delete" onclick="deleteCareerModal()">削除</button>
+      </div>
+    </div>
+  </div>
+  <!-- /Component: CareerEntryModal -->
+
+  <!-- Component: LicenseEntryModal -->
+  <div id="prf-license-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeLicenseModal()"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 overflow-hidden">
+
+      <div class="flex items-center justify-between px-6 pt-5 pb-3">
+        <h2 class="text-base font-semibold text-gray-800" id="prf-license-modal-title">免許・資格</h2>
+        <button onclick="closeLicenseModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <table class="prf-table prf-table-modal">
+        <tbody>
+          <tr>
+            <td class="prf-label">日付</td>
+            <td class="prf-value"><input type="date" id="prf-license-modal-date" class="prf-inp w-40"></td>
+          </tr>
+          <tr>
+            <td class="prf-label">資格</td>
+            <td class="prf-value"><input type="text" id="prf-license-modal-name" class="prf-inp w-full"></td>
+          </tr>
+          <tr>
+            <td class="prf-label">分類</td>
+            <td class="prf-value">
+              <select id="prf-license-modal-category" class="prf-sel w-40">
+                <option>国家</option>
+                <option>ベンダー</option>
+                <option>その他</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td class="prf-label">備考</td>
+            <td class="prf-value"><textarea id="prf-license-modal-note" class="prf-textarea w-full" rows="3"></textarea></td>
+          </tr>
+          <tr>
+            <td class="prf-label">添付ファイル</td>
+            <td class="prf-value">
+              <input type="file" id="prf-license-modal-file" class="prf-file-inp"
+                     accept="image/*,application/pdf,.pdf" onchange="onLicenseModalFileChange(this)">
+              <div class="prf-file-current" id="prf-license-modal-file-current"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="prf-form-actions">
+        <button type="button" class="prf-form-btn prf-form-btn-save" onclick="saveLicenseModal()">保存</button>
+        <button type="button" class="prf-form-btn prf-form-btn-cancel" onclick="closeLicenseModal()">キャンセル</button>
+        <button type="button" class="prf-form-btn prf-form-btn-delete" id="prf-license-modal-delete" onclick="deleteLicenseModal()">削除</button>
+      </div>
+    </div>
+  </div>
+  <!-- /Component: LicenseEntryModal -->
+
+  <!-- Component: TrainingEntryModal -->
+  <div id="prf-training-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeTrainingModal()"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-2xl mx-4 overflow-hidden">
+
+      <div class="flex items-center justify-between px-6 pt-5 pb-3">
+        <h2 class="text-base font-semibold text-gray-800" id="prf-training-modal-title">研修・訓練</h2>
+        <button onclick="closeTrainingModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <table class="prf-table prf-table-modal">
+        <tbody>
+          <tr>
+            <td class="prf-label">受講日</td>
+            <td class="prf-value">
+              <input type="date" id="prf-training-modal-from" class="prf-inp w-40">
+              <span class="prf-sep">～</span>
+              <input type="date" id="prf-training-modal-to" class="prf-inp w-40">
+            </td>
+          </tr>
+          <tr>
+            <td class="prf-label">研修名</td>
+            <td class="prf-value"><input type="text" id="prf-training-modal-name" class="prf-inp w-full"></td>
+          </tr>
+          <tr>
+            <td class="prf-label">時間</td>
+            <td class="prf-value">
+              <input type="text" id="prf-training-modal-hours" class="prf-inp w-20 text-center">
+              <span class="prf-inline-label">提供機関</span>
+              <input type="text" id="prf-training-modal-provider" class="prf-inp w-56">
+            </td>
+          </tr>
+          <tr>
+            <td class="prf-label">備考</td>
+            <td class="prf-value"><textarea id="prf-training-modal-note" class="prf-textarea w-full" rows="3"></textarea></td>
+          </tr>
+          <tr>
+            <td class="prf-label">添付ファイル</td>
+            <td class="prf-value">
+              <input type="file" id="prf-training-modal-file" class="prf-file-inp"
+                     accept="image/*,application/pdf,.pdf" onchange="onTrainingModalFileChange(this)">
+              <div class="prf-file-current" id="prf-training-modal-file-current"></div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="prf-form-actions">
+        <button type="button" class="prf-form-btn prf-form-btn-save" onclick="saveTrainingModal()">保存</button>
+        <button type="button" class="prf-form-btn prf-form-btn-cancel" onclick="closeTrainingModal()">キャンセル</button>
+        <button type="button" class="prf-form-btn prf-form-btn-delete" id="prf-training-modal-delete" onclick="deleteTrainingModal()">削除</button>
+      </div>
+    </div>
+  </div>
+  <!-- /Component: TrainingEntryModal -->
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('プロフィール画面');
+    mountFooter();
+
+    // ========== 一覧共通：列ソート ==========
+    // key: ソート対象キー、thEl: クリックされた見出しセル、theadSelector: 同じテーブルの見出し行を絞り込むセレクタ
+    function createSorter(getArray, renderFn) {
+      const state = { key: null, dir: 1 };
+      return function (key, thEl) {
+        state.dir = state.key === key ? state.dir * -1 : 1;
+        state.key = key;
+        getArray().sort((a, b) =>
+          String(a[key] ?? "").localeCompare(String(b[key] ?? ""), "ja") * state.dir);
+        renderFn();
+        thEl.closest("thead").querySelectorAll("th.prf-sortable").forEach(th => {
+          th.classList.remove("is-sorted-asc", "is-sorted-desc");
+        });
+        thEl.classList.add(state.dir === 1 ? "is-sorted-asc" : "is-sorted-desc");
+      };
+    }
+
+    // ========== モックデータ：都道府県 ==========
+    const PREFECTURES = [
+      "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+      "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+      "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県",
+      "三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県",
+      "鳥取県","島根県","岡山県","広島県","山口県",
+      "徳島県","香川県","愛媛県","高知県",
+      "福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"
+    ];
+
+    function renderPrefectureOptions(selectId, selectedValue) {
+      const select = document.getElementById(selectId);
+      if (!select) return;
+      const options = ['<option value="">選択してください</option>']
+        .concat(PREFECTURES.map(p => `<option value="${p}" ${p === selectedValue ? "selected" : ""}>${p}</option>`));
+      select.innerHTML = options.join("");
+    }
+
+    const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
+
+    // ========== 生年月日：曜日／年齢／和暦の自動計算 ==========
+    const WAREKI_ERAS = [
+      { name: "令和", start: [2019, 5, 1] },
+      { name: "平成", start: [1989, 1, 8] },
+      { name: "昭和", start: [1926, 12, 25] },
+      { name: "大正", start: [1912, 7, 30] },
+      { name: "明治", start: [1868, 1, 25] },
+    ];
+
+    function toWareki(y, m, d) {
+      for (const era of WAREKI_ERAS) {
+        const [sy, sm, sd] = era.start;
+        if (y > sy || (y === sy && (m > sm || (m === sm && d >= sd)))) {
+          const eraYear = y - sy + 1;
+          return `${era.name}${eraYear === 1 ? "元" : eraYear}年${m}月${d}日`;
+        }
+      }
+      return `${y}年${m}月${d}日`;
+    }
+
+    function updateBirthComputed() {
+      const dateStr = document.getElementById("prf-birth-date").value;
+      if (!dateStr) return;
+      const [y, m, d] = dateStr.split("-").map(Number);
+      const date = new Date(y, m - 1, d);
+
+      document.getElementById("prf-birth-weekday").textContent = `(${WEEKDAY_LABELS[date.getDay()]})`;
+
+      const today = new Date();
+      let age = today.getFullYear() - y;
+      const birthdayPassed = (today.getMonth() + 1 > m) || (today.getMonth() + 1 === m && today.getDate() >= d);
+      if (!birthdayPassed) age--;
+      document.getElementById("prf-age").textContent = `${age}歳`;
+
+      document.getElementById("prf-birth-era").textContent = toWareki(y, m, d);
+    }
+
+    // ========== 目次スクロール ==========
+    function tocScrollTo(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelectorAll("#prf-toc .prf-nav-link").forEach(link => link.classList.remove("is-active"));
+      event.currentTarget.classList.add("is-active");
+    }
+
+    // ========== 経歴書・職務経歴書 ==========
+    function openCareerDocument() {
+      window.location.href = "080_career_document_individual.html";
+    }
+
+    // ========== 保存・キャンセル ==========
+    function submitProfile() {
+      alert("プロフィールを保存しました（モック）");
+    }
+
+    function cancelProfile() {
+      alert("入力内容をキャンセルしました（モック）");
+    }
+
+    // ========== モックデータ：経歴（学歴＋職歴の統合タイムライン） ==========
+    const CAREER_APPROVE_TAG = {
+      "自": "is-self",
+      "済": "is-done",
+      "未": "is-review",
+    };
+
+    // 自・未は編集可（編集アイコン）、済は照会のみ（照会アイコン）
+    const CAREER_EDITABLE_APPROVE = ["自", "未"];
+
+    const CAREER_HISTORY = [
+      { approve: "自", date: "1990/04/01", entry: "大阪府立●●高等学校　普通科",                       status: "入学", industry: "ー", category: "高校",     note: "",                 usage: "" },
+      { approve: "自", date: "1993/03/31", entry: "大阪府立●●高等学校　普通科",                       status: "卒業", industry: "ー", category: "高校",     note: "",                 usage: "" },
+      { approve: "自", date: "1993/04/01", entry: "〇〇短期大学　情報通信学部　情報システム科",         status: "入学", industry: "ー", category: "短期大学", note: "",                 usage: "" },
+      { approve: "自", date: "1995/03/31", entry: "〇〇短期大学　情報通信学部　情報システム科",         status: "卒業", industry: "ー", category: "短期大学", note: "",                 usage: "" },
+      { approve: "自", date: "1995/04/01", entry: "〇〇大学　情報通信学部　情報システム科",             status: "編入", industry: "ー", category: "大学",     note: "短大から4大へ編入", usage: "" },
+      { approve: "自", date: "1998/06/30", entry: "〇〇大学　情報通信学部　情報システム科",             status: "卒業", industry: "ー", category: "大学",     note: "1年半留年",         usage: "" },
+      { approve: "自", date: "1998/04/01", entry: "ー",                                                 status: "ー",   industry: "情報通信業：ソフトウェア", category: "自営業", note: "フリーランス",       usage: "利用" },
+      { approve: "済", date: "2000/04/01", entry: "株式会社レオンアーツ",                               status: "入社", industry: "情報通信業：ソフトウェア", category: "正社員", note: "エンジニア職",       usage: "利用" },
+      { approve: "済", date: "2017/03/31", entry: "株式会社レオンアーツ",                               status: "退社", industry: "情報通信業：ソフトウェア", category: "正社員", note: "役員雇用のため",     usage: "退会" },
+      { approve: "済", date: "2017/04/01", entry: "株式会社レオンアーツ",                               status: "入社", industry: "情報通信業：ソフトウェア", category: "役員",   note: "取締役就任",         usage: "利用" },
+      { approve: "済", date: "2022/08/31", entry: "株式会社レオンアーツ",                               status: "退社", industry: "情報通信業：ソフトウェア", category: "役員",   note: "一身上の都合により", usage: "退会" },
+      { approve: "未", date: "2022/11/22", entry: "株式会社サンプル商事",                               status: "入社", industry: "情報通信業：ソフトウェア", category: "役員",   note: "創業",               usage: "申請中" },
+    ];
+
+    const CAREER_USAGE_TAG = {
+      "利用":   "is-active",
+      "退会":   "is-withdrawn",
+      "申請中": "is-pending",
+    };
+
+    function renderCareerHistory() {
+      const tbody = document.getElementById("prf-career-body");
+      tbody.innerHTML = CAREER_HISTORY.map((r, idx) => {
+        const approveTagCls = CAREER_APPROVE_TAG[r.approve] || "is-done";
+        const usage = r.usage
+          ? `<span class="prf-usage-tag ${CAREER_USAGE_TAG[r.usage]}">${r.usage}</span>`
+          : "";
+        const isEditable = CAREER_EDITABLE_APPROVE.includes(r.approve);
+        const actionIcon = isEditable
+          ? `<i class="fa-solid fa-pen prf-row-edit-icon" onclick="openCareerModal(${idx}, 'edit')" title="編集"></i>`
+          : `<i class="fa-solid fa-eye prf-row-edit-icon" onclick="openCareerModal(${idx}, 'view')" title="照会"></i>`;
+        return `
+          <tr>
+            <td class="prf-col-center"><span class="prf-usage-tag ${approveTagCls}">${r.approve}</span></td>
+            <td title="${r.date}">${r.date}</td>
+            <td title="${r.entry}">${r.entry}</td>
+            <td title="${r.status}">${r.status}</td>
+            <td title="${r.industry}">${r.industry}</td>
+            <td title="${r.category}">${r.category}</td>
+            <td title="${r.note}">${r.note}</td>
+            <td class="prf-col-center">${usage}</td>
+            <td class="prf-col-center">${actionIcon}</td>
+          </tr>`;
+      }).join("");
+
+      document.getElementById("prf-career-summary").textContent =
+        "最終学歴（4年制）　情報通信業：ソフトウェア（24年目）";
+    }
+
+    // ========== 経歴：列ソート ==========
+    const sortCareerBy = createSorter(() => CAREER_HISTORY, renderCareerHistory);
+
+    // ========== 経歴：新規追加／編集／照会モーダル ==========
+    let prfCareerModalIndex = null; // null = 新規追加
+
+    function openCareerModal(index, mode) {
+      prfCareerModalIndex = index;
+      const isNew = index === null;
+      const r = isNew
+        ? { usage: "", date: "", entry: "", status: "入学", industry: "ー", category: "高校", note: "" }
+        : CAREER_HISTORY[index];
+
+      document.getElementById("prf-career-modal-use").value = r.usage === "退会" ? "利用しない" : "利用する";
+      document.getElementById("prf-career-modal-date").value = r.date ? r.date.replaceAll("/", "-") : "";
+      document.getElementById("prf-career-modal-entry").value = r.entry;
+      document.getElementById("prf-career-modal-status").value = r.status;
+      document.getElementById("prf-career-modal-industry").value = r.industry;
+      document.getElementById("prf-career-modal-category").value = r.category;
+      document.getElementById("prf-career-modal-note").value = r.note;
+
+      const isView = mode === "view";
+      document.querySelectorAll("#prf-career-modal input, #prf-career-modal select, #prf-career-modal textarea")
+        .forEach(el => el.disabled = isView);
+      document.getElementById("prf-career-modal-save").classList.toggle("hidden", isView);
+      document.getElementById("prf-career-modal-delete").classList.toggle("hidden", isView || isNew);
+      document.getElementById("prf-career-modal-cancel").textContent = isView ? "閉じる" : "キャンセル";
+      document.getElementById("prf-career-modal-title").textContent =
+        isNew ? "経歴（新規追加）" : (isView ? "経歴（照会）" : "経歴（編集）");
+
+      document.getElementById("prf-career-modal").classList.remove("hidden");
+    }
+
+    function closeCareerModal() {
+      document.getElementById("prf-career-modal").classList.add("hidden");
+    }
+
+    function saveCareerModal() {
+      const dateVal = document.getElementById("prf-career-modal-date").value;
+      const entry = {
+        approve: prfCareerModalIndex === null ? "未" : CAREER_HISTORY[prfCareerModalIndex].approve,
+        date: dateVal ? dateVal.replaceAll("-", "/") : "",
+        entry: document.getElementById("prf-career-modal-entry").value,
+        status: document.getElementById("prf-career-modal-status").value,
+        industry: document.getElementById("prf-career-modal-industry").value,
+        category: document.getElementById("prf-career-modal-category").value,
+        note: document.getElementById("prf-career-modal-note").value,
+        usage: document.getElementById("prf-career-modal-use").value === "利用しない" ? "退会" : "利用",
+      };
+
+      if (prfCareerModalIndex === null) {
+        CAREER_HISTORY.push(entry);
+        alert("経歴を追加しました（モック）");
+      } else {
+        CAREER_HISTORY[prfCareerModalIndex] = entry;
+        alert("経歴を保存しました（モック）");
+      }
+      renderCareerHistory();
+      closeCareerModal();
+    }
+
+    function deleteCareerModal() {
+      if (prfCareerModalIndex !== null) {
+        CAREER_HISTORY.splice(prfCareerModalIndex, 1);
+        renderCareerHistory();
+      }
+      alert("経歴を削除しました（モック）");
+      closeCareerModal();
+    }
+
+    // ========== 一覧共通：添付ファイルアイコン ==========
+    // attachment: 添付ファイル名（なければ null）。ありは別タブで開くリンク、なしは非活性アイコン。
+    function renderAttachmentIcon(attachment) {
+      return attachment
+        ? `<a href="files/sample.pdf" target="_blank" class="prf-attach-link" title="${attachment}を別タブで開く"><i class="fa-solid fa-paperclip"></i></a>`
+        : `<i class="fa-solid fa-paperclip prf-attach-icon-disabled" title="添付ファイルなし"></i>`;
+    }
+
+    // ========== モックデータ：免許・資格 ==========
+    const LICENSE_HISTORY = [
+      { date: "1993/03/01", name: "普通自動車第一種運転免許",                     category: "国家",   note: "",       attachment: null },
+      { date: "2002/05/01", name: "ITパスポート",                                 category: "国家",   note: "JTSS:1", attachment: "ITパスポート合格証.pdf" },
+      { date: "2005/05/01", name: "基本情報技術者",                               category: "国家",   note: "JTSS:2", attachment: "基本情報技術者合格証.pdf" },
+      { date: "2007/10/01", name: "OracleMaster9i　Silver",                       category: "ベンダー", note: "JTSS:2", attachment: "OracleMaster9i_Silver認定証.pdf" },
+      { date: "2009/12/01", name: "日商簿記3級",                                  category: "その他", note: "",       attachment: null },
+      { date: "2010/03/01", name: "NCP:Windows Network pro",                      category: "ベンダー", note: "JTSS:2", attachment: "NCP認定証.pdf" },
+      { date: "2018/05/01", name: "応用情報技術者",                               category: "国家",   note: "JTSS:3", attachment: "応用情報技術者合格証.pdf" },
+      { date: "2023/08/01", name: "WEBクリエイター能力認定試験／HTML5エキスパート", category: "ベンダー", note: "",       attachment: null },
+    ];
+
+    function renderLicenseHistory() {
+      const tbody = document.getElementById("prf-license-body");
+      tbody.innerHTML = LICENSE_HISTORY.map((r, idx) => `
+        <tr>
+          <td class="prf-col-center">${renderAttachmentIcon(r.attachment)}</td>
+          <td title="${r.date}">${r.date}</td>
+          <td title="${r.name}">${r.name}</td>
+          <td title="${r.category}">${r.category}</td>
+          <td title="${r.note}">${r.note}</td>
+          <td class="prf-col-center"><i class="fa-solid fa-pen prf-row-edit-icon" onclick="openLicenseModal(${idx})"></i></td>
+        </tr>`).join("");
+
+      const counts = LICENSE_HISTORY.reduce((acc, r) => {
+        acc[r.category] = (acc[r.category] || 0) + 1;
+        return acc;
+      }, {});
+      document.getElementById("prf-license-summary").textContent =
+        Object.entries(counts).map(([cat, n]) => `${cat}（${n}つ）`).join("　");
+    }
+
+    const sortLicenseBy = createSorter(() => LICENSE_HISTORY, renderLicenseHistory);
+
+    // ========== 免許・資格：新規追加／編集モーダル ==========
+    let prfLicenseModalIndex = null; // null = 新規追加
+    let prfLicenseModalAttachment = null; // 選択中／登録済みの添付ファイル名
+
+    function renderLicenseModalFileCurrent() {
+      const el = document.getElementById("prf-license-modal-file-current");
+      el.innerHTML = prfLicenseModalAttachment
+        ? `<i class="fa-solid fa-paperclip"></i> ${prfLicenseModalAttachment}
+           <a href="#" onclick="clearLicenseModalFile(); return false;" class="prf-file-clear">×</a>`
+        : `添付ファイルなし`;
+    }
+
+    function onLicenseModalFileChange(input) {
+      if (input.files && input.files[0]) {
+        prfLicenseModalAttachment = input.files[0].name;
+      }
+      renderLicenseModalFileCurrent();
+    }
+
+    function clearLicenseModalFile() {
+      prfLicenseModalAttachment = null;
+      document.getElementById("prf-license-modal-file").value = "";
+      renderLicenseModalFileCurrent();
+    }
+
+    function openLicenseModal(index) {
+      prfLicenseModalIndex = index;
+      const isNew = index === null;
+      const r = isNew
+        ? { date: "", name: "", category: "国家", note: "", attachment: null }
+        : LICENSE_HISTORY[index];
+
+      document.getElementById("prf-license-modal-date").value = r.date ? r.date.replaceAll("/", "-") : "";
+      document.getElementById("prf-license-modal-name").value = r.name;
+      document.getElementById("prf-license-modal-category").value = r.category;
+      document.getElementById("prf-license-modal-note").value = r.note;
+      document.getElementById("prf-license-modal-file").value = "";
+      prfLicenseModalAttachment = r.attachment;
+      renderLicenseModalFileCurrent();
+
+      document.getElementById("prf-license-modal-delete").classList.toggle("hidden", isNew);
+      document.getElementById("prf-license-modal-title").textContent =
+        isNew ? "免許・資格（新規追加）" : "免許・資格（編集）";
+
+      document.getElementById("prf-license-modal").classList.remove("hidden");
+    }
+
+    function closeLicenseModal() {
+      document.getElementById("prf-license-modal").classList.add("hidden");
+    }
+
+    function saveLicenseModal() {
+      const dateVal = document.getElementById("prf-license-modal-date").value;
+      const entry = {
+        date: dateVal ? dateVal.replaceAll("-", "/") : "",
+        name: document.getElementById("prf-license-modal-name").value,
+        category: document.getElementById("prf-license-modal-category").value,
+        note: document.getElementById("prf-license-modal-note").value,
+        attachment: prfLicenseModalAttachment,
+      };
+
+      if (prfLicenseModalIndex === null) {
+        LICENSE_HISTORY.push(entry);
+        alert("免許・資格を追加しました（モック）");
+      } else {
+        LICENSE_HISTORY[prfLicenseModalIndex] = entry;
+        alert("免許・資格を保存しました（モック）");
+      }
+      renderLicenseHistory();
+      closeLicenseModal();
+    }
+
+    function deleteLicenseModal() {
+      if (prfLicenseModalIndex !== null) {
+        LICENSE_HISTORY.splice(prfLicenseModalIndex, 1);
+        renderLicenseHistory();
+      }
+      alert("免許・資格を削除しました（モック）");
+      closeLicenseModal();
+    }
+
+    // ========== モックデータ：研修・訓練 ==========
+    const TRAINING_HISTORY = [
+      { from: "1993/03/01", to: "1993/03/01", name: "大人のテーブルマナー研修",                                             hours: "2h",  provider: "ヒルトン大阪",         note: "会社合同研修",       attachment: null },
+      { from: "2002/05/01", to: "2002/05/01", name: "若手リーダー研修",                                                     hours: "2日", provider: "中小企業基盤整備機構", note: "",                   attachment: "若手リーダー研修修了証.pdf" },
+      { from: "2005/05/01", to: "2005/05/01", name: "問題発見・課題解決の考え方",                                           hours: "2日", provider: "中小企業基盤整備機構", note: "",                   attachment: null },
+      { from: "2007/10/01", to: "2007/10/01", name: "「Java×Webアプリ決定版」ゼロから環境構築、ツール、基礎文法、JSP、サーブレット", hours: "35h", provider: "Udemy",                note: "",                   attachment: "Udemy修了証.pdf" },
+      { from: "2009/12/01", to: "2009/12/01", name: "説得力を高めるロジカルシンキング講座",                                 hours: "2日", provider: "中小企業基盤整備機構", note: "",                   attachment: null },
+      { from: "2010/03/01", to: "2010/03/01", name: "ファシリテーション講座",                                               hours: "2日", provider: "中小企業基盤整備機構", note: "",                   attachment: "ファシリテーション講座修了証.pdf" },
+      { from: "2018/05/01", to: "2018/05/01", name: "リーダー研修",                                                         hours: "2日", provider: "中小企業基盤整備機構", note: "",                   attachment: null },
+      { from: "2023/04/01", to: "2023/08/31", name: "株式会社◆◆テクノロジー　初歩から学ぶWEBデザイン制作科",                hours: "4ヵ月", provider: "大阪ハローワーク",     note: "求職者公的職業訓練", attachment: "職業訓練修了証.pdf" },
+    ];
+
+    function renderTrainingHistory() {
+      const tbody = document.getElementById("prf-training-body");
+      tbody.innerHTML = TRAINING_HISTORY.map((r, idx) => `
+        <tr>
+          <td class="prf-col-center">${renderAttachmentIcon(r.attachment)}</td>
+          <td title="${r.from}">${r.from}</td>
+          <td title="${r.to}">${r.to}</td>
+          <td title="${r.name}">${r.name}</td>
+          <td title="${r.hours}">${r.hours}</td>
+          <td title="${r.provider}">${r.provider}</td>
+          <td title="${r.note}">${r.note}</td>
+          <td class="prf-col-center"><i class="fa-solid fa-pen prf-row-edit-icon" onclick="openTrainingModal(${idx})"></i></td>
+        </tr>`).join("");
+    }
+
+    const sortTrainingBy = createSorter(() => TRAINING_HISTORY, renderTrainingHistory);
+
+    // ========== 研修・訓練：新規追加／編集モーダル ==========
+    let prfTrainingModalIndex = null; // null = 新規追加
+    let prfTrainingModalAttachment = null;
+
+    function renderTrainingModalFileCurrent() {
+      const el = document.getElementById("prf-training-modal-file-current");
+      el.innerHTML = prfTrainingModalAttachment
+        ? `<i class="fa-solid fa-paperclip"></i> ${prfTrainingModalAttachment}
+           <a href="#" onclick="clearTrainingModalFile(); return false;" class="prf-file-clear">×</a>`
+        : `添付ファイルなし`;
+    }
+
+    function onTrainingModalFileChange(input) {
+      if (input.files && input.files[0]) {
+        prfTrainingModalAttachment = input.files[0].name;
+      }
+      renderTrainingModalFileCurrent();
+    }
+
+    function clearTrainingModalFile() {
+      prfTrainingModalAttachment = null;
+      document.getElementById("prf-training-modal-file").value = "";
+      renderTrainingModalFileCurrent();
+    }
+
+    function openTrainingModal(index) {
+      prfTrainingModalIndex = index;
+      const isNew = index === null;
+      const r = isNew
+        ? { from: "", to: "", name: "", hours: "", provider: "", note: "", attachment: null }
+        : TRAINING_HISTORY[index];
+
+      document.getElementById("prf-training-modal-from").value = r.from ? r.from.replaceAll("/", "-") : "";
+      document.getElementById("prf-training-modal-to").value = r.to ? r.to.replaceAll("/", "-") : "";
+      document.getElementById("prf-training-modal-name").value = r.name;
+      document.getElementById("prf-training-modal-hours").value = r.hours;
+      document.getElementById("prf-training-modal-provider").value = r.provider;
+      document.getElementById("prf-training-modal-note").value = r.note;
+      document.getElementById("prf-training-modal-file").value = "";
+      prfTrainingModalAttachment = r.attachment;
+      renderTrainingModalFileCurrent();
+
+      document.getElementById("prf-training-modal-delete").classList.toggle("hidden", isNew);
+      document.getElementById("prf-training-modal-title").textContent =
+        isNew ? "研修・訓練（新規追加）" : "研修・訓練（編集）";
+
+      document.getElementById("prf-training-modal").classList.remove("hidden");
+    }
+
+    function closeTrainingModal() {
+      document.getElementById("prf-training-modal").classList.add("hidden");
+    }
+
+    function saveTrainingModal() {
+      const fromVal = document.getElementById("prf-training-modal-from").value;
+      const toVal = document.getElementById("prf-training-modal-to").value;
+      const entry = {
+        from: fromVal ? fromVal.replaceAll("-", "/") : "",
+        to: toVal ? toVal.replaceAll("-", "/") : "",
+        name: document.getElementById("prf-training-modal-name").value,
+        hours: document.getElementById("prf-training-modal-hours").value,
+        provider: document.getElementById("prf-training-modal-provider").value,
+        note: document.getElementById("prf-training-modal-note").value,
+        attachment: prfTrainingModalAttachment,
+      };
+
+      if (prfTrainingModalIndex === null) {
+        TRAINING_HISTORY.push(entry);
+        alert("研修・訓練を追加しました（モック）");
+      } else {
+        TRAINING_HISTORY[prfTrainingModalIndex] = entry;
+        alert("研修・訓練を保存しました（モック）");
+      }
+      renderTrainingHistory();
+      closeTrainingModal();
+    }
+
+    function deleteTrainingModal() {
+      if (prfTrainingModalIndex !== null) {
+        TRAINING_HISTORY.splice(prfTrainingModalIndex, 1);
+        renderTrainingHistory();
+      }
+      alert("研修・訓練を削除しました（モック）");
+      closeTrainingModal();
+    }
+
+    function editEntry(label, name) {
+      alert(`${label}「${name}」を編集します（モック）`);
+    }
+
+    function viewEntry(label, name) {
+      alert(`${label}「${name}」を照会します（モック）`);
+    }
+
+    // ========== モックデータ：人事履歴／休職履歴（会社ごと・選択中の会社分を保持） ==========
+    let currentPersonnelHistory = [];
+    let currentLeaveHistory = [];
+
+    function renderPersonnelHistory() {
+      const tbody = document.getElementById("prf-personnel-history-body");
+      tbody.innerHTML = currentPersonnelHistory.length
+        ? currentPersonnelHistory.map(r => `
+        <tr>
+          <td title="${r.date}">${r.date}</td>
+          <td title="${r.employment}">${r.employment}</td>
+          <td title="${r.title}">${r.title}</td>
+          <td title="${r.job}">${r.job}</td>
+          <td title="${r.group}">${r.group}</td>
+        </tr>`).join("")
+        : `<tr><td colspan="5" class="prf-empty-row">該当する人事履歴が見つかりません</td></tr>`;
+    }
+
+    const sortPersonnelBy = createSorter(() => currentPersonnelHistory, renderPersonnelHistory);
+
+    function renderLeaveHistory() {
+      const tbody = document.getElementById("prf-leave-history-body");
+      tbody.innerHTML = currentLeaveHistory.length
+        ? currentLeaveHistory.map(r => `
+        <tr>
+          <td title="${r.start}">${r.start}</td>
+          <td title="${r.end}">${r.end}</td>
+          <td title="${r.reason}">${r.reason}</td>
+        </tr>`).join("")
+        : `<tr><td colspan="3" class="prf-empty-row">該当する休職履歴が見つかりません</td></tr>`;
+    }
+
+    const sortLeaveBy = createSorter(() => currentLeaveHistory, renderLeaveHistory);
+
+    // ========== モックデータ：職歴 ==========
+    // 承認：自・未は編集可（編集アイコン）、済は照会のみ（照会アイコン）
+    const APPROVE_TAG = {
+      "自": { cls: "is-self", label: "自" },
+      "済": { cls: "is-done", label: "済" },
+      "未": { cls: "is-review", label: "未" },
+    };
+    const APPROVE_EDITABLE = ["自", "未"];
+
+    const WORK_HISTORY = [
+      { approve: "未", company: "株式会社レオンアーツ",   start: "2025/12/01", end: "-",         period: "0.7", industry: "情報通信業",         job: "アプリケーションスペシャリスト", field: "業務パッケージ", jtss: 4, rating: "○", note: "製品開発" },
+      { approve: "済", company: "株式会社レオンアーツ",   start: "2022/03/01", end: "2025/11/30", period: "3.8", industry: "卸売業、小売業",     job: "アプリケーションスペシャリスト", field: "業務パッケージ", jtss: 4, rating: "○", note: "医療機器向け販売管理システム" },
+      { approve: "済", company: "株式会社サンプル商事",   start: "2018/05/01", end: "2019/12/01", period: "1.6", industry: "公務",               job: "アプリケーションスペシャリスト", field: "業務システム",   jtss: 3, rating: "▲", note: "無線機器管理台帳システム" },
+      { approve: "済", company: "株式会社サンプル商事",   start: "2009/12/01", end: "2018/05/01", period: "8.4", industry: "建設業",             job: "アプリケーションスペシャリスト", field: "業務システム",   jtss: 4, rating: "○", note: "工事案件管理製品開発" },
+      { approve: "済", company: "株式会社ヤマト工業",     start: "2007/10/01", end: "2009/12/01", period: "2.2", industry: "卸売業、小売業",     job: "アプリケーションスペシャリスト", field: "業務パッケージ", jtss: 3, rating: "◎", note: "製品開発" },
+      { approve: "済", company: "株式会社ヤマト工業",     start: "2005/04/01", end: "2007/10/01", period: "2.5", industry: "複合サービス業",     job: "アプリケーションスペシャリスト", field: "業務システム",   jtss: 2, rating: "ー", note: "カーショップ向けFC本部システム" },
+      { approve: "自", company: "-",                       start: "2002/05/01", end: "2005/04/01", period: "2.9", industry: "生活関連サービス業", job: "アプリケーションスペシャリスト", field: "業務システム",   jtss: 1, rating: "▲", note: "-" },
+    ];
+
+    function renderWorkHistory() {
+      const tbody = document.getElementById("prf-work-history-body");
+      const rows = selectedCompany === "全て" ? WORK_HISTORY : WORK_HISTORY.filter(r => r.company === selectedCompany);
+
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="12" class="prf-empty-row">該当する職歴が見つかりません</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = rows.map(r => {
+        const tag = APPROVE_TAG[r.approve];
+        const isEditable = APPROVE_EDITABLE.includes(r.approve) && isCompanyBlockEditable();
+        const actionIcon = isEditable
+          ? `<i class="fa-solid fa-pen prf-row-edit-icon" onclick="navigateToWorkHistory('${r.company}', 2)"></i>`
+          : `<i class="fa-solid fa-eye prf-row-edit-icon" onclick="navigateToWorkHistory('${r.company}', 1)"></i>`;
+        return `
+          <tr>
+            <td class="prf-col-center"><span class="prf-usage-tag ${tag.cls}">${tag.label}</span></td>
+            <td title="${r.company}">${r.company}</td>
+            <td title="${r.start}">${r.start}</td>
+            <td title="${r.end}">${r.end}</td>
+            <td title="${r.period}">${r.period}</td>
+            <td title="${r.industry}">${r.industry}</td>
+            <td title="${r.job}">${r.job}</td>
+            <td title="${r.field}">${r.field}</td>
+            <td title="${r.jtss}">${r.jtss}</td>
+            <td title="${r.rating}">${r.rating}</td>
+            <td title="${r.note}">${r.note}</td>
+            <td class="prf-col-center">${actionIcon}</td>
+          </tr>`;
+      }).join("");
+    }
+
+    const sortWorkHistoryBy = createSorter(() => WORK_HISTORY, renderWorkHistory);
+
+    // ========== 会社選択：所属企業情報〜アセスメントの全範囲に適用 ==========
+    // 職歴（WORK_HISTORY）に登場する会社を、直近が先頭になる順で一覧化
+    const COMPANY_LIST = [...new Set(WORK_HISTORY.map(r => r.company))].filter(c => c !== "-");
+    let selectedCompany = "全て";
+
+    // 会社ごとの所属企業情報。データが無い会社は getCompanyInfo() の既定値（すべて "-"）を表示する
+    const COMPANY_INFO = {
+      "株式会社レオンアーツ": {
+        code: "230401",
+        joinDate: "2023/04/01(木)",
+        leaveDate: "-",
+        status: "在籍",
+        email: "leo-xxxx@xxxxx.co.jp",
+        mobile1: { value: "090 - 1234 - xxxx", label: "会社用" },
+        mobile2: { value: "080 - 5678 - yyyy", label: "各所通信用" },
+        mobile3: null,
+        note: "-",
+        personnelHistory: [
+          { date: "2023/04/01", employment: "正社員", title: "チーフ",                   job: "技術職",         group: "インダストリー本部＞デジタルソリューション事業部＞製造・流通グループ" },
+          { date: "2024/04/01", employment: "正社員", title: "チーフ",                   job: "スペシャリスト", group: "インダストリー本部＞デジタルソリューション事業部＞製造・流通グループ" },
+          { date: "2025/04/01", employment: "正社員", title: "アシスタントマネージャー", job: "スペシャリスト", group: "インダストリー本部＞デジタルソリューション事業部＞製造・流通グループ" },
+        ],
+        leaveHistory: [
+          { start: "2023/04/01", end: "2023/04/01", reason: "診療内科受診" },
+          { start: "2025/04/01", end: "2025/04/01", reason: "診療内科受診" },
+        ],
+      },
+    };
+
+    function getCompanyInfo(company) {
+      return COMPANY_INFO[company] || {
+        code: "-", joinDate: "-", leaveDate: "-", status: "退職",
+        email: null, mobile1: null, mobile2: null, mobile3: null, note: "-",
+        personnelHistory: [], leaveHistory: [],
+      };
+    }
+
+    // 現在の所属企業（在籍中の会社）。「全て」選択時の所属企業情報表示に使う
+    function getCurrentCompany() {
+      return COMPANY_LIST.find(c => getCompanyInfo(c).status === "在籍") || COMPANY_LIST[0];
+    }
+
+    // ========== 表示モード（URLパラメータ c ）==========
+    // c=1: 本人(企業)　企業情報ブロック（所属企業情報／職歴／MBO／アセスメント）すべて編集可能
+    // c=2: 本人(個人)　企業情報ブロックは照会のみ
+    // c=3: 企業(企業)　選択中の会社が在籍中の会社のときのみ企業情報ブロックを編集可能、それ以外は照会のみ
+    // 未指定・不正値は c=1 として扱う
+    const PAGE_MODE = (() => {
+      const c = new URLSearchParams(window.location.search).get("c");
+      return ["1", "2", "3"].includes(c) ? c : "1";
+    })();
+
+    function isCompanyBlockEditable() {
+      if (PAGE_MODE === "2") return false;
+      if (PAGE_MODE === "3") return selectedCompany === getCurrentCompany();
+      return true;
+    }
+
+    function renderCompanyOptions() {
+      const select = document.getElementById("prf-company-select");
+      select.innerHTML = ['<option selected>全て</option>']
+        .concat(COMPANY_LIST.map(c => `<option value="${c}">${c}</option>`))
+        .join("");
+    }
+
+    function renderCompanySection(company) {
+      const info = getCompanyInfo(company);
+
+      document.getElementById("prf-company-code").textContent = info.code;
+      document.getElementById("prf-company-join-date").textContent = info.joinDate;
+      document.getElementById("prf-company-leave-date").textContent = info.leaveDate;
+
+      const badge = document.getElementById("prf-company-status-badge");
+      badge.textContent = info.status;
+      badge.classList.toggle("is-active", info.status === "在籍");
+
+      document.getElementById("prf-company-email").innerHTML = info.email
+        ? `<a href="mailto:${info.email}" class="prf-link">${info.email}</a>`
+        : `<span class="prf-static">-</span>`;
+
+      ["mobile1", "mobile2", "mobile3"].forEach(key => {
+        const el = document.getElementById(`prf-company-${key}`);
+        const m = info[key];
+        el.innerHTML = m
+          ? `<span class="prf-static">${m.value}</span><span class="prf-inline-label">${m.label}</span>`
+          : `<span class="prf-static">-</span>`;
+      });
+
+      document.getElementById("prf-company-note").innerHTML = `<span class="prf-static">${info.note}</span>`;
+
+      currentPersonnelHistory = info.personnelHistory;
+      currentLeaveHistory = info.leaveHistory;
+      renderPersonnelHistory();
+      renderLeaveHistory();
+    }
+
+    function applyCompanySelection() {
+      selectedCompany = document.getElementById("prf-company-select").value;
+      // 「全て」選択時、所属企業情報には現在在籍中の会社の情報を表示する
+      renderCompanySection(selectedCompany === "全て" ? getCurrentCompany() : selectedCompany);
+      renderWorkHistory();
+      renderMboHistory();
+      renderAssessmentHistory();
+
+      // 「全て」または「株式会社レオンアーツ」選択時（かつ企業情報ブロックが編集可能な場合）のみ新規追加ボタンを表示
+      const canAddForCompany = (selectedCompany === "全て" || selectedCompany === "株式会社レオンアーツ") && isCompanyBlockEditable();
+      document.getElementById("prf-work-history-add-btn").classList.toggle("hidden", !canAddForCompany);
+      document.getElementById("prf-mbo-add-btn").classList.toggle("hidden", !canAddForCompany);
+      document.getElementById("prf-assessment-add-btn").classList.toggle("hidden", !canAddForCompany);
+    }
+
+    // ========== 職歴／MBO／アセスメント：新規追加（対応する専用画面へ編集モード・空内容で別タブ遷移） ==========
+    function addWorkHistoryEntry() {
+      window.open(`060_work_history.html?c=4&company=${encodeURIComponent(selectedCompany)}`, "_blank", "noopener");
+    }
+
+    function addMboEntry() {
+      window.open(`072_mbo.html?c=4&company=${encodeURIComponent(selectedCompany)}`, "_blank", "noopener");
+    }
+
+    function addAssessmentEntry() {
+      window.open(`102_assessment_self.html?c=4&company=${encodeURIComponent(selectedCompany)}`, "_blank", "noopener");
+    }
+
+    // ========== 職歴／MBO：明細行から専用画面へ遷移（承認状況に応じて照会／編集モードを切り替え） ==========
+    // mode: 1 = 照会（fa-eyeアイコン）, 2 = 編集（fa-penアイコン）
+    function navigateToWorkHistory(company, mode) {
+      window.open(`060_work_history.html?c=${mode}&company=${encodeURIComponent(company)}`, "_blank", "noopener");
+    }
+
+    function navigateToMbo(company, mode) {
+      window.open(`072_mbo.html?c=${mode}&company=${encodeURIComponent(company)}`, "_blank", "noopener");
+    }
+
+    // ========== モックデータ：MBO ==========
+    const MBO_HISTORY = [
+      { approve: "未", company: "株式会社レオンアーツ",   year: "2026(25/4-26/3)", follow: "4/11(36%)",  months: ["-","2","-","1","-","-","1","-","-","2","-","-"], note: "" },
+      { approve: "済", company: "株式会社レオンアーツ",   year: "2025(24/4-25/3)", follow: "12/12(100%)", months: ["1","1","1","1","1","1","1","1","1","1","1","1"], note: "" },
+      { approve: "済", company: "株式会社レオンアーツ",   year: "2024(23/4-24/3)", follow: "10/12(83%)",  months: ["1","1","1","1","-","1","1","1","1","-","1","1"], note: "" },
+      { approve: "済", company: "株式会社サンプル商事",   year: "2023(22/4-23/3)", follow: "1/12(8%)",   months: ["-","-","-","-","-","-","-","-","-","1","-","-"], note: "" },
+      { approve: "済", company: "株式会社サンプル商事",   year: "2022(21/4-22/3)", follow: "0/12(0%)",   months: ["-","-","-","-","-","-","-","-","-","-","-","-"], note: "" },
+      { approve: "未", company: "株式会社ヤマト工業",     year: "2021(20/4-21/3)", follow: "1/12(8%)",   months: ["-","-","-","-","-","-","-","-","-","-","1","-"], note: "" },
+      { approve: "自", company: "-",                       year: "1998(97/4-98/3)", follow: "-",          months: ["-","-","-","-","-","-","-","-","-","-","-","-"], note: "" },
+    ];
+
+    function renderMboHistory() {
+      const tbody = document.getElementById("prf-mbo-body");
+      const rows = selectedCompany === "全て" ? MBO_HISTORY : MBO_HISTORY.filter(r => r.company === selectedCompany);
+
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="18" class="prf-empty-row">該当するMBOが見つかりません</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = rows.map(r => {
+        const tag = APPROVE_TAG[r.approve];
+        const isEditable = APPROVE_EDITABLE.includes(r.approve) && isCompanyBlockEditable();
+        const actionIcon = isEditable
+          ? `<i class="fa-solid fa-pen prf-row-edit-icon" onclick="navigateToMbo('${r.company}', 2)"></i>`
+          : `<i class="fa-solid fa-eye prf-row-edit-icon" onclick="navigateToMbo('${r.company}', 1)"></i>`;
+        const monthCells = r.months.map(v =>
+          `<td class="prf-col-center ${v !== "-" ? "prf-mbo-count" : ""}">${v}</td>`).join("");
+        return `
+          <tr>
+            <td class="prf-col-center"><span class="prf-usage-tag ${tag.cls}">${tag.label}</span></td>
+            <td title="${r.company}">${r.company}</td>
+            <td title="${r.year}">${r.year}</td>
+            <td title="${r.follow}">${r.follow}</td>
+            ${monthCells}
+            <td title="${r.note || ""}">${r.note || ""}</td>
+            <td class="prf-col-center">${actionIcon}</td>
+          </tr>`;
+      }).join("");
+    }
+
+    const sortMboBy = createSorter(() => MBO_HISTORY, renderMboHistory);
+
+    // ========== モックデータ：アセスメント ==========
+    const ASSESSMENT_HISTORY = [
+      { approve: "未", company: "株式会社レオンアーツ",   year: "2026(25/4-26/3)", total: "91.25", general: "89.25", judge: "87",   assist: "98",   manage: "93",   exec: "83", note: "" },
+      { approve: "済", company: "株式会社レオンアーツ",   year: "2025(24/4-25/3)", total: "90.55", general: "80",    judge: "80",   assist: "92",   manage: "90",   exec: "57", note: "" },
+      { approve: "済", company: "株式会社レオンアーツ",   year: "2024(23/4-24/3)", total: "89.25", general: "75",    judge: "80",   assist: "89",   manage: "87.5", exec: "52", note: "" },
+      { approve: "済", company: "株式会社サンプル商事",   year: "2023(22/4-23/3)", total: "85.5",  general: "72.5",  judge: "75",   assist: "87.5", manage: "85",   exec: "47", note: "" },
+      { approve: "済", company: "株式会社サンプル商事",   year: "2022(21/4-22/3)", total: "84.75", general: "70",    judge: "72",   assist: "85",   manage: "80",   exec: "42", note: "" },
+      { approve: "未", company: "株式会社ヤマト工業",     year: "2021(20/4-21/3)", total: "82",    general: "70",    judge: "76",   assist: "83",   manage: "75",   exec: "-",  note: "" },
+      { approve: "自", company: "-",                       year: "1998(97/4-98/3)", total: "15",    general: "15",    judge: "-",    assist: "-",    manage: "-",    exec: "-",  note: "" },
+    ];
+
+    function renderAssessmentHistory() {
+      const tbody = document.getElementById("prf-assessment-body");
+      const rows = selectedCompany === "全て" ? ASSESSMENT_HISTORY : ASSESSMENT_HISTORY.filter(r => r.company === selectedCompany);
+
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="11" class="prf-empty-row">該当するアセスメントが見つかりません</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = rows.map(r => {
+        const tag = APPROVE_TAG[r.approve];
+        const isEditable = APPROVE_EDITABLE.includes(r.approve) && isCompanyBlockEditable();
+        const actionIcon = isEditable
+          ? `<i class="fa-solid fa-pen prf-row-edit-icon" onclick="editEntry('アセスメント', '${r.year}')"></i>`
+          : `<i class="fa-solid fa-eye prf-row-edit-icon" onclick="viewEntry('アセスメント', '${r.year}')"></i>`;
+        return `
+          <tr>
+            <td class="prf-col-center"><span class="prf-usage-tag ${tag.cls}">${tag.label}</span></td>
+            <td title="${r.company}">${r.company}</td>
+            <td title="${r.year}">${r.year}</td>
+            <td title="${r.total}">${r.total}</td>
+            <td title="${r.general}">${r.general}</td>
+            <td title="${r.judge}">${r.judge}</td>
+            <td title="${r.assist}">${r.assist}</td>
+            <td title="${r.manage}">${r.manage}</td>
+            <td title="${r.exec}">${r.exec}</td>
+            <td title="${r.note || ""}">${r.note || ""}</td>
+            <td class="prf-col-center">${actionIcon}</td>
+          </tr>`;
+      }).join("");
+    }
+
+    const sortAssessmentBy = createSorter(() => ASSESSMENT_HISTORY, renderAssessmentHistory);
+
+    // ========== 初期化 ==========
+    renderPrefectureOptions("prf-prefecture", "大阪府");
+    renderPrefectureOptions("prf-emg-prefecture", "");
+    updateBirthComputed();
+    renderCareerHistory();
+    renderLicenseHistory();
+    renderTrainingHistory();
+    renderCompanyOptions();
+    applyCompanySelection();
+  </script>
+
+</body>
+</html>

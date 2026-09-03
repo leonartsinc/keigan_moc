@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜システム管理者登録画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/010_system_admin_registration.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: RegistrationBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span>システム管理者登録</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="is-current" id="reg-breadcrumb-mode">登録</span>
+      </div>
+      <!-- /Component: RegistrationBreadcrumb -->
+
+      <!-- Component: RegistrationTopBar -->
+      <div class="reg-topbar">
+        <div class="flex items-baseline">
+          <span class="reg-topbar-title">システム管理者登録</span>
+          <a class="reg-topbar-tab" data-c="1" href="?c=1">登録</a>
+          <a class="reg-topbar-tab" data-c="2" href="?c=2">編集</a>
+          <a class="reg-topbar-tab" data-c="3" href="?c=3">照会</a>
+        </div>
+      </div>
+      <!-- /Component: RegistrationTopBar -->
+
+      <div class="flex gap-5 items-start">
+
+        <!-- Component: RegistrationSidebar -->
+        <aside class="w-44 shrink-0 sticky top-20">
+          <div class="reg-side-panel">
+            <div class="reg-side-title">システム管理者登録</div>
+            <nav id="reg-toc">
+              <a class="reg-nav-link is-active" onclick="tocScrollTo('reg-sec-company')">企業情報</a>
+              <a class="reg-nav-link" onclick="tocScrollTo('reg-sec-contractor')">契約者情報</a>
+            </nav>
+          </div>
+
+          <!-- Component: RegistrationActionButtons -->
+          <div class="reg-actions">
+            <button type="button" id="reg-btn-save" class="reg-btn reg-btn-save" onclick="submitRegistration()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+            <button type="button" id="reg-btn-cancel" class="reg-btn reg-btn-cancel" onclick="cancelRegistration()">
+              <i class="fa-solid fa-xmark"></i>キャンセル
+            </button>
+          </div>
+          <!-- /Component: RegistrationActionButtons -->
+        </aside>
+        <!-- /Component: RegistrationSidebar -->
+
+        <!-- Component: RegistrationFormContent -->
+        <div class="flex-1 min-w-0">
+
+          <!-- Section: 企業情報 -->
+          <section id="reg-sec-company" class="reg-panel" data-mode="view">
+            <div class="reg-panel-title">
+              <span>企業情報</span>
+              <button type="button" class="reg-toggle-btn" onclick="toggleSectionMode('reg-sec-company', this)" title="編集に切り替え">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+            </div>
+            <table class="reg-table">
+              <tbody>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>利用者</td>
+                  <td class="reg-value">
+                    <label class="reg-radio-label">
+                      <input type="radio" name="reg-user-type" value="企業" checked disabled> 企業
+                    </label>
+                    <label class="reg-radio-label">
+                      <input type="radio" name="reg-user-type" value="個人" disabled> 個人
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label">利用者ID</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-user-id" class="reg-inp w-40" placeholder="自動採番されます" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>企業名</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-company-name" class="reg-inp w-72" value="株式会社レオンアーツ" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>カナ</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-company-kana" class="reg-inp w-72" value="カブシキカイシャレオンアーツ" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>法人番号</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-corp-number" class="reg-inp w-48" value="1120001250556" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>郵便番号</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-zip1" class="reg-inp w-16 text-center" value="541" maxlength="3" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-zip2" class="reg-inp w-20 text-center" value="0156" maxlength="4" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>都道府県</td>
+                  <td class="reg-value">
+                    <select id="reg-prefecture" class="reg-sel w-32" disabled></select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>市区町村</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-city" class="reg-inp w-72" value="大阪市中央区太閤町" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>丁目地番号</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-block" class="reg-inp w-72" value="1丁目2番3号" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label">建物名</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-building" class="reg-inp w-72" value="淀屋タワー1010" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label">電話番号</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-tel1" class="reg-inp w-16 text-center" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-tel2" class="reg-inp w-16 text-center" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-tel3" class="reg-inp w-16 text-center" maxlength="4" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label">FAX番号</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-fax1" class="reg-inp w-16 text-center" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-fax2" class="reg-inp w-16 text-center" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-fax3" class="reg-inp w-16 text-center" maxlength="4" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>携帯番号</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-mobile1" class="reg-inp w-16 text-center" value="090" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-mobile2" class="reg-inp w-16 text-center" value="1234" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-mobile3" class="reg-inp w-16 text-center" value="xxxx" maxlength="4" disabled>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <!-- /Section: 企業情報 -->
+
+          <!-- Section: 契約者情報 -->
+          <section id="reg-sec-contractor" class="reg-panel" data-mode="view">
+            <div class="reg-panel-title">
+              <span>契約者情報</span>
+              <button type="button" class="reg-toggle-btn" onclick="toggleSectionMode('reg-sec-contractor', this)" title="編集に切り替え">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+            </div>
+            <table class="reg-table">
+              <tbody>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>氏名</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-contractor-name" class="reg-inp w-56" value="橋本　太郎" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>カナ</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-contractor-kana" class="reg-inp w-56" value="ハシモト　タロウ" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>役職</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-contractor-title" class="reg-inp w-56" value="代表取締役" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>携帯番号</td>
+                  <td class="reg-value">
+                    <input type="text" id="reg-contractor-mobile1" class="reg-inp w-16 text-center" value="090" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-contractor-mobile2" class="reg-inp w-16 text-center" value="1234" maxlength="4" disabled>
+                    <span class="reg-sep">-</span>
+                    <input type="text" id="reg-contractor-mobile3" class="reg-inp w-16 text-center" value="xxxx" maxlength="4" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>ログインメール</td>
+                  <td class="reg-value">
+                    <input type="email" id="reg-login-email" class="reg-inp w-72" value="leoleo-xxxx@gmail.com" disabled>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="reg-label"><span class="req-mark">*</span>パスワード</td>
+                  <td class="reg-value">
+                    <input type="password" id="reg-login-password" class="reg-inp w-56" value="lea0n@rts2026" disabled>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <!-- /Section: 契約者情報 -->
+
+        </div>
+        <!-- /Component: RegistrationFormContent -->
+
+      </div>
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('システム管理者登録画面');
+    mountFooter();
+
+    // ========== モックデータ ==========
+    const PREFECTURES = [
+      "北海道","青森県","岩手県","宮城県","秋田県","山形県","福島県",
+      "茨城県","栃木県","群馬県","埼玉県","千葉県","東京都","神奈川県",
+      "新潟県","富山県","石川県","福井県","山梨県","長野県","岐阜県","静岡県","愛知県",
+      "三重県","滋賀県","京都府","大阪府","兵庫県","奈良県","和歌山県",
+      "鳥取県","島根県","岡山県","広島県","山口県",
+      "徳島県","香川県","愛媛県","高知県",
+      "福岡県","佐賀県","長崎県","熊本県","大分県","宮崎県","鹿児島県","沖縄県"
+    ];
+
+    const SAMPLE_VALUES = {
+      "reg-company-name":         "株式会社レオンアーツ",
+      "reg-company-kana":         "カブシキカイシャレオンアーツ",
+      "reg-corp-number":          "1120001250556",
+      "reg-zip1":                 "541",
+      "reg-zip2":                 "0156",
+      "reg-prefecture":           "大阪府",
+      "reg-city":                 "大阪市中央区太閤町",
+      "reg-block":                "1丁目2番3号",
+      "reg-building":             "淀屋タワー1010",
+      "reg-mobile1":              "090",
+      "reg-mobile2":              "1234",
+      "reg-mobile3":              "xxxx",
+      "reg-contractor-name":      "橋本　太郎",
+      "reg-contractor-kana":      "ハシモト　タロウ",
+      "reg-contractor-title":     "代表取締役",
+      "reg-contractor-mobile1":   "090",
+      "reg-contractor-mobile2":   "1234",
+      "reg-contractor-mobile3":   "xxxx",
+      "reg-login-email":          "leoleo-xxxx@gmail.com",
+      "reg-login-password":       "lea0n@rts2026",
+    };
+
+    function renderPrefectureOptions() {
+      const select = document.getElementById("reg-prefecture");
+      const options = ['<option value="">選択してください</option>']
+        .concat(PREFECTURES.map(p => `<option value="${p}">${p}</option>`));
+      select.innerHTML = options.join("");
+    }
+
+    // ========== 登録モード（c=1）用：入力欄クリア／サンプル値復元 ==========
+    function clearFormValues() {
+      Object.keys(SAMPLE_VALUES).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      document.querySelector('input[name="reg-user-type"][value="企業"]').checked = true;
+    }
+
+    function fillSampleValues() {
+      Object.entries(SAMPLE_VALUES).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+      });
+      document.querySelector('input[name="reg-user-type"][value="企業"]').checked = true;
+    }
+
+    // ========== セクションの編集／照会切り替え ==========
+    function setSectionMode(section, mode) {
+      section.dataset.mode = mode;
+      section.querySelectorAll("input, select").forEach(el => {
+        if (el.id === "reg-user-id") return; // 自動採番のため常に編集不可
+        el.disabled = (mode === "view");
+      });
+      const btn = section.querySelector(".reg-toggle-btn");
+      if (!btn) return;
+      btn.innerHTML = mode === "edit"
+        ? '<i class="fa-solid fa-eye"></i>'
+        : '<i class="fa-solid fa-pen"></i>';
+      btn.title = mode === "edit" ? "照会に切り替え" : "編集に切り替え";
+    }
+
+    function toggleSectionMode(sectionId, btn) {
+      const section = document.getElementById(sectionId);
+      setSectionMode(section, section.dataset.mode === "edit" ? "view" : "edit");
+    }
+
+    // ========== URIパラメータ（c）によるページモード切り替え ==========
+    // c=1: 登録（新規入力・全項目編集可・トグル非表示）
+    // c=2: 編集（初期は照会・セクション単位でトグルして編集）
+    // c=3: 照会（全項目読み取り専用・トグル非表示・保存ボタン非表示）
+    function getPageModeFromQuery() {
+      const c = new URLSearchParams(window.location.search).get("c");
+      if (c === "1") return "register";
+      if (c === "3") return "view";
+      return "edit"; // c=2 またはパラメータなしの場合の既定値
+    }
+
+    function applyPageMode() {
+      const mode = getPageModeFromQuery();
+      const cValue = mode === "register" ? "1" : mode === "view" ? "3" : "2";
+      const sections = document.querySelectorAll(".reg-panel");
+
+      document.querySelectorAll(".reg-topbar-tab").forEach(tab => {
+        tab.classList.toggle("is-active", tab.dataset.c === cValue);
+      });
+
+      document.getElementById("reg-breadcrumb-mode").textContent =
+        mode === "register" ? "登録" : mode === "view" ? "照会" : "編集";
+
+      if (mode === "register") {
+        clearFormValues();
+        sections.forEach(section => {
+          setSectionMode(section, "edit");
+          section.querySelectorAll(".reg-toggle-btn").forEach(b => b.classList.add("hidden"));
+        });
+        document.getElementById("reg-btn-save").classList.remove("hidden");
+        document.getElementById("reg-btn-save").innerHTML = '<i class="fa-solid fa-floppy-disk"></i>登録';
+        document.getElementById("reg-btn-cancel").innerHTML = '<i class="fa-solid fa-xmark"></i>キャンセル';
+      } else if (mode === "view") {
+        fillSampleValues();
+        sections.forEach(section => {
+          setSectionMode(section, "view");
+          section.querySelectorAll(".reg-toggle-btn").forEach(b => b.classList.add("hidden"));
+        });
+        document.getElementById("reg-btn-save").classList.add("hidden");
+        document.getElementById("reg-btn-cancel").innerHTML = '<i class="fa-solid fa-arrow-left"></i>戻る';
+      } else {
+        fillSampleValues();
+        sections.forEach(section => {
+          setSectionMode(section, "view");
+          section.querySelectorAll(".reg-toggle-btn").forEach(b => b.classList.remove("hidden"));
+        });
+        document.getElementById("reg-btn-save").classList.remove("hidden");
+        document.getElementById("reg-btn-save").innerHTML = '<i class="fa-solid fa-floppy-disk"></i>保存';
+        document.getElementById("reg-btn-cancel").innerHTML = '<i class="fa-solid fa-xmark"></i>キャンセル';
+      }
+    }
+
+    // ========== 目次スクロール ==========
+    function tocScrollTo(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelectorAll("#reg-toc .reg-nav-link").forEach(link => link.classList.remove("is-active"));
+      event.currentTarget.classList.add("is-active");
+    }
+
+    // ========== 保存・キャンセル ==========
+    function submitRegistration() {
+      if (getPageModeFromQuery() === "register") {
+        const companyName = document.getElementById("reg-company-name").value.trim();
+        const email = document.getElementById("reg-login-email").value.trim();
+        window.location.href = `011_login_mail_mock.html?company=${encodeURIComponent(companyName)}&email=${encodeURIComponent(email)}`;
+        return;
+      }
+      alert("システム管理者登録を保存しました（モック）");
+    }
+
+    function cancelRegistration() {
+      alert("入力内容をキャンセルしました（モック）");
+    }
+
+    // ========== 初期化 ==========
+    renderPrefectureOptions();
+    applyPageMode();
+  </script>
+
+</body>
+</html>

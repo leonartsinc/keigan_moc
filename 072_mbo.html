@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜MBO画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/072_mbo.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: MboBreadcrumb -->
+      <div class="site-breadcrumb">
+        <a href="070_mbo_list.html" class="hover:text-orange-400 transition">MBO一覧</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>MBO</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="is-current" id="mbo-breadcrumb-mode">編集</span>
+      </div>
+      <!-- /Component: MboBreadcrumb -->
+
+      <!-- Component: MboTopBar -->
+      <div class="mbo-topbar">
+        <div class="mbo-topbar-left">
+          <span class="mbo-topbar-title">MBO</span>
+          <span class="mbo-person-name">獅子　太郎</span>
+          <span class="mbo-person-company">株式会社△△△△△△</span>
+        </div>
+        <div class="mbo-topbar-right">
+          <span class="mbo-year-label">年度</span>
+          <select id="mbo-year" class="mbo-sel w-40" onchange="applyMboYear()">
+            <option selected>2026(25/4-26/3)</option>
+            <option>2025(24/4-25/3)</option>
+            <option>2024(23/4-24/3)</option>
+          </select>
+          <span class="mbo-status-badge is-pending" id="mbo-status-badge">未承認</span>
+        </div>
+      </div>
+      <!-- /Component: MboTopBar -->
+
+      <!-- Component: MboContent -->
+      <div class="w-full">
+
+          <!-- Component: MboActionButtons（上部） -->
+          <div class="mbo-actions-bar mb-4">
+            <button type="button" class="mbo-btn mbo-btn-save" onclick="submitMbo()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+            <button type="button" class="mbo-btn mbo-btn-cancel" onclick="cancelMbo()">
+              <i class="fa-solid fa-xmark"></i>キャンセル
+            </button>
+          </div>
+          <!-- /Component: MboActionButtons -->
+
+          <!-- Section: 年間目標 -->
+          <section id="mbo-sec-main" class="mbo-panel">
+            <div class="mbo-panel-title">
+              <span>年間目標</span>
+              <button type="button" class="mbo-panel-toggle-btn" onclick="toggleAnnualGoalEdit()" title="編集に切り替え">
+                <i class="fa-solid fa-pen" id="mbo-annual-goal-toggle-icon"></i>
+              </button>
+            </div>
+
+            <div class="mbo-annual-goal-body" id="mbo-annual-goal-body">
+
+              <!-- Component: MboVisionRow（5年後VISON／自分VISON） -->
+              <div class="mbo-vision-row">
+                <div class="mbo-vision-box">
+                  <div class="mbo-vision-box-title" id="mbo-vision-year-age-label"></div>
+                  <textarea class="mbo-textarea mbo-vision-summary" rows="2">プロジェクトにPLとして参画できるスキルを取得</textarea>
+                  <div class="mbo-goal-row">
+                    <input type="text" class="mbo-goal-label-input" value="ゴール">
+                    <textarea class="mbo-textarea mbo-goal-list" rows="7">①１つ１つの仕事に対して最適解を見つけられる
+　-思考スピード向上、思考の幅が広がる
+②スケジュール管理力向上
+③人員までの全体計画立案、推し進める能力向上
+　-個人の成長を促せる
+④品質管理力向上</textarea>
+                  </div>
+                </div>
+
+                <div class="mbo-vision-box">
+                  <input type="text" class="mbo-vision-box-title-input" value="自分　VISON（最終ゴール）">
+                  <textarea class="mbo-textarea mbo-vision-summary" rows="2"></textarea>
+                  <div class="mbo-vision-question">どうなりたいか？</div>
+                  <div class="mbo-goal-row">
+                    <input type="text" class="mbo-goal-label-input" value="ゴール">
+                    <textarea class="mbo-textarea mbo-goal-list" rows="7">①50代、60代で食うに困らないスキルの習得（PL、PMとしてのスキル取得）
+②
+③
+④
+⑤</textarea>
+                  </div>
+                </div>
+              </div>
+              <!-- /Component: MboVisionRow -->
+
+              <!-- Component: MboBreakdownNote -->
+              <div class="mbo-breakdown-note">
+                <i class="fa-solid fa-arrow-down"></i>
+                １年単位にブレイクダウンしたVISON
+              </div>
+              <!-- /Component: MboBreakdownNote -->
+
+              <!-- Component: MboVisionRow（今期のMY VISON／ゴール） -->
+              <div class="mbo-vision-row">
+                <div class="mbo-vision-box">
+                  <div class="mbo-vision-box-title">今期のMY　VISON</div>
+                  <textarea class="mbo-textarea mbo-goal-list" rows="4">インダストリーズ　主任
+スペシャリスト</textarea>
+                </div>
+
+                <div class="mbo-vision-box">
+                  <input type="text" class="mbo-vision-box-title-input" value="ゴール">
+                  <textarea class="mbo-textarea mbo-goal-list" rows="4">①思考の幅が広がる⇒他者からの意見を鵜呑みせず、１つ１つ紐解く。目指すべきゴールを正しく理解する
+②説明下手からの脱却
+③現PJ（もしくは別のNESのPJ）での増員</textarea>
+                </div>
+              </div>
+              <!-- /Component: MboVisionRow -->
+
+              <!-- Component: MboSubtitle -->
+              <div class="mbo-subtitle-row">
+                <div class="mbo-subtitle">今期のMY　VISONを達成するために修得すること</div>
+                <button type="button" id="mbo-add-row-btn" class="mbo-add-row-btn" onclick="addMboChallengeRow()" title="新規行追加">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <!-- /Component: MboSubtitle -->
+
+              <!-- Component: MboChallengeTable（課題／定量ゴール／アクションプラン／重点項目・リスク） -->
+              <div class="mbo-challenge-wrap">
+                <table class="mbo-challenge-table">
+                  <thead>
+                    <tr>
+                      <th>課題</th>
+                      <th>定量ゴール</th>
+                      <th>アクションプラン</th>
+                      <th>重点項目・リスク</th>
+                      <th class="mbo-col-center"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="mbo-challenge-body"></tbody>
+                </table>
+              </div>
+              <!-- /Component: MboChallengeTable -->
+
+            </div>
+          </section>
+          <!-- /Section: 年間目標 -->
+
+          <!-- Component: MboCommentList -->
+          <div class="mbo-comment-list" id="mbo-comment-list"></div>
+          <!-- /Component: MboCommentList -->
+
+          <!-- Component: MboCommentInput（承認モード専用：コメント入力） -->
+          <div class="mbo-comment-input-row" id="mbo-comment-input-row">
+            <textarea id="mbo-comment-input" class="mbo-textarea mbo-comment-textarea" rows="3" placeholder="コメントを入力してください" disabled></textarea>
+            <button type="button" id="mbo-comment-submit-btn" class="mbo-btn mbo-btn-save" onclick="submitMboComment()" disabled>
+              <i class="fa-solid fa-comment-dots"></i>コメントを追加
+            </button>
+          </div>
+          <!-- /Component: MboCommentInput -->
+
+          <!-- Component: MboActionButtons（下部） -->
+          <div class="mbo-actions-bar">
+            <button type="button" class="mbo-btn mbo-btn-save" onclick="submitMbo()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+            <button type="button" class="mbo-btn mbo-btn-cancel" onclick="cancelMbo()">
+              <i class="fa-solid fa-xmark"></i>キャンセル
+            </button>
+          </div>
+          <!-- /Component: MboActionButtons -->
+
+      </div>
+      <!-- /Component: MboContent -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('MBO画面');
+    mountFooter();
+
+    // ========== 保存・キャンセル ==========
+    function submitMbo() {
+      alert("MBOを保存しました（モック）");
+    }
+
+    function cancelMbo() {
+      alert("入力内容をキャンセルしました（モック）");
+    }
+
+    // ========== 年度切り替え ==========
+    // 生年（1975年）は 050_profile.html の獅子太郎の生年月日（1975/04/02）に合わせている
+    const MBO_BIRTH_YEAR = 1975;
+
+    function getSelectedFiscalYear() {
+      const value = document.getElementById("mbo-year").value;
+      return parseInt(value, 10);
+    }
+
+    function updateVisionYearAgeLabel() {
+      const targetYear = getSelectedFiscalYear() + 5;
+      const targetAge = targetYear - MBO_BIRTH_YEAR;
+      document.getElementById("mbo-vision-year-age-label").textContent =
+        `${targetYear}年　MY　VISON（5年後＝${targetAge}歳）`;
+    }
+
+    function applyMboYear() {
+      updateVisionYearAgeLabel();
+    }
+
+    // ========== 年間目標：編集／照会切り替え ==========
+    let mboAnnualGoalEditable = false;
+
+    function toggleAnnualGoalEdit() {
+      if (isApprovalParam()) return;
+      mboAnnualGoalEditable = !mboAnnualGoalEditable;
+      document.querySelectorAll("#mbo-annual-goal-body textarea, #mbo-annual-goal-body input[type=text]").forEach(el => {
+        el.disabled = !mboAnnualGoalEditable;
+      });
+      document.getElementById("mbo-add-row-btn").disabled = !mboAnnualGoalEditable;
+      renderMboChallengeTable();
+      const icon = document.getElementById("mbo-annual-goal-toggle-icon");
+      icon.classList.toggle("fa-pen", !mboAnnualGoalEditable);
+      icon.classList.toggle("fa-eye", mboAnnualGoalEditable);
+      document.getElementById("mbo-breadcrumb-mode").textContent = mboAnnualGoalEditable ? "編集" : "照会";
+    }
+
+    // ========== モックデータ：課題／定量ゴール／アクションプラン／重点項目・リスク ==========
+    const MBO_CHALLENGES = [
+      {
+        issue: "・課題に対して正しいアプローチ（正解を導き基礎力\n関係各所を巻き込み、ストレスを与えない）",
+        quantGoal: "を1最短で仕事を終わらせる　　０．１点\n対話力\n　　曖昧な表現の質問に対しても、質０．２点",
+        actionPlan: "あいまいな指示に対してそのまま受け取るのではなく、\nゴールや、ゴールへの必要な作業をその場で共有できるよう心掛ける\n課題解決のキーマンをいち早く巻き込む",
+        focus: "",
+      },
+      { issue: "", quantGoal: "", actionPlan: "", focus: "" },
+    ];
+    const MBO_CHALLENGE_KEYS = ["issue", "quantGoal", "actionPlan", "focus"];
+    const MBO_CHALLENGE_MIN_ROWS = 3;
+    while (MBO_CHALLENGES.length < MBO_CHALLENGE_MIN_ROWS) {
+      MBO_CHALLENGES.push({ issue: "", quantGoal: "", actionPlan: "", focus: "" });
+    }
+
+    function renderMboChallengeTable() {
+      const disabledAttr = mboAnnualGoalEditable ? "" : "disabled";
+      const atMinimum = MBO_CHALLENGES.length <= MBO_CHALLENGE_MIN_ROWS;
+      const tbody = document.getElementById("mbo-challenge-body");
+      tbody.innerHTML = MBO_CHALLENGES.map((row, idx) => {
+        const deleteIcon = !mboAnnualGoalEditable
+          ? ""
+          : `<i class="fa-solid fa-xmark mbo-row-delete-icon ${atMinimum ? "is-disabled" : ""}"
+                onclick="deleteMboChallengeRow(${idx})"
+                title="${atMinimum ? `最低${MBO_CHALLENGE_MIN_ROWS}行は必要です` : "行を削除"}"></i>`;
+        return `
+        <tr>
+          ${MBO_CHALLENGE_KEYS.map(key => `
+            <td><textarea class="mbo-inp" rows="4" ${disabledAttr}
+                  onchange="updateMboChallengeCell(${idx}, '${key}', this.value)">${row[key]}</textarea></td>`).join("")}
+          <td class="mbo-col-center">${deleteIcon}</td>
+        </tr>`;
+      }).join("");
+    }
+
+    function updateMboChallengeCell(idx, key, value) {
+      MBO_CHALLENGES[idx][key] = value;
+    }
+
+    function addMboChallengeRow() {
+      if (!mboAnnualGoalEditable) return;
+      MBO_CHALLENGES.push({ issue: "", quantGoal: "", actionPlan: "", focus: "" });
+      renderMboChallengeTable();
+    }
+
+    function deleteMboChallengeRow(idx) {
+      if (MBO_CHALLENGES.length <= MBO_CHALLENGE_MIN_ROWS) return;
+      MBO_CHALLENGES.splice(idx, 1);
+      renderMboChallengeTable();
+    }
+
+    // ========== モックデータ：コメント ==========
+    const MBO_COMMENTS = [
+      { author: "木田　清春", datetime: "2026/05/12 11:31:22", text: "内容に齟齬があるので差し戻しました。", collapsed: false },
+    ];
+
+    function renderMboComments() {
+      const el = document.getElementById("mbo-comment-list");
+      el.innerHTML = MBO_COMMENTS.map((c, idx) => `
+        <div class="mbo-comment ${c.collapsed ? "is-collapsed" : ""}">
+          <div class="mbo-comment-header" onclick="toggleMboComment(${idx})">
+            <span class="mbo-comment-author">${c.author}</span>
+            <span class="mbo-comment-datetime">${c.datetime}</span>
+            <i class="fa-solid fa-chevron-down mbo-comment-toggle"></i>
+          </div>
+          <div class="mbo-comment-body">${c.text}</div>
+        </div>`).join("");
+    }
+
+    function toggleMboComment(idx) {
+      MBO_COMMENTS[idx].collapsed = !MBO_COMMENTS[idx].collapsed;
+      renderMboComments();
+    }
+
+    // 承認モード：下部のコメント入力欄から新しいコメントを追加する
+    const MBO_APPROVER_NAME = "木田　清春";
+
+    function submitMboComment() {
+      const textarea = document.getElementById("mbo-comment-input");
+      const text = textarea.value.trim();
+      if (!text) return;
+      MBO_COMMENTS.push({
+        author: MBO_APPROVER_NAME,
+        datetime: new Date().toLocaleString("ja-JP"),
+        text,
+        collapsed: false,
+      });
+      renderMboComments();
+      textarea.value = "";
+    }
+
+    // ========== 表示モード（URLパラメータ c ）==========
+    // c=1・未指定: 照会
+    // c=2: 編集
+    // c=3: 承認（年間目標は照会のみ。下部のコメント入力のみ有効）
+    // c=4: 新規（編集・内容は空。プロフィール画面の「+」から遷移）
+    function getPageModeParam() {
+      return new URLSearchParams(window.location.search).get("c");
+    }
+
+    function isEditParam() {
+      return getPageModeParam() === "2";
+    }
+
+    function isApprovalParam() {
+      return getPageModeParam() === "3";
+    }
+
+    function isNewEntry() {
+      return getPageModeParam() === "4";
+    }
+
+    function resetToNewEntry() {
+      document.querySelectorAll("#mbo-annual-goal-body .mbo-textarea").forEach(el => { el.value = ""; });
+
+      MBO_CHALLENGES.length = 0;
+      while (MBO_CHALLENGES.length < MBO_CHALLENGE_MIN_ROWS) {
+        MBO_CHALLENGES.push({ issue: "", quantGoal: "", actionPlan: "", focus: "" });
+      }
+
+      MBO_COMMENTS.length = 0;
+
+      const badge = document.getElementById("mbo-status-badge");
+      badge.textContent = "未提出";
+      badge.className = "mbo-status-badge is-pending";
+
+      const company = new URLSearchParams(window.location.search).get("company");
+      if (company) {
+        document.querySelector(".mbo-person-company").textContent = company;
+      }
+    }
+
+    // ========== 初期化 ==========
+    if (isNewEntry()) {
+      resetToNewEntry();
+      mboAnnualGoalEditable = true;
+    } else if (isEditParam()) {
+      mboAnnualGoalEditable = true;
+    } else if (isApprovalParam()) {
+      mboAnnualGoalEditable = false;
+    }
+    document.querySelectorAll("#mbo-annual-goal-body textarea, #mbo-annual-goal-body input[type=text]").forEach(el => { el.disabled = !mboAnnualGoalEditable; });
+    document.getElementById("mbo-add-row-btn").disabled = !mboAnnualGoalEditable;
+    if (mboAnnualGoalEditable) {
+      document.getElementById("mbo-annual-goal-toggle-icon").classList.remove("fa-pen");
+      document.getElementById("mbo-annual-goal-toggle-icon").classList.add("fa-eye");
+    }
+    document.getElementById("mbo-breadcrumb-mode").textContent =
+      isApprovalParam() ? "承認" : (mboAnnualGoalEditable ? "編集" : "照会");
+
+    // 承認モード：年間目標は編集切替不可・下部のコメント入力のみ有効にする
+    if (isApprovalParam()) {
+      document.querySelector(".mbo-panel-toggle-btn").disabled = true;
+      document.getElementById("mbo-comment-input").disabled = false;
+      document.getElementById("mbo-comment-submit-btn").disabled = false;
+    }
+
+    updateVisionYearAgeLabel();
+    renderMboChallengeTable();
+    renderMboComments();
+  </script>
+
+</body>
+</html>

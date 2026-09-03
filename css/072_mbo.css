@@ -1,0 +1,447 @@
+/* Component: MboTopBar */
+.mbo-topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.mbo-topbar-left {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.mbo-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mbo-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.mbo-person-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.mbo-person-company {
+  font-size: 12px;
+  color: #6b7280;
+}
+.mbo-year-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+.mbo-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  box-sizing: border-box;
+}
+.mbo-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.mbo-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.mbo-status-badge.is-pending {
+  background: #fef2f2;
+  color: #dc2626;
+}
+.mbo-status-badge.is-rejected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.mbo-status-badge.is-approved {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* Component: MboActionButtons（上部・下部の横並びボタン列） */
+.mbo-actions-bar {
+  display: flex;
+  gap: 10px;
+}
+.mbo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: auto;
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mbo-btn-save {
+  background: #f97316;
+  color: #fff;
+  border: 1px solid #f97316;
+}
+.mbo-btn-save:hover {
+  background: #ea580c;
+  border-color: #ea580c;
+}
+.mbo-btn-cancel {
+  background: #fff;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+.mbo-btn-cancel:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+
+/* Component: MboPanel */
+.mbo-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+}
+.mbo-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #d1d5db;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  padding: 8px 14px;
+  border-bottom: 1px solid #9ca3af;
+}
+
+.mbo-panel-toggle-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+}
+.mbo-panel-toggle-btn:hover {
+  color: #f97316;
+}
+.mbo-panel-toggle-btn:disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+.mbo-panel-toggle-btn:disabled:hover {
+  color: #d1d5db;
+}
+
+.mbo-textarea {
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+.mbo-textarea:disabled {
+  background: #f9fafb;
+  color: #374151;
+  resize: none;
+}
+
+/* Component: MboVisionRow（VISONボックスの2カラムレイアウト） */
+.mbo-annual-goal-body {
+  padding: 14px;
+}
+.mbo-vision-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.mbo-vision-box {
+  flex: 1;
+  min-width: 0;
+  border: 2px solid #eab308;
+  border-radius: 4px;
+  padding: 10px;
+}
+.mbo-vision-box-title {
+  background: #e5e7eb;
+  color: #374151;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin: -10px -10px 10px;
+  padding: 6px 10px;
+  border-radius: 3px 3px 0 0;
+}
+.mbo-vision-box-title-input {
+  display: block;
+  width: calc(100% + 20px);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #374151;
+  background: #e5e7eb;
+  border: 1px solid transparent;
+  border-radius: 3px 3px 0 0;
+  margin: -10px -10px 10px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  font-family: inherit;
+  -webkit-text-fill-color: #374151;
+  opacity: 1;
+}
+.mbo-vision-box-title-input:not(:disabled) {
+  cursor: text;
+}
+.mbo-vision-box-title-input:focus {
+  outline: none;
+  border-color: #eab308;
+  box-shadow: 0 0 0 2px rgba(234,179,8,0.2);
+}
+.mbo-vision-summary {
+  margin-bottom: 10px;
+}
+.mbo-vision-question {
+  text-align: center;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 10px;
+}
+.mbo-goal-row {
+  display: flex;
+  gap: 8px;
+}
+.mbo-goal-label-input {
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+  writing-mode: vertical-rl;
+  background: #eab308;
+  color: #713f12;
+  -webkit-text-fill-color: #713f12;
+  opacity: 1;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 2px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.mbo-goal-label-input:not(:disabled) {
+  cursor: text;
+}
+.mbo-goal-label-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(234,179,8,0.4);
+}
+.mbo-goal-list {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Component: MboBreakdownNote */
+.mbo-breakdown-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 14px;
+}
+.mbo-breakdown-note i {
+  color: #9ca3af;
+}
+
+/* Component: MboSubtitle */
+.mbo-subtitle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.mbo-subtitle {
+  flex: 1;
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+}
+
+/* Component: MboChallengeTable（課題／定量ゴール／アクションプラン／重点項目・リスク） */
+.mbo-add-row-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mbo-add-row-btn:hover {
+  background: #eab308;
+  color: #713f12;
+}
+.mbo-add-row-btn:disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+.mbo-add-row-btn:disabled:hover {
+  background: transparent;
+  color: #d1d5db;
+}
+.mbo-col-center {
+  text-align: center;
+}
+.mbo-row-delete-icon {
+  color: #ef4444;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.mbo-row-delete-icon:hover {
+  color: #b91c1c;
+}
+.mbo-row-delete-icon.is-disabled {
+  color: #d1d5db;
+  cursor: not-allowed;
+}
+table.mbo-challenge-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 2px solid #eab308;
+}
+.mbo-challenge-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #eab308;
+  font-size: 12px;
+}
+.mbo-challenge-table th.mbo-col-center {
+  width: 32px;
+}
+.mbo-challenge-table td {
+  border: 1px solid #eab308;
+  padding: 6px;
+  vertical-align: top;
+}
+.mbo-inp {
+  padding: 4px 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+.mbo-inp:disabled {
+  background: #f9fafb;
+  color: #374151;
+  resize: none;
+}
+
+/* Component: MboCommentList（コメント履歴） */
+.mbo-comment-list {
+  margin: 0 0 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.mbo-comment {
+  border-top: 1px solid #e5e7eb;
+}
+.mbo-comment:first-child {
+  border-top: none;
+}
+.mbo-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  cursor: pointer;
+}
+.mbo-comment-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+.mbo-comment-datetime {
+  font-size: 11px;
+  color: #9ca3af;
+}
+.mbo-comment-toggle {
+  margin-left: auto;
+  color: #9ca3af;
+  transition: transform 0.15s ease;
+}
+.mbo-comment.is-collapsed .mbo-comment-toggle {
+  transform: rotate(-90deg);
+}
+.mbo-comment-body {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #1f2937;
+}
+.mbo-comment.is-collapsed .mbo-comment-body {
+  display: none;
+}
+
+/* Component: MboCommentInput（承認モード専用：コメント入力） */
+.mbo-comment-input-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 20px;
+}
+.mbo-comment-textarea {
+  flex: 1;
+}
+.mbo-comment-input-row .mbo-btn {
+  flex-shrink: 0;
+}
+.mbo-btn:disabled {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+.mbo-btn:disabled:hover {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+}

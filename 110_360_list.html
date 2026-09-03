@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜360°一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/110_360_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: ThreeSixtyListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">360°一覧</span>
+      </div>
+      <!-- /Component: ThreeSixtyListBreadcrumb -->
+
+      <!-- Component: ThreeSixtyListTopBar -->
+      <div class="tsl-topbar">
+        <span class="tsl-topbar-title">個別評価（360°）</span>
+      </div>
+      <!-- /Component: ThreeSixtyListTopBar -->
+
+      <!-- Component: ThreeSixtyListPanel -->
+      <div class="tsl-panel">
+
+        <!-- Component: ThreeSixtyListInfoBar -->
+        <div class="tsl-info-bar">
+          <span class="tsl-login">ログイン：<span id="tsl-login-name">八木</span></span>
+        </div>
+        <!-- /Component: ThreeSixtyListInfoBar -->
+
+        <!-- Component: ThreeSixtyListContextForm -->
+        <div class="tsl-context-form">
+          <table class="tsl-table">
+            <tbody>
+              <tr>
+                <td class="tsl-label">年度</td>
+                <td class="tsl-value">
+                  <select id="tsl-f-year" class="tsl-sel w-32">
+                    <option>2026</option>
+                    <option>2025</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="tsl-label">部署</td>
+                <td class="tsl-value">
+                  <select id="tsl-f-dept" class="tsl-sel w-64">
+                    <option>デジタルソリューション事業部</option>
+                    <option>ITサービス事業部</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /Component: ThreeSixtyListContextForm -->
+
+        <!-- Component: ThreeSixtyListTable -->
+        <div class="tsl-list-wrap">
+          <table class="tsl-list-table">
+            <thead>
+              <tr>
+                <th class="tsl-col-check">
+                  <input type="checkbox" id="tsl-check-all" class="accent-orange-500" onchange="toggleAllThreeSixtyChecks(this)">
+                </th>
+                <th>従業員</th>
+                <th>評価日時</th>
+              </tr>
+            </thead>
+            <tbody id="tsl-body"></tbody>
+          </table>
+        </div>
+        <!-- /Component: ThreeSixtyListTable -->
+
+        <!-- Component: ThreeSixtyListActionBar -->
+        <div class="tsl-action-bar">
+          <button type="button" id="tsl-start-btn" class="tsl-btn-primary" disabled onclick="startThreeSixtyEvaluation()">評価を開始する</button>
+        </div>
+        <!-- /Component: ThreeSixtyListActionBar -->
+
+      </div>
+      <!-- /Component: ThreeSixtyListPanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('360°一覧画面');
+    mountFooter();
+
+    // ========== モックデータ：360°評価対象の従業員一覧 ==========
+    const THREESIXTY_TARGETS = [
+      { code: "e01", name: "北村", evaluatedAt: null,                        checked: false },
+      { code: "e02", name: "瀬田", evaluatedAt: null,                        checked: false },
+      { code: "e03", name: "小林", evaluatedAt: null,                        checked: true  },
+      { code: "e04", name: "本田", evaluatedAt: null,                        checked: false },
+      { code: "e05", name: "鎌内", evaluatedAt: null,                        checked: false },
+      { code: "e06", name: "清水", evaluatedAt: "2026/3/11  17:10:22",       checked: false },
+      { code: "e07", name: "吉田", evaluatedAt: null,                        checked: false },
+    ];
+
+    // ========== 一覧描画 ==========
+    function renderThreeSixtyList() {
+      const tbody = document.getElementById("tsl-body");
+      tbody.innerHTML = THREESIXTY_TARGETS.map(t => `
+        <tr class="${t.checked ? "is-checked" : ""}">
+          <td class="tsl-col-check">
+            <input type="checkbox" class="accent-orange-500 tsl-row-check" data-code="${t.code}"
+                   ${t.checked ? "checked" : ""} onchange="onThreeSixtyRowCheckChange(this)">
+          </td>
+          <td>${t.name}</td>
+          <td class="tsl-col-time">${t.evaluatedAt ? t.evaluatedAt : `<span class="tsl-slot-empty">-</span>`}</td>
+        </tr>`).join("");
+      syncThreeSixtyCheckAll();
+      syncThreeSixtyStartButton();
+    }
+
+    // ========== 選択チェックボックス ==========
+    function onThreeSixtyRowCheckChange(cb) {
+      const code = cb.dataset.code;
+      const target = THREESIXTY_TARGETS.find(t => t.code === code);
+      if (target) target.checked = cb.checked;
+      cb.closest("tr").classList.toggle("is-checked", cb.checked);
+      syncThreeSixtyCheckAll();
+      syncThreeSixtyStartButton();
+    }
+
+    function toggleAllThreeSixtyChecks(masterCb) {
+      THREESIXTY_TARGETS.forEach(t => t.checked = masterCb.checked);
+      renderThreeSixtyList();
+    }
+
+    function syncThreeSixtyCheckAll() {
+      const total = THREESIXTY_TARGETS.length;
+      const checked = THREESIXTY_TARGETS.filter(t => t.checked).length;
+      const masterCb = document.getElementById("tsl-check-all");
+      masterCb.indeterminate = checked > 0 && checked < total;
+      masterCb.checked = total > 0 && checked === total;
+    }
+
+    // ========== 評価開始ボタン ==========
+    function syncThreeSixtyStartButton() {
+      const checkedCount = THREESIXTY_TARGETS.filter(t => t.checked).length;
+      document.getElementById("tsl-start-btn").disabled = checkedCount === 0;
+    }
+
+    function startThreeSixtyEvaluation() {
+      const names = THREESIXTY_TARGETS.filter(t => t.checked).map(t => t.name).join("、");
+      alert(`${names} さんの個別評価画面へ遷移します（モック）`);
+    }
+
+    // ========== 初期化 ==========
+    renderThreeSixtyList();
+  </script>
+
+</body>
+</html>

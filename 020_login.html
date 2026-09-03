@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜ログイン画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/020_login.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div class="pt-14 min-h-screen flex flex-col">
+
+    <main class="flex-1 w-full">
+
+      <!-- Component: LoginCard -->
+      <div class="login-wrap">
+        <div class="login-card">
+          <p class="login-card-title">ログイン</p>
+          <p class="login-card-sub">登録済みのメールアドレスでログインしてください</p>
+
+          <form id="login-form" onsubmit="return false;">
+
+            <div class="login-field">
+              <label class="login-label" for="login-email">ログインメール<span class="req-mark">*</span></label>
+              <input type="email" id="login-email" class="login-inp" placeholder="例）taro@example.com" value="leoleo-xxxx@gmail.com">
+              <p class="login-err hidden" id="err-login-email">ログインメールを入力してください</p>
+            </div>
+
+            <div class="login-field">
+              <label class="login-label" for="login-password">パスワード<span class="req-mark">*</span></label>
+              <div class="login-inp-wrap">
+                <input type="password" id="login-password" class="login-inp" placeholder="パスワードを入力" value="lea0n@rts2026">
+                <button type="button" class="login-toggle-pw" id="login-toggle-pw" onclick="togglePasswordVisibility()" title="パスワードを表示">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
+              </div>
+              <p class="login-err hidden" id="err-login-password">パスワードを入力してください</p>
+            </div>
+
+            <div class="login-options-row">
+              <label class="login-remember">
+                <input type="checkbox" id="login-remember" class="accent-orange-500" checked>
+                ログイン状態を保持する
+              </label>
+              <a href="#" class="login-forgot-link">パスワードをお忘れですか？</a>
+            </div>
+
+            <button type="button" class="login-submit-btn" onclick="submitLogin()">
+              <i class="fa-solid fa-right-to-bracket"></i>ログイン
+            </button>
+
+          </form>
+
+          <div class="login-footer-links">
+            初めてご利用の方は<a href="#">こちら</a>
+          </div>
+        </div>
+      </div>
+      <!-- /Component: LoginCard -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('ログイン画面');
+    mountFooter();
+
+    // ========== パスワード表示切替（状態駆動） ==========
+    let isPasswordVisible = false;
+
+    function togglePasswordVisibility() {
+      isPasswordVisible = !isPasswordVisible;
+      const input = document.getElementById("login-password");
+      const btn = document.getElementById("login-toggle-pw");
+      input.type = isPasswordVisible ? "text" : "password";
+      btn.classList.toggle("is-active", isPasswordVisible);
+      btn.innerHTML = isPasswordVisible
+        ? '<i class="fa-solid fa-eye-slash"></i>'
+        : '<i class="fa-solid fa-eye"></i>';
+      btn.title = isPasswordVisible ? "パスワードを隠す" : "パスワードを表示";
+    }
+
+    // ========== ログイン処理（モック） ==========
+    function submitLogin() {
+      const email = document.getElementById("login-email");
+      const password = document.getElementById("login-password");
+      const errEmail = document.getElementById("err-login-email");
+      const errPassword = document.getElementById("err-login-password");
+
+      const emailOk = email.value.trim() !== "";
+      const passwordOk = password.value.trim() !== "";
+
+      errEmail.classList.toggle("hidden", emailOk);
+      errPassword.classList.toggle("hidden", passwordOk);
+
+      if (!emailOk || !passwordOk) return;
+
+      window.location.href = "dashboord.html";
+    }
+  </script>
+
+</body>
+</html>

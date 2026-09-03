@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜職務経歴一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/084_work_history_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: WorkHistoryListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">職務経歴一覧</span>
+      </div>
+      <!-- /Component: WorkHistoryListBreadcrumb -->
+
+      <!-- Component: WorkHistoryListTopBar -->
+      <div class="whl-topbar">
+        <span class="whl-topbar-title">職務経歴一覧</span>
+      </div>
+      <!-- /Component: WorkHistoryListTopBar -->
+
+      <!-- Component: WorkHistoryListPanel -->
+      <div class="whl-panel">
+
+        <!-- Component: WorkHistoryListFilterForm -->
+        <div class="whl-filter-form">
+          <table class="whl-table">
+            <tbody>
+              <tr>
+                <td class="whl-label">グループ</td>
+                <td class="whl-value">
+                  <select id="whl-f-group" class="whl-sel w-full" onchange="applyWorkHistoryFilter()">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="whl-label">承認者</td>
+                <td class="whl-value">
+                  <select id="whl-f-approver" class="whl-sel w-56" onchange="applyWorkHistoryFilter()">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="whl-label">氏名</td>
+                <td class="whl-value">
+                  <select id="whl-f-name" class="whl-sel w-56" onchange="applyWorkHistoryFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="whl-label">期間</td>
+                <td class="whl-value">
+                  <input type="date" id="whl-f-date-from" class="whl-date-inp" value="2025-04-01" onchange="applyWorkHistoryFilter()">
+                  <span class="whl-date-sep">〜</span>
+                  <input type="date" id="whl-f-date-to" class="whl-date-inp" value="2026-03-31" onchange="applyWorkHistoryFilter()">
+                </td>
+              </tr>
+              <tr>
+                <td class="whl-label">職種</td>
+                <td class="whl-value">
+                  <select id="whl-f-job" class="whl-sel w-full" onchange="applyWorkHistoryFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="whl-label">専門分野</td>
+                <td class="whl-value">
+                  <select id="whl-f-field" class="whl-sel w-full" onchange="applyWorkHistoryFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /Component: WorkHistoryListFilterForm -->
+
+        <!-- Component: WorkHistoryListStatusTabs -->
+        <div class="whl-status-tabs" id="whl-status-tabs">
+          <button type="button" class="whl-status-tab" onclick="setWorkHistoryStatusTab('全て', this)">全て</button>
+          <button type="button" class="whl-status-tab is-active" onclick="setWorkHistoryStatusTab('未', this)">未</button>
+          <button type="button" class="whl-status-tab" onclick="setWorkHistoryStatusTab('差し戻し', this)">差し戻し</button>
+          <button type="button" class="whl-status-tab" onclick="setWorkHistoryStatusTab('承認済み', this)">承認済み</button>
+        </div>
+        <!-- /Component: WorkHistoryListStatusTabs -->
+
+        <!-- Component: WorkHistoryListTable -->
+        <div class="whl-list-wrap">
+          <table class="whl-list-table">
+            <thead>
+              <tr>
+                <th class="whl-col-center">承認</th>
+                <th>氏名</th>
+                <th class="whl-sortable" onclick="sortWorkHistoryListBy('start', this)">開始<i class="fa-solid fa-sort whl-sort-icon"></i></th>
+                <th>終了</th>
+                <th>期間</th>
+                <th>プロジェクト名</th>
+                <th>対象産業</th>
+                <th>職種</th>
+                <th>専門分野</th>
+                <th class="whl-col-center">ITSS</th>
+                <th class="whl-col-center">顛末</th>
+                <th>備考</th>
+              </tr>
+            </thead>
+            <tbody id="whl-body"></tbody>
+          </table>
+        </div>
+        <!-- /Component: WorkHistoryListTable -->
+
+      </div>
+      <!-- /Component: WorkHistoryListPanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('職務経歴一覧画面');
+    mountFooter();
+
+    // ========== モックデータ：職務経歴一覧 ==========
+    const WORK_HISTORY_APPROVE_TAG = {
+      "未":       "is-review",
+      "差し戻し": "is-rejected",
+      "承認済み": "is-done",
+    };
+
+    const WORK_HISTORY_LIST = [
+      { approve: "未", name: "獅子　太郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "木田　清春", start: "2025/12/01", end: "",           period: "5.0", project: "製品開発",                       industry: "卸売業，小売業",     job: "アプリケーションスペシャリスト", field: "業務パッケージ", itss: 4, result: "○",  note: "" },
+      { approve: "未", name: "怜王　花子", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "木田　清春", start: "2025/01/01", end: "2025/11/30", period: "6.0", project: "医療機器卸向け販売管理システム", industry: "卸売業，小売業",     job: "アプリケーションスペシャリスト", field: "業務パッケージ", itss: 5, result: "◎",  note: "" },
+      { approve: "未", name: "獅子　次郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", approver: "木田　清春", start: "2024/11/01", end: "2025/05/01", period: "2.0", project: "無線局管理台帳システム",         industry: "公務",               job: "アプリケーションスペシャリスト", field: "業務システム",   itss: 5, result: "▲",  note: "" },
+      { approve: "未", name: "怜王　裕美", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", approver: "木田　清春", start: "2025/01/01", end: "2025/11/30", period: "2.0", project: "工事案件管理製品開発",           industry: "建設業",             job: "アプリケーションスペシャリスト", field: "業務システム",   itss: 3, result: "◎",  note: "" },
+      { approve: "未", name: "獅子　三郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "木田　清春", start: "2024/11/01", end: "2025/05/01", period: "5.0", project: "製品開発",                       industry: "卸売業，小売業",     job: "アプリケーションスペシャリスト", field: "業務パッケージ", itss: 4, result: "○",  note: "" },
+      { approve: "未", name: "怜王　明美", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "木田　清春", start: "2025/01/01", end: "2025/11/30", period: "3.0", project: "カーショップ向けFC本部システム", industry: "複合サービス事業",   job: "アプリケーションスペシャリスト", field: "業務システム",   itss: 4, result: "◎",  note: "" },
+      { approve: "未", name: "獅子　四郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", approver: "木田　清春", start: "2024/11/01", end: "2025/05/01", period: "1.0", project: "チケット発券システム",           industry: "生活関連サービス業", job: "アプリケーションスペシャリスト", field: "業務パッケージ", itss: 2, result: "ー",  note: "" },
+      { approve: "未", name: "怜王　夏美", group: "インダストリーズ本部＞ITサービス事業部＞サービスデスクグループ",         approver: "木田　清春", start: "2025/01/01", end: "2025/11/30", period: "0.4", project: "SAP：サブシステム保守",          industry: "製造業",             job: "ITサービスマネジメント",         field: "サービスデスク", itss: 2, result: "▲",  note: "" },
+    ];
+
+    // ========== 検索フォーム：選択肢の動的生成 ==========
+    function renderSelectOptions(selectId, values, defaultValue) {
+      const select = document.getElementById(selectId);
+      select.innerHTML = ['<option>全て</option>']
+        .concat(values.map(v => `<option>${v}</option>`))
+        .join("");
+      if (defaultValue && values.includes(defaultValue)) select.value = defaultValue;
+    }
+
+    function initFilterOptions() {
+      renderSelectOptions("whl-f-group", [...new Set(WORK_HISTORY_LIST.map(r => r.group))],
+        "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ");
+      renderSelectOptions("whl-f-approver", [...new Set(WORK_HISTORY_LIST.map(r => r.approver))], "木田　清春");
+      renderSelectOptions("whl-f-name", [...new Set(WORK_HISTORY_LIST.map(r => r.name))]);
+      renderSelectOptions("whl-f-job", [...new Set(WORK_HISTORY_LIST.map(r => r.job))]);
+      renderSelectOptions("whl-f-field", [...new Set(WORK_HISTORY_LIST.map(r => r.field))]);
+    }
+
+    // ========== 承認状態タブ ==========
+    let workHistoryStatusTab = "未";
+
+    function setWorkHistoryStatusTab(status, btnEl) {
+      workHistoryStatusTab = status;
+      document.querySelectorAll(".whl-status-tab").forEach(btn => btn.classList.remove("is-active"));
+      btnEl.classList.add("is-active");
+      applyWorkHistoryFilter();
+    }
+
+    // ========== 一覧描画・絞り込み ==========
+    function renderWorkHistoryList(rows) {
+      const tbody = document.getElementById("whl-body");
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="12" class="whl-empty-row">該当する職務経歴が見つかりません</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td class="whl-col-center"><span class="whl-approve-tag ${WORK_HISTORY_APPROVE_TAG[r.approve]}">${r.approve}</span></td>
+          <td title="${r.name}">${r.name}</td>
+          <td title="${r.start}">${r.start}</td>
+          <td title="${r.end}">${r.end}</td>
+          <td title="${r.period}">${r.period}</td>
+          <td title="${r.project}">${r.project}</td>
+          <td title="${r.industry}">${r.industry}</td>
+          <td title="${r.job}">${r.job}</td>
+          <td title="${r.field}">${r.field}</td>
+          <td class="whl-col-center" title="${r.itss}">${r.itss}</td>
+          <td class="whl-col-center" title="${r.result}">${r.result}</td>
+          <td title="${r.note}">${r.note}</td>
+        </tr>`).join("");
+    }
+
+    function applyWorkHistoryFilter() {
+      // 「グループ」「承認者」「期間」は現在ログイン中の承認者の担当範囲を示す文脈情報として表示するのみで、
+      // 一覧の絞り込みには氏名・職種・専門分野・承認状況を用いる（070_mbo_list.htmlと同じ方針）
+      const name = document.getElementById("whl-f-name").value;
+      const job = document.getElementById("whl-f-job").value;
+      const field = document.getElementById("whl-f-field").value;
+
+      const rows = WORK_HISTORY_LIST.filter(r =>
+        (workHistoryStatusTab === "全て" || r.approve === workHistoryStatusTab) &&
+        (name === "全て" || r.name === name) &&
+        (job === "全て" || r.job === job) &&
+        (field === "全て" || r.field === field)
+      );
+      renderWorkHistoryList(rows);
+    }
+
+    // ========== ソート ==========
+    function createSorter(getArray, renderFn) {
+      const state = { key: null, dir: 1 };
+      return function (key, thEl) {
+        state.dir = state.key === key ? state.dir * -1 : 1;
+        state.key = key;
+        getArray().sort((a, b) =>
+          String(a[key] ?? "").localeCompare(String(b[key] ?? ""), "ja") * state.dir);
+        applyWorkHistoryFilter();
+        thEl.closest("thead").querySelectorAll("th.whl-sortable").forEach(th => {
+          th.classList.remove("is-sorted-asc", "is-sorted-desc");
+        });
+        thEl.classList.add(state.dir === 1 ? "is-sorted-asc" : "is-sorted-desc");
+      };
+    }
+    const sortWorkHistoryListBy = createSorter(() => WORK_HISTORY_LIST, renderWorkHistoryList);
+
+    // ========== 初期化 ==========
+    initFilterOptions();
+    applyWorkHistoryFilter();
+  </script>
+
+</body>
+</html>

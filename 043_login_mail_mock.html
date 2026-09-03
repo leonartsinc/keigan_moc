@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜ログイン案内メール（モック）</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/043_login_mail_mock.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <!-- Component: MailMockBadge -->
+  <div class="mail-badge">
+    <i class="fa-solid fa-flask"></i>モック画面（実際にはメールで届きます）
+  </div>
+  <!-- /Component: MailMockBadge -->
+
+  <!-- Component: MailPane -->
+  <div class="mail-wrap">
+    <div class="mail-pane">
+
+      <div class="mail-from">keigan@assessment.com</div>
+      <div class="mail-meta" id="mail-time"></div>
+
+      <div class="mail-to-row">To 自分</div>
+      <div class="mail-to-email"><span id="mail-recipient"></span> 様</div>
+
+      <div class="mail-body">
+        <p>KEIGAN管理者です。</p>
+        <p>ユーザ登録が完了しました。</p>
+        <p>以下のURLからログインしてください。</p>
+        <p><a id="mail-login-link" class="mail-link" href="020_login.html">https://id.keigan.jp/users/sign_in?lang=ja</a></p>
+      </div>
+
+      <div class="mail-divider"></div>
+      <div class="mail-sig">
+        <div>[メールアドレス] <span id="mail-sig-email"></span></div>
+      </div>
+      <div class="mail-divider"></div>
+
+      <div class="mail-footnotes">
+        <p># 本メールはKEIGAN管理者より <span id="mail-footnote-email"></span> 様宛にお送りしています。</p>
+        <p># 本メールはシステムより自動送信されています。</p>
+        <p># 本メールに返信されましても、返答できませんのでご了承ください。</p>
+      </div>
+
+    </div>
+  </div>
+  <!-- /Component: MailPane -->
+
+  <script>
+    function formatTime(date) {
+      const hh = String(date.getHours()).padStart(2, "0");
+      const mm = String(date.getMinutes()).padStart(2, "0");
+      return `${hh}:${mm}`;
+    }
+
+    // ========== 登録メールアドレス（クエリパラメータ）の反映 ==========
+    const params = new URLSearchParams(window.location.search);
+    const recipientEmail = params.get("email") || "sample@example.com";
+
+    document.getElementById("mail-recipient").textContent = recipientEmail;
+    document.getElementById("mail-sig-email").textContent = recipientEmail;
+    document.getElementById("mail-footnote-email").textContent = recipientEmail;
+
+    // ========== 送信時刻の反映 ==========
+    document.getElementById("mail-time").textContent = `${formatTime(new Date())} (0 分前)`;
+  </script>
+
+</body>
+</html>

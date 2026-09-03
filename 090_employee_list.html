@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜従業員一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/090_employee_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: EmployeeListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">従業員一覧</span>
+      </div>
+      <!-- /Component: EmployeeListBreadcrumb -->
+
+      <!-- Component: EmployeeListTopBar -->
+      <div class="eml-topbar">
+        <span class="eml-topbar-title">従業員一覧</span>
+      </div>
+      <!-- /Component: EmployeeListTopBar -->
+
+      <!-- Component: EmployeeListPanel -->
+      <div class="eml-panel">
+
+        <div class="eml-filter-bar">
+          <!-- Component: EmployeeListFilterForm -->
+          <table class="eml-table">
+            <tbody>
+              <tr>
+                <td class="eml-label">氏名</td>
+                <td class="eml-value">
+                  <select id="eml-f-name" class="eml-sel w-full" onchange="applyEmployeeFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="eml-label">雇用</td>
+                <td class="eml-value">
+                  <select id="eml-f-employment" class="eml-sel w-40" onchange="applyEmployeeFilter()">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="eml-label">役職</td>
+                <td class="eml-value">
+                  <select id="eml-f-title" class="eml-sel w-full" onchange="applyEmployeeFilter()">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="eml-label">職種</td>
+                <td class="eml-value">
+                  <select id="eml-f-job" class="eml-sel w-full" onchange="applyEmployeeFilter()">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="eml-label">グループ</td>
+                <td class="eml-value">
+                  <select id="eml-f-group" class="eml-sel w-full" onchange="applyEmployeeFilter()">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- /Component: EmployeeListFilterForm -->
+
+          <!-- Component: EmployeeListDownloadButton -->
+          <button type="button" class="eml-download-btn" onclick="openEmployeeDownloadModal()">
+            <i class="fa-solid fa-download"></i>従業員データ<br>ダウンロード
+          </button>
+          <!-- /Component: EmployeeListDownloadButton -->
+        </div>
+
+        <!-- Component: EmployeeListStatusTabs -->
+        <div class="eml-status-tabs" id="eml-status-tabs">
+          <button type="button" class="eml-status-tab" onclick="setEmployeeStatusTab('全て', this)">全て</button>
+          <button type="button" class="eml-status-tab is-active" onclick="setEmployeeStatusTab('在職中', this)">在職中</button>
+          <button type="button" class="eml-status-tab" onclick="setEmployeeStatusTab('休職中', this)">休職中</button>
+          <button type="button" class="eml-status-tab" onclick="setEmployeeStatusTab('退職済', this)">退職済</button>
+          <button type="button" class="eml-status-tab" onclick="setEmployeeStatusTab('内定', this)">内定</button>
+        </div>
+        <!-- /Component: EmployeeListStatusTabs -->
+
+        <!-- Component: EmployeeListTable -->
+        <div class="eml-list-wrap">
+          <table class="eml-list-table">
+            <thead>
+              <tr>
+                <th>社員コード</th>
+                <th>氏名</th>
+                <th>雇用</th>
+                <th>入社日</th>
+                <th>役職</th>
+                <th>職種</th>
+                <th>グループ</th>
+              </tr>
+            </thead>
+            <tbody id="eml-body"></tbody>
+          </table>
+        </div>
+        <!-- /Component: EmployeeListTable -->
+
+      </div>
+      <!-- /Component: EmployeeListPanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <!-- Component: EmployeeDownloadModal -->
+  <div id="eml-download-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeEmployeeDownloadModal()"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden">
+
+      <div class="flex items-center justify-between px-6 pt-5 pb-3">
+        <h2 class="text-base font-semibold text-gray-800">従業員データダウンロード</h2>
+        <button onclick="closeEmployeeDownloadModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="px-6 pb-6">
+        <!-- ファイル形式を選択 -->
+        <div class="eml-modal-field">
+          <div class="eml-modal-label">ファイル形式を選択</div>
+          <div class="eml-modal-radio-row">
+            <label class="eml-modal-radio">
+              <input type="radio" name="eml-modal-charset" value="UTF-8" class="accent-orange-500" checked> UTF-8（推奨）
+            </label>
+            <label class="eml-modal-radio">
+              <input type="radio" name="eml-modal-charset" value="Shift-JIS" class="accent-orange-500"> Shift-JIS
+            </label>
+          </div>
+          <p class="eml-modal-note">Excel2016より前のバージョンのExcelをお使いの方はShift-JISをご利用ください。</p>
+        </div>
+
+        <!-- ダウンロード対象選択 -->
+        <div class="eml-modal-field">
+          <div class="eml-modal-label">ダウンロード対象選択</div>
+          <div class="eml-modal-radio-row">
+            <label class="eml-modal-radio">
+              <input type="radio" name="eml-modal-target" value="active" class="accent-orange-500" checked> 在職中＋休職中
+            </label>
+            <label class="eml-modal-radio">
+              <input type="radio" name="eml-modal-target" value="filtered" class="accent-orange-500"> 検索絞込中の従業員
+            </label>
+            <label class="eml-modal-radio">
+              <input type="radio" name="eml-modal-target" value="all" class="accent-orange-500"> 全従業員
+            </label>
+          </div>
+          <p class="eml-modal-note">
+            在職中＋休職中：在職および休職中の従業員情報をダウンロードします。<br>
+            検索絞込中の従業員：従業員一覧で検索絞込した従業員情報をダウンロードします。<br>
+            全従業員：全従業員情報をダウンロードします。（※退職済みの従業員を含む）
+          </p>
+        </div>
+      </div>
+
+      <div class="flex gap-3 px-6 py-5 border-t border-gray-100">
+        <button type="button" onclick="closeEmployeeDownloadModal()" class="eml-modal-cancel-btn">
+          キャンセル
+        </button>
+        <button type="button" onclick="submitEmployeeDownload()" class="eml-modal-download-btn">
+          ダウンロード
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /Component: EmployeeDownloadModal -->
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('従業員一覧画面');
+    mountFooter();
+
+    // ========== モックデータ：従業員一覧 ==========
+    const EMPLOYEES = [
+      { code: "260401", name: "獅子　太郎", employment: "正社員",   joinDate: "2026/04/01", title: "マネージャ",             job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", status: "在職中" },
+      { code: "260402", name: "怜王　花子", employment: "正社員",   joinDate: "2022/04/01", title: "チーフ",                 job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", status: "在職中" },
+      { code: "210403", name: "獅子　次郎", employment: "正社員",   joinDate: "2021/04/01", title: "アシスタントマネージャー", job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", status: "在職中" },
+      { code: "190404", name: "怜王　裕美", employment: "正社員",   joinDate: "2019/04/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", status: "休職中" },
+      { code: "220405", name: "獅子　三郎", employment: "契約社員", joinDate: "2022/10/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", status: "在職中" },
+      { code: "230406", name: "怜王　明美", employment: "正社員",   joinDate: "2023/04/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", status: "退職済" },
+      { code: "240407", name: "獅子　四郎", employment: "正社員",   joinDate: "2024/04/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", status: "在職中" },
+      { code: "250408", name: "怜王　夏美", employment: "正社員",   joinDate: "2025/04/01", title: "",                       job: "ITサービスマネジメント",         group: "インダストリーズ本部＞ITサービス事業部＞サービスデスクグループ",         status: "内定" },
+    ];
+
+    // ========== 検索フォーム：選択肢の動的生成 ==========
+    function renderSelectOptions(selectId, values, defaultValue) {
+      const select = document.getElementById(selectId);
+      select.innerHTML = ['<option>全て</option>']
+        .concat(values.map(v => `<option>${v}</option>`))
+        .join("");
+      if (defaultValue && values.includes(defaultValue)) select.value = defaultValue;
+    }
+
+    function initFilterOptions() {
+      renderSelectOptions("eml-f-name", [...new Set(EMPLOYEES.map(e => e.name))]);
+      renderSelectOptions("eml-f-employment", [...new Set(EMPLOYEES.map(e => e.employment))], "正社員");
+      renderSelectOptions("eml-f-title", [...new Set(EMPLOYEES.map(e => e.title).filter(v => v))], "マネージャ");
+      renderSelectOptions("eml-f-job", [...new Set(EMPLOYEES.map(e => e.job))], "アプリケーションスペシャリスト");
+      renderSelectOptions("eml-f-group", [...new Set(EMPLOYEES.map(e => e.group))],
+        "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ");
+    }
+
+    // ========== 在籍状況タブ ==========
+    let employeeStatusTab = "在職中";
+
+    function setEmployeeStatusTab(status, btnEl) {
+      employeeStatusTab = status;
+      document.querySelectorAll(".eml-status-tab").forEach(btn => btn.classList.remove("is-active"));
+      btnEl.classList.add("is-active");
+      applyEmployeeFilter();
+    }
+
+    // ========== 一覧描画・絞り込み ==========
+    function renderEmployeeList(rows) {
+      const tbody = document.getElementById("eml-body");
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="eml-empty-row">該当する従業員が見つかりません</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = rows.map(e => `
+        <tr>
+          <td title="${e.code}">${e.code}</td>
+          <td title="${e.name}">${e.name}</td>
+          <td title="${e.employment}">${e.employment}</td>
+          <td title="${e.joinDate}">${e.joinDate}</td>
+          <td title="${e.title}">${e.title || ""}</td>
+          <td title="${e.job}">${e.job}</td>
+          <td title="${e.group}">${e.group}</td>
+        </tr>`).join("");
+    }
+
+    function applyEmployeeFilter() {
+      const name = document.getElementById("eml-f-name").value;
+      const employment = document.getElementById("eml-f-employment").value;
+      const title = document.getElementById("eml-f-title").value;
+      const job = document.getElementById("eml-f-job").value;
+      const group = document.getElementById("eml-f-group").value;
+
+      const rows = EMPLOYEES.filter(e =>
+        (employeeStatusTab === "全て" || e.status === employeeStatusTab) &&
+        (name === "全て" || e.name === name) &&
+        (employment === "全て" || e.employment === employment) &&
+        (title === "全て" || e.title === title) &&
+        (job === "全て" || e.job === job) &&
+        (group === "全て" || e.group === group)
+      );
+      renderEmployeeList(rows);
+    }
+
+    // ========== 従業員データダウンロード：モーダル ==========
+    function openEmployeeDownloadModal() {
+      document.querySelector('input[name="eml-modal-charset"][value="UTF-8"]').checked = true;
+      document.querySelector('input[name="eml-modal-target"][value="active"]').checked = true;
+      document.getElementById("eml-download-modal").classList.remove("hidden");
+    }
+
+    function closeEmployeeDownloadModal() {
+      document.getElementById("eml-download-modal").classList.add("hidden");
+    }
+
+    const DOWNLOAD_TARGET_LABEL = {
+      active:   "在職中＋休職中",
+      filtered: "検索絞込中の従業員",
+      all:      "全従業員",
+    };
+
+    function submitEmployeeDownload() {
+      const charset = document.querySelector('input[name="eml-modal-charset"]:checked').value;
+      const target = document.querySelector('input[name="eml-modal-target"]:checked').value;
+      closeEmployeeDownloadModal();
+      alert(`${DOWNLOAD_TARGET_LABEL[target]}の従業員データを${charset}形式でダウンロードしました（モック）`);
+    }
+
+    // ========== 初期化 ==========
+    initFilterOptions();
+    applyEmployeeFilter();
+  </script>
+
+</body>
+</html>

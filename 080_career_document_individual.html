@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜経歴書・職務経歴書（個人）画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/080_career_document_individual.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: CareerDocIndividualBreadcrumb -->
+      <div class="site-breadcrumb">
+        <a href="050_profile.html" class="hover:text-orange-400 transition">プロフィール</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="is-current">経歴書・職務経歴書</span>
+      </div>
+      <!-- /Component: CareerDocIndividualBreadcrumb -->
+
+      <!-- Component: CareerDocIndividualTopBar -->
+      <div class="cdi-topbar">
+        <span class="cdi-topbar-title">経歴書・職務経歴書</span>
+      </div>
+      <!-- /Component: CareerDocIndividualTopBar -->
+
+      <!-- Component: CareerDocIndividualTargetPanel -->
+      <table class="cdi-target-table">
+        <tr>
+          <td class="cdi-target-label">対象者</td>
+          <td class="cdi-target-value" id="cdi-target-name">獅子　太郎</td>
+        </tr>
+      </table>
+      <!-- /Component: CareerDocIndividualTargetPanel -->
+
+      <!-- Component: CareerDocIndividualOutputContentPanel -->
+      <div class="cdi-panel">
+        <div class="cdi-panel-title">出力内容を選択</div>
+
+        <div class="cdi-option-cols">
+          <!-- 経歴書 -->
+          <div class="cdi-option-col">
+            <div class="cdi-option-col-title">（経歴書）</div>
+
+            <div class="cdi-option-row">
+              <span class="cdi-option-label">学歴を出力</span>
+              <div class="cdi-radio-group">
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-education" value="する" class="accent-orange-500" checked> する
+                </label>
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-education" value="しない" class="accent-orange-500"> しない
+                </label>
+              </div>
+            </div>
+
+            <div class="cdi-option-row">
+              <span class="cdi-option-label">免許・資格を出力</span>
+              <div class="cdi-radio-group">
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-license" value="する" class="accent-orange-500" checked> する
+                </label>
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-license" value="しない" class="accent-orange-500"> しない
+                </label>
+              </div>
+            </div>
+
+            <div class="cdi-option-row">
+              <span class="cdi-option-label">研修・訓練を出力</span>
+              <div class="cdi-radio-group">
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-training" value="する" class="accent-orange-500" checked> する
+                </label>
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-training" value="しない" class="accent-orange-500"> しない
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 職務経歴書 -->
+          <div class="cdi-option-col">
+            <div class="cdi-option-col-title">（職務経歴書）</div>
+
+            <div class="cdi-option-row">
+              <span class="cdi-option-label">職歴を出力</span>
+              <div class="cdi-radio-group">
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-work-history" value="する" class="accent-orange-500" checked onchange="applyWorkHistoryOutputMode()"> する
+                </label>
+                <label class="cdi-radio-label">
+                  <input type="radio" name="cdi-out-work-history" value="しない" class="accent-orange-500" onchange="applyWorkHistoryOutputMode()"> しない
+                </label>
+              </div>
+            </div>
+            <div class="cdi-sub-row">
+              <label class="cdi-check-label">
+                <input type="checkbox" id="cdi-out-work-history-sheet" class="accent-orange-500"> 別シートで出力
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Component: CareerDocIndividualOutputContentPanel -->
+
+      <!-- Component: CareerDocIndividualOutputFormatPanel -->
+      <div class="cdi-panel">
+        <div class="cdi-panel-title">出力形式を選択</div>
+
+        <div class="cdi-option-row">
+          <span class="cdi-option-label">文字コード</span>
+          <div class="cdi-radio-group">
+            <label class="cdi-radio-label">
+              <input type="radio" name="cdi-out-charset" value="UTF-8" class="accent-orange-500" checked> UTF-8（推奨）
+            </label>
+            <label class="cdi-radio-label">
+              <input type="radio" name="cdi-out-charset" value="Shift-JIS" class="accent-orange-500"> Shift-JIS
+            </label>
+          </div>
+          <span class="cdi-format-note">Excel2016より前のバージョンのExcelをお使いの方はShift-JISをご利用ください。</span>
+        </div>
+      </div>
+      <!-- /Component: CareerDocIndividualOutputFormatPanel -->
+
+      <!-- Component: CareerDocIndividualActionBar -->
+      <div class="cdi-action-bar">
+        <button type="button" class="cdi-download-btn" onclick="downloadCareerDocument()">
+          <i class="fa-solid fa-download"></i>ダウンロード
+        </button>
+        <button type="button" class="cdi-cancel-btn" onclick="cancelCareerDocument()">キャンセル</button>
+        <span class="cdi-action-note">※EXCEL形式のファイルで出力します</span>
+      </div>
+      <!-- /Component: CareerDocIndividualActionBar -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('経歴書・職務経歴書（個人）画面');
+    mountFooter();
+
+    // ========== 職歴を出力：別シートで出力チェックボックスの活性制御 ==========
+    function applyWorkHistoryOutputMode() {
+      const doOutput = document.querySelector('input[name="cdi-out-work-history"]:checked').value === "する";
+      const sheetCheck = document.getElementById("cdi-out-work-history-sheet");
+      sheetCheck.disabled = !doOutput;
+      if (!doOutput) sheetCheck.checked = false;
+    }
+
+    // ========== ダウンロード・キャンセル ==========
+    function downloadCareerDocument() {
+      const name = document.getElementById("cdi-target-name").textContent.trim();
+      alert(`${name}さんの経歴書・職務経歴書をダウンロードしました（モック）`);
+    }
+
+    function cancelCareerDocument() {
+      alert("入力内容をキャンセルしました（モック）");
+    }
+
+    // ========== 初期化 ==========
+    applyWorkHistoryOutputMode();
+  </script>
+
+</body>
+</html>

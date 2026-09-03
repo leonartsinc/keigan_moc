@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜ユーザ登録画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/042_user_registration.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: UserRegBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">ユーザ登録</span>
+      </div>
+      <!-- /Component: UserRegBreadcrumb -->
+
+      <!-- Component: UserRegTopBar -->
+      <div class="usr-topbar">
+        <span class="usr-topbar-title">ユーザ登録</span>
+      </div>
+      <!-- /Component: UserRegTopBar -->
+
+      <div class="flex gap-5 items-start">
+
+        <!-- Component: UserRegSidebar -->
+        <aside class="w-44 shrink-0 sticky top-20">
+          <div class="usr-side-panel">
+            <div class="usr-side-title">ユーザ登録</div>
+            <nav id="usr-toc">
+              <a class="usr-nav-link is-active" onclick="tocScrollTo('usr-sec-info')">ユーザ情報</a>
+            </nav>
+          </div>
+
+          <!-- Component: UserRegActionButtons -->
+          <div class="usr-actions">
+            <button type="button" class="usr-btn usr-btn-save" onclick="submitUserRegistration()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+          </div>
+          <!-- /Component: UserRegActionButtons -->
+        </aside>
+        <!-- /Component: UserRegSidebar -->
+
+        <!-- Component: UserRegFormContent -->
+        <div class="flex-1 min-w-0">
+
+          <!-- Section: ユーザ情報 -->
+          <section id="usr-sec-info" class="usr-panel">
+            <div class="usr-panel-title">
+              <span>ユーザ情報</span>
+            </div>
+            <table class="usr-table">
+              <tbody>
+                <tr>
+                  <td class="usr-label"><span class="req-mark">*</span>氏名</td>
+                  <td class="usr-value">
+                    <input type="text" id="usr-name" class="usr-inp w-56" value="獅子　太郎">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="usr-label"><span class="req-mark">*</span>カナ</td>
+                  <td class="usr-value">
+                    <input type="text" id="usr-kana" class="usr-inp w-56" value="シシ　タロウ">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="usr-label"><span class="req-mark">*</span>生年月日</td>
+                  <td class="usr-value">
+                    <input type="date" id="usr-birth-date" class="usr-inp w-40" value="1975-04-02" onchange="updateBirthComputed()">
+                    <span class="usr-computed" id="usr-birth-weekday">(木)</span>
+                    <span class="usr-computed" id="usr-age">48歳</span>
+                    <span class="usr-computed" id="usr-birth-era">昭和50年4月2日</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="usr-label"><span class="req-mark">*</span>携帯番号</td>
+                  <td class="usr-value">
+                    <input type="text" id="usr-mobile1" class="usr-inp w-16 text-center" value="090" maxlength="4">
+                    <span class="usr-sep">-</span>
+                    <input type="text" id="usr-mobile2" class="usr-inp w-16 text-center" value="1234" maxlength="4">
+                    <span class="usr-sep">-</span>
+                    <input type="text" id="usr-mobile3" class="usr-inp w-16 text-center" value="xxxx" maxlength="4">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="usr-label">入社日</td>
+                  <td class="usr-value">
+                    <input type="date" id="usr-join-date" class="usr-inp w-40" onchange="updateJoinWeekday()">
+                    <span class="usr-computed" id="usr-join-weekday"></span>
+                  </td>
+                </tr>
+                <tr class="usr-divider-row"><td colspan="2"></td></tr>
+                <tr>
+                  <td class="usr-label"><span class="req-mark">*</span>ログインメール</td>
+                  <td class="usr-value">
+                    <input type="email" id="usr-login-email" class="usr-inp w-72" value="leoleo-xxxx@gmail.com">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="usr-label"><span class="req-mark">*</span>パスワード</td>
+                  <td class="usr-value">
+                    <input type="password" id="usr-login-password" class="usr-inp w-56" value="lea0n@rts2026">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <!-- /Section: ユーザ情報 -->
+
+        </div>
+        <!-- /Component: UserRegFormContent -->
+
+      </div>
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('ユーザ登録画面');
+    mountFooter();
+
+    const WEEKDAY_LABELS = ["日", "月", "火", "水", "木", "金", "土"];
+
+    function formatDateInputValue(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, "0");
+      const d = String(date.getDate()).padStart(2, "0");
+      return `${y}-${m}-${d}`;
+    }
+
+    // ========== 生年月日：曜日／年齢／和暦の自動計算 ==========
+    const WAREKI_ERAS = [
+      { name: "令和", start: [2019, 5, 1] },
+      { name: "平成", start: [1989, 1, 8] },
+      { name: "昭和", start: [1926, 12, 25] },
+      { name: "大正", start: [1912, 7, 30] },
+      { name: "明治", start: [1868, 1, 25] },
+    ];
+
+    function toWareki(y, m, d) {
+      for (const era of WAREKI_ERAS) {
+        const [sy, sm, sd] = era.start;
+        if (y > sy || (y === sy && (m > sm || (m === sm && d >= sd)))) {
+          const eraYear = y - sy + 1;
+          return `${era.name}${eraYear === 1 ? "元" : eraYear}年${m}月${d}日`;
+        }
+      }
+      return `${y}年${m}月${d}日`;
+    }
+
+    function updateBirthComputed() {
+      const dateStr = document.getElementById("usr-birth-date").value;
+      if (!dateStr) return;
+      const [y, m, d] = dateStr.split("-").map(Number);
+      const date = new Date(y, m - 1, d);
+
+      document.getElementById("usr-birth-weekday").textContent = `(${WEEKDAY_LABELS[date.getDay()]})`;
+
+      const today = new Date();
+      let age = today.getFullYear() - y;
+      const birthdayPassed = (today.getMonth() + 1 > m) || (today.getMonth() + 1 === m && today.getDate() >= d);
+      if (!birthdayPassed) age--;
+      document.getElementById("usr-age").textContent = `${age}歳`;
+
+      document.getElementById("usr-birth-era").textContent = toWareki(y, m, d);
+    }
+
+    // ========== 入社日：曜日の自動計算 ==========
+    function updateJoinWeekday() {
+      const dateStr = document.getElementById("usr-join-date").value;
+      const el = document.getElementById("usr-join-weekday");
+      if (!dateStr) { el.textContent = ""; return; }
+      const [y, m, d] = dateStr.split("-").map(Number);
+      const date = new Date(y, m - 1, d);
+      el.textContent = `(${WEEKDAY_LABELS[date.getDay()]})`;
+    }
+
+    // ========== 目次スクロール ==========
+    function tocScrollTo(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelectorAll("#usr-toc .usr-nav-link").forEach(link => link.classList.remove("is-active"));
+      event.currentTarget.classList.add("is-active");
+    }
+
+    // ========== 保存 ==========
+    function submitUserRegistration() {
+      const email = document.getElementById("usr-login-email").value.trim();
+      window.location.href = `043_login_mail_mock.html?email=${encodeURIComponent(email)}`;
+    }
+
+    // ========== 初期化 ==========
+    document.getElementById("usr-join-date").value = formatDateInputValue(new Date());
+    updateJoinWeekday();
+  </script>
+
+</body>
+</html>

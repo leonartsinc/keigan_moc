@@ -1,0 +1,4870 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（keigen）</title>
+
+  <link rel="icon" href="img/siteicon01.png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/heroicons@2.0.18/dist/heroicons.min.js"></script>
+</head>
+
+<body class="bg-white">
+
+  <!-- Desktop Header -->
+  <header class="hidden md:flex fixed z-40
+                  top-0 left-0 right-0 
+                  h-14
+                  py-2 px-3
+                  backdrop-blur-md 
+                  bg-white/80
+                  justify-between items-center">
+
+    <!-- 左エリア -->
+    <div class="flex items-center gap-3">
+
+      <!-- ロゴ＋ダッシュボード -->
+      <div id="sidebarLogo"
+          class="pl-16 pr-2 py-2 flex items-center gap-3">
+
+        <!-- ロゴ -->
+        <div class="flex items-center pr-4 shrink-0">
+          <a href="index.html">
+            <img src="img/LOGO01.png"
+                alt="ロゴ"
+                class="h-9 object-contain">
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- 右エリア -->
+    <div class="flex items-center gap-4 relative">
+
+      <!-- ヘルプ -->
+      <button
+        class="w-8 h-8 flex items-center justify-center rounded-full
+              border hover:bg-orange-50
+              hover:text-orange-400 transition"
+        title="ヘルプ">
+
+        <span class="text-sm font-semibold">?</span>
+
+      </button>
+
+      <!-- ユーザーアイコン -->
+      <button onclick="toggleUserMenu(event)"
+              class="w-8 h-8 rounded-full overflow-hidden hover:ring-1 hover:ring-orange-300 transition"
+              title="アカウント">
+
+        <img src="img/丸アイコン_丸尾2.png"
+            class="w-full h-full object-cover"
+            alt="ユーザー画像">
+
+      </button>
+
+      <!-- ユーザーメニュー -->
+      <div id="userMenu"
+          onclick="event.stopPropagation()"
+          class="p-2 hidden absolute right-0 top-11 w-72 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 transition duration-200">
+
+        <!-- 上部プロフィール -->
+        <div class="p-4 bg-gray-100">
+          <div class="flex items-center gap-3">
+
+            <div class="w-20 h-20 rounded-full overflow-hidden">
+              <img src="img/丸アイコン_丸尾2.png"
+                  class="w-full h-full object-cover">
+            </div>
+
+            <div>
+              <p class="font-bold text-sm">丸尾 幹</p>
+              <p class="text-xs text-gray-500">株式会社レオンアーツ</p>
+              <p class="text-xs text-blue-500">k-maruo@leonarts.co.jp</p>
+              <p class="text-xs text-gray-500">一般ユーザ</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="p-4 border-b border-gray-100 ">
+          <!-- タイトル -->
+          <div class="flex items-center gap-3">
+            <div>
+              <p class="font-bold text-sm">問い合わせ番号</p>
+            </div>
+
+          </div>
+
+          <!-- 問い合せ番号（中央寄せ） -->
+          <div class="pt-2 flex items-center justify-center gap-3">
+            <div>
+              <p class="p-3 rounded-xl text-lg border justify-center border-gray-300 text-gray-500">S133185-65127</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- メニュー -->
+        <div class="py-0 text-xs">
+          <a href="#"
+            class="flex items-center px-4 py-3 hover:bg-orange-50 transition">
+            パスワード変更
+          </a>
+          <div class="border-t border-gray-100"></div>
+          <a href="020_login.html"
+            class="flex items-center px-4 py-3 text-red-500 hover:bg-red-50 transition">
+            ログアウト
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- =====================
+    Mobile Header
+  ===================== -->
+  <header class="md:hidden shadow p-4 flex justify-between items-center">
+    <button onclick="toggleSidebar()" class="text-xl">☰</button>
+    <h1 class="font-bold">慧眼</h1>
+    <div class="w-8 h-8 bg-gray-300 rounded-full"></div>
+  </header>
+
+  <div class="flex">
+
+    <!-- =====================
+      Sidebar
+    ===================== -->
+    <aside id="sidebar"
+      class="fixed z-50 top-0 left-0 
+            w-[66px]
+            h-screen
+            bg-gray-200/95
+            backdrop-blur-md
+            shadow-[4px_0_24px_rgba(0,0,0,0.04)]
+            border-r border-gray-100
+            transition-all duration-300 ease-out
+            overflow-visible">
+
+      <nav class="pl-0 pr-0 pt-0 pb-0 text-sm space-y-0">
+
+        <!-- ダッシュボードアイコン -->
+        <div>
+          <button
+            onclick="toggleSubSidebar()"
+            class="w-full flex justify-between items-center 
+                    px-3 py-3 
+                    hover:text-orange-400 
+                    hover:bg-orange-50/60
+                    hover:shadow-[0_0_0_1px_rgba(251,146,60,0.2)]
+                    transition-all duration-200 ease-out group">
+
+            <!-- 9-grid launcher icon -->
+            <div class="flex items-center justify-center w-full">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-8"
+                  fill="currentColor"
+                  viewBox="0 0 24 24">
+
+                <circle cx="5" cy="5" r="1.5"/>
+                <circle cx="12" cy="5" r="1.5"/>
+                <circle cx="19" cy="5" r="1.5"/>
+
+                <circle cx="5" cy="12" r="1.5"/>
+                <circle cx="12" cy="12" r="1.5"/>
+                <circle cx="19" cy="12" r="1.5"/>
+
+                <circle cx="5" cy="19" r="1.5"/>
+                <circle cx="12" cy="19" r="1.5"/>
+                <circle cx="19" cy="19" r="1.5"/>
+              </svg>
+            </div>
+
+          </button>
+        </div>
+
+        <div class="py-2">
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="personal" onclick="openSubMenu('personal')" 
+              class="w-full flex justify-between items-center 
+                      px-3 py-3 
+                      hover:text-orange-400 
+                      hover:bg-orange-50/60
+                      hover:shadow-[0_0_0_1px_rgba(251,146,60,0.2)]
+                      transition-all duration-200 ease-out group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    class="w-4 h-8 group-hover:text-orange-400" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.118a7.5 7.5 0 0115 0A17.933 17.933 0 0112 21.75a17.933 17.933 0 01-7.5-1.632z"/>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="individual" onclick="openSubMenu('individual')" 
+              class="w-full flex justify-between items-center 
+                    px-3 py-3 
+                    hover:text-orange-400 
+                    hover:bg-orange-50/60
+                    hover:shadow-[0_0_0_1px_rgba(251,146,60,0.2)]
+                    transition-all duration-200 ease-out group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-8 group-hover:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M9 8h6m-6 4h6m-6 4h6M5 21V3h14v18"/>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="supervisor" onclick="openSubMenu('supervisor')" 
+              class="w-full flex justify-between items-center 
+                      px-3 py-3 
+                      hover:text-orange-400 
+                      hover:bg-orange-50/60
+                      hover:shadow-[0_0_0_1px_rgba(251,146,60,0.2)]
+                      transition-all duration-200 ease-out  group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="relative flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-8 group-hover:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 21h16M7 21V7l5-4 5 4v14M9 10h.01M9 13h.01M9 16h.01M15 10h.01M15 13h.01M15 16h.01"/>
+                </svg>
+
+                <span class="absolute
+                              top-1
+                              right-0
+                              bg-red-500
+                              text-white
+                              text-[10px]
+                              w-4
+                              h-4
+                              rounded-full
+                              flex items-center justify-center">
+                  10
+                </span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="administrator" onclick="openSubMenu('administrator')" 
+              class="w-full flex justify-between items-center 
+                      px-3 py-3 
+                      hover:text-orange-400 
+                      hover:bg-orange-50/60
+                      hover:shadow-[0_0_0_1px_rgba(251,146,60,0.2)]
+                      transition-all duration-200 ease-out  group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-8 group-hover:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M12 4l8 4-8 4-8-4 8-4z"/>
+
+                  <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M4 12l8 4 8-4"/>
+
+                  <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M4 16l8 4 8-4"/>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </nav>
+
+    </aside>
+
+    <!-- Overlay -->
+    <div id="overlay" onclick="toggleSidebar()"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden md:hidden">
+    </div>
+
+    <!-- サブサイドバー -->
+    <aside id="subSidebar"
+      class="fixed z-30 top-14
+            left-[66px]
+            h-[calc(100vh-56px)]
+            bg-white
+            overflow-hidden
+            transition-all duration-300 ease-out">
+        
+      <!-- タイトル -->
+      <div class="px-4 pt-9 pb-4">
+
+        <h2 id="subSidebarTitle"
+            class="font-semibold text-sm text-gray-400">
+          メニュー
+        </h2>
+
+      </div>
+
+      <!-- メニュー表示領域 -->
+      <div id="subSidebarContent"
+            class="font-semibold text-sm">
+      </div>
+    </aside>    
+
+    <!-- =====================
+      Main
+    ===================== -->
+    <main id="mainContent"
+      class="flex flex-col
+            h-[calc(100vh-56px)]
+            overflow-y-auto
+            mt-[56px]
+            bg-gray-100
+            rounded-xl
+            transition-all duration-300"
+      style="
+            margin-left:290px;
+            width:calc(100% - 292px);
+      ">
+
+      <section class="flex-1 overflow-y-auto">
+
+        <!-- タイトル -->
+        <h1 class="sticky top-0 z-30
+           pl-5 pt-5 pb-4
+           bg-gray-100">
+          <span class="text-xl">丸尾　幹</span>
+          <span class="ml-2 text-sm">さんのダッシュボード</span>
+          <span class="ml-2 text-sm">【　株式会社レオンアーツ　】</span>
+        </h1>
+
+        <!-- =====================
+          お知らせ
+        ===================== -->
+        <section id="infoSection" class="px-4 pb-4 history-block bg-gray-100">
+          <div class="bg-white shadow overflow-hidden">
+
+            <div class="px-4 py-2 border-b bg-black text-white">
+              <h2 class="text-sm font-medium">【管理者からの通知】</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+              <div class="relative">
+
+                <table class="min-w-full text-sm text-left">
+
+                  <tbody class="historyTable divide-y">
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">職務経歴</td>
+                      <td class="px-4 py-2">2025</td>
+                      <td class="px-4 py-2">職務経歴を最新にして下さい。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">ＭＢＯ</td>
+                      <td class="px-4 py-2">2026</td>
+                      <td class="px-4 py-2">今年の年間目標を登録してください。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-10</td>
+                      <td class="px-4 py-2">アセスメント</td>
+                      <td class="px-4 py-2">１件</td>
+                      <td class="px-4 py-2">自分のアセスメント診断を実施して下さい</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-10</td>
+                      <td class="px-4 py-2">アセスメント</td>
+                      <td class="px-4 py-2">３件</td>
+                      <td class="px-4 py-2">３６０℃評価の依頼があります。実施して下さい</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-white to-transparent"></div>
+              </div>
+
+              <div class="p-2 text-center bg-gray-100">
+                <button onclick="toggleHistory(this)" class="text-sm text-orange-400 hover:underline">
+                  もっと見る
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================
+          共通テーブル（パーソナルナレッジ・能力向上への取り組み・結果／スコア）
+        ===================== -->
+        <section id="assessmentSection" class="grid grid-cols-5 items-start mr-3 mb-4">
+
+          <section class="col-span-4 grid grid-rows-2 gap-4">
+
+            <!-- パーソナルナレッジ -->
+            <div class="ml-4 p-3 bg-white rounded-lg">
+
+              <h1 class="text-[14px] font-medium pb-2">パーソナルナレッジ</h1>
+              <h2 class="text-[12px] font-medium pb-2"></h2>
+
+              <section class="grid grid-cols-1 lg:grid-cols-5 xl:grid-cols-7 gap-1">
+
+                <div class="bg-gray-200 p-1 rounded-l-lg">
+                  <div class="p-2 min-w-0">
+                    <p class="text-gray-500 text-[10px]">年齢・性別・血液型</p>
+                    <h2 class="text-[13px]">51歳／男／A</h2>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="flex items-center gap-2 pl-2">
+                    <div class="py-2 min-w-0">
+                      <p class="text-gray-500 text-[10px]">MBTI</p>
+                      <h2 class="text-[13px]">ENTJ-AC:指揮官</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="p-2 min-w-0">
+                    <p class="text-gray-500 text-[10px]">最終学歴</p>
+                    <h2 class="text-[13px]"><div class="max-w-[13ch] truncate">短大卒</div></h2>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="flex items-center gap-2 pl-2">
+
+                    <!-- アイコン -->
+                    <div class="w-5 h-5
+                                flex items-center justify-center
+                                shrink-0">
+                      <img src="icon/calendar02.png"
+                          class="w-5 h-5 object-contain"
+                          alt="勤続勤続">
+                    </div>
+
+                    <!-- テキスト -->
+                    <div class="py-2 min-w-0">
+                      <p class="text-gray-500 text-[10px]">社会人</p>
+                      <h2 class="text-[13px]">30年</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1 rounded-r-lg">
+                  <div class="p-2 min-w-0">
+                    <p class="text-gray-500 text-[10px]">最長業界</p>
+                    <h2 class="text-[13px]"><div class="max-w-[18ch] truncate">情報通信業（ソフトウェア業）</div></h2>
+                  </div>
+                </div>
+
+              </section>
+            
+            </div>
+
+            <!-- 能力向上への取り組み・結果 -->
+            <div class="ml-4 p-3 bg-white rounded-lg">
+
+              <h1 class="text-[14px] font-medium pb-2">能力向上への取り組み・結果</h1>
+              <h2 class="text-[12px] font-medium pb-2"></h2>
+
+              <section class="grid grid-cols-1 lg:grid-cols-5 xl:grid-cols-7 gap-1">
+
+                <div class="bg-gray-200 p-1 rounded-l-lg">
+                  <div class="flex items-center gap-2 pl-2">
+
+                    <!-- アイコン -->
+                    <div class="w-5 h-5
+                                flex items-center justify-center
+                                shrink-0">
+                      <img src="icon/award01.png"
+                          class="w-5 h-5 object-contain"
+                          alt="国家資格">
+                    </div>
+
+                    <!-- テキスト -->
+                    <div class="py-2 min-w-0">
+                      <p class="text-gray-500 text-[10px]">国家資格</p>
+                      <h2 class="text-[13px]">3つ</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="p-2 min-w-0">
+                    <p class="text-gray-500 text-[10px]">最上位資格</p>
+                    <h2 class="text-[13px]"><div class="max-w-[15ch] truncate">応用情報技術者</div></h2>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="flex items-center gap-2 pl-2">
+
+                    <!-- アイコン -->
+                    <div class="w-5 h-5
+                                flex items-center justify-center
+                                shrink-0">
+                      <img src="icon/award02.png"
+                          class="w-5 h-5 object-contain"
+                          alt="ベンダー資格">
+                    </div>
+
+                    <!-- テキスト -->
+                    <div class="py-2 min-w-0">
+                      <p class="text-gray-500 text-[10px]">ベンダー資格</p>
+                      <h2 class="text-[13px]">2つ</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="p-2 min-w-0">
+                    <p class="text-gray-500 text-[10px]">最上位資格</p>
+                    <h2 class="text-[13px]"><div class="max-w-[15ch] truncate">OracleSilver9i</div></h2>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="flex items-center gap-2 pl-2">
+
+                    <!-- アイコン -->
+                    <div class="w-5 h-5
+                                flex items-center justify-center
+                                shrink-0">
+                      <img src="icon/award03.png"
+                          class="w-5 h-5 object-contain"
+                          alt="その他資格">
+                    </div>
+
+                    <!-- テキスト -->
+                    <div class="py-2 min-w-0">
+                      <p class="text-gray-500 text-[10px]">その他資格</p>
+                      <h2 class="text-[13px]">1つ</h2>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1">
+                  <div class="p-2 min-w-0">
+                    <p class="text-gray-500 text-[10px]">最上位資格</p>
+                    <h2 class="text-[13px]"><div class="max-w-[15ch] truncate">日商簿記３級</div></h2>
+                  </div>
+                </div>
+
+                <div class="bg-gray-200 p-1 rounded-r-lg">
+                  <div class="flex items-center gap-2 pl-2">
+
+                    <!-- アイコン -->
+                    <div class="w-5 h-5
+                                flex items-center justify-center
+                                shrink-0">
+                      <img src="icon/user01.png"
+                          class="w-5 h-5 object-contain"
+                          alt="研修">
+                    </div>
+
+                    <!-- テキスト -->
+                    <div class="py-2 min-w-0">
+                      <p class="text-gray-500 text-[10px]">研修</p>
+                      <h2 class="text-[13px]">5つ</h2>
+                    </div>
+                  </div>
+                </div>
+
+              </section>
+            
+            </div>
+
+          </section>
+
+          <!-- スコア -->
+          <div class="col-span-1 mx-4 rounded-lg">
+
+            <h1 class="text-[14px] font-medium pl-2 pb-1">総合スコア</h1>
+            <h2 class="text-[12px] font-medium pl-2 pb-2">2026/3末のアセスメント</h2>
+
+            <div class="relative w-[220px] h-[165px] mx-auto">
+              <!-- ランク -->
+              <div class="absolute left-9 top-0
+                          w-12 h-12
+                          rounded-full
+                          bg-orange-500
+                          text-white
+                          flex items-center justify-center
+                          z-10">
+
+                <span class="text-2xl leading-none">A</span>
+                <span class="absolute
+                            top-1
+                            right-2
+                            text-lg
+                            font-semibold">+</span>
+              </div>
+
+              <!-- ゲージ -->
+              <svg width="200"
+                  height="200"
+                  viewBox="0 0 200 200">
+
+                <!-- 背景 -->
+                <circle
+                  cx="105"
+                  cy="80"
+                  r="70"
+                  fill="none"
+                  stroke="#ececec"
+                  stroke-width="16"
+                  stroke-linecap="round" />
+
+                <!-- スコア -->
+                <circle
+                  id="scoreCircle"
+                  cx="130"
+                  cy="100"
+                  r="70"
+                  fill="none"
+                  stroke="#FF8C19"
+                  stroke-width="16"
+                  stroke-linecap="round"
+                  transform="rotate(-95 109 102)" />
+              </svg>
+
+              <!-- スコア -->
+              <div class="absolute inset-0
+                          flex items-center justify-center">
+                <span id="scoreValue"
+                      class="text-[40px]
+                            font-light
+                            text-orange-500">
+                  91.25
+                </span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 mt-0">
+              <div class="text-center">
+                <p class="text-[10px] text-gray-500">製品内</p>
+                <p class="text-[13px]">上位5%</p>
+              </div>
+
+              <div class="text-center">
+                <p class="text-[10px] text-gray-500">同規模企業内</p>
+                <p class="text-[13px]">上位2%</p>
+              </div>
+
+              <div class="text-center">
+                <p class="text-[10px] text-gray-500">企業内順位</p>
+                <p class="text-[13px]">2位/47</p>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- =====================
+          共通テーブル（ＭＢＯ）
+        ===================== -->
+        <section id="mboSection" class="px-4 pb-4 history-block bg-gray-100">
+          <div class="bg-white rounded-lg shadow overflow-hidden">
+
+            <div class="px-4 py-2 border-b bg-gray-300
+                        flex items-center justify-between">
+
+              <!-- タイトル -->
+              <h2 class="text-[14px] font-medium">
+                ＭＢＯ
+              </h2>
+
+            </div>
+
+            <div class="overflow-x-auto">
+              <div class="relative">
+
+                <table class="min-w-full text-[13px] text-left">
+                  <thead class="bg-gray-100 sticky top-0 z-10">
+                    <tr>
+                      <th class="px-4 py-2">所属</th>
+                      <th class="px-4 py-2">年度（目標）</th>
+                      <th class="px-4 py-2">実施率</th>
+                      <th class="px-4 py-2">４月</th>
+                      <th class="px-4 py-2">５月</th>
+                      <th class="px-4 py-2">６月</th>
+                      <th class="px-4 py-2">７月</th>
+                      <th class="px-4 py-2">８月</th>
+                      <th class="px-4 py-2">９月</th>
+                      <th class="px-4 py-2">10月</th>
+                      <th class="px-4 py-2">11月</th>
+                      <th class="px-4 py-2">12月</th>
+                      <th class="px-4 py-2">１月</th>
+                      <th class="px-4 py-2">２月</th>
+                      <th class="px-4 py-2">３月</th>
+                      <th class="px-4 py-2">備考</th>
+                    </tr>
+                  </thead>
+
+                  <tbody class="historyTable divide-y" data-collapse="3">
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-2">レオンアーツ</td>
+                      <td class="px-4 py-2">2026(25/04-26/03)</td>
+                      <td class="px-4 py-2"> 36％(4/11)</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+
+                          <div class="group relative inline-block">
+                            2
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2025/05/10</div>
+                              <div>役員面談：2025/05/24</div>
+                            </div>
+                          </div>                              
+
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2025/08/02</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2025/11/13</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            2
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>上長面談：2026/02/06</div>
+                              <div>役員面談：2026/02/25</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-2">レオンアーツ</td>
+                      <td class="px-4 py-2">2025(24/04-25/03)</td>
+                      <td class="px-4 py-2">100％(12/12)</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/04/13</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/05/09</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>役員面談：2024/06/01</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/07/11</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/08/23</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/09/10</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/10/06</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/11/20</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>役員面談：2024/12/06</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2025/01/22</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2025/02/07</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>役員面談：2025/03/13</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2"></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-2">レオンアーツ</td>
+                      <td class="px-4 py-2">2024(23/04-24/03)</td>
+                      <td class="px-4 py-2">83％(10/12)</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>役員面談：2023/04/13</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/05/09</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/06/14</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/07/17</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/08/28</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/09/09</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/11/10</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/01/19</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/02/13</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2024/03/23</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2"></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-2">レオンアーツ</td>
+                      <td class="px-4 py-2">2023(22/04-23/03)</td>
+                      <td class="px-4 py-2">60％(3/5)</td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/01/23</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2023/02/03</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>役員面談：2023/03/14</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2"></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-2">プロネット</td>
+                      <td class="px-4 py-2">2023(22/04-23/03)</td>
+                      <td class="px-4 py-2">20％(1/5)</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>上長面談：2022/07/01</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                      <td class="px-4 py-2"></td>
+                    </tr>
+                    <tr class="hover:bg-gray-50">
+                      <td class="px-4 py-2">プロネット</td>
+                      <td class="px-4 py-2">2022(21/04-22/03)</td>
+                      <td class="px-4 py-2">17％(2/12)</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>１ｏｎ１：2021/09/09</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">－</td>
+                      <td class="px-4 py-2">
+                        <a href="#"
+                          class="inline-flex items-center gap-1
+                                text-sm
+                                text-orange-500
+                                hover:text-orange-600 hover:underline
+                                transition">
+                          <div class="group relative inline-block">
+                            1
+                            <div class="hidden group-hover:block
+                                        absolute left-0 top-full mt-2
+                                        z-50
+                                        min-w-[180px]
+                                        bg-gray-800 text-white
+                                        text-xs
+                                        p-3
+                                        rounded-lg
+                                        shadow-xl">
+
+                              <div>上長面談：2022/03/12</div>
+                            </div>
+                          </div>                              
+                        </a>
+                      </td>
+                      <td class="px-4 py-2"></td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-white to-transparent"></div>
+              </div>
+
+              <div class="p-2 text-center bg-gray-100">
+                <button onclick="toggleHistory(this)" class="text-sm text-orange-400 hover:underline">
+                  もっと見る
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =====================
+          現在のキャリア
+        ===================== -->
+        <section id="careerSection" class="p-4 mx-4 mb-4 bg-white rounded-lg">
+
+          <h1 class="text-[14px] font-medium pb-2">現在のキャリア</h1>
+          <h2 class="text-[12px] font-medium pb-2">インダストリーズ本部　デジタルソリューション事業部</h2>
+
+          <section class="grid grid-cols-1 lg:grid-cols-5 xl:grid-cols-8 gap-1">
+
+            <div class="bg-gray-200 p-1 rounded-l-lg">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/calendar01.png"
+                      class="w-5 h-5 object-contain"
+                      alt="勤続勤続">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="text-gray-500 text-[10px]">勤続勤続</p>
+                  <h2 class="text-[13px]">4.3年</h2>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-gray-200 p-1">
+              <div class="p-2 min-w-0">
+                <p class="text-gray-500 text-[10px]">役職</p>
+                <h2 class="text-[13px]"><div class="max-w-[20ch] truncate">シニアマネージャ</div></h2>
+              </div>
+            </div>
+
+            <div class="bg-gray-200 p-1">
+              <div class="p-2 min-w-0">
+                <p class="text-gray-500 text-[10px]">職種</p>
+                <h2 class="text-[13px]"><div class="max-w-[20ch] truncate">チーフ・エキスパート</div></h2>
+              </div>
+            </div>
+
+            <div class="bg-gray-200 p-1 rounded-r-lg">
+              <div class="p-2 min-w-0">
+                <p class="text-gray-500 text-[10px]">マネージメント数</p>
+                <h2 class="text-[13px]"><div class="max-w-[15ch] truncate">18名</div></h2>
+              </div>
+            </div>
+
+          </section>
+        
+        </section>
+
+        <!-- =====================
+          チャート
+        ===================== -->
+        <section id="chartSection"  class="flex mx-4 mb-4 gap-4 items-start ">
+
+          <!-- 経験したプロジェクトのITSSレベル -->
+          <div class="w-[260px] px-3 py-3 bg-white rounded-lg">
+            <h3 class="text-[14px] font-medium pb-2">経験したプロジェクトのITSSレベル</h3>
+
+            <div class="relative h-[320px]">
+
+              <div class="flex justify-center">
+                <div class="w-[190px] h-[190px]">
+                  <canvas id="scaleChart"></canvas>
+                </div>
+              </div>
+
+              <div id="scaleLegend"
+                class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- 経験したプログラム言語 -->
+          <div class="w-[267px] px-3 py-3 bg-white rounded-lg">
+            <h3 class="text-[14px] font-medium pb-2">経験したプログラム言語</h3>
+
+            <div class="h-[260px]">
+              <canvas id="languageChart"></canvas>
+            </div>
+
+            <h3 class="text-[14px] pb-2">【社内認定】</h3>
+            <h3 class="text-[14px] pb-2">エキスパート</h3>
+          </div>
+
+          <!-- 職種と専門分野 -->
+          <div class="w-[260px] px-3 py-3 bg-white rounded-lg">
+            <h3 class="text-[14px] font-medium pb-2">職種と専門分野</h3>
+            <div class="relative h-[320px]">
+
+              <div class="flex justify-center">
+                <div class="w-[190px] h-[190px]">
+                  <canvas id="careerChart"></canvas>
+                </div>
+              </div>
+
+              <div id="careerLegend"
+                  class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+            </div>
+          </div>
+
+          <!-- 経験した産業 -->
+          <div class="w-[260px] px-3 py-3 bg-white rounded-lg">
+            <h3 class="text-[14px] font-medium pb-2">経験した産業</h3>
+            <div class="relative h-[320px]">
+
+              <div class="flex justify-center">
+                <div class="w-[190px] h-[190px]">
+                  <canvas id="industryChart"></canvas>
+                </div>
+              </div>
+
+              <div id="industryLegend"
+                class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+            </div>
+          </div>
+
+          <!-- 経験した立場 -->
+          <div class="w-[260px] px-3 py-3 bg-white rounded-lg">
+            <h3 class="text-[14px] font-medium pb-2">経験した立場</h3>
+
+            <div class="relative h-[320px]">
+
+              <div class="flex justify-center">
+                <div class="w-[190px] h-[190px]">
+                  <canvas id="positionChart"></canvas>
+                </div>
+              </div>
+
+              <div id="positionLegend"
+                class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =====================
+          管理者へのお知らせ
+        ===================== -->
+        <section id="infoSection2" class="px-4 pb-4 history-block bg-gray-100">
+          <div class="bg-white shadow overflow-hidden">
+
+            <div class="px-4 py-2 border-b bg-black text-white">
+              <h2 class="text-sm font-medium">【管理者からの通知】</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+              <div class="relative">
+
+                <table class="min-w-full text-sm text-left">
+
+                  <tbody class="historyTable divide-y">
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">経歴書</td>
+                      <td class="px-4 py-2">３件</td>
+                      <td class="px-4 py-2">承認待ちがあります。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">職務経歴</td>
+                      <td class="px-4 py-2">２件</td>
+                      <td class="px-4 py-2">承認待ちがあります。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">ＭＢＯ</td>
+                      <td class="px-4 py-2">１件</td>
+                      <td class="px-4 py-2">年間目標の承認待ちがあります。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-10</td>
+                      <td class="px-4 py-2">アセスメント</td>
+                      <td class="px-4 py-2">２件</td>
+                      <td class="px-4 py-2">承認待ちがあります。</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-white to-transparent"></div>
+              </div>
+
+              <div class="p-2 text-center bg-gray-100">
+                <button onclick="toggleHistory(this)" class="text-sm text-orange-400 hover:underline">
+                  もっと見る
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+            管理者ダッシュボード
+        ========================================================= -->
+        <section id="managerDashboard" class="px-4 pb-4 bg-gray-100 min-h-screen">
+
+          <!-- ヘッダー -->
+          <div class="flex items-center justify-between">
+
+            <div>
+              <div class="text-xs text-gray-500 mb-1">
+                企業：管理者
+              </div>
+
+              <h1 class="text-xl">
+                人材ダッシュボード
+              </h1>
+
+              <p class="text-xs text-gray-500 mt-1">
+                組織と人材の現在地を把握します
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4">
+
+              <select
+                class="bg-white border border-gray-200 rounded-lg
+                      px-3 py-2 text-sm text-gray-700">
+                <option>全社</option>
+                <option>開発部</option>
+                <option>営業部</option>
+                <option>管理部</option>
+              </select>
+
+              <select
+                class="bg-white border border-gray-200 rounded-lg
+                      px-3 py-2 text-sm text-gray-700">
+                <option>2026年度</option>
+                <option>2025年度</option>
+                <option>2024年度</option>
+              </select>
+
+            </div>
+          </div>
+
+          <!-- =====================================================
+              KPI
+          ====================================================== -->
+          <div class="pt-2 pb-3 grid grid-cols-2 xl:grid-cols-4 gap-3">
+
+            <!-- 在籍人数 -->
+            <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+              <div class="flex justify-between items-start">
+
+                <div>
+                  <div class="text-xs text-gray-500">
+                    在籍人数
+                  </div>
+
+                  <div class="text-2xl mt-2">
+                    86
+                    <span class="text-sm font-normal text-gray-500">
+                      人
+                    </span>
+                  </div>
+
+                  <div class="text-xs text-emerald-600 mt-2">
+                    ↑ 4人 前年比
+                  </div>
+                </div>
+
+                <div class="w-10 h-10 rounded-xl bg-purple-100
+                            flex items-center justify-center
+                            text-purple-600">
+                  👥
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 平均スコア -->
+            <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+              <div class="flex justify-between items-start">
+
+                <div>
+                  <div class="text-xs text-gray-500">
+                    平均総合スコア
+                  </div>
+
+                  <div class="text-2xl mt-2">
+                    78.4
+                  </div>
+
+                  <div class="text-xs text-emerald-600 mt-2">
+                    ↑ 2.1 前年比
+                  </div>
+                </div>
+
+                <div class="w-10 h-10 rounded-xl bg-pink-100
+                            flex items-center justify-center
+                            text-pink-500">
+                  ★
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 人材充足率 -->
+            <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+              <div class="flex justify-between items-start">
+
+                <div>
+                  <div class="text-xs text-gray-500">
+                    人材充足率
+                  </div>
+
+                  <div class="text-2xl mt-2">
+                    82
+                    <span class="text-sm font-normal text-gray-500">
+                      %
+                    </span>
+                  </div>
+
+                  <div class="text-xs text-emerald-600 mt-2">
+                    ↑ 6% 前年比
+                  </div>
+                </div>
+
+                <div class="w-10 h-10 rounded-xl bg-indigo-100
+                            flex items-center justify-center
+                            text-indigo-500">
+                  ◉
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 要フォロー -->
+            <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+              <div class="flex justify-between items-start">
+
+                <div>
+                  <div class="text-xs text-gray-500">
+                    要フォロー人材
+                  </div>
+
+                  <div class="text-2xl mt-2">
+                    12
+                    <span class="text-sm font-normal text-gray-500">
+                      人
+                    </span>
+                  </div>
+
+                  <div class="text-xs text-orange-500 mt-2">
+                    ↓ 3人 前月比
+                  </div>
+                </div>
+
+                <div class="w-10 h-10 rounded-xl bg-orange-100
+                            flex items-center justify-center
+                            text-orange-500">
+                  !
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- =====================================================
+              人材ポートフォリオ
+          ====================================================== -->
+          <div class="pb-3 grid grid-cols-1 xl:grid-cols-2 gap-3">
+
+            <!-- 職種 -->
+            <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+
+              <div class="flex items-start justify-between mb-5">
+
+                <div>
+                  <h2 class="text-lg">
+                    人材ポートフォリオ
+                  </h2>
+
+                  <p class="text-xs text-gray-500 mt-1">
+                    職種別の人材構成
+                  </p>
+                </div>
+
+                <button
+                  class="text-xs text-purple-600 hover:text-purple-800">
+                  詳細を見る →
+                </button>
+
+              </div>
+
+              <div class="relative h-[300px]">
+
+                <canvas id="managerJobChart"></canvas>
+
+                <!-- 中央 -->
+                <div class="absolute inset-0 flex flex-col
+                            items-center justify-center
+                            pointer-events-none">
+
+                  <span class="text-xs text-gray-500">
+                    TOTAL
+                  </span>
+
+                  <span class="text-3xl">
+                    86
+                  </span>
+
+                  <span class="text-xs text-gray-500">
+                    PERSON
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- スキル構成 -->
+            <div class="bg-white rounded-2xl border border-gray-200 p-4 shadow-sm">
+
+              <div class="mb-5">
+
+                <h2 class="text-lg">
+                  スキル構成
+                </h2>
+
+                <p class="text-xs text-gray-500 mt-1">
+                  組織全体の主要スキル保有状況
+                </p>
+
+              </div>
+
+              <div class="space-y-5">
+
+                <!-- Java -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">
+                      Java
+                    </span>
+
+                    <span class="text-sm text-gray-500">
+                      68%
+                    </span>
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-purple-500 rounded-full"
+                      style="width:68%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- JavaScript -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">
+                      JavaScript
+                    </span>
+
+                    <span class="text-sm text-gray-500">
+                      61%
+                    </span>
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-pink-500 rounded-full"
+                      style="width:61%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- AWS -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">
+                      AWS
+                    </span>
+
+                    <span class="text-sm text-gray-500">
+                      48%
+                    </span>
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-indigo-500 rounded-full"
+                      style="width:48%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- PM -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+                    <span class="text-sm font-medium">
+                      PM / マネジメント
+                    </span>
+
+                    <span class="text-sm text-gray-500">
+                      36%
+                    </span>
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-orange-400 rounded-full"
+                      style="width:36%">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- =====================================================
+              組織コンディション + アラート
+          ====================================================== -->
+          <div class="pb-3 grid grid-cols-1 xl:grid-cols-3 gap-3">
+
+            <!-- 組織コンディション -->
+            <div class="xl:col-span-2 bg-white rounded-2xl
+                        border border-gray-200 p-6 shadow-sm">
+
+              <div class="mb-6">
+
+                <h2 class="text-lg">
+                  組織コンディション
+                </h2>
+
+                <p class="text-xs text-gray-500 mt-1">
+                  人材・組織の健康状態
+                </p>
+
+              </div>
+
+              <div class="grid grid-cols-2 gap-x-10 gap-y-6">
+
+                <!-- エンゲージメント -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+
+                    <span class="text-sm">
+                      エンゲージメント
+                    </span>
+
+                    <span class="text-xl">
+                      87
+                    </span>
+
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-purple-500 rounded-full"
+                      style="width:87%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- スキル充足 -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+
+                    <span class="text-sm">
+                      スキル充足率
+                    </span>
+
+                    <span class="text-xl">
+                      82
+                    </span>
+
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-pink-500 rounded-full"
+                      style="width:82%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- 管理職充足 -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+
+                    <span class="text-sm">
+                      管理職充足率
+                    </span>
+
+                    <span class="text-xl">
+                      74
+                    </span>
+
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-indigo-500 rounded-full"
+                      style="width:74%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- 後継者 -->
+                <div>
+
+                  <div class="flex justify-between mb-2">
+
+                    <span class="text-sm">
+                      後継者準備率
+                    </span>
+
+                    <span class="text-xl">
+                      61
+                    </span>
+
+                  </div>
+
+                  <div class="h-2 bg-gray-100 rounded-full">
+                    <div
+                      class="h-2 bg-orange-400 rounded-full"
+                      style="width:61%">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- アラート -->
+            <div class="bg-white rounded-2xl border border-gray-200
+                        p-6 shadow-sm">
+
+              <div class="flex justify-between items-center mb-5">
+
+                <h2 class="text-lg">
+                  要確認
+                </h2>
+
+                <span class="px-2 py-1 rounded-full
+                            bg-red-100 text-red-600 text-xs">
+                  3件
+                </span>
+
+              </div>
+
+              <div class="space-y-4">
+
+                <div class="p-4 rounded-xl bg-red-50">
+
+                  <div class="text-sm font-bold text-red-700">
+                    開発部
+                  </div>
+
+                  <div class="text-xs text-gray-600 mt-1">
+                    スキル不足率が24%です
+                  </div>
+
+                  <button class="text-xs text-red-600 mt-2">
+                    詳細を見る →
+                  </button>
+
+                </div>
+
+
+                <div class="p-4 rounded-xl bg-orange-50">
+
+                  <div class="text-sm font-bold text-orange-700">
+                    営業部
+                  </div>
+
+                  <div class="text-xs text-gray-600 mt-1">
+                    管理職候補が不足しています
+                  </div>
+
+                  <button class="text-xs text-orange-600 mt-2">
+                    詳細を見る →
+                  </button>
+
+                </div>
+
+
+                <div class="p-4 rounded-xl bg-yellow-50">
+
+                  <div class="text-sm font-bold text-yellow-700">
+                    アセスメント
+                  </div>
+
+                  <div class="text-xs text-gray-600 mt-1">
+                    未実施者が8名います
+                  </div>
+
+                  <button class="text-xs text-yellow-700 mt-2">
+                    詳細を見る →
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- =====================================================
+              人材マトリクス
+          ====================================================== -->
+          <div class="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+
+            <div class="flex items-start justify-between mb-5">
+
+              <div>
+
+                <h2 class="text-lg">
+                  人材マトリクス
+                </h2>
+
+                <p class="text-xs text-gray-500 mt-1">
+                  能力 × 経験から見る人材ポートフォリオ
+                </p>
+
+              </div>
+
+              <button class="text-xs text-purple-600">
+                人材一覧 →
+              </button>
+
+            </div>
+
+            <div class="relative h-[380px]">
+
+              <canvas id="talentMatrixChart"></canvas>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- =====================
+          システム管理者へのお知らせ
+        ===================== -->
+        <section id="infoSection3" class="px-4 pb-4 history-block bg-gray-100">
+          <div class="bg-white shadow overflow-hidden">
+
+            <div class="px-4 py-2 border-b bg-black text-white">
+              <h2 class="text-sm font-medium">【管理者からの通知】</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+              <div class="relative">
+
+                <table class="min-w-full text-sm text-left">
+
+                  <tbody class="historyTable divide-y">
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/5</td>
+                      <td class="px-4 py-2">支払が完了しています。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">年度確定</td>
+                      <td class="px-4 py-2">2025</td>
+                      <td class="px-4 py-2">全ての承認完了後、今年度の年度確定を実施して下さい。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/4</td>
+                      <td class="px-4 py-2">支払が完了しています。</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:underline hover:text-orange-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/3</td>
+                      <td class="px-4 py-2">支払が完了しています。</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-white to-transparent"></div>
+              </div>
+
+              <div class="p-2 text-center bg-gray-100">
+                <button onclick="toggleHistory(this)" class="text-sm text-orange-400 hover:underline">
+                  もっと見る
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+            システム管理者ダッシュボード
+        ========================================================= -->
+        <section id="systemDashboard" class="px-4 pb-4 bg-gray-100">
+
+          <!-- ヘッダー -->
+          <div>
+
+            <div class="text-xs text-gray-500 mb-1">
+              企業：システム管理者
+            </div>
+
+            <h1 class="text-xl">
+              システムダッシュボード
+            </h1>
+
+            <p class="text-xs text-gray-500 mt-1">
+              慧眼サービス全体の利用状況と稼働状態
+            </p>
+
+          </div>
+
+          <!-- KPI -->
+          <div class="pt-2 pb-3 grid grid-cols-2 xl:grid-cols-4 gap-3">
+
+            <div class="bg-white rounded-2xl border
+                        border-gray-200 p-5 shadow-sm">
+
+              <div class="text-xs text-gray-500">
+                契約企業数
+              </div>
+
+              <div class="text-2xl mt-2">
+                128
+                <span class="text-sm font-normal text-gray-500">
+                  社
+                </span>
+              </div>
+
+              <div class="text-xs text-emerald-600 mt-2">
+                ↑ 8社 前年比
+              </div>
+
+            </div>
+
+            <div class="bg-white rounded-2xl border
+                        border-gray-200 p-5 shadow-sm">
+
+              <div class="text-xs text-gray-500">
+                登録ユーザー
+              </div>
+
+              <div class="text-2xl mt-2">
+                8,462
+                <span class="text-sm font-normal text-gray-500">
+                  人
+                </span>
+              </div>
+
+              <div class="text-xs text-emerald-600 mt-2">
+                ↑ 12.4%
+              </div>
+
+            </div>
+
+            <div class="bg-white rounded-2xl border
+                        border-gray-200 p-5 shadow-sm">
+
+              <div class="text-xs text-gray-500">
+                アクティブ率
+              </div>
+
+              <div class="text-2xl mt-2">
+                81
+                <span class="text-sm font-normal text-gray-500">
+                  %
+                </span>
+              </div>
+
+              <div class="text-xs text-emerald-600 mt-2">
+                ↑ 4.2pt
+              </div>
+
+            </div>
+
+            <div class="bg-white rounded-2xl border
+                        border-gray-200 p-5 shadow-sm">
+
+              <div class="text-xs text-gray-500">
+                システム稼働率
+              </div>
+
+              <div class="text-2xl mt-2">
+                99.98
+                <span class="text-sm font-normal text-gray-500">
+                  %
+                </span>
+              </div>
+
+              <div class="text-xs text-emerald-600 mt-2">
+                ● 正常稼働
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- 利用状況 -->
+          <div class="pb-3 grid grid-cols-1 xl:grid-cols-2 gap-3">
+
+            <div class="bg-white rounded-2xl border
+                        border-gray-200 p-6 shadow-sm">
+
+              <h2 class="text-lg">
+                利用状況
+              </h2>
+
+              <p class="text-xs text-gray-500 mt-1 mb-5">
+                慧眼全体のユーザー利用推移
+              </p>
+
+              <div class="h-[300px]">
+                <canvas id="systemUsageChart"></canvas>
+              </div>
+
+            </div>
+
+            <!-- システム状態 -->
+            <div class="bg-white rounded-2xl border
+                        border-gray-200 p-6 shadow-sm">
+
+              <h2 class="text-lg mb-5">
+                システム状態
+              </h2>
+
+              <div class="space-y-4">
+
+                <div class="flex justify-between items-center
+                            p-4 bg-gray-50 rounded-xl">
+
+                  <span>API</span>
+
+                  <span class="text-emerald-600 font-semibold">
+                    ● 正常
+                  </span>
+
+                </div>
+
+                <div class="flex justify-between items-center
+                            p-4 bg-gray-50 rounded-xl">
+
+                  <span>Database</span>
+
+                  <span class="text-emerald-600 font-semibold">
+                    ● 正常
+                  </span>
+
+                </div>
+
+                <div class="flex justify-between items-center
+                            p-4 bg-gray-50 rounded-xl">
+
+                  <span>Authentication</span>
+
+                  <span class="text-emerald-600 font-semibold">
+                    ● 正常
+                  </span>
+
+                </div>
+
+                <div class="flex justify-between items-center
+                            p-4 bg-gray-50 rounded-xl">
+
+                  <span>Batch</span>
+
+                  <span class="text-emerald-600 font-semibold">
+                    ● 正常
+                  </span>
+
+                </div>
+
+                <div class="flex justify-between items-center
+                            p-4 bg-red-50 rounded-xl">
+
+                  <span>Errors</span>
+
+                  <span class="text-red-600 font-semibold">
+                    ● 3件
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- アセスメント状況 -->
+            <div class="bg-white rounded-2xl border
+                        border-gray-200 p-6 shadow-sm">
+
+            <div class="flex justify-between items-start mb-5">
+
+              <div>
+
+                <h2 class="text-lg">
+                  アセスメント利用状況
+                </h2>
+
+                <p class="text-xs text-gray-500 mt-1">
+                  サービス全体のアセスメント実施状況
+                </p>
+
+              </div>
+
+              <button class="text-xs text-purple-600">
+                詳細を見る →
+              </button>
+
+            </div>
+
+            <div class="grid grid-cols-2 xl:grid-cols-4 gap-3">
+
+              <div>
+                <div class="text-xs text-gray-500">
+                  総実施件数
+                </div>
+
+                <div class="text-xl mt-1">
+                  24,823
+                </div>
+              </div>
+
+              <div>
+                <div class="text-xs text-gray-500">
+                  今月実施
+                </div>
+
+                <div class="text-xl mt-1">
+                  1,842
+                </div>
+              </div>
+
+              <div>
+                <div class="text-xs text-gray-500">
+                  未実施者
+                </div>
+
+                <div class="text-xl mt-1">
+                  1,123
+                </div>
+              </div>
+
+              <div>
+                <div class="text-xs text-gray-500">
+                  完了率
+                </div>
+
+                <div class="text-xl mt-1">
+                  86%
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-auto bg-white border-t border-gray-200">
+          <div class="px-6 py-4
+                      flex flex-col md:flex-row
+                      items-center justify-between
+                      gap-3 text-xs text-gray-500">
+
+            <!-- 左 -->
+            <div class="flex items-center gap-4">
+              <a href="#"
+                class="hover:text-orange-400 transition">
+                利用規約
+              </a>
+              <span>|</span>
+              <a href="#"
+                class="hover:text-orange-400 transition">
+                プライバシーポリシー
+              </a>
+              <span>|</span>
+              <a href="#"
+                class="hover:text-orange-400 transition">
+                お問い合わせ
+              </a>
+            </div>
+
+            <!-- 右 -->
+            <div class="flex items-center gap-2">
+              <img src="img/siteicon.png" class="w-8 h-8">
+              <span class="text-xs">© 2026 LEON ARTS Inc.</span>
+            </div>
+
+          </div>
+        </footer>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script>
+
+    const score = 91.25;
+
+    const circle = document.getElementById("scoreCircle");
+
+    const radius = 72;
+    const circumference = 2 * Math.PI * radius;
+
+    circle.style.strokeDasharray = circumference;
+
+    const offset =
+      circumference - (score / 100) * circumference;
+
+    circle.style.strokeDashoffset = offset;
+
+    function getRank(score) {
+      if (score >= 90) return "A+";
+      if (score >= 80) return "B+";
+      if (score >= 70) return "C+";
+      if (score >= 60) return "D";
+      return "E";
+    }
+
+    // ======================
+    // ITSSレベルチャート
+    // ======================
+    const itssLevel = 6;
+    const itssMaxLevel = 7;
+
+    const itssCircle =
+      document.getElementById("itssCircle");
+
+    if (itssCircle) {
+
+      const radius = 72;
+
+      const circumference =
+        2 * Math.PI * radius;
+
+      itssCircle.style.strokeDasharray =
+        circumference;
+
+      const offset =
+        circumference -
+        ((itssLevel / itssMaxLevel) * circumference);
+
+      itssCircle.style.strokeDashoffset =
+        offset;
+    }
+
+  </script>
+
+  <script>
+
+    const careerData = [
+      {
+        category: 'アプリケーションスペシャリスト',
+        skill: '業務パッケージ',
+        years: 19
+      },
+      {
+        category: 'アプリケーションスペシャリスト',
+        skill: '業務システム',
+        years: 5
+      },
+      {
+        category: 'ＩＴサービスマネジメント',
+        skill: 'サービスデスク',
+        years: 2
+      },
+      {
+        category: 'その他業種',
+        skill: 'その他',
+        years: 1
+      }
+    ];
+
+    const industryData = [
+      {
+        industry: '卸売業，小売業',
+        years: 15
+      },
+      {
+        industry: '建設業',
+        years: 4.5
+      },
+      {
+        industry: '複合サービス事業',
+        years: 2.5
+      },
+      {
+        industry: '製造業',
+        years: 2
+      },
+      {
+        industry: '生活関連サービス',
+        years: 1.5
+      },
+      {
+        industry: '公務',
+        years: 1.5
+      }
+    ];
+
+    const positionData = [
+      {
+        position:'PM',
+        years:10
+      },
+      {
+        position:'PSL',
+        years:7.5
+      },
+      {
+        position:'リーダ',
+        years:3
+      },
+      {
+        position:'メンバ',
+        years:6.5
+      }
+    ];
+
+    const scaleData = [
+      {
+        scale:'Level 6',
+        years:9
+      },
+      {
+        scale:'Level 5',
+        years:7.5
+      },
+      {
+        scale:'Level 4',
+        years:1.5
+      },
+      {
+        scale:'Level 3',
+        years:7
+      },
+      {
+        scale:'Level 2',
+        years:2
+      }
+    ];
+
+    const languageData = [
+      { language:'Java', years:17 },
+      { language:'PL/SQL', years:14 },
+      { language:'VB.NET', years:10 },
+      { language:'C#', years:8 },
+      { language:'JavaScript', years:5 },
+      { language:'Angular/React', years:5 }
+    ];
+
+    const industryLabels =
+      industryData.map(
+        item => item.industry
+      );
+
+    const industryYears =
+      industryData.map(
+        item => item.years
+      );
+
+    const industryTotal =
+      industryYears.reduce(
+        (a, b) => a + b,
+        0
+      );
+      
+    const industryColors = [
+      '#2e7d32', // 濃い緑
+      '#43a047', // 緑
+      '#66bb6a', // やや明るい緑
+      '#81c784', // 明るい緑
+      '#a5d6a7', // 薄緑
+      '#c8e6c9'  // 淡緑（追加）
+    ];
+
+    const positionLabels =
+      positionData.map(item => item.position);
+
+    const positionYears =
+      positionData.map(item => item.years);
+
+    const positionTotal =
+      positionYears.reduce((a,b)=>a+b,0);
+
+    const positionColors = [
+      '#1e88e5',
+      '#42a5f5',
+      '#64b5f6',
+      '#90caf9',
+      '#bbdefb'
+    ];
+
+    const scaleLabels =
+      scaleData.map(item => item.scale);
+
+    const scaleYears =
+      scaleData.map(item => item.years);
+
+    const scaleTotal =
+      scaleYears.reduce((a,b)=>a+b,0);
+
+    const scaleColors = [
+      '#ff6b00', // Level 6
+      '#ff8a00', // Level 5
+      '#ffad1f', // Level 4
+      '#ffc94d', // Level 3
+      '#ffe08a'  // Level 2
+    ];
+
+    const languageLabels =
+      languageData.map(item => item.language);
+
+    const languageYears =
+      languageData.map(item => item.years);
+      
+    const categoryMap = {};
+    const skillLabels = [];
+    const skillYears = [];
+    const skillColors = [];
+
+    careerData.forEach(item => {
+
+      if (!categoryMap[item.category]) {
+        categoryMap[item.category] = 0;
+      }
+
+      categoryMap[item.category] += item.years;
+
+      skillLabels.push(item.skill);
+      skillYears.push(item.years);
+
+      if (item.category === 'アプリケーションスペシャリスト') {
+        if (item.skill === '業務パッケージ') {
+          skillColors.push('#ec4899');
+        } else {
+          skillColors.push('#f472b6');
+        }
+      } else if (item.category === 'ＩＴサービスマネジメント') {
+        skillColors.push('#f9a8d4');
+      } else {
+        // その他
+        skillColors.push('#fbcfe8');
+      }
+
+    });
+
+    const categoryLabels =
+      Object.keys(categoryMap);
+
+    const categoryColors = [];
+
+    categoryLabels.forEach(label => {
+      if (label === 'アプリケーションスペシャリスト') {
+        categoryColors.push('#be185d');
+      } else if (label === 'ＩＴサービスマネジメント') {
+        categoryColors.push('#f9a8d4');
+      } else if (label === 'その他業種') {
+        categoryColors.push('#fbcfe8');
+      }
+    });
+
+    const categoryYears =
+      Object.values(categoryMap);
+
+    const totalYears =
+      categoryYears.reduce((a,b)=>a+b,0);
+
+    // ======================
+    // 職種チャート中央表示
+    // ======================
+    const centerTextPlugin = {
+
+      id: 'centerText',
+
+      beforeDraw(chart) {
+
+        const { ctx } = chart;
+        const meta =
+          chart.getDatasetMeta(0);
+
+        if (!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        // 数字
+        ctx.fillStyle = '#be185d';
+        ctx.font = '45px Inter';
+
+        ctx.fillText(
+          totalYears,
+          x - 5,
+          y + 10 
+        );
+
+        // 単位（年）
+        ctx.font = '14px sans-serif';
+
+        ctx.fillText(
+          '年',
+          x + 30,
+          y + 10 
+        );
+
+        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#9ca3af';
+        ctx.fillText(
+          'Career',
+          x,
+          y + 30
+        );
+
+        ctx.restore();
+      }
+    };
+
+    // ======================
+    // 経験産業チャート中央表示
+    // ======================
+    const industryCenterTextPlugin = {
+
+      id: 'industryCenterText',
+
+      beforeDraw(chart) {
+
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+
+        if (!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+
+        ctx.textAlign = 'center';
+
+        // 数字
+        ctx.fillStyle = '#2e7d32';
+        ctx.font = '45px Inter';
+
+        ctx.fillText(
+          industryTotal,
+          x,
+          y + 10
+        );
+
+        // 単位（年）
+        ctx.font = '14px sans-serif';
+
+        ctx.fillText(
+          '年',
+          x + 30,
+          y + 10 
+        );
+
+        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#9ca3af';
+
+        ctx.fillText(
+          'Industry',
+          x,
+          y + 30
+        );
+
+        ctx.restore();
+
+      }
+
+    };
+
+    const positionCenterTextPlugin = {
+
+      id:'positionCenterText',
+
+      beforeDraw(chart){
+
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+
+        if(!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+
+        ctx.textAlign='center';
+
+        ctx.fillStyle='#1e88e5';
+        ctx.font='45px Inter';
+
+        ctx.fillText(
+          positionTotal,
+          x,
+          y+10
+        );
+
+        ctx.font='14px sans-serif';
+        ctx.fillText('年',x+30,y+10);
+
+        ctx.font='12px sans-serif';
+        ctx.fillStyle='#9ca3af';
+
+        ctx.fillText(
+          'Position',
+          x,
+          y+30
+        );
+
+        ctx.restore();
+      }
+    };
+
+    const scaleCenterTextPlugin = {
+
+      id:'scaleCenterText',
+
+      beforeDraw(chart){
+
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+
+        if(!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+
+        ctx.textAlign='center';
+
+        ctx.fillStyle='#ff6b00';
+        ctx.font='45px Inter';
+
+        ctx.fillText(
+          scaleTotal,
+          x,
+          y+10
+        );
+
+        ctx.font='14px sans-serif';
+        ctx.fillText('年',x+30,y+10);
+
+        ctx.font='12px sans-serif';
+        ctx.fillStyle='#9ca3af';
+
+        ctx.fillText(
+          'ITSS',
+          x,
+          y+30
+        );
+
+        ctx.restore();
+      }
+    };
+
+    // ======================
+    // 経験産業 凡例
+    // ======================
+    const industryLegendPlugin = {
+
+      id: 'industryLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('industryLegend');
+
+        if (!legendContainer) return;
+
+        // 初期化
+        legendContainer.innerHTML = '';
+
+        industryLabels.forEach((label, index) => {
+
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          // 色マーク
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            industryColors[index];
+
+          // テキスト
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-xs text-gray-700';
+
+          text.textContent =
+            `${label} (${industryYears[index]}年)`;
+
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    const positionLegendPlugin = {
+
+      id: 'positionLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('positionLegend');
+
+        if (!legendContainer) return;
+
+        legendContainer.innerHTML = '';
+
+        positionLabels.forEach((label, index) => {
+
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            positionColors[index];
+
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-xs text-gray-700';
+
+          text.textContent =
+            `${label} (${positionYears[index]}年)`;
+
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    const scaleLegendPlugin = {
+
+      id: 'scaleLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('scaleLegend');
+
+        if (!legendContainer) return;
+
+        legendContainer.innerHTML = '';
+
+        scaleLabels.forEach((label, index) => {
+
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            scaleColors[index];
+
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-xs text-gray-700';
+
+          text.textContent =
+            `${label} (${scaleYears[index]}年)`;
+
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    const htmlLegendPlugin = {
+
+      id: 'htmlLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('careerLegend');
+
+        if (!legendContainer) return;
+
+        // 再描画時に一旦クリア
+        legendContainer.innerHTML = '';
+
+        categoryLabels.forEach((label, index) => {
+
+          // 1行分作成
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          // 色マーク作成
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            categoryColors[index];
+
+          // テキスト作成
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-xs text-gray-700';
+
+          text.textContent =
+            `${label} (${categoryYears[index]}年)`;
+
+          // 組み立て
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    new Chart(
+      document.getElementById('careerChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: skillLabels,
+
+          datasets: [
+            // 外リング（職種）
+            {
+              label: '職種',
+              data: categoryYears,
+              backgroundColor: categoryColors,
+              weight: 0.6,
+              borderWidth: 2,
+              borderColor: '#fff'
+            },
+            // 内リング（専門領域）
+            {
+              label: '専門領域',
+              data: skillYears,
+              backgroundColor: skillColors,
+              weight: 1,
+              borderWidth: 2,
+              borderColor: '#fff'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+              callbacks: {
+
+                title(context) {
+
+                  const datasetIndex =
+                    context[0].datasetIndex;
+
+                  const dataIndex =
+                    context[0].dataIndex;
+
+                  // 職種
+                  if (datasetIndex === 0) {
+                    return categoryLabels[dataIndex];
+                  }
+
+                  // 専門領域
+                  return skillLabels[dataIndex];
+                },
+
+                label(context) {
+
+                  const datasetIndex =
+                    context.datasetIndex;
+
+                  const years = context.raw;
+
+                  const rate =
+                    ((years / totalYears) * 100)
+                    .toFixed(1);
+
+                  if (datasetIndex === 0) {
+
+                    return [
+                      '職種：アプリケーションスペシャリスト',
+                      `経験年数：${years}年`,
+                      `構成比：${rate}%`
+                    ];
+                  }
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+                }
+              }
+            }
+          }
+        },
+
+        plugins: [
+          centerTextPlugin,
+          htmlLegendPlugin
+          ]
+          
+        }
+    );
+
+    new Chart(
+      document.getElementById('industryChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: industryLabels,
+
+          datasets: [
+            {
+              data: industryYears,
+              backgroundColor: industryColors,
+              borderWidth: 2,
+              borderColor: '#ffffff'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          cutout: '65%',
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+
+              callbacks: {
+
+                title(context) {
+
+                  return industryLabels[
+                    context[0].dataIndex
+                  ];
+
+                },
+
+                label(context) {
+
+                  const years =
+                    context.raw;
+
+                  const rate =
+                    (
+                      years /
+                      industryTotal *
+                      100
+                    ).toFixed(1);
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+
+                }
+
+              }
+
+            }
+
+          }
+
+        },
+
+        plugins: [
+          industryCenterTextPlugin,
+          industryLegendPlugin
+        ]
+
+      }
+    );
+
+    new Chart(
+      document.getElementById('positionChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: positionLabels,
+
+          datasets: [
+            {
+              data: positionYears,
+              backgroundColor: positionColors,
+              borderWidth: 2,
+              borderColor: '#ffffff'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          cutout: '65%',
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+
+              callbacks: {
+
+                title(context) {
+
+                  return positionLabels[
+                    context[0].dataIndex
+                  ];
+
+                },
+
+                label(context) {
+
+                  const years =
+                    context.raw;
+
+                  const rate =
+                    (
+                      years /
+                      positionTotal *
+                      100
+                    ).toFixed(1);
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+
+                }
+
+              }
+
+            }
+
+          }
+
+        },
+
+        plugins: [
+          positionCenterTextPlugin,
+          positionLegendPlugin
+        ]
+
+      }
+    );
+
+    new Chart(
+      document.getElementById('scaleChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: scaleLabels,
+
+          datasets: [
+            {
+              data: scaleYears,
+              backgroundColor: scaleColors,
+              borderWidth: 2,
+              borderColor: '#ffffff'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          cutout: '65%',
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+
+              callbacks: {
+
+                title(context) {
+
+                  return scaleLabels[
+                    context[0].dataIndex
+                  ];
+
+                },
+
+                label(context) {
+
+                  const years =
+                    context.raw;
+
+                  const rate =
+                    (
+                      years /
+                      scaleTotal *
+                      100
+                    ).toFixed(1);
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+
+                }
+
+              }
+
+            }
+
+          }
+
+        },
+
+        plugins: [
+          scaleCenterTextPlugin,
+          scaleLegendPlugin
+        ]
+
+      }
+    );
+
+    new Chart(
+      document.getElementById('languageChart'),
+      {
+        type:'bar',
+
+        data:{
+          labels:languageLabels,
+
+          datasets:[
+            {
+              data:languageYears,
+              backgroundColor:'#f97316',
+              borderRadius:4,
+              barThickness:24
+            }
+          ]
+        },
+
+        options:{
+
+          indexAxis:'y',
+
+          responsive:true,
+          maintainAspectRatio:false,
+
+          plugins:{
+            legend:{
+              display:false
+            }
+          },
+
+          scales:{
+
+            x:{
+              beginAtZero:true,
+
+              max:20,
+
+              ticks:{
+                stepSize:5
+              },
+
+              grid:{
+                color:'#e5e7eb'
+              },
+
+              title:{
+                display:true,
+                text:'年数（年）'
+              }
+            },
+
+            y:{
+              grid:{
+                display:false
+              }
+            }
+
+          }
+
+        }
+
+      }
+    );
+
+  </script>
+
+  <script>
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      sidebar.classList.toggle("-translate-x-full");
+      overlay.classList.toggle("hidden");
+    }
+
+    function toggleNotificationMenu(event) {
+
+      event.stopPropagation();
+
+      const menu =
+        document.getElementById("notificationMenu");
+
+      const userMenu =
+        document.getElementById("userMenu");
+
+      userMenu.classList.add("hidden");
+
+      menu.classList.toggle("hidden");
+    }
+
+    function toggleMenu(menu) {
+      const el = document.getElementById("menu-" + menu);
+      const icon = document.getElementById("icon-" + menu);
+
+      el.classList.toggle("hidden");
+
+      if (icon) {
+        icon.classList.toggle("rotate-90");
+      }
+    }
+
+    let expandedMap = new WeakMap();
+
+    function toggleHistory(button) {
+
+      const container =
+        button.closest(".history-block");
+
+      const table =
+        container.querySelector(".historyTable");
+
+      const rows =
+        container.querySelectorAll(".historyTable tr");
+
+      const fade =
+        container.querySelector(".historyFade");
+
+      const limit =
+        Number(table.dataset.collapse || 3);
+
+      let expanded =
+        expandedMap.get(container) || false;
+
+      expanded = !expanded;
+
+      expandedMap.set(container, expanded);
+
+      rows.forEach((row, index) => {
+
+        if (index >= limit) {
+
+          row.style.display =
+            expanded ? "" : "none";
+
+        }
+
+      });
+
+      button.textContent =
+        expanded ? "閉じる" : "もっと見る";
+
+      if (fade) {
+
+        fade.style.display =
+          expanded ? "none" : "block";
+
+      }
+
+    }
+
+    // 初期表示
+    window.addEventListener("DOMContentLoaded", () => {
+
+      const menu = "personal";
+      const data = menuData.personal;
+
+      // 初期状態は「個人」なのでMBOを非表示
+      const mboSection = document.getElementById("mboSection");
+      if (mboSection) {
+        mboSection.style.display = "none";
+      }
+
+      const careerSection = document.getElementById("careerSection");
+      if (careerSection) {
+        careerSection.style.display = "none";
+      }
+
+      const infoSection2 = document.getElementById("infoSection2");
+      if (infoSection2) {
+        infoSection2.style.display = "none";
+      }
+
+      const infoSection3 = document.getElementById("infoSection3");
+      if (infoSection3) {
+        infoSection3.style.display = "none";
+      }
+
+      const managerDashboard = document.getElementById("managerDashboard");
+      if (managerDashboard) {
+        managerDashboard.style.display = "none";
+      }
+
+      const systemDashboard = document.getElementById("systemDashboard");
+      if (systemDashboard) {
+        systemDashboard.style.display = "none";
+      }
+
+      subSidebarTitle.textContent = data.title;
+
+      subSidebarContent.innerHTML = "";
+
+      data.items.forEach(item => {
+
+        // タイトル行
+        if (typeof item === "object" && item.section) {
+
+          subSidebarContent.innerHTML += `
+            <div class="px-4 mt-4 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="
+                  pl-2 
+                  text-[12px]
+                  text-gray-400
+                  tracking-wider
+                  whitespace-nowrap">
+                  ${item.section}
+                </span>
+                <div class="flex-1 h-px bg-gray-200"></div>
+              </div>
+            </div>
+          `;
+
+          return;
+        }
+
+        // 通常メニュー
+        let clickAction = "";
+
+        switch(item){
+
+            case "アセスメント":
+                clickAction = `onclick="scrollToSection('assessmentSection');return false;"`;
+                break;
+
+            case "職歴":
+                clickAction = `onclick="scrollToSection('workhistorySection');return false;"`;
+                break;
+
+            case "ＭＢＯ":
+                clickAction = `onclick="scrollToSection('mboSection');return false;"`;
+                break;
+
+            case "経歴":
+                clickAction = `onclick="scrollToSection('careerSection');return false;"`;
+                break;
+
+            default:
+                clickAction = "";
+        }
+
+        subSidebarContent.innerHTML += `
+        <a href="${PAGE_LINKS[menu + ':' + item] || '#'}"
+          ${pageLinkAttrs(PAGE_LINKS[menu + ':' + item])}
+          ${clickAction}
+          class="
+              block
+              px-4 py-3
+              mx-2 my-1
+              rounded-2xl
+              hover:bg-orange-50
+              hover:text-orange-500
+              transition-all">
+            ${item}
+        </a>
+        `;
+
+        // 表の初期表示件数設定
+        document.querySelectorAll(".history-block").forEach(container => {
+
+          const table =
+            container.querySelector(".historyTable");
+
+          if (!table) return;
+
+          const rows =
+            table.querySelectorAll("tr");
+
+          const limit =
+            Number(table.dataset.collapse || 3);
+
+          const button =
+            container.querySelector('[onclick^="toggleHistory"]');
+
+          const fade =
+            container.querySelector(".historyFade");
+
+          rows.forEach((row, index) => {
+
+            if (index >= limit) {
+              row.style.display = "none";
+            }
+
+          });
+
+          if (rows.length <= limit) {
+
+            if (button) button.style.display = "none";
+            if (fade) fade.style.display = "none";
+
+          }
+
+        });
+
+      });
+
+      subSidebar.classList.remove("hidden");
+
+      mainContent.style.marginLeft = "290px"; // サブサイドバー幅に合わせる
+      subSidebar.classList.remove("sub-sidebar-collapsed");
+    });
+
+    function toggleUserMenu(event) {
+
+      event.stopPropagation();
+
+      const userMenu =
+        document.getElementById("userMenu");
+
+      const notificationMenu =
+        document.getElementById("notificationMenu");
+
+      notificationMenu.classList.add("hidden");
+
+      userMenu.classList.toggle("hidden");
+    }
+
+    // メニュー外クリックで閉じる
+    document.addEventListener("click", function() {
+
+      document
+        .getElementById("userMenu")
+        .classList.add("hidden");
+
+      document
+        .getElementById("notificationMenu")
+        .classList.add("hidden");
+
+    });
+
+  </script>
+
+  <script>
+    const subSidebar =
+      document.getElementById("subSidebar");
+
+    const subSidebarTitle =
+      document.getElementById("subSidebarTitle");
+
+    const subSidebarContent =
+      document.getElementById("subSidebarContent");
+
+    const mainContent =
+      document.getElementById("mainContent");
+
+    const menuData = {
+
+      personal: {
+        title: "個人",
+        items: [
+           { section: "パーソナルナレッジ" },
+          "プロフィール"
+        ]
+      },
+
+      individual: {
+        title: "企業【個人】",
+        items: [
+           { section: "パーソナルナレッジ" },
+          "プロフィール",
+           { section: "目標と実績" },
+          "ＭＢＯ一覧",
+           { section: "アセスメント" },
+          "３６０℃評価"
+        ]
+      },
+
+      supervisor: {
+        title: "企業【管理者】",
+        items: [
+           { section: "管理業務" },
+          "従業員一覧",
+          "経歴書一覧",
+          "職務経歴一覧",
+          "ＭＢＯ一覧",
+          "アセスメント一覧",
+           { section: "【オプション】組織" },
+          "組織ツリー",
+          "配属シミュレーション",
+          "相性分析",
+           { section: "【オプション】エンゲージメント" },
+          "パルスサーベイ",
+          "ストレスチェック"
+        ]
+      },
+
+      administrator: {
+        title: "企業【システム管理者】",
+        items: [
+           { section: "締め処理" },
+          "年度確定",
+           { section: "請求管理" },
+          "支払履歴（カード払い）",
+           { section: "情報管理" },
+          "設定"
+        ]
+      }
+
+    };
+
+    // ========== サブメニュー項目 → 作成済みページのリンク先（メニュー種別ごと） ==========
+    const PAGE_LINKS = {
+      "personal:プロフィール": "050_profile.html?c=2",
+      "individual:プロフィール": "050_profile.html?c=1",
+      "individual:ＭＢＯ一覧": "070_mbo_list.html",
+      "individual:３６０℃評価": "110_360_list.html",
+      "supervisor:従業員一覧": "040_user_list.html",
+      "supervisor:経歴書一覧": "082_career_document_list.html",
+      "supervisor:職務経歴一覧": "084_work_history_list.html",
+      "supervisor:ＭＢＯ一覧": "070_mbo_list.html",
+      "supervisor:アセスメント一覧": "100_assessment_list.html",
+
+    };
+
+    // ヘッダー・フッターが共通コンポーネント化済みのページ
+    // → 同一タブで遷移。未対応のページ → 別タブで開く
+    const UNIFIED_HEADER_PAGES = new Set([
+      "000_new_application.html",
+      "010_system_admin_registration.html",
+      "040_user_list.html",
+      "042_user_registration.html",
+      "050_profile.html",
+      "060_work_history.html",
+      "070_mbo_list.html",
+      "072_mbo.html",
+      "080_career_document_individual.html",
+      "082_career_document_list.html",
+      "084_work_history_list.html",
+      "090_employee_list.html",
+      "100_assessment_list.html",
+      "110_360_list.html",
+    ]);
+
+    function pageLinkAttrs(href) {
+      if (!href || href === "#") return "";
+      const file = href.split("?")[0].split("#")[0];
+      return UNIFIED_HEADER_PAGES.has(file) ? "" : 'target="_blank" rel="noopener"';
+    }
+
+    let currentMenu = null;
+
+    function openSubMenu(menu) {
+
+      document
+        .querySelectorAll("[data-menu]")
+        .forEach(btn => {
+
+          btn.classList.remove(
+            "bg-orange-50",
+            "text-orange-500"
+          );
+
+        });
+  
+      if (currentMenu === menu) {
+
+        currentMenu = null;
+
+        document
+          .querySelector(`[data-menu="${menu}"]`)
+          ?.classList.remove(
+            "bg-orange-50",
+            "text-orange-500"
+          );
+
+        subSidebar.classList.add("sub-sidebar-collapsed");
+
+        mainContent.style.marginLeft = "78px";
+        mainContent.style.width = "calc(100% - 80px)";
+
+        return;
+      }
+
+      currentMenu = menu;
+
+      document
+        .querySelector(`[data-menu="${menu}"]`)
+        ?.classList.add(
+          "bg-orange-50",
+          "text-orange-500"
+        );
+  
+      const data = menuData[menu];
+
+      if (!data) return;
+
+      subSidebarTitle.textContent = data.title;
+
+// ========================================
+// ダッシュボード表示切り替え
+// ========================================
+
+const assessmentSection =
+  document.getElementById("assessmentSection");
+
+const mboSection =
+  document.getElementById("mboSection");
+
+const careerSection =
+  document.getElementById("careerSection");
+
+const chartSection =
+  document.getElementById("chartSection");
+
+// ----------------------------------------
+// 個人
+// ----------------------------------------
+if (menu === "personal") {
+
+  if (infoSection)
+    infoSection.style.display = "";
+
+    if (assessmentSection)
+    assessmentSection.style.display = "";
+
+  if (mboSection)
+    mboSection.style.display = "none";
+
+  if (careerSection)
+    careerSection.style.display = "none";
+
+  if (chartSection)
+    chartSection.style.display = "";
+
+  if (infoSection2)
+    infoSection2.style.display = "none";
+
+  if (infoSection3)
+    infoSection3.style.display = "none";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "none";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "none";
+
+  }
+// ----------------------------------------
+// 企業【個人】
+// ----------------------------------------
+else if (menu === "individual") {
+
+  if (infoSection)
+    infoSection.style.display = "";
+
+    if (assessmentSection)
+    assessmentSection.style.display = "";
+
+  if (mboSection)
+    mboSection.style.display = "";
+
+  if (careerSection)
+    careerSection.style.display = "";
+
+  if (chartSection)
+    chartSection.style.display = "";
+
+  if (infoSection2)
+    infoSection2.style.display = "none";
+
+  if (infoSection3)
+    infoSection3.style.display = "none";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "none";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "none";
+
+  }
+// ----------------------------------------
+// 企業【管理者】
+// ----------------------------------------
+else if (menu === "supervisor") {
+
+  if (infoSection)
+    infoSection.style.display = "none";
+
+  if (assessmentSection)
+    assessmentSection.style.display = "none";
+
+  if (mboSection)
+    mboSection.style.display = "none";
+
+  if (careerSection)
+    careerSection.style.display = "none";
+
+  if (chartSection)
+    chartSection.style.display = "none";
+
+  if (infoSection2)
+    infoSection2.style.display = "";
+
+  if (infoSection3)
+    infoSection3.style.display = "none";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "none";
+
+  }
+// ----------------------------------------
+// 企業【システム管理者】
+// ★ MBOだけ表示
+// ----------------------------------------
+else if (menu === "administrator") {
+
+  if (infoSection)
+    infoSection.style.display = "none";
+
+  if (assessmentSection)
+    assessmentSection.style.display = "none";
+
+  if (mboSection)
+    mboSection.style.display = "none";
+
+  if (careerSection)
+    careerSection.style.display = "none";
+
+  if (chartSection)
+    chartSection.style.display = "none";
+
+  if (infoSection2)
+    infoSection2.style.display = "none";
+
+  if (infoSection3)
+    infoSection3.style.display = "";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "none";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "";
+
+}
+
+
+      subSidebarContent.innerHTML = "";
+
+      data.items.forEach(item => {
+
+        // タイトル行
+        if (typeof item === "object" && item.section) {
+
+          subSidebarContent.innerHTML += `
+            <div class="px-4 mt-4 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="
+                  pl-2 
+                  text-[12px]
+                  text-gray-400
+                  tracking-wider
+                  whitespace-nowrap">
+                  ${item.section}
+                </span>
+                <div class="flex-1 h-px bg-gray-200"></div>
+              </div>
+            </div>
+          `;
+
+          return;
+        }
+
+        // 通常メニュー
+        let clickAction = "";
+
+        switch(item){
+
+            // ========================================
+            // アセスメント
+            // ========================================
+            case "アセスメント":
+                clickAction =
+                  `onclick="scrollToSection('assessmentSection'); return false;"`;
+                break;
+
+            // ========================================
+            // ＭＢＯ
+            // ========================================
+            case "ＭＢＯ":
+                clickAction =
+                  `onclick="scrollToSection('mboSection'); return false;"`;
+                break;
+
+            // ========================================
+            // 経歴
+            // ========================================
+            case "経歴":
+                clickAction =
+                  `onclick="scrollToSection('careerSection'); return false;"`;
+                break;
+
+        }
+
+        subSidebarContent.innerHTML += `
+        <a href="${PAGE_LINKS[menu + ':' + item] || '#'}"
+          ${pageLinkAttrs(PAGE_LINKS[menu + ':' + item])}
+          ${clickAction}
+          class="
+              block
+              px-4 py-3
+              mx-2 my-1
+              rounded-2xl
+              hover:bg-orange-50
+              hover:text-orange-500
+              transition-all">
+            ${item}
+        </a>
+        `;
+      });
+
+      subSidebar.classList.remove("sub-sidebar-collapsed");
+      mainContent.style.marginLeft = "290px";
+      mainContent.style.width = "calc(100% - 292px)";
+
+    }
+
+    function toggleSubSidebar() {
+
+      // 閉じる
+      if (!subSidebar.classList.contains("sub-sidebar-collapsed")) {
+
+        subSidebar.classList.add("sub-sidebar-collapsed");
+
+        mainContent.style.marginLeft = "78px";
+        mainContent.style.width = "calc(100% - 80px)";
+
+        return;
+      }
+
+      // 開く
+      subSidebar.classList.remove("sub-sidebar-collapsed");
+
+      mainContent.style.marginLeft = "290px";
+      mainContent.style.width = "calc(100% - 292px)";
+    }
+
+    function scrollToSection(id){
+
+        const scrollArea =
+            document.querySelector("#mainContent > section");
+
+        const target =
+            document.getElementById(id);
+
+        if(!scrollArea || !target){
+            console.log("見つかりません");
+            return;
+        }
+
+        const top =
+            target.offsetTop -60;
+
+        scrollArea.scrollTo({
+            top: top,
+            behavior: "smooth"
+        });
+
+    }
+
+  </script>
+
+  <script>
+  /* =========================================================
+    人材ポートフォリオ
+  ========================================================= */
+
+  const managerJobCtx =
+    document.getElementById('managerJobChart');
+
+  new Chart(managerJobCtx, {
+
+    type: 'doughnut',
+
+    data: {
+
+      labels: [
+        'SE',
+        'PG',
+        'PM',
+        '営業',
+        'その他'
+      ],
+
+      datasets: [{
+
+        data: [
+          32,
+          24,
+          12,
+          8,
+          10
+        ],
+
+        backgroundColor: [
+          '#7C3AED',
+          '#D946A6',
+          '#EC6FAE',
+          '#818CF8',
+          '#C4B5FD'
+        ],
+
+        borderColor: '#FFFFFF',
+
+        borderWidth: 5,
+
+        borderRadius: 5,
+
+        hoverOffset: 10
+
+      }]
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false,
+
+      cutout: '65%',
+
+      plugins: {
+
+        legend: {
+          position: 'bottom',
+
+          labels: {
+            usePointStyle: true,
+            padding: 20,
+            font: {
+              size: 12
+            }
+          }
+        },
+
+        tooltip: {
+
+          backgroundColor: '#18181B',
+
+          padding: 12,
+
+          cornerRadius: 10,
+
+          callbacks: {
+
+            label: function(context) {
+
+              const total =
+                context.dataset.data.reduce(
+                  (a, b) => a + b,
+                  0
+                );
+
+              const value = context.raw;
+
+              const percent =
+                ((value / total) * 100).toFixed(1);
+
+              return ` ${value}人  ${percent}%`;
+
+            }
+          }
+        }
+
+      },
+
+      animation: {
+        duration: 900,
+        easing: 'easeOutQuart'
+      }
+    }
+  });
+  /* =========================================================
+    人材マトリクス
+    X = 経験
+    Y = 能力
+  ========================================================= */
+
+  const matrixCtx =
+    document.getElementById('talentMatrixChart');
+
+  new Chart(matrixCtx, {
+
+    type: 'scatter',
+
+    data: {
+
+      datasets: [{
+
+        label: '社員',
+
+        data: [
+
+          { x: 2,  y: 42 },
+          { x: 3,  y: 51 },
+          { x: 4,  y: 57 },
+          { x: 5,  y: 63 },
+          { x: 6,  y: 68 },
+          { x: 7,  y: 72 },
+          { x: 8,  y: 78 },
+          { x: 9,  y: 81 },
+          { x: 10, y: 85 },
+          { x: 12, y: 91 },
+          { x: 13, y: 88 },
+          { x: 15, y: 94 }
+        ],
+
+        backgroundColor: '#7C3AED',
+
+        pointRadius: 7,
+
+        pointHoverRadius: 11
+
+      }]
+
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false,
+
+      scales: {
+
+        x: {
+
+          min: 0,
+
+          max: 16,
+
+          title: {
+
+            display: true,
+
+            text: '経験年数'
+
+          },
+
+          grid: {
+            color: '#F3F4F6'
+          }
+
+        },
+
+        y: {
+
+          min: 0,
+
+          max: 100,
+
+          title: {
+
+            display: true,
+
+            text: '能力スコア'
+
+          },
+
+          grid: {
+            color: '#F3F4F6'
+          }
+
+        }
+
+      },
+
+      plugins: {
+
+        legend: {
+          display: false
+        },
+
+        tooltip: {
+
+          backgroundColor: '#18181B',
+
+          padding: 12,
+
+          cornerRadius: 10,
+
+          callbacks: {
+
+            label: function(context) {
+
+              return [
+                `経験：${context.parsed.x}年`,
+                `能力：${context.parsed.y}`
+              ];
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  });
+
+
+  const usageCtx =
+    document.getElementById('systemUsageChart');
+
+  new Chart(usageCtx, {
+
+    type: 'line',
+
+    data: {
+
+      labels: [
+        '3月',
+        '4月',
+        '5月',
+        '6月',
+        '7月',
+        '8月'
+      ],
+
+      datasets: [{
+
+        label: 'アクティブユーザー',
+
+        data: [
+          5200,
+          5700,
+          6100,
+          6500,
+          6900,
+          6821
+        ],
+
+        borderColor: '#7C3AED',
+
+        backgroundColor:
+          'rgba(124,58,237,0.08)',
+
+        fill: true,
+
+        tension: 0.4,
+
+        pointRadius: 4,
+
+        pointHoverRadius: 7
+
+      }]
+
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false,
+
+      plugins: {
+
+        legend: {
+          display: false
+        },
+
+        tooltip: {
+          backgroundColor: '#18181B',
+          padding: 12,
+          cornerRadius: 10
+        }
+
+      },
+
+      scales: {
+
+        x: {
+          grid: {
+            display: false
+          }
+        },
+
+        y: {
+
+          beginAtZero: false,
+
+          grid: {
+            color: '#F3F4F6'
+          }
+
+        }
+
+      }
+
+    }
+
+  });
+
+  </script>
+
+</body>
+</html>

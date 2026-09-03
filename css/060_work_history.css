@@ -1,0 +1,541 @@
+/* Component: WorkHistoryTopBar（見出し＋氏名／所属企業） */
+.wkh-topbar {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.wkh-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.wkh-person-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.wkh-person-company {
+  font-size: 12px;
+  color: #6b7280;
+}
+.wkh-topbar-tab {
+  margin-left: 18px;
+  font-size: 12px;
+  color: #6b7280;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+}
+.wkh-topbar-tab.is-active {
+  color: #f97316;
+  border-bottom-color: #f97316;
+  font-weight: 600;
+}
+
+/* Component: WorkHistorySidebar */
+.wkh-side-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wkh-side-title {
+  background: #d1d5db;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid #9ca3af;
+}
+.wkh-nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #374151;
+  background: #fff;
+  border: none;
+  border-top: 1px solid #f3f4f6;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.wkh-nav-link:first-child {
+  border-top: none;
+}
+.wkh-nav-link:hover {
+  background: #fff7ed;
+  color: #f97316;
+}
+.wkh-nav-link.is-active {
+  background: #fff7ed;
+  color: #f97316;
+  font-weight: 600;
+  border-left-color: #f97316;
+}
+
+/* Component: WorkHistoryActionButtons */
+.wkh-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.wkh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.wkh-btn-save {
+  background: #f97316;
+  color: #fff;
+  border: 1px solid #f97316;
+}
+.wkh-btn-save:hover {
+  background: #ea580c;
+  border-color: #ea580c;
+}
+.wkh-btn-cancel {
+  background: #fff;
+  color: #6b7280;
+  border: 1px solid #d1d5db;
+}
+.wkh-btn-cancel:hover {
+  background: #f9fafb;
+  color: #374151;
+}
+.wkh-btn-delete {
+  background: #fff;
+  color: #ef4444;
+  border: 1px solid #fecaca;
+}
+.wkh-btn-delete:hover {
+  background: #fef2f2;
+}
+
+/* Component: WorkHistoryPanel */
+.wkh-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+}
+.wkh-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #d1d5db;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  padding: 8px 14px;
+  border-bottom: 1px solid #9ca3af;
+}
+.wkh-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 14px 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.wkh-add-btn:hover {
+  text-decoration: underline;
+}
+.wkh-panel-toggle-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+}
+.wkh-panel-toggle-btn:hover {
+  color: #f97316;
+}
+
+/* Component: WorkHistoryFormTable（概要／顧客情報など：ラベル・値テーブル） */
+.wkh-cols {
+  display: flex;
+  gap: 16px;
+  padding: 12px 14px 0;
+}
+.wkh-cols > table {
+  min-width: 0;
+}
+table.wkh-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+table.wkh-table-single {
+  margin: 12px 14px 10px;
+  width: calc(100% - 28px);
+}
+.wkh-table td {
+  border: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+.wkh-table td.wkh-label {
+  background: #f3f4f6;
+  width: 130px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.wkh-table td.wkh-value {
+  padding: 5px 10px;
+  background: #fff;
+}
+.req-mark {
+  color: #ef4444;
+  margin-right: 4px;
+  font-weight: 700;
+}
+.wkh-inp, .wkh-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.wkh-inp:focus, .wkh-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.wkh-textarea {
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  resize: vertical;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.wkh-sep {
+  margin: 0 4px;
+  color: #9ca3af;
+}
+
+/* Component: WorkHistoryListTable（動作環境／開発環境：行追加・削除可能な一覧） */
+.wkh-list-wrap {
+  margin: 10px 14px 14px;
+  overflow-x: auto;
+}
+table.wkh-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.wkh-list-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.wkh-list-table td {
+  padding: 4px 6px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.wkh-list-table .wkh-inp,
+.wkh-list-table .wkh-sel {
+  width: 130px;
+}
+.wkh-list-table .wkh-inp.wkh-qty {
+  width: 60px;
+  text-align: center;
+}
+.wkh-col-center {
+  text-align: center;
+}
+.wkh-row-delete-icon {
+  color: #ef4444;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.wkh-row-delete-icon:hover {
+  color: #b91c1c;
+}
+
+/* Component: WorkHistoryChecklist（複雑性） */
+.wkh-checklist {
+  margin: 14px 14px 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wkh-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #1f2937;
+  border-top: 1px solid #f3f4f6;
+}
+.wkh-checklist-item:first-child {
+  border-top: none;
+}
+.wkh-checklist-item input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: #f97316;
+}
+.wkh-checklist-item .wkh-checklist-label {
+  flex: 1;
+}
+.wkh-checklist-item .wkh-checklist-note {
+  flex-shrink: 0;
+  width: 260px;
+  color: #6b7280;
+  font-size: 11px;
+}
+.wkh-checklist-note-text {
+  padding: 10px 14px 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Component: WorkHistoryResponsibilityTable（責任性） */
+table.wkh-resp-table {
+  margin: 12px 14px 12px;
+  width: calc(100% - 28px);
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.wkh-resp-table td {
+  border: 1px solid #e5e7eb;
+  padding: 6px 10px;
+  vertical-align: top;
+}
+.wkh-resp-table td.wkh-resp-group-label {
+  background: #f3f4f6;
+  width: 60px;
+  text-align: center;
+  font-weight: 600;
+  color: #374151;
+  vertical-align: middle;
+}
+.wkh-radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #1f2937;
+  cursor: pointer;
+}
+.wkh-radio-label input[type="radio"] {
+  margin-top: 2px;
+  accent-color: #f97316;
+}
+.wkh-resp-table tr.wkh-resp-spacer td {
+  border: none;
+  background: transparent;
+  padding: 0;
+  height: 10px;
+}
+
+/* Component: WorkHistoryScopeTable（担当範囲：工程／大工程の階層テーブル） */
+table.wkh-scope-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.wkh-scope-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.wkh-scope-table td {
+  padding: 5px 8px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.wkh-scope-table td.wkh-scope-process {
+  background: #f9fafb;
+  vertical-align: top;
+}
+.wkh-check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #1f2937;
+  cursor: pointer;
+}
+.wkh-check-label input[type="checkbox"] {
+  accent-color: #f97316;
+}
+.wkh-role-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wkh-role-radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #1f2937;
+  cursor: pointer;
+}
+.wkh-role-radio-group input[type="radio"] {
+  accent-color: #f97316;
+}
+
+/* Component: WorkHistoryReview（総評） */
+.wkh-review-row {
+  display: flex;
+  gap: 14px;
+  margin: 14px 14px 12px;
+}
+.wkh-review-labels {
+  flex-shrink: 0;
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #374151;
+  font-weight: 600;
+  text-align: center;
+}
+.wkh-review-textarea {
+  flex: 1;
+}
+
+/* Component: WorkHistoryReviewDivider（総評／コメントの区切り） */
+.wkh-review-divider {
+  border: none;
+  border-top: 2px solid #d1d5db;
+  margin: 0 0 20px;
+}
+
+/* Component: WorkHistoryCommentList（コメント履歴） */
+.wkh-comment-list {
+  margin: 0 0 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wkh-comment {
+  border-top: 1px solid #e5e7eb;
+}
+.wkh-comment:first-child {
+  border-top: none;
+}
+.wkh-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  cursor: pointer;
+}
+.wkh-comment-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+.wkh-comment-datetime {
+  font-size: 11px;
+  color: #9ca3af;
+}
+.wkh-comment-toggle {
+  margin-left: auto;
+  color: #9ca3af;
+  transition: transform 0.15s ease;
+}
+.wkh-comment.is-collapsed .wkh-comment-toggle {
+  transform: rotate(-90deg);
+}
+.wkh-comment-body {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #1f2937;
+}
+.wkh-comment.is-collapsed .wkh-comment-body {
+  display: none;
+}
+
+/* Component: WorkHistoryApprovalPanel（コメント入力＋承認アクション） */
+.wkh-approval-body {
+  padding: 12px 14px 14px;
+}
+.wkh-approval-body.is-collapsed {
+  display: none;
+}
+.wkh-approval-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.wkh-approval-btn {
+  height: 30px;
+  padding: 0 18px;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.wkh-approval-btn-approve {
+  color: #2563eb;
+  border-color: #bfdbfe;
+}
+.wkh-approval-btn-approve:hover {
+  background: #eff6ff;
+}
+.wkh-approval-btn-reject {
+  color: #a21caf;
+  border-color: #f5d0fe;
+}
+.wkh-approval-btn-reject:hover {
+  background: #fdf4ff;
+}
+.wkh-approval-btn-cancel {
+  color: #374151;
+}
+.wkh-approval-btn-cancel:hover {
+  background: #f9fafb;
+}

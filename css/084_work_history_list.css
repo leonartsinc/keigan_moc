@@ -1,0 +1,201 @@
+/* Component: WorkHistoryListTopBar */
+.whl-topbar {
+  margin-bottom: 14px;
+}
+.whl-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Component: WorkHistoryListPanel */
+.whl-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: WorkHistoryListFilterForm */
+.whl-filter-form {
+  padding: 14px 14px 0;
+}
+table.whl-table {
+  width: 100%;
+  max-width: 760px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.whl-table td {
+  border: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+.whl-table td.whl-label {
+  background: #f3f4f6;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.whl-table td.whl-value {
+  padding: 5px 10px;
+  background: #fff;
+}
+.whl-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.whl-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.whl-date-inp {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+}
+.whl-date-inp:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.whl-date-sep {
+  margin: 0 8px;
+  color: #9ca3af;
+}
+
+/* Component: WorkHistoryListStatusTabs */
+.whl-status-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px 0;
+}
+.whl-status-tab {
+  height: 28px;
+  padding: 0 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.whl-status-tab:hover {
+  border-color: #fb923c;
+  color: #f97316;
+}
+.whl-status-tab.is-active {
+  background: #d1d5db;
+  border-color: #9ca3af;
+  color: #1f2937;
+}
+
+/* Component: WorkHistoryListTable */
+.whl-list-wrap {
+  margin: 14px 14px 10px;
+  overflow-x: auto;
+}
+table.whl-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.whl-list-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.whl-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+.whl-list-table tbody tr:hover {
+  background: #fff7ed;
+}
+.whl-col-center {
+  text-align: center;
+}
+.whl-empty-row {
+  text-align: center;
+  color: #9ca3af;
+  padding: 20px 10px !important;
+}
+
+/* Component: WorkHistoryListSortable */
+.whl-sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.15s ease;
+}
+.whl-sortable:hover {
+  color: #f97316;
+}
+.whl-sort-icon {
+  margin-left: 5px;
+  font-size: 10px;
+  color: #cbd5e1;
+}
+.whl-sortable.is-sorted-asc,
+.whl-sortable.is-sorted-desc {
+  color: #f97316;
+}
+.whl-sortable.is-sorted-asc .whl-sort-icon,
+.whl-sortable.is-sorted-desc .whl-sort-icon {
+  color: #f97316;
+}
+.whl-sortable.is-sorted-desc .whl-sort-icon {
+  transform: scaleY(-1);
+  display: inline-block;
+}
+
+/* Component: WorkHistoryListApproveTag（承認：未／差し戻し／承認済み） */
+.whl-approve-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.whl-approve-tag.is-review {
+  background: #ffedd5;
+  color: #ea580c;
+}
+.whl-approve-tag.is-rejected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.whl-approve-tag.is-done {
+  background: #d1fae5;
+  color: #059669;
+}

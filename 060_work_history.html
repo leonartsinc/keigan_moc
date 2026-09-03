@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜職務経歴画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/060_work_history.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: WorkHistoryBreadcrumb -->
+      <div class="site-breadcrumb">
+        <a href="084_work_history_list.html" class="hover:text-orange-400 transition">職務経歴一覧</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>職務経歴</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="is-current" id="wkh-breadcrumb-mode">編集</span>
+      </div>
+      <!-- /Component: WorkHistoryBreadcrumb -->
+
+      <!-- Component: WorkHistoryTopBar -->
+      <div class="wkh-topbar">
+        <span class="wkh-topbar-title">職務経歴</span>
+        <span class="wkh-person-name">獅子　太郎</span>
+        <span class="wkh-person-company">株式会社△△△△△△</span>
+        <a class="wkh-topbar-tab" data-c="1" href="?c=1">照会</a>
+        <a class="wkh-topbar-tab" data-c="2" href="?c=2">編集</a>
+        <a class="wkh-topbar-tab" data-c="3" href="?c=3">承認</a>
+      </div>
+      <!-- /Component: WorkHistoryTopBar -->
+
+      <div class="flex gap-5 items-start">
+
+        <!-- Component: WorkHistorySidebar -->
+        <aside class="w-44 shrink-0 sticky top-20">
+          <div class="wkh-side-panel">
+            <div class="wkh-side-title">職務経歴</div>
+            <nav id="wkh-toc">
+              <a class="wkh-nav-link is-active" onclick="tocScrollTo('wkh-sec-overview')">概要</a>
+              <a class="wkh-nav-link" onclick="tocScrollTo('wkh-sec-customer')">顧客情報</a>
+              <a class="wkh-nav-link" onclick="tocScrollTo('wkh-sec-env')">動作環境</a>
+              <a class="wkh-nav-link" onclick="tocScrollTo('wkh-sec-dev')">開発環境</a>
+              <a class="wkh-nav-link" onclick="tocScrollTo('wkh-sec-complexity')">複雑性</a>
+              <a class="wkh-nav-link" onclick="tocScrollTo('wkh-sec-responsibility')">責任性</a>
+              <a class="wkh-nav-link" onclick="tocScrollTo('wkh-sec-scope')">担当範囲</a>
+              <a class="wkh-nav-link" onclick="tocScrollTo('wkh-sec-review')">総評</a>
+            </nav>
+          </div>
+
+          <!-- Component: WorkHistoryActionButtons -->
+          <div class="wkh-actions">
+            <button type="button" id="wkh-btn-save" class="wkh-btn wkh-btn-save" onclick="submitWorkHistory()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+            <button type="button" id="wkh-btn-cancel" class="wkh-btn wkh-btn-cancel" onclick="cancelWorkHistory()">
+              <i class="fa-solid fa-xmark"></i>キャンセル
+            </button>
+            <button type="button" id="wkh-btn-delete" class="wkh-btn wkh-btn-delete" onclick="deleteWorkHistory()">
+              <i class="fa-solid fa-trash"></i>削除
+            </button>
+          </div>
+          <!-- /Component: WorkHistoryActionButtons -->
+        </aside>
+        <!-- /Component: WorkHistorySidebar -->
+
+        <!-- Component: WorkHistoryContent -->
+        <div class="flex-1 min-w-0">
+
+          <!-- Section: 概要 -->
+          <section id="wkh-sec-overview" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>概要</span>
+            </div>
+
+            <div class="wkh-cols">
+              <table class="wkh-table flex-1">
+                <tbody>
+                  <tr>
+                    <td class="wkh-label"><span class="req-mark">*</span>タイトル</td>
+                    <td class="wkh-value"><input type="text" id="wkh-ov-title" class="wkh-inp w-full" value="医療機器卸業向け販売管理システム導入プロジェクト"></td>
+                  </tr>
+                  <tr>
+                    <td class="wkh-label"><span class="req-mark">*</span>期間</td>
+                    <td class="wkh-value">
+                      <input type="month" id="wkh-ov-period-from" class="wkh-inp w-32" value="2005-11">
+                      <span class="wkh-sep">～</span>
+                      <input type="month" id="wkh-ov-period-to" class="wkh-inp w-32" value="2006-08">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wkh-label"><span class="req-mark">*</span>職種</td>
+                    <td class="wkh-value">
+                      <select id="wkh-ov-job" class="wkh-sel w-56">
+                        <option selected>アプリケーションスペシャリスト</option>
+                        <option>プロジェクトマネージャ</option>
+                        <option>システムアーキテクト</option>
+                        <option>ITスペシャリスト</option>
+                        <option>ITアーキテクト</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wkh-label"><span class="req-mark">*</span>専門分野</td>
+                    <td class="wkh-value">
+                      <select id="wkh-ov-field" class="wkh-sel w-56">
+                        <option selected>業務パッケージ</option>
+                        <option>業務システム</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <table class="wkh-table flex-1">
+                <tbody>
+                  <tr>
+                    <td class="wkh-label">契約形態</td>
+                    <td class="wkh-value">
+                      <select id="wkh-ov-contract" class="wkh-sel w-40">
+                        <option selected>派遣</option>
+                        <option>準委任</option>
+                        <option>請負</option>
+                        <option>出向</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wkh-label">作業種別</td>
+                    <td class="wkh-value">
+                      <select id="wkh-ov-work-type" class="wkh-sel w-40">
+                        <option selected>開発</option>
+                        <option>保守</option>
+                        <option>運用</option>
+                        <option>企画</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wkh-label">プロジェクト種別</td>
+                    <td class="wkh-value">
+                      <select id="wkh-ov-project-type" class="wkh-sel w-40">
+                        <option selected>オープン系</option>
+                        <option>汎用機系</option>
+                        <option>Web系</option>
+                        <option>クラウド系</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="wkh-label">プロジェクト顛末</td>
+                    <td class="wkh-value">
+                      <select id="wkh-ov-outcome" class="wkh-sel w-40">
+                        <option>◎</option>
+                        <option selected>○</option>
+                        <option>▲</option>
+                        <option>ー</option>
+                      </select>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <table class="wkh-table wkh-table-single">
+              <tbody>
+                <tr>
+                  <td class="wkh-label">概要</td>
+                  <td class="wkh-value"><textarea id="wkh-ov-summary" class="wkh-textarea w-full" rows="3"></textarea></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <!-- /Section: 概要 -->
+
+          <!-- Section: 顧客情報 -->
+          <section id="wkh-sec-customer" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>顧客情報</span>
+            </div>
+            <table class="wkh-table wkh-table-single">
+              <tbody>
+                <tr>
+                  <td class="wkh-label"><span class="req-mark">*</span>受注先</td>
+                  <td class="wkh-value"><input type="text" id="wkh-cu-vendor" class="wkh-inp w-96" value="株式会社日立ソリューションズ・クリエイト"></td>
+                </tr>
+                <tr>
+                  <td class="wkh-label"><span class="req-mark">*</span>エンドユーザ</td>
+                  <td class="wkh-value"><input type="text" id="wkh-cu-enduser" class="wkh-inp w-96" value="株式会社キシャ"></td>
+                </tr>
+                <tr>
+                  <td class="wkh-label"><span class="req-mark">*</span>産業大分類</td>
+                  <td class="wkh-value">
+                    <select id="wkh-cu-industry-large" class="wkh-sel w-56">
+                      <option selected>卸売業，小売業</option>
+                      <option>建設業</option>
+                      <option>公務</option>
+                      <option>複合サービス業</option>
+                      <option>情報通信業</option>
+                      <option>生活関連サービス業</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="wkh-label">産業中分類</td>
+                  <td class="wkh-value"><select id="wkh-cu-industry-mid" class="wkh-sel w-56"><option value=""></option></select></td>
+                </tr>
+                <tr>
+                  <td class="wkh-label">産業小分類</td>
+                  <td class="wkh-value"><select id="wkh-cu-industry-small" class="wkh-sel w-56"><option value=""></option></select></td>
+                </tr>
+                <tr>
+                  <td class="wkh-label">産業細分類</td>
+                  <td class="wkh-value"><select id="wkh-cu-industry-detail" class="wkh-sel w-56"><option value=""></option></select></td>
+                </tr>
+                <tr>
+                  <td class="wkh-label"><span class="req-mark">*</span>業種</td>
+                  <td class="wkh-value"><input type="text" id="wkh-cu-business" class="wkh-inp w-56" value="医療機器"></td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+          <!-- /Section: 顧客情報 -->
+
+          <!-- Section: 動作環境 -->
+          <section id="wkh-sec-env" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>動作環境</span>
+            </div>
+
+            <button type="button" class="wkh-add-btn" onclick="addEditableRow('wkh-env-main-body')">
+              <i class="fa-solid fa-plus"></i>新規行追加
+            </button>
+            <div class="wkh-list-wrap">
+              <table class="wkh-list-table">
+                <thead>
+                  <tr>
+                    <th>役割</th><th>OS</th><th>DB</th>
+                    <th>ミドルウェア①</th><th>ミドルウェア②</th><th>ミドルウェア③</th><th>ミドルウェア④</th><th>ミドルウェア⑤</th>
+                    <th>台数</th><th></th>
+                  </tr>
+                </thead>
+                <tbody id="wkh-env-main-body"></tbody>
+              </table>
+            </div>
+
+            <button type="button" class="wkh-add-btn" onclick="addEditableRow('wkh-env-sub-body')">
+              <i class="fa-solid fa-plus"></i>新規行追加
+            </button>
+            <div class="wkh-list-wrap">
+              <table class="wkh-list-table">
+                <thead>
+                  <tr>
+                    <th>Backup/Restore</th><th>サーバ運用・監視</th><th>ファイル/フォルダ管理</th><th>保守</th><th></th>
+                  </tr>
+                </thead>
+                <tbody id="wkh-env-sub-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 動作環境 -->
+
+          <!-- Section: 開発環境 -->
+          <section id="wkh-sec-dev" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>開発環境</span>
+            </div>
+
+            <button type="button" class="wkh-add-btn" onclick="addEditableRow('wkh-dev-env-body')">
+              <i class="fa-solid fa-plus"></i>新規行追加
+            </button>
+            <div class="wkh-list-wrap">
+              <table class="wkh-list-table">
+                <thead>
+                  <tr>
+                    <th>開発言語</th><th>Frameworks</th><th>ローコード</th><th>ツール</th><th>ミドルウェア</th><th>エディタ</th><th></th>
+                  </tr>
+                </thead>
+                <tbody id="wkh-dev-env-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 開発環境 -->
+
+          <!-- Section: 複雑性 -->
+          <section id="wkh-sec-complexity" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>複雑性</span>
+            </div>
+
+            <table class="wkh-table wkh-table-single">
+              <tbody>
+                <tr>
+                  <td class="wkh-label"><span class="req-mark">*</span>サイズ</td>
+                  <td class="wkh-value">
+                    <select id="wkh-cx-size" class="wkh-sel w-56">
+                      <option>10人未満</option>
+                      <option selected>10人以上35人未満</option>
+                      <option>35人以上70人未満</option>
+                      <option>70人以上</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="wkh-checklist" id="wkh-cx-list"></div>
+
+            <div class="wkh-checklist-note-text">（上記で該当する項目が1項目しかない場合）下記から該当する項目を選択</div>
+
+            <div class="wkh-checklist" id="wkh-cx-alt-list"></div>
+          </section>
+          <!-- /Section: 複雑性 -->
+
+          <!-- Section: 責任性 -->
+          <section id="wkh-sec-responsibility" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>責任性</span>
+            </div>
+            <table class="wkh-resp-table">
+              <tbody id="wkh-resp-body"></tbody>
+            </table>
+          </section>
+          <!-- /Section: 責任性 -->
+
+          <!-- Section: 担当範囲 -->
+          <section id="wkh-sec-scope" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>担当範囲</span>
+            </div>
+
+            <table class="wkh-table wkh-table-single">
+              <tbody>
+                <tr>
+                  <td class="wkh-label"><span class="req-mark">*</span>立場</td>
+                  <td class="wkh-value">
+                    <select id="wkh-scope-position" class="wkh-sel w-40">
+                      <option selected>メンバ</option>
+                      <option>サブリーダ</option>
+                      <option>リーダ</option>
+                      <option>PSL</option>
+                      <option>PL</option>
+                      <option>PM</option>
+                      <option>その他</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="wkh-list-wrap">
+              <table class="wkh-scope-table">
+                <thead>
+                  <tr>
+                    <th>工程</th><th>大工程</th><th colspan="2">期間</th><th>参画立場</th><th>参画人数</th>
+                  </tr>
+                </thead>
+                <tbody id="wkh-scope-body"></tbody>
+              </table>
+            </div>
+          </section>
+          <!-- /Section: 担当範囲 -->
+
+          <!-- Section: 総評 -->
+          <section id="wkh-sec-review" class="wkh-panel">
+            <div class="wkh-panel-title">
+              <span>総評</span>
+            </div>
+            <div class="wkh-review-row">
+              <div class="wkh-review-labels">
+                <span>所感</span>
+                <span>身についたこと</span>
+                <span>良かったこと</span>
+                <span>反省点</span>
+                <span>課題</span>
+              </div>
+              <textarea id="wkh-review-comment" class="wkh-textarea wkh-review-textarea" rows="6"></textarea>
+            </div>
+          </section>
+          <!-- /Section: 総評 -->
+
+          <!-- Component: SectionDivider -->
+          <hr class="wkh-review-divider">
+          <!-- /Component: SectionDivider -->
+
+          <!-- Component: WorkHistoryCommentList -->
+          <div class="wkh-comment-list" id="wkh-comment-list"></div>
+          <!-- /Component: WorkHistoryCommentList -->
+
+          <!-- Component: WorkHistoryApprovalPanel -->
+          <div class="wkh-panel" id="wkh-approval-panel">
+            <div class="wkh-panel-title">
+              <span>コメント</span>
+              <button type="button" class="wkh-panel-toggle-btn" onclick="toggleApprovalPanel()" title="折りたたむ">
+                <i class="fa-solid fa-chevron-down" id="wkh-approval-toggle-icon"></i>
+              </button>
+            </div>
+            <div class="wkh-approval-body" id="wkh-approval-body">
+              <textarea id="wkh-approval-comment" class="wkh-textarea w-full" rows="5" placeholder="コメントを入力してください"></textarea>
+              <div class="wkh-approval-actions">
+                <button type="button" class="wkh-approval-btn wkh-approval-btn-approve" onclick="approveWorkHistory()">承認</button>
+                <button type="button" class="wkh-approval-btn wkh-approval-btn-reject" onclick="rejectWorkHistory()">差し戻し</button>
+                <button type="button" class="wkh-approval-btn wkh-approval-btn-cancel" onclick="cancelApprovalPanel()">キャンセル</button>
+              </div>
+            </div>
+          </div>
+          <!-- /Component: WorkHistoryApprovalPanel -->
+
+        </div>
+        <!-- /Component: WorkHistoryContent -->
+
+      </div>
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('職務経歴画面');
+    mountFooter();
+
+    // ========== 目次スクロール ==========
+    function tocScrollTo(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      document.querySelectorAll("#wkh-toc .wkh-nav-link").forEach(link => link.classList.remove("is-active"));
+      event.currentTarget.classList.add("is-active");
+    }
+
+    // ========== 保存・キャンセル・削除 ==========
+    function submitWorkHistory() {
+      alert("職務経歴を保存しました（モック）");
+    }
+
+    function cancelWorkHistory() {
+      alert("入力内容をキャンセルしました（モック）");
+    }
+
+    function deleteWorkHistory() {
+      alert("職務経歴を削除しました（モック）");
+    }
+
+    // ========== コメント入力＋承認アクション ==========
+    let wkhApprovalCollapsed = false;
+
+    function toggleApprovalPanel() {
+      wkhApprovalCollapsed = !wkhApprovalCollapsed;
+      document.getElementById("wkh-approval-body").classList.toggle("is-collapsed", wkhApprovalCollapsed);
+      const icon = document.getElementById("wkh-approval-toggle-icon");
+      icon.classList.toggle("fa-chevron-down", !wkhApprovalCollapsed);
+      icon.classList.toggle("fa-chevron-up", wkhApprovalCollapsed);
+    }
+
+    function approveWorkHistory() {
+      alert("承認しました（モック）");
+    }
+
+    function rejectWorkHistory() {
+      alert("差し戻しました（モック）");
+    }
+
+    function cancelApprovalPanel() {
+      document.getElementById("wkh-approval-comment").value = "";
+    }
+
+    // ========== 表示モード（URLパラメータ c ）==========
+    // c=1: 照会（全項目参照のみ、コメント入力欄なし）
+    // c=2: 編集（全項目編集可能、コメント入力欄なし）
+    // c=3: 承認（全項目編集不可、コメント入力欄のみ入力可）
+    // c=4: 新規（全項目編集可能、削除ボタン非表示。プロフィール画面の「+」から遷移）
+    // 未指定・不正値は c=1（照会）として扱う
+    function getPageMode() {
+      const c = new URLSearchParams(window.location.search).get("c");
+      if (c === "2") return "edit";
+      if (c === "3") return "approval";
+      if (c === "4") return "new";
+      return "view";
+    }
+
+    let PAGE_MODE = "view";
+
+    function isEditableMode() {
+      return PAGE_MODE === "edit" || PAGE_MODE === "new";
+    }
+
+    function isNewMode() {
+      return PAGE_MODE === "new";
+    }
+
+    function applyPageMode() {
+      PAGE_MODE = getPageMode();
+      const editable = isEditableMode();
+      const isApproval = PAGE_MODE === "approval";
+      const isNew = isNewMode();
+      const modeLabel = editable ? "編集" : (isApproval ? "承認" : "照会");
+      const modeC = PAGE_MODE === "edit" ? "2" : (isApproval ? "3" : (isNew ? "4" : "1"));
+
+      document.getElementById("wkh-breadcrumb-mode").textContent = modeLabel;
+      document.querySelectorAll(".wkh-topbar-tab").forEach(tab => {
+        tab.classList.toggle("is-active", tab.dataset.c === modeC);
+      });
+
+      // 静的な入力欄（動作環境／開発環境／複雑性／責任性／担当範囲の一覧は各render関数側で制御）
+      document.querySelectorAll(".wkh-panel input, .wkh-panel select, .wkh-panel textarea").forEach(el => {
+        if (el.closest("#wkh-approval-body")) return;
+        if (el.closest("#wkh-env-main-body, #wkh-env-sub-body, #wkh-dev-env-body")) return;
+        if (el.closest("#wkh-cx-list, #wkh-cx-alt-list")) return;
+        if (el.closest("#wkh-resp-body")) return;
+        if (el.closest("#wkh-scope-body")) return;
+        el.disabled = !editable;
+      });
+
+      // 行追加・削除可能な一覧（動作環境／開発環境）
+      renderEditableTable("wkh-env-main-body");
+      renderEditableTable("wkh-env-sub-body");
+      renderEditableTable("wkh-dev-env-body");
+      document.querySelectorAll(".wkh-add-btn").forEach(btn => btn.classList.toggle("hidden", !editable));
+
+      // 複雑性／責任性／担当範囲
+      renderChecklist("wkh-cx-list", COMPLEXITY_ITEMS, true);
+      renderChecklist("wkh-cx-alt-list", COMPLEXITY_ALT_ITEMS, false);
+      renderResponsibility();
+      renderScopeTable();
+
+      // サイドバーの保存・削除ボタン（編集可能な時のみ表示。新規時は削除ボタンを常に非表示）
+      document.getElementById("wkh-btn-save").classList.toggle("hidden", !editable);
+      document.getElementById("wkh-btn-delete").classList.toggle("hidden", !editable || isNew);
+      document.getElementById("wkh-btn-cancel").innerHTML = editable
+        ? '<i class="fa-solid fa-xmark"></i>キャンセル'
+        : '<i class="fa-solid fa-arrow-left"></i>戻る';
+
+      // コメント入力欄（承認モードのみ表示・入力可）
+      document.getElementById("wkh-approval-panel").classList.toggle("hidden", !isApproval);
+    }
+
+    // ========== 共通：行追加・削除可能な一覧テーブル（動作環境／開発環境） ==========
+    const EDITABLE_TABLES = {};
+
+    function registerEditableTable(tbodyId, rows, columns, emptyRow) {
+      EDITABLE_TABLES[tbodyId] = { rows, columns, emptyRow };
+      renderEditableTable(tbodyId);
+    }
+
+    function renderEditableTable(tbodyId) {
+      const { rows, columns } = EDITABLE_TABLES[tbodyId];
+      const editable = isEditableMode();
+      const disabledAttr = editable ? "" : "disabled";
+      const tbody = document.getElementById(tbodyId);
+      tbody.innerHTML = rows.map((row, idx) => {
+        const cells = columns.map(col => {
+          if (col.type === "select") {
+            const options = ['<option value=""></option>']
+              .concat(col.options.map(v =>
+                `<option value="${v}" ${v === row[col.key] ? "selected" : ""}>${v}</option>`))
+              .join("");
+            return `<td><select class="wkh-sel" ${disabledAttr} onchange="updateEditableCell('${tbodyId}', ${idx}, '${col.key}', this.value)">${options}</select></td>`;
+          }
+          const inputType = col.type === "number" ? "number" : "text";
+          const widthCls = col.type === "number" ? "wkh-inp wkh-qty" : "wkh-inp";
+          return `<td><input type="${inputType}" class="${widthCls}" value="${row[col.key] ?? ""}" ${disabledAttr} onchange="updateEditableCell('${tbodyId}', ${idx}, '${col.key}', this.value)"></td>`;
+        }).join("");
+        const deleteIcon = editable
+          ? `<i class="fa-solid fa-xmark wkh-row-delete-icon" onclick="deleteEditableRow('${tbodyId}', ${idx})"></i>`
+          : "";
+        return `<tr>${cells}<td class="wkh-col-center">${deleteIcon}</td></tr>`;
+      }).join("");
+    }
+
+    function updateEditableCell(tbodyId, idx, key, value) {
+      EDITABLE_TABLES[tbodyId].rows[idx][key] = value;
+    }
+
+    function addEditableRow(tbodyId) {
+      const { rows, emptyRow } = EDITABLE_TABLES[tbodyId];
+      rows.push({ ...emptyRow });
+      renderEditableTable(tbodyId);
+    }
+
+    function deleteEditableRow(tbodyId, idx) {
+      EDITABLE_TABLES[tbodyId].rows.splice(idx, 1);
+      renderEditableTable(tbodyId);
+    }
+
+    // ========== モックデータ：動作環境 ==========
+    const ENV_MAIN_COLUMNS = [
+      { key: "role", label: "役割", type: "text" },
+      { key: "os", label: "OS", type: "select", options: ["WindowsServer2016", "Windows10"] },
+      { key: "db", label: "DB", type: "select", options: ["Oracle11g"] },
+      { key: "mw1", label: "ミドルウェア①", type: "select", options: ["Arcserve・Acronis", "OracleApplicationServer"] },
+      { key: "mw2", label: "ミドルウェア②", type: "select", options: ["Apache HTTP Server"] },
+      { key: "mw3", label: "ミドルウェア③", type: "select", options: ["Tomcat"] },
+      { key: "mw4", label: "ミドルウェア④", type: "select", options: ["IIS (Internet Information Services)"] },
+      { key: "mw5", label: "ミドルウェア⑤", type: "select", options: ["Cosminexus Application Server"] },
+      { key: "qty", label: "台数", type: "number" },
+    ];
+    const ENV_MAIN_ROWS = [
+      { role: "DBServer",     os: "WindowsServer2016", db: "Oracle11g", mw1: "Arcserve・Acronis",       mw2: "", mw3: "", mw4: "", mw5: "", qty: "1" },
+      { role: "待機系",       os: "WindowsServer2016", db: "Oracle11g", mw1: "Arcserve・Acronis",       mw2: "", mw3: "", mw4: "", mw5: "", qty: "1" },
+      { role: "loadBalancer", os: "WindowsServer2016", db: "",          mw1: "",                         mw2: "", mw3: "", mw4: "", mw5: "", qty: "1" },
+      { role: "APServer",     os: "WindowsServer2016", db: "",          mw1: "OracleApplicationServer", mw2: "Apache HTTP Server", mw3: "Tomcat", mw4: "IIS (Internet Information Services)", mw5: "Cosminexus Application Server", qty: "4" },
+      { role: "Client",       os: "Windows10",         db: "",          mw1: "",                         mw2: "", mw3: "", mw4: "", mw5: "", qty: "150" },
+    ];
+
+    const ENV_SUB_COLUMNS = [
+      { key: "backup",      label: "Backup/Restore",      type: "select", options: ["Arcserve", "Acronis"] },
+      { key: "monitor",     label: "サーバ運用・監視",     type: "select", options: ["JP1"] },
+      { key: "file",        label: "ファイル/フォルダ管理", type: "select", options: ["SVN", "Redmine"] },
+      { key: "maintenance", label: "保守",                 type: "select", options: ["PCAnywhere"] },
+    ];
+    const ENV_SUB_ROWS = [
+      { backup: "Arcserve", monitor: "JP1", file: "SVN",     maintenance: "PCAnywhere" },
+      { backup: "Acronis",  monitor: "",    file: "Redmine", maintenance: "" },
+    ];
+
+    // ========== モックデータ：開発環境 ==========
+    const DEV_ENV_COLUMNS = [
+      { key: "lang",       label: "開発言語",   type: "select", options: ["PL/SQL", "OracleDeveloper", "Java", "BizBrowser", "VB6.0"] },
+      { key: "framework",  label: "Frameworks", type: "select", options: [] },
+      { key: "lowcode",    label: "ローコード", type: "select", options: [] },
+      { key: "tool",       label: "ツール",     type: "select", options: ["全銀協TCP/IP", "FAX/C SPOOL"] },
+      { key: "middleware", label: "ミドルウェア", type: "select", options: ["OFFICE全般", "SVF", "JiveReport", "ObjectBrowser"] },
+      { key: "editor",     label: "エディタ",   type: "select", options: ["秀丸"] },
+    ];
+    const DEV_ENV_ROWS = [
+      { lang: "PL/SQL",          framework: "", lowcode: "", tool: "全銀協TCP/IP", middleware: "OFFICE全般", editor: "秀丸" },
+      { lang: "OracleDeveloper", framework: "", lowcode: "", tool: "FAX/C SPOOL",  middleware: "SVF",        editor: "" },
+      { lang: "Java",            framework: "", lowcode: "", tool: "",             middleware: "JiveReport", editor: "" },
+      { lang: "BizBrowser",      framework: "", lowcode: "", tool: "",             middleware: "ObjectBrowser", editor: "" },
+      { lang: "VB6.0",           framework: "", lowcode: "", tool: "",             middleware: "",           editor: "" },
+    ];
+
+    // ========== モックデータ：複雑性 ==========
+    const COMPLEXITY_ITEMS = [
+      { label: "業務パッケージ適用導入に係わり調整を必要とするステークホルダが多岐にわたる（5業務領域以上）", note: "受注、発注、入出荷、売上、仕入、売上請求、仕入諸", checked: true },
+      { label: "複雑な業務要件が多岐に亘り存在し、業務パッケージに含まれない幾つかの特殊な業務要件が含まれる", note: "", checked: true },
+      { label: "新製品もしくは事例が見当たらない使用実績の少ないパッケージ", note: "", checked: true },
+      { label: "複数の既存システムとインタフェースが多い（5以上のインタフェース）", note: "自動FAX、全銀TCPIP、WMS、ハンディターミナル、FB", checked: true },
+      { label: "複数のシステム形態が共存（トランザクション処理、クライアントサーバ、Web等）", note: "C/S、WEB、BO", checked: true },
+      { label: "ミッションクリティカルなシステムであり高品質を要求", note: "", checked: false },
+      { label: "各業種代表的、業種横断的又は国内有数規模のシステム", note: "トップ30の内シェア20%", checked: false },
+      { label: "クロスプラットフォームでのアプリケーション", note: "", checked: false },
+      { label: "24時間365日の連続稼動が要求され、変更、保守、障害回復に高度な設計が必要", note: "", checked: false },
+      { label: "限られた期間内で要求される業務形態の変更度合いが大きい", note: "", checked: false },
+    ];
+    const COMPLEXITY_ALT_ITEMS = [
+      { label: "システム化対象範囲、機能が限定されており、かつ要件が単純", checked: false },
+      { label: "既知の実績のある技術を使用", checked: false },
+      { label: "体制が複雑でない（ステークホルダが限定的等）", checked: false },
+      { label: "複雑性は問わない", checked: false },
+    ];
+
+    function renderChecklist(containerId, items, hasNote) {
+      const disabledAttr = isEditableMode() ? "" : "disabled";
+      const el = document.getElementById(containerId);
+      el.innerHTML = items.map((item, idx) => `
+        <label class="wkh-checklist-item">
+          <input type="checkbox" ${item.checked ? "checked" : ""} ${disabledAttr} onchange="toggleChecklistItem('${containerId}', ${idx}, this.checked)">
+          <span class="wkh-checklist-label">${item.label}</span>
+          ${hasNote ? `<span class="wkh-checklist-note">${item.note || ""}</span>` : ""}
+        </label>`).join("");
+    }
+
+    function toggleChecklistItem(containerId, idx, checked) {
+      const items = containerId === "wkh-cx-list" ? COMPLEXITY_ITEMS : COMPLEXITY_ALT_ITEMS;
+      items[idx].checked = checked;
+    }
+
+    // ========== モックデータ：責任性 ==========
+    const RESPONSIBILITY_GROUPS = [
+      {
+        key: "scope", label: "範囲", selected: 0,
+        options: [
+          "業務パッケージを活用したアプリケーションの開発、設計、構築、導入、テスト及び保守において、",
+          "業務パッケージを活用した適用導入および関連するアプリケーションの開発、設計、構築、導入、テスト及び保守において、",
+        ],
+      },
+      {
+        key: "position", label: "立場", selected: 0,
+        options: [
+          "上位者の指導の下あるいは既存の作業標準やガイダンスに従い、チームメンバとして",
+          "既存の作業標準やガイダンスに従い、開発チームメンバとして、",
+          "適用及び開発チームリーダとして、業務開発全局面において、",
+          "適用および開発チーム責任者として、開発チームをリードし、",
+        ],
+      },
+      {
+        key: "responsibility", label: "責任", selected: 3,
+        options: [
+          "要求された作業のいずれかの局面に",
+          "要求された作業の一連の局面に",
+          "担当する成果物の実施責任を持ち、",
+          "担当するアプリケーションの成果物に責任を持ち、",
+          "全対象領域の業務課題解決のためのフィット＆ギャップ分析、適用および関連する開発全局面に責任を持ち",
+        ],
+      },
+      {
+        key: "outcome", label: "顛末", selected: 0,
+        options: [
+          "参画した経験を有する",
+          "成功裡に達成した経験と実績を有する",
+          "顧客の環境に最適な品質（機能性、回復性、利便性等）を満足する適用導入および関連するアプリケーションの設計、開発及び導入を成功裡に達成した経験。",
+        ],
+      },
+    ];
+
+    function renderResponsibility() {
+      const disabledAttr = isEditableMode() ? "" : "disabled";
+      const tbody = document.getElementById("wkh-resp-body");
+      tbody.innerHTML = RESPONSIBILITY_GROUPS.map((group, groupIdx) => {
+        const spacer = groupIdx === 0 ? "" : `<tr class="wkh-resp-spacer"><td colspan="2"></td></tr>`;
+        const optionRows = group.options.map((text, idx) => `
+          <tr>
+            ${idx === 0 ? `<td class="wkh-resp-group-label" rowspan="${group.options.length}">${group.label}</td>` : ""}
+            <td>
+              <label class="wkh-radio-label">
+                <input type="radio" name="wkh-resp-${group.key}" ${idx === group.selected ? "checked" : ""} ${disabledAttr}
+                       onchange="setResponsibilitySelected('${group.key}', ${idx})">
+                <span>${text}</span>
+              </label>
+            </td>
+          </tr>`).join("");
+        return spacer + optionRows;
+      }).join("");
+    }
+
+    function setResponsibilitySelected(key, idx) {
+      const group = RESPONSIBILITY_GROUPS.find(g => g.key === key);
+      group.selected = idx;
+    }
+
+    // ========== モックデータ：担当範囲（工程／大工程） ==========
+    const SCOPE_ROLE_OPTIONS = ["メンバ", "サブリーダ", "リーダ", "PSL", "PL", "PM", "その他"];
+
+    const SCOPE_PROCESSES = [
+      { name: "受注活動", checked: true, sub: [
+          { name: "プレゼン", checked: true, from: "2005-11", to: "2006-08", role: "メンバ", count: "3" },
+          { name: "システム企画", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "プロジェクト管理", checked: false, sub: [
+          { name: "スコープ定義/変更管理", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "進捗計画/管理", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "費用計画/管理", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "品質計画/管理", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "組織計画/管理", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "リスク管理", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "外注計画/管理", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "要件定義", checked: true, from: "2005-11", to: "2006-08", role: "メンバ", count: "3", sub: [] },
+      { name: "外部設計", checked: true, sub: [
+          { name: "アウトプット設計", checked: true, from: "2005-11", to: "2006-08", role: "メンバ", count: "3" },
+          { name: "DB設計", checked: true, from: "2005-11", to: "2006-08", role: "メンバ", count: "3" },
+          { name: "基盤設計", checked: true, from: "2005-11", to: "2006-08", role: "メンバ", count: "3" },
+          { name: "プロトタイプ設計", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "内部設計", checked: false, sub: [
+          { name: "機能設計", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "共通化設計", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "詳細設計", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "製造", checked: false, sub: [
+          { name: "プログラミング", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "単体テスト", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "結合/総合テスト", checked: false, sub: [
+          { name: "テスト設計", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "テスト実施", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "システムテスト", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "性能/運用/負荷テスト", checked: false, sub: [
+          { name: "性能テスト", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "運用テスト", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "負荷テスト", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "データ移行", checked: false, from: "", to: "", role: null, count: "", sub: [] },
+      { name: "環境設計・構築", checked: false, sub: [
+          { name: "サーバ設計/構築", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "ネットワーク設計/構築", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "運用設計/構築", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "導入・本番", checked: false, from: "", to: "", role: null, count: "", sub: [] },
+      { name: "保守管理", checked: false, from: "", to: "", role: null, count: "", sub: [] },
+      { name: "障害管理", checked: false, sub: [
+          { name: "バックアップ/リストア", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "ハード/ソフト/インフラの資源管理", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "安全管理", checked: false, sub: [
+          { name: "災害対策", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "セキュリティ対策", checked: false, from: "", to: "", role: null, count: "" },
+          { name: "ウィルス対策", checked: false, from: "", to: "", role: null, count: "" },
+      ]},
+      { name: "その他", checked: false, from: "", to: "", role: null, count: "", sub: [] },
+    ];
+
+    function renderScopeRoleRadios(processIdx, subIdx, current, enabled) {
+      const nameAttr = `wkh-scope-role-${processIdx}-${subIdx === null ? "p" : subIdx}`;
+      return `<div class="wkh-role-radio-group">${SCOPE_ROLE_OPTIONS.map(opt => `
+        <label>
+          <input type="radio" name="${nameAttr}" ${opt === current ? "checked" : ""} ${enabled ? "" : "disabled"}
+                 onchange="setScopeRole(${processIdx}, ${subIdx === null ? "null" : subIdx}, '${opt}')">
+          <span>${opt}</span>
+        </label>`).join("")}</div>`;
+    }
+
+    // 行程／大工程のチェック状態と期間・参画立場・参画人数の活性/非活性を連動させる（表示モードが編集不可の場合は常に非活性）
+    function renderScopeValueRow(processIdx, subIdx, item) {
+      const enabled = item.checked && isEditableMode();
+      const disabledAttr = enabled ? "" : "disabled";
+      return `
+        <td>
+          <input type="month" class="wkh-inp w-32" value="${item.from}" ${disabledAttr}
+                 onchange="setScopeField(${processIdx}, ${subIdx === null ? "null" : subIdx}, 'from', this.value)">
+        </td>
+        <td>
+          <span class="wkh-sep">～</span>
+          <input type="month" class="wkh-inp w-32" value="${item.to}" ${disabledAttr}
+                 onchange="setScopeField(${processIdx}, ${subIdx === null ? "null" : subIdx}, 'to', this.value)">
+        </td>
+        <td>${renderScopeRoleRadios(processIdx, subIdx, item.role, enabled)}</td>
+        <td class="wkh-col-center">
+          <input type="number" class="wkh-inp wkh-qty" value="${item.count}" ${disabledAttr}
+                 onchange="setScopeField(${processIdx}, ${subIdx === null ? "null" : subIdx}, 'count', this.value)">
+        </td>`;
+    }
+
+    function renderScopeTable() {
+      const disabledAttr = isEditableMode() ? "" : "disabled";
+      const tbody = document.getElementById("wkh-scope-body");
+      const rowsHtml = [];
+
+      SCOPE_PROCESSES.forEach((process, pIdx) => {
+        const processCheckbox = `
+          <td class="wkh-scope-process" rowspan="${Math.max(process.sub.length, 1)}">
+            <label class="wkh-check-label">
+              <input type="checkbox" ${process.checked ? "checked" : ""} ${disabledAttr}
+                     onchange="setScopeChecked(${pIdx}, null, this.checked)">
+              <span>${process.name}</span>
+            </label>
+          </td>`;
+
+        if (process.sub.length === 0) {
+          rowsHtml.push(`<tr>${processCheckbox}<td></td>${renderScopeValueRow(pIdx, null, process)}</tr>`);
+        } else {
+          process.sub.forEach((sub, sIdx) => {
+            const subCell = `
+              <td>
+                <label class="wkh-check-label">
+                  <input type="checkbox" ${sub.checked ? "checked" : ""} ${disabledAttr}
+                         onchange="setScopeChecked(${pIdx}, ${sIdx}, this.checked)">
+                  <span>${sub.name}</span>
+                </label>
+              </td>`;
+            rowsHtml.push(`<tr>${sIdx === 0 ? processCheckbox : ""}${subCell}${renderScopeValueRow(pIdx, sIdx, sub)}</tr>`);
+          });
+        }
+      });
+
+      tbody.innerHTML = rowsHtml.join("");
+    }
+
+    function setScopeChecked(pIdx, sIdx, checked) {
+      const target = sIdx === null ? SCOPE_PROCESSES[pIdx] : SCOPE_PROCESSES[pIdx].sub[sIdx];
+      target.checked = checked;
+      renderScopeTable();
+    }
+
+    function setScopeField(pIdx, sIdx, key, value) {
+      const target = sIdx === null ? SCOPE_PROCESSES[pIdx] : SCOPE_PROCESSES[pIdx].sub[sIdx];
+      target[key] = value;
+    }
+
+    function setScopeRole(pIdx, sIdx, value) {
+      setScopeField(pIdx, sIdx, "role", value);
+    }
+
+    // ========== モックデータ：コメント ==========
+    const COMMENTS = [
+      { author: "木田　清春", datetime: "2026/05/12 11:31:22", text: "内容に齟齬があるので差し戻しました。", collapsed: false },
+    ];
+
+    function renderComments() {
+      const el = document.getElementById("wkh-comment-list");
+      el.innerHTML = COMMENTS.map((c, idx) => `
+        <div class="wkh-comment ${c.collapsed ? "is-collapsed" : ""}">
+          <div class="wkh-comment-header" onclick="toggleComment(${idx})">
+            <span class="wkh-comment-author">${c.author}</span>
+            <span class="wkh-comment-datetime">${c.datetime}</span>
+            <i class="fa-solid fa-chevron-down wkh-comment-toggle"></i>
+          </div>
+          <div class="wkh-comment-body">${c.text}</div>
+        </div>`).join("");
+    }
+
+    function toggleComment(idx) {
+      COMMENTS[idx].collapsed = !COMMENTS[idx].collapsed;
+      renderComments();
+    }
+
+    // ========== 新規追加（プロフィール画面からの「+」導線） ==========
+    function isNewEntry() {
+      return new URLSearchParams(window.location.search).get("c") === "4";
+    }
+
+    function resetToNewEntry() {
+      // 概要
+      document.getElementById("wkh-ov-title").value = "";
+      document.getElementById("wkh-ov-period-from").value = "";
+      document.getElementById("wkh-ov-period-to").value = "";
+      document.getElementById("wkh-ov-summary").value = "";
+      ["wkh-ov-job", "wkh-ov-field", "wkh-ov-contract", "wkh-ov-work-type", "wkh-ov-project-type", "wkh-ov-outcome"]
+        .forEach(id => { document.getElementById(id).selectedIndex = 0; });
+
+      // 顧客情報
+      document.getElementById("wkh-cu-vendor").value = "";
+      document.getElementById("wkh-cu-enduser").value = "";
+      document.getElementById("wkh-cu-business").value = "";
+      document.getElementById("wkh-cu-industry-large").selectedIndex = 0;
+
+      // 動作環境／開発環境
+      ["wkh-env-main-body", "wkh-env-sub-body", "wkh-dev-env-body"].forEach(id => {
+        EDITABLE_TABLES[id].rows = [];
+      });
+
+      // 複雑性
+      COMPLEXITY_ITEMS.forEach(item => { item.checked = false; });
+      COMPLEXITY_ALT_ITEMS.forEach(item => { item.checked = false; });
+      document.getElementById("wkh-cx-size").selectedIndex = 0;
+
+      // 責任性
+      RESPONSIBILITY_GROUPS.forEach(group => { group.selected = 0; });
+
+      // 担当範囲
+      document.getElementById("wkh-scope-position").selectedIndex = 0;
+      SCOPE_PROCESSES.forEach(process => {
+        process.checked = false;
+        process.from = ""; process.to = ""; process.role = null; process.count = "";
+        (process.sub || []).forEach(sub => {
+          sub.checked = false;
+          sub.from = ""; sub.to = ""; sub.role = null; sub.count = "";
+        });
+      });
+
+      // 総評
+      document.getElementById("wkh-review-comment").value = "";
+
+      // コメント（新規のため既存コメントなし）
+      COMMENTS.length = 0;
+
+      // トップバー（プロフィール画面から遷移した会社名を反映）
+      const company = new URLSearchParams(window.location.search).get("company");
+      if (company) {
+        document.querySelector(".wkh-person-company").textContent = company;
+      }
+    }
+
+    // ========== 初期化 ==========
+    registerEditableTable("wkh-env-main-body", ENV_MAIN_ROWS, ENV_MAIN_COLUMNS,
+      { role: "", os: "", db: "", mw1: "", mw2: "", mw3: "", mw4: "", mw5: "", qty: "" });
+    registerEditableTable("wkh-env-sub-body", ENV_SUB_ROWS, ENV_SUB_COLUMNS,
+      { backup: "", monitor: "", file: "", maintenance: "" });
+    registerEditableTable("wkh-dev-env-body", DEV_ENV_ROWS, DEV_ENV_COLUMNS,
+      { lang: "", framework: "", lowcode: "", tool: "", middleware: "", editor: "" });
+
+    if (isNewEntry()) resetToNewEntry();
+
+    renderComments();
+    applyPageMode();
+  </script>
+
+</body>
+</html>
