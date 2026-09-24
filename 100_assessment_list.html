@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜アセスメント一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/100_assessment_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: AssessmentListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">アセスメント一覧</span>
+      </div>
+      <!-- /Component: AssessmentListBreadcrumb -->
+
+      <!-- Component: AssessmentListTopBar -->
+      <div class="asl-topbar">
+        <span class="asl-topbar-title">アセスメント一覧</span>
+      </div>
+      <!-- /Component: AssessmentListTopBar -->
+
+      <!-- Component: AssessmentListPanel -->
+      <div class="asl-panel">
+
+        <!-- Component: AssessmentListFilterForm -->
+        <div class="asl-filter-form">
+          <table class="asl-table">
+            <tbody>
+              <tr>
+                <td class="asl-label">グループ</td>
+                <td class="asl-value">
+                  <select id="asl-f-group" class="asl-sel w-full">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="asl-label">承認者</td>
+                <td class="asl-value">
+                  <select id="asl-f-approver" class="asl-sel w-56">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="asl-label">氏名</td>
+                <td class="asl-value">
+                  <select id="asl-f-name" class="asl-sel w-56" onchange="applyAssessmentFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="asl-label">年度</td>
+                <td class="asl-value">
+                  <select id="asl-f-year" class="asl-sel w-48">
+                    <option>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="asl-label">役職</td>
+                <td class="asl-value">
+                  <select id="asl-f-title" class="asl-sel w-full" onchange="applyAssessmentFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="asl-label">職種</td>
+                <td class="asl-value">
+                  <select id="asl-f-job" class="asl-sel w-full" onchange="applyAssessmentFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="asl-label">専門分野</td>
+                <td class="asl-value">
+                  <select id="asl-f-field" class="asl-sel w-full" onchange="applyAssessmentFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /Component: AssessmentListFilterForm -->
+
+        <!-- Component: AssessmentListStatusTabs -->
+        <div class="asl-status-tabs" id="asl-status-tabs">
+          <button type="button" class="asl-status-tab is-active" onclick="setAssessmentStatusTab('全て', this)">全て</button>
+          <button type="button" class="asl-status-tab" onclick="setAssessmentStatusTab('未', this)">未</button>
+          <button type="button" class="asl-status-tab" onclick="setAssessmentStatusTab('差し戻し', this)">差し戻し</button>
+          <button type="button" class="asl-status-tab" onclick="setAssessmentStatusTab('承認済み', this)">承認済み</button>
+        </div>
+        <!-- /Component: AssessmentListStatusTabs -->
+
+        <!-- Component: AssessmentListTable -->
+        <div class="asl-list-wrap">
+          <table class="asl-list-table">
+            <thead>
+              <tr>
+                <th class="asl-col-check">
+                  <input type="checkbox" id="asl-check-all" class="accent-orange-500" onchange="toggleAllAssessmentChecks(this)">
+                </th>
+                <th>氏名</th>
+                <th>年度</th>
+                <th>自己評価</th>
+                <th>360°</th>
+                <th>上長評価</th>
+                <th>上長評価</th>
+                <th>上長評価</th>
+                <th>上長評価</th>
+                <th>上長評価</th>
+              </tr>
+            </thead>
+            <tbody id="asl-body"></tbody>
+          </table>
+        </div>
+        <!-- /Component: AssessmentListTable -->
+
+        <!-- Component: AssessmentListActionBar -->
+        <div class="asl-action-bar">
+          <button type="button" id="asl-start-btn" class="asl-btn-primary" disabled onclick="startAssessmentEvaluation()">評価開始する</button>
+        </div>
+        <!-- /Component: AssessmentListActionBar -->
+
+      </div>
+      <!-- /Component: AssessmentListPanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('アセスメント一覧画面');
+    mountFooter();
+
+    // ========== モックデータ：アセスメント一覧 ==========
+    // self/threeSixty/boss1〜5：実施済みの場合は { name, time }、未実施は null
+    const ASSESSMENT_LIST = [
+      { code: "260401", name: "獅子　太郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "マネージャ",             job: "アプリケーションスペシャリスト", field: "業務パッケージ", approve: "未",
+        self: { name: "獅子　太郎", time: "2026/3/21 9:05:22" }, threeSixty: null,
+        boss1: { name: "山本　三郎", time: "2026/3/21 9:05:22" }, boss2: null, boss3: null, boss4: null, boss5: null },
+      { code: "260402", name: "怜王　花子", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "チーフ",                 job: "アプリケーションスペシャリスト", field: "業務パッケージ", approve: "未",
+        self: null, threeSixty: null, boss1: null, boss2: null, boss3: null, boss4: null, boss5: null },
+      { code: "210403", name: "獅子　次郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "アシスタントマネージャー", job: "アプリケーションスペシャリスト", field: "業務システム",   approve: "未",
+        self: null, threeSixty: null, boss1: null, boss2: null, boss3: null, boss4: null, boss5: null },
+      { code: "190404", name: "怜王　裕美", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "",                       job: "アプリケーションスペシャリスト", field: "業務システム",   approve: "未",
+        self: null, threeSixty: null, boss1: null, boss2: null, boss3: null, boss4: null, boss5: null },
+      { code: "220405", name: "獅子　三郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "",                       job: "アプリケーションスペシャリスト", field: "業務パッケージ", approve: "未",
+        self: null, threeSixty: null, boss1: null, boss2: null, boss3: null, boss4: null, boss5: null },
+      { code: "230406", name: "怜王　明美", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ", approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "",                       job: "アプリケーションスペシャリスト", field: "業務システム",   approve: "未",
+        self: null, threeSixty: null, boss1: null, boss2: null, boss3: null, boss4: null, boss5: null },
+      { code: "240407", name: "獅子　四郎", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ", approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "",                       job: "アプリケーションスペシャリスト", field: "業務パッケージ", approve: "未",
+        self: null, threeSixty: null, boss1: null, boss2: null, boss3: null, boss4: null, boss5: null },
+      { code: "250408", name: "怜王　夏美", group: "インダストリーズ本部＞ITサービス事業部＞サービスデスクグループ",         approver: "橋本　次郎", year: "2026(25/4-26/3)", title: "",                       job: "ITサービスマネジメント",         field: "サービスデスク", approve: "未",
+        self: null, threeSixty: null, boss1: null, boss2: null, boss3: null, boss4: null, boss5: null },
+    ];
+
+    const checkedCodes = new Set();
+
+    // ========== 検索フォーム：選択肢の動的生成 ==========
+    function renderSelectOptions(selectId, values, defaultValue) {
+      const select = document.getElementById(selectId);
+      select.innerHTML = ['<option>全て</option>']
+        .concat(values.map(v => `<option>${v}</option>`))
+        .join("");
+      if (defaultValue && values.includes(defaultValue)) select.value = defaultValue;
+    }
+
+    function initFilterOptions() {
+      renderSelectOptions("asl-f-group", [...new Set(ASSESSMENT_LIST.map(r => r.group))],
+        "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ");
+      renderSelectOptions("asl-f-approver", [...new Set(ASSESSMENT_LIST.map(r => r.approver))], "橋本　次郎");
+      renderSelectOptions("asl-f-name", [...new Set(ASSESSMENT_LIST.map(r => r.name))]);
+      renderSelectOptions("asl-f-year", [...new Set(ASSESSMENT_LIST.map(r => r.year))], "2026(25/4-26/3)");
+      renderSelectOptions("asl-f-title", [...new Set(ASSESSMENT_LIST.map(r => r.title).filter(v => v))]);
+      renderSelectOptions("asl-f-job", [...new Set(ASSESSMENT_LIST.map(r => r.job))]);
+      renderSelectOptions("asl-f-field", [...new Set(ASSESSMENT_LIST.map(r => r.field))]);
+    }
+
+    // ========== 承認状態タブ ==========
+    let assessmentStatusTab = "全て";
+
+    function setAssessmentStatusTab(status, btnEl) {
+      assessmentStatusTab = status;
+      document.querySelectorAll(".asl-status-tab").forEach(btn => btn.classList.remove("is-active"));
+      btnEl.classList.add("is-active");
+      applyAssessmentFilter();
+    }
+
+    // ========== 一覧描画・絞り込み ==========
+    function renderSlot(slot) {
+      if (!slot) return `<span class="asl-slot-empty">-</span>`;
+      return `<span class="asl-slot-name">${slot.name}</span><br><span class="asl-slot-time">${slot.time}</span>`;
+    }
+
+    function renderAssessmentList(rows) {
+      const tbody = document.getElementById("asl-body");
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" class="asl-empty-row">該当するアセスメントが見つかりません</td></tr>`;
+        syncAssessmentCheckAll();
+        syncAssessmentStartButton();
+        return;
+      }
+      tbody.innerHTML = rows.map(r => {
+        const isChecked = checkedCodes.has(r.code);
+        return `
+          <tr class="${isChecked ? "is-checked" : ""}">
+            <td class="asl-col-check">
+              <input type="checkbox" class="accent-orange-500 asl-row-check" data-code="${r.code}"
+                     ${isChecked ? "checked" : ""} onchange="onAssessmentRowCheckChange(this)">
+            </td>
+            <td title="${r.name}">${r.name}</td>
+            <td title="${r.year}">${r.year}</td>
+            <td class="asl-col-slot">${renderSlot(r.self)}</td>
+            <td class="asl-col-slot">${renderSlot(r.threeSixty)}</td>
+            <td class="asl-col-slot">${renderSlot(r.boss1)}</td>
+            <td class="asl-col-slot">${renderSlot(r.boss2)}</td>
+            <td class="asl-col-slot">${renderSlot(r.boss3)}</td>
+            <td class="asl-col-slot">${renderSlot(r.boss4)}</td>
+            <td class="asl-col-slot">${renderSlot(r.boss5)}</td>
+          </tr>`;
+      }).join("");
+      syncAssessmentCheckAll();
+      syncAssessmentStartButton();
+    }
+
+    function applyAssessmentFilter() {
+      const name = document.getElementById("asl-f-name").value;
+      const title = document.getElementById("asl-f-title").value;
+      const job = document.getElementById("asl-f-job").value;
+      const field = document.getElementById("asl-f-field").value;
+
+      const rows = ASSESSMENT_LIST.filter(r =>
+        (assessmentStatusTab === "全て" || r.approve === assessmentStatusTab) &&
+        (name === "全て" || r.name === name) &&
+        (title === "全て" || r.title === title) &&
+        (job === "全て" || r.job === job) &&
+        (field === "全て" || r.field === field)
+      );
+      renderAssessmentList(rows);
+    }
+
+    // ========== 選択チェックボックス ==========
+    function onAssessmentRowCheckChange(cb) {
+      const code = cb.dataset.code;
+      cb.checked ? checkedCodes.add(code) : checkedCodes.delete(code);
+      cb.closest("tr").classList.toggle("is-checked", cb.checked);
+      syncAssessmentCheckAll();
+      syncAssessmentStartButton();
+    }
+
+    function toggleAllAssessmentChecks(masterCb) {
+      document.querySelectorAll(".asl-row-check").forEach(cb => {
+        cb.checked = masterCb.checked;
+        const code = cb.dataset.code;
+        masterCb.checked ? checkedCodes.add(code) : checkedCodes.delete(code);
+        cb.closest("tr").classList.toggle("is-checked", masterCb.checked);
+      });
+      syncAssessmentStartButton();
+    }
+
+    function syncAssessmentCheckAll() {
+      const total = document.querySelectorAll(".asl-row-check").length;
+      const checked = document.querySelectorAll(".asl-row-check:checked").length;
+      const masterCb = document.getElementById("asl-check-all");
+      masterCb.indeterminate = checked > 0 && checked < total;
+      masterCb.checked = total > 0 && checked === total;
+    }
+
+    // ========== 評価開始ボタン ==========
+    function syncAssessmentStartButton() {
+      document.getElementById("asl-start-btn").disabled = checkedCodes.size === 0;
+    }
+
+    function startAssessmentEvaluation() {
+      const checkedRows = ASSESSMENT_LIST.filter(r => checkedCodes.has(r.code));
+      if (checkedRows.length === 0) return;
+
+      if (checkedRows.length > 1) {
+        const codes = checkedRows.map(r => r.code).join(",");
+        window.open(`108_assessment_manager_multi.html?codes=${encodeURIComponent(codes)}`, "_blank", "noopener");
+        return;
+      }
+
+      const row = checkedRows[0];
+      const hasBossAssessment = [row.boss1, row.boss2, row.boss3, row.boss4, row.boss5].some(slot => slot);
+      const target = hasBossAssessment ? "106_assessment_manager2.html" : "104_assessment_manager1.html";
+      window.open(`${target}?code=${encodeURIComponent(row.code)}`, "_blank", "noopener");
+    }
+
+    // ========== 初期化 ==========
+    initFilterOptions();
+    applyAssessmentFilter();
+  </script>
+
+</body>
+</html>

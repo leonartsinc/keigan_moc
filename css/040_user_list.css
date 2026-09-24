@@ -1,0 +1,307 @@
+/* Component: UserListTopBar */
+.ul-topbar {
+  margin-bottom: 14px;
+}
+.ul-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Component: UserListPanel */
+.ul-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+
+/* Component: UserListSearch */
+.ul-search-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  padding: 0 12px;
+  height: 36px;
+}
+.ul-search-row i {
+  color: #9ca3af;
+  font-size: 12px;
+}
+.ul-search-inp {
+  flex: 1;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  color: #1f2937;
+  background: transparent;
+}
+
+/* Component: UserListFilters */
+.ul-filter-group {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 24px;
+}
+.ul-filter-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #374151;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ul-filter-group + .ul-filter-group {
+  margin-top: 8px;
+}
+
+/* Component: UserListBulkRow */
+.ul-bulk-row {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.ul-bulk-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ul-bulk-sel {
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #374151;
+  background: #fff;
+  min-width: 180px;
+}
+.ul-bulk-exec-btn {
+  height: 30px;
+  padding: 0 16px;
+  border: 1px solid #9ca3af;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #374151;
+  background: #f9fafb;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ul-bulk-exec-btn:hover {
+  background: #f3f4f6;
+  border-color: #6b7280;
+}
+.ul-invite-btn {
+  height: 34px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 5px;
+  background: #f97316;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.ul-invite-btn:hover {
+  background: #ea580c;
+}
+
+/* Component: UserListTable */
+.ul-table-wrap {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+}
+table.ul-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.ul-table thead th {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
+  color: #4b5563;
+  white-space: nowrap;
+}
+.ul-table thead th.ul-col-check {
+  width: 36px;
+  text-align: center;
+}
+.ul-table tbody td {
+  border: 1px solid #e5e7eb;
+  padding: 8px 10px;
+  color: #1f2937;
+  vertical-align: middle;
+}
+.ul-table tbody td.ul-col-check {
+  text-align: center;
+}
+.ul-table tbody tr:hover {
+  background: #fff7ed;
+}
+.ul-table tbody tr.is-checked {
+  background: #fff7ed;
+}
+.ul-email-link {
+  color: #2563eb;
+  text-decoration: underline;
+  font-size: 12px;
+}
+.ul-email-link:hover {
+  color: #1d4ed8;
+}
+.ul-empty-row {
+  text-align: center;
+  color: #9ca3af;
+  padding: 24px;
+  font-size: 12px;
+}
+
+/* Component: UserListStatusTag */
+.ul-status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.ul-status-tag.is-unsent   { background: #f3f4f6; color: #6b7280; }
+.ul-status-tag.is-sent     { background: #dbeafe; color: #1d4ed8; }
+.ul-status-tag.is-active   { background: #d1fae5; color: #059669; }
+.ul-status-tag.is-expired  { background: #fee2e2; color: #dc2626; }
+
+/* Component: InviteModal */
+.ul-modal-field {
+  margin-bottom: 14px;
+}
+.ul-modal-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+.ul-modal-inp {
+  width: 100%;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #1f2937;
+}
+.ul-modal-inp:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.ul-modal-sel {
+  width: 100%;
+  height: 34px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #374151;
+}
+.ul-modal-err {
+  font-size: 11px;
+  color: #ef4444;
+  margin-top: 4px;
+}
+.req-mark {
+  color: #ef4444;
+  margin-left: 2px;
+  font-weight: 700;
+}
+
+/* Component: InviteModalRadio */
+.ul-invite-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #374151;
+  cursor: pointer;
+}
+
+/* Component: InviteEmailSection */
+.ul-invite-email-bar {
+  margin-top: 10px;
+  background: #d1d5db;
+  color: #374151;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 24px;
+}
+.ul-invite-textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #1f2937;
+  resize: vertical;
+}
+.ul-invite-textarea::placeholder {
+  color: #9ca3af;
+}
+.ul-invite-textarea:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+
+/* Component: InviteModalButtons */
+.ul-invite-submit-btn {
+  height: 36px;
+  padding: 0 20px;
+  border: 1px solid #f97316;
+  border-radius: 4px;
+  background: #fff;
+  color: #f97316;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ul-invite-submit-btn:hover {
+  background: #fff7ed;
+}
+.ul-invite-cancel-btn {
+  height: 36px;
+  padding: 0 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.ul-invite-cancel-btn:hover {
+  background: #e5e7eb;
+}

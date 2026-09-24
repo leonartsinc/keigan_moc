@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜経歴書・職務経歴書一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/082_career_document_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: CareerDocListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">経歴書・職務経歴書一覧</span>
+      </div>
+      <!-- /Component: CareerDocListBreadcrumb -->
+
+      <!-- Component: CareerDocListTopBar -->
+      <div class="cdl-topbar">
+        <span class="cdl-topbar-title">経歴書・職務経歴書一覧</span>
+      </div>
+      <!-- /Component: CareerDocListTopBar -->
+
+      <!-- Component: CareerDocListOutputContentPanel -->
+      <div class="cdl-panel">
+        <div class="cdl-panel-title">出力内容を選択</div>
+
+        <div class="cdl-option-cols">
+          <!-- 経歴書 -->
+          <div class="cdl-option-col">
+            <div class="cdl-option-col-title">（経歴書）</div>
+
+            <div class="cdl-option-row">
+              <span class="cdl-option-label">学歴を出力</span>
+              <div class="cdl-radio-group">
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-education" value="する" class="accent-orange-500" checked> する
+                </label>
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-education" value="しない" class="accent-orange-500"> しない
+                </label>
+              </div>
+            </div>
+
+            <div class="cdl-option-row">
+              <span class="cdl-option-label">免許・資格を出力</span>
+              <div class="cdl-radio-group">
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-license" value="する" class="accent-orange-500" checked> する
+                </label>
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-license" value="しない" class="accent-orange-500"> しない
+                </label>
+              </div>
+            </div>
+
+            <div class="cdl-option-row">
+              <span class="cdl-option-label">研修・訓練を出力</span>
+              <div class="cdl-radio-group">
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-training" value="する" class="accent-orange-500" checked> する
+                </label>
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-training" value="しない" class="accent-orange-500"> しない
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 職務経歴書 -->
+          <div class="cdl-option-col">
+            <div class="cdl-option-col-title">（職務経歴書）</div>
+
+            <div class="cdl-option-row">
+              <span class="cdl-option-label">職歴を出力</span>
+              <div class="cdl-radio-group">
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-work-history" value="する" class="accent-orange-500" checked onchange="applyWorkHistoryOutputMode()"> する
+                </label>
+                <label class="cdl-radio-label">
+                  <input type="radio" name="cdl-out-work-history" value="しない" class="accent-orange-500" onchange="applyWorkHistoryOutputMode()"> しない
+                </label>
+              </div>
+            </div>
+            <div class="cdl-sub-row">
+              <label class="cdl-check-label">
+                <input type="checkbox" id="cdl-out-work-history-sheet" class="accent-orange-500"> 別シートで出力
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Component: CareerDocListOutputContentPanel -->
+
+      <!-- Component: CareerDocListOutputFormatPanel -->
+      <div class="cdl-panel">
+        <div class="cdl-panel-title">出力形式を選択</div>
+
+        <div class="cdl-option-row">
+          <span class="cdl-option-label">文字コード</span>
+          <div class="cdl-radio-group">
+            <label class="cdl-radio-label">
+              <input type="radio" name="cdl-out-charset" value="UTF-8" class="accent-orange-500" checked> UTF-8（推奨）
+            </label>
+            <label class="cdl-radio-label">
+              <input type="radio" name="cdl-out-charset" value="Shift-JIS" class="accent-orange-500"> Shift-JIS
+            </label>
+          </div>
+          <span class="cdl-format-note">Excel2016より前のバージョンのExcelをお使いの方はShift-JISをご利用ください。</span>
+        </div>
+      </div>
+      <!-- /Component: CareerDocListOutputFormatPanel -->
+
+      <!-- Component: CareerDocListTable -->
+      <div class="cdl-table-wrap">
+        <table class="cdl-table">
+          <colgroup>
+            <col style="width: 5%">
+            <col style="width: 10%">
+            <col style="width: 12%">
+            <col style="width: 9%">
+            <col style="width: 10%">
+            <col style="width: 10%">
+            <col style="width: 18%">
+            <col style="width: 26%">
+          </colgroup>
+          <thead>
+            <tr>
+              <th class="cdl-col-check">
+                <input type="checkbox" id="cdl-check-all" class="accent-orange-500" onchange="toggleAllChecks(this)">
+              </th>
+              <th>社員コード</th>
+              <th>氏名</th>
+              <th>雇用</th>
+              <th>入社日</th>
+              <th>役職</th>
+              <th>職種</th>
+              <th>グループ</th>
+            </tr>
+          </thead>
+          <tbody id="cdl-table-body"></tbody>
+        </table>
+      </div>
+      <!-- /Component: CareerDocListTable -->
+
+      <!-- Component: CareerDocListActionBar -->
+      <div class="cdl-action-bar">
+        <button type="button" class="cdl-download-btn" onclick="downloadCareerDocuments()">
+          <i class="fa-solid fa-download"></i>ダウンロード
+        </button>
+        <button type="button" class="cdl-cancel-btn" onclick="cancelCareerDocuments()">キャンセル</button>
+        <span class="cdl-action-note">※EXCEL形式のファイルで出力します</span>
+      </div>
+      <!-- /Component: CareerDocListActionBar -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('経歴書・職務経歴書一覧画面');
+    mountFooter();
+
+    // ========== モックデータ：社員一覧 ==========
+    const EMPLOYEES = [
+      { code: "260401", name: "獅子　太郎", employment: "正社員",   joinDate: "2026/04/01", title: "マネージャ",             job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ" },
+      { code: "260402", name: "怜王　花子", employment: "正社員",   joinDate: "2022/04/01", title: "チーフ",                 job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ" },
+      { code: "210403", name: "獅子　次郎", employment: "正社員",   joinDate: "2021/04/01", title: "アシスタントマネージャー", job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ" },
+      { code: "190404", name: "怜王　裕美", employment: "正社員",   joinDate: "2019/04/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ" },
+      { code: "220405", name: "獅子　三郎", employment: "契約社員", joinDate: "2022/10/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ" },
+      { code: "230406", name: "怜王　明美", employment: "正社員",   joinDate: "2023/04/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞業務システムグループ" },
+      { code: "240407", name: "獅子　四郎", employment: "正社員",   joinDate: "2024/04/01", title: "",                       job: "アプリケーションスペシャリスト", group: "インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ" },
+      { code: "250408", name: "怜王　夏美", employment: "正社員",   joinDate: "2025/04/01", title: "",                       job: "ITサービスマネジメント",         group: "インダストリーズ本部＞ITサービス事業部＞サービスデスクグループ" },
+    ];
+
+    const checkedCodes = new Set();
+
+    // ========== テーブル描画 ==========
+    function renderTable() {
+      const tbody = document.getElementById("cdl-table-body");
+
+      if (EMPLOYEES.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="cdl-empty-row">該当する社員が見つかりません</td></tr>`;
+        syncCheckAll();
+        return;
+      }
+
+      tbody.innerHTML = EMPLOYEES.map(e => {
+        const isChecked = checkedCodes.has(e.code);
+        return `
+          <tr class="${isChecked ? "is-checked" : ""}">
+            <td class="cdl-col-check">
+              <input type="checkbox" class="accent-orange-500 cdl-row-check" data-code="${e.code}"
+                     ${isChecked ? "checked" : ""} onchange="onRowCheckChange(this)">
+            </td>
+            <td title="${e.code}">${e.code}</td>
+            <td title="${e.name}">${e.name}</td>
+            <td title="${e.employment}">${e.employment}</td>
+            <td title="${e.joinDate}">${e.joinDate}</td>
+            <td title="${e.title}">${e.title || ""}</td>
+            <td title="${e.job}">${e.job}</td>
+            <td title="${e.group}">${e.group}</td>
+          </tr>`;
+      }).join("");
+
+      syncCheckAll();
+    }
+
+    // ========== 選択チェックボックス ==========
+    function onRowCheckChange(cb) {
+      const code = cb.dataset.code;
+      cb.checked ? checkedCodes.add(code) : checkedCodes.delete(code);
+      cb.closest("tr").classList.toggle("is-checked", cb.checked);
+      syncCheckAll();
+    }
+
+    function toggleAllChecks(masterCb) {
+      document.querySelectorAll(".cdl-row-check").forEach(cb => {
+        cb.checked = masterCb.checked;
+        const code = cb.dataset.code;
+        masterCb.checked ? checkedCodes.add(code) : checkedCodes.delete(code);
+        cb.closest("tr").classList.toggle("is-checked", masterCb.checked);
+      });
+    }
+
+    function syncCheckAll() {
+      const total = document.querySelectorAll(".cdl-row-check").length;
+      const checked = document.querySelectorAll(".cdl-row-check:checked").length;
+      const masterCb = document.getElementById("cdl-check-all");
+      masterCb.indeterminate = checked > 0 && checked < total;
+      masterCb.checked = total > 0 && checked === total;
+    }
+
+    // ========== 職歴を出力：別シートで出力チェックボックスの活性制御 ==========
+    function applyWorkHistoryOutputMode() {
+      const doOutput = document.querySelector('input[name="cdl-out-work-history"]:checked').value === "する";
+      const sheetCheck = document.getElementById("cdl-out-work-history-sheet");
+      sheetCheck.disabled = !doOutput;
+      if (!doOutput) sheetCheck.checked = false;
+    }
+
+    // ========== ダウンロード・キャンセル ==========
+    function downloadCareerDocuments() {
+      if (checkedCodes.size === 0) {
+        alert("出力する社員を選択してください");
+        return;
+      }
+      alert(`選択した${checkedCodes.size}名分の経歴書・職務経歴書をダウンロードしました（モック）`);
+    }
+
+    function cancelCareerDocuments() {
+      alert("入力内容をキャンセルしました（モック）");
+    }
+
+    // ========== 初期化 ==========
+    renderTable();
+    applyWorkHistoryOutputMode();
+  </script>
+
+</body>
+</html>

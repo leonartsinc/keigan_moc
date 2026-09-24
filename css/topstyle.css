@@ -1,0 +1,122 @@
+@import url("sanitize.css");
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100..900&family=Rubik:wght@300..900&display=swap');
+
+/* =========================
+   Base
+========================= */
+
+body {
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    font-family: "Rubik", "Noto Sans JP", sans-serif;
+    overflow: hidden;
+}
+
+/* =========================
+   Custom Header Class
+========================= */
+.app-header-title {
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+}
+
+/* =========================
+   Breadcrumb（共通）
+========================= */
+.site-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+.site-breadcrumb i {
+    font-size: 10px;
+    color: #9ca3af;
+}
+.site-breadcrumb .is-current {
+    color: #f97316;
+    font-weight: 600;
+}
+
+/* =========================
+   Sidebar
+========================= */
+aside {
+    font-family: "Raleway", "Noto Sans JP", sans-serif;
+}
+
+.font-sans {
+    font-family: "Raleway", "Noto Sans JP", sans-serif;
+}
+
+/* Sidebar text animation */
+
+/* ピン固定時は文字を常時表示 */
+#sidebar.sidebar-pinned .sidebar-text {
+opacity: 1 !important;
+transform: translateX(0) !important;
+}
+
+/* ピン固定時は右の矢印も表示 */
+#sidebar.sidebar-pinned .group-hover\:flex {
+display: flex !important;
+}
+
+#sidebar.sidebar-pinned {
+  box-shadow:
+    6px 0 24px rgba(0,0,0,0.06);
+}
+
+  /* 開いている状態 */
+  #subSidebar {
+    width: 224px;   /* w-56 */
+  }
+
+  /* 閉じた状態 */
+  #subSidebar.sub-sidebar-collapsed {
+    width: 12px;
+  }
+
+  /* タイトルとメニューを非表示 */
+  #subSidebar.sub-sidebar-collapsed #subSidebarTitle,
+  #subSidebar.sub-sidebar-collapsed #subSidebarContent {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+/* =========================
+   Scrollbar
+========================= */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #d1d5db;
+    border-radius: 9999px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar::-webkit-scrollbar {
+  width: 0;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media screen and (max-width: 768px) {
+
+    body {
+        overflow: auto;
+    }
+
+}
