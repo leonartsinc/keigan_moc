@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜アセスメント年度確定</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/120_assessment_finalize.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: FinalizeBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">年度確定</span>
+      </div>
+      <!-- /Component: FinalizeBreadcrumb -->
+
+      <!-- Component: FinalizeTopBar -->
+      <div class="afl-topbar">
+        <span class="afl-topbar-title">アセスメント年度確定</span>
+        <span class="afl-topbar-sub">2025年度｜対象期間: 2025-04-01 〜 2026-03-31</span>
+      </div>
+      <!-- /Component: FinalizeTopBar -->
+
+      <!-- Component: FinalizePanel -->
+      <div class="afl-panel">
+
+        <!-- Component: FinalizeInfoBanner -->
+        <div class="afl-info-banner">
+          年度確定するユーザを選択し、「年度確定する」ボタンを押してください。<br>
+          <strong>確定後は対象ユーザのアセスメント結果がその年度の最終評価として登録されます。確定操作は取り消しできません。</strong>
+        </div>
+        <!-- /Component: FinalizeInfoBanner -->
+
+        <!-- Component: FinalizeFilterForm -->
+        <div class="afl-filter-form">
+          <table class="afl-table">
+            <tbody>
+              <tr>
+                <td class="afl-label">所属</td>
+                <td class="afl-value">
+                  <select id="afl-f-dept" class="afl-sel w-full" onchange="applyFiltersAndSort()">
+                    <option value="">全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="afl-label">上長</td>
+                <td class="afl-value">
+                  <select id="afl-f-supervisor" class="afl-sel w-56" onchange="applyFiltersAndSort()">
+                    <option value="">全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="afl-label">ステータス</td>
+                <td class="afl-value">
+                  <select id="afl-f-status" class="afl-sel w-48" onchange="applyFiltersAndSort()">
+                    <option value="">全て</option>
+                    <option value="診断済み">診断済み</option>
+                    <option value="一次評価済み">一次評価済み</option>
+                    <option value="未診断">未診断</option>
+                    <option value="確定済み">確定済み</option>
+                  </select>
+                  <button type="button" class="afl-clear-btn ml-2" onclick="resetFilters()">
+                    <i class="fa-solid fa-xmark"></i> クリア
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /Component: FinalizeFilterForm -->
+
+        <!-- Component: FinalizeListToolbar -->
+        <div class="afl-list-toolbar">
+          <span>
+            <span class="afl-list-toolbar-title">ユーザ一覧</span>
+            <span id="filterCount" class="afl-list-toolbar-count"></span>
+          </span>
+          <label class="afl-checkall-label">
+            <input type="checkbox" id="checkAll" class="accent-orange-500" onchange="toggleAllChecks(this)">
+            全て選択
+          </label>
+        </div>
+        <!-- /Component: FinalizeListToolbar -->
+
+        <!-- Component: FinalizeListTable -->
+        <div class="afl-list-wrap">
+          <table class="afl-list-table">
+            <thead>
+              <tr>
+                <th class="afl-col-check"></th>
+                <th>ID</th>
+                <th>名称</th>
+                <th>所属</th>
+                <th>上長</th>
+                <th>ステータス</th>
+                <th>入力日</th>
+              </tr>
+            </thead>
+            <tbody id="userListBody"></tbody>
+          </table>
+        </div>
+        <!-- /Component: FinalizeListTable -->
+
+        <!-- Component: FinalizeActionBar -->
+        <div class="afl-action-bar">
+          <span class="afl-selected-count" id="selBadge">
+            <span id="selectedCount">0 件 選択中</span>
+          </span>
+          <button type="button" onclick="openConfirmModal()" id="finalizeBtn" disabled class="afl-btn-primary">
+            年度確定する
+          </button>
+        </div>
+        <!-- /Component: FinalizeActionBar -->
+
+      </div>
+      <!-- /Component: FinalizePanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <!-- Component: ConfirmModal -->
+  <div id="confirmModal" class="fixed inset-0 z-50 hidden flex items-center justify-center"
+       onclick="closeConfirmModalOutside(event)">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+
+      <div class="flex items-center justify-between px-6 pt-5 pb-3">
+        <h2 class="text-base font-semibold text-gray-800">最終確認</h2>
+        <button onclick="closeConfirmModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <p class="px-6 text-xs text-gray-400">年度確定 — この操作は取り消しできません</p>
+      <p class="px-6 pt-3 text-sm text-gray-600">以下のユーザのアセスメントを確定します。よろしいですか？</p>
+
+      <div class="mx-6 mt-3 mb-5 bg-gray-50 rounded-lg p-3 max-h-44 overflow-y-auto">
+        <ul id="confirmUserList" class="space-y-1"></ul>
+      </div>
+
+      <div class="flex gap-3 px-6 pb-6">
+        <button type="button" onclick="closeConfirmModal()"
+                class="flex-1 h-9 rounded-md border border-gray-300 text-sm text-gray-600 font-medium hover:bg-gray-50 transition-colors">
+          戻る
+        </button>
+        <button type="button" onclick="executeFinalize()"
+                class="afl-btn-primary flex-1">
+          確定する
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /Component: ConfirmModal -->
+
+  <!-- Component: CompleteModal -->
+  <div id="completeModal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-sm mx-4 p-8 text-center">
+      <div class="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center mx-auto mb-4">
+        <i class="fa-solid fa-circle-check text-orange-500 text-2xl"></i>
+      </div>
+      <h2 class="text-base font-bold text-gray-800 mb-1">確定が完了しました</h2>
+      <p class="text-sm text-gray-500 mb-6">選択したユーザの年度確定処理が正常に完了しました。</p>
+      <button type="button" onclick="closeCompleteModal()" class="afl-btn-primary w-full">
+        閉じる
+      </button>
+    </div>
+  </div>
+  <!-- /Component: CompleteModal -->
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('アセスメント年度確定');
+    mountFooter();
+
+    // ========== モックデータ：年度確定対象の従業員一覧 ==========
+    const USERS = [
+      { id: "U001", name: "丸尾　幹",   dept: "第一開発部", supervisor: "田中　部長", status: "診断済み",     inputDate: "2026-03-15" },
+      { id: "U002", name: "佐藤　花子", dept: "第一開発部", supervisor: "田中　部長", status: "診断済み",     inputDate: "2026-03-18" },
+      { id: "U003", name: "鈴木　太郎", dept: "第二開発部", supervisor: "山本　部長", status: "診断済み",     inputDate: "2026-03-20" },
+      { id: "U004", name: "高橋　一郎", dept: "第二開発部", supervisor: "山本　部長", status: "一次評価済み", inputDate: "2026-03-21" },
+      { id: "U005", name: "伊藤　次郎", dept: "営業部",     supervisor: "中村　部長", status: "診断済み",     inputDate: "2026-03-19" },
+      { id: "U006", name: "渡辺　美咲", dept: "営業部",     supervisor: "中村　部長", status: "未診断",       inputDate: "—" },
+      { id: "U007", name: "小林　健二", dept: "総務部",     supervisor: "加藤　部長", status: "診断済み",     inputDate: "2026-03-17" },
+      { id: "U008", name: "加藤　恵子", dept: "総務部",     supervisor: "加藤　部長", status: "一次評価済み", inputDate: "2026-03-22" },
+      { id: "U009", name: "吉田　誠",   dept: "企画部",     supervisor: "松本　部長", status: "診断済み",     inputDate: "2026-03-16" },
+      { id: "U010", name: "山田　智子", dept: "企画部",     supervisor: "松本　部長", status: "未診断",       inputDate: "—" },
+    ];
+
+    const STATUS_TAG_CLASS = {
+      "診断済み":     "is-diagnosed",
+      "一次評価済み": "is-evaluated",
+      "未診断":       "is-none",
+      "確定済み":     "is-fixed",
+    };
+
+    const checkedIds = new Set();
+    let filteredUsers = [...USERS];
+
+    function initFilterOptions() {
+      const depts = [...new Set(USERS.map(u => u.dept))];
+      const sups  = [...new Set(USERS.map(u => u.supervisor))];
+      const dSel = document.getElementById("afl-f-dept");
+      depts.forEach(d => { const o = document.createElement("option"); o.value = d; o.textContent = d; dSel.appendChild(o); });
+      const sSel = document.getElementById("afl-f-supervisor");
+      sups.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sSel.appendChild(o); });
+    }
+
+    function applyFiltersAndSort() {
+      const dept   = document.getElementById("afl-f-dept").value;
+      const sup    = document.getElementById("afl-f-supervisor").value;
+      const status = document.getElementById("afl-f-status").value;
+      filteredUsers = USERS.filter(u => (!dept || u.dept === dept) && (!sup || u.supervisor === sup) && (!status || u.status === status));
+      document.getElementById("filterCount").textContent = `${filteredUsers.length} / ${USERS.length} 件`;
+      renderList();
+    }
+
+    function resetFilters() {
+      ["afl-f-dept", "afl-f-supervisor", "afl-f-status"].forEach(id => document.getElementById(id).value = "");
+      applyFiltersAndSort();
+    }
+
+    function renderList() {
+      const tbody = document.getElementById("userListBody");
+      if (filteredUsers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="afl-empty-row">該当するユーザが見つかりません</td></tr>`;
+        syncMasterCheckbox(); updateSelectedCount();
+        return;
+      }
+      tbody.innerHTML = filteredUsers.map(u => {
+        const canSelect = u.status !== "未診断" && u.status !== "確定済み";
+        const isChecked = checkedIds.has(u.id);
+        const tagClass = STATUS_TAG_CLASS[u.status] || "is-none";
+        return `
+          <tr class="${isChecked ? "is-checked" : ""}">
+            <td class="afl-col-check">
+              <input type="checkbox" class="accent-orange-500 user-check" data-id="${u.id}"
+                     ${isChecked ? "checked" : ""} ${canSelect ? "" : 'disabled title="選択できません"'}
+                     onchange="onCheckChange(this)">
+            </td>
+            <td>${u.id}</td>
+            <td>${u.name}</td>
+            <td>${u.dept}</td>
+            <td>${u.supervisor}</td>
+            <td><span class="afl-status-tag ${tagClass}">${u.status}</span></td>
+            <td>${u.inputDate}</td>
+          </tr>`;
+      }).join("");
+      syncMasterCheckbox(); updateSelectedCount();
+    }
+
+    function onCheckChange(cb) {
+      if (cb.checked) checkedIds.add(cb.dataset.id); else checkedIds.delete(cb.dataset.id);
+      cb.closest("tr").classList.toggle("is-checked", cb.checked);
+      syncMasterCheckbox(); updateSelectedCount();
+    }
+
+    function toggleAllChecks(masterCb) {
+      document.querySelectorAll(".user-check:not(:disabled)").forEach(cb => {
+        cb.checked = masterCb.checked;
+        masterCb.checked ? checkedIds.add(cb.dataset.id) : checkedIds.delete(cb.dataset.id);
+        cb.closest("tr").classList.toggle("is-checked", masterCb.checked);
+      });
+      updateSelectedCount();
+    }
+
+    function syncMasterCheckbox() {
+      const total = document.querySelectorAll(".user-check:not(:disabled)").length;
+      const checked = document.querySelectorAll(".user-check:not(:disabled):checked").length;
+      const m = document.getElementById("checkAll");
+      m.indeterminate = checked > 0 && checked < total;
+      m.checked = total > 0 && checked === total;
+    }
+
+    function updateSelectedCount() {
+      const c = checkedIds.size;
+      document.getElementById("selectedCount").textContent = `${c} 件 選択中`;
+      document.getElementById("finalizeBtn").disabled = c === 0;
+      document.getElementById("selBadge").classList.toggle("is-active", c > 0);
+    }
+
+    function openConfirmModal() {
+      if (!checkedIds.size) return;
+      document.getElementById("confirmUserList").innerHTML = USERS.filter(u => checkedIds.has(u.id)).map(u => `
+        <li class="text-sm text-gray-700">
+          <span class="font-semibold">${u.name}</span>
+          <span class="text-gray-400 text-xs ml-1">（${u.dept}）</span>
+        </li>`).join("");
+      document.getElementById("confirmModal").classList.remove("hidden");
+    }
+
+    function closeConfirmModal() { document.getElementById("confirmModal").classList.add("hidden"); }
+    function closeConfirmModalOutside(e) { if (e.target === e.currentTarget) closeConfirmModal(); }
+
+    function executeFinalize() {
+      closeConfirmModal();
+      USERS.forEach(u => { if (checkedIds.has(u.id)) u.status = "確定済み"; });
+      checkedIds.clear();
+      document.getElementById("checkAll").checked = false;
+      document.getElementById("completeModal").classList.remove("hidden");
+      applyFiltersAndSort();
+    }
+
+    function closeCompleteModal() { document.getElementById("completeModal").classList.add("hidden"); }
+
+    // ========== 初期化 ==========
+    initFilterOptions();
+    applyFiltersAndSort();
+  </script>
+
+</body>
+</html>
