@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>資料請求｜KEIGAN 属人的な評価をなくす、新しい人事評価SaaS</title>
+<meta name="description" content="人事評価SaaS「KEIGAN」の資料請求ページです。サービス概要・機能・料金プランをまとめた資料をお送りします。">
+<link rel="icon" type="image/png" href="source/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Shippori Mincho', serif; color: #1C1917; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; }
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px; font-size:13px; font-weight:700; background:#FFF1E6; color:#B8470A; }
+  .shot { background:#fff; border:1px solid #ECE3D6; border-radius:14px; overflow:hidden; box-shadow:0 30px 60px -28px rgba(28,25,23,0.35); }
+  .shot-bar { display:flex; gap:6px; padding:10px 14px; background:#F4EFE8; border-bottom:1px solid #ECE3D6; }
+  .shot-bar i { width:9px; height:9px; border-radius:50%; background:#D8CDBB; }
+  .slide { transition: opacity 2.5s ease-in-out; }
+</style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-30 border-b border-[#ECE3D6]" style="background:rgba(250,247,242,0.92); backdrop-filter:blur(8px);">
+    <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-6 px-6 md:px-10 py-3">
+      <a href="index.html"><img src="source/logo.png" alt="KEIGAN" class="h-7 block shrink-0"></a>
+      <div class="flex items-center gap-7 md:gap-8">
+        <nav class="hidden xl:flex items-center gap-7 text-sm font-medium whitespace-nowrap">
+          <div class="relative group">
+            <button type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-transparent group-hover:border-[#C9BFAF] font-medium text-[#1C1917] bg-transparent cursor-pointer">
+              サービス一覧
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="hidden group-hover:block absolute left-0 top-full pt-2 w-56 z-30">
+              <div class="rounded-lg bg-white border border-[#ECE3D6] shadow-xl py-1.5">
+                <a href="freelancers.html" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#2461C2;">KEIGAN for FREELANCERS</a>
+                <a href="business.html" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#E8590C;">KEIGAN for IT BUSINESSES</a>
+              </div>
+            </div>
+          </div>
+          <a href="index.html#pricing" class="text-[#1C1917] hover:text-[#E8590C]">料金</a>
+          <div class="relative group">
+            <button type="button" class="flex items-center gap-1.5 text-[#1C1917] bg-transparent border-0 font-medium text-sm cursor-pointer p-0 group-hover:text-[#E8590C]">
+              アカウントをお持ちの方へ
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="hidden group-hover:block absolute right-0 top-full pt-2 w-64 z-30">
+              <div class="rounded-lg bg-white border border-[#ECE3D6] shadow-xl py-1.5">
+                <a href="#" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#2461C2;">ログイン</a>
+                <a href="#" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#2461C2;">リリースノート<br><span class="text-[10.5px] font-normal">（新機能／仕様変更のご案内）</span></a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="flex items-center gap-2.5 md:gap-3 shrink-0">
+          <a href="../000_new_application.html" class="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold px-4 py-2.5 rounded-md text-white" style="background:#E8590C;">for IT BUSINESSES（２ケ月無料）<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="../000_new_application.html" class="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold px-4 py-2.5 rounded-md text-white" style="background:#2461C2;">for FREELANCERS（永年無料）<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="request.html" class="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold px-4 py-2.5 rounded-md border border-[#C9BFAF] bg-white text-[#1C1917]">資料請求<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 資料請求 ============ -->
+  <section style="background:linear-gradient(160deg,#FAF7F2 0%,#FDF0E4 100%);" class="px-6 md:px-10 pt-10 pb-16">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="text-[12px] text-[#9C9186] mb-8"><a href="index.html" class="text-[#9C9186] hover:text-[#E8590C]">TOP</a>　›　資料請求</div>
+      <h1 class="text-[32px] md:text-[40px] font-bold mb-4">資料請求</h1>
+      <p class="text-[15px] leading-[2] text-[#514A42]">KEIGANの資料をご希望の方は、下記フォームよりお気軽にご連絡ください。<br>ご入力いただいたメールアドレスに、サービス紹介資料をお送りします。</p>
+    </div>
+  </section>
+
+  <section class="max-w-[1200px] mx-auto px-6 md:px-10 py-16 grid lg:grid-cols-[0.85fr_1.15fr] gap-12 items-start">
+
+    <!-- 左：資料のご案内 -->
+    <aside class="lg:sticky lg:top-24">
+      <!-- 資料の表紙イメージ（実際の資料ができたら画像に差し替え） -->
+      <div class="rounded-2xl overflow-hidden border border-[#ECE3D6] shadow-[0_30px_60px_-30px_rgba(28,25,23,0.4)] mb-8">
+        <div class="aspect-[16/10] relative p-8 flex flex-col justify-between" style="background:linear-gradient(135deg,#1C1917,#3A2A1E);">
+          <div class="absolute -top-20 -right-16 w-72 h-72 rounded-full opacity-50" style="background:radial-gradient(circle,#F2760A,transparent 70%);"></div>
+          <img src="source/logo.png" alt="KEIGAN" class="relative h-6 w-auto self-start" style="filter:brightness(0) invert(1);">
+          <div class="relative text-white">
+            <div class="text-[12px] tracking-[0.15em] text-[#E7B77A] font-bold mb-2">SERVICE GUIDE</div>
+            <div class="text-[24px] md:text-[28px] font-bold leading-snug">KEIGAN<br>サービス紹介資料</div>
+          </div>
+          <div class="relative text-[11px] text-[#C9BFAF]">属人的な評価をなくす、新しい人事評価SaaS</div>
+        </div>
+      </div>
+      <div class="font-bold text-[16px] mb-4">資料でわかること</div>
+      <ul class="grid gap-3 mb-8">
+        <li class="flex gap-3 items-start text-[14.5px]"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-[12px] font-black shrink-0 mt-0.5" style="background:#E8590C;">✓</span>KEIGANのサービス概要と特徴</li>
+        <li class="flex gap-3 items-start text-[14.5px]"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-[12px] font-black shrink-0 mt-0.5" style="background:#E8590C;">✓</span>800項目超の評価基準とITSSレベル算定の仕組み</li>
+        <li class="flex gap-3 items-start text-[14.5px]"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-[12px] font-black shrink-0 mt-0.5" style="background:#E8590C;">✓</span>主な機能と画面イメージ</li>
+        <li class="flex gap-3 items-start text-[14.5px]"><span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-[12px] font-black shrink-0 mt-0.5" style="background:#E8590C;">✓</span>料金プランとご利用開始までの流れ</li>
+      </ul>
+      <div class="rounded-xl p-5 text-[13px] leading-[1.9] text-[#6B645C]" style="background:#FAF7F2;">お預かりした個人情報は、資料の送付およびサービスに関するご案内のために利用し、プライバシーポリシーに基づき適切に管理いたします。</div>
+    </aside>
+
+    <!-- 右：フォーム -->
+    <div class="bg-white rounded-2xl border border-[#ECE3D6] p-7 md:p-10 shadow-[0_20px_40px_-28px_rgba(28,25,23,0.25)]">
+      <!-- ステップ表示 -->
+      <ol id="steps" class="flex items-center justify-center gap-3 mb-10 text-[13px] font-bold">
+        <li data-step="1" class="step flex items-center gap-2"><span class="w-7 h-7 rounded-full flex items-center justify-center">1</span>入力</li>
+        <li class="w-8 h-px bg-[#D8CDBB]"></li>
+        <li data-step="2" class="step flex items-center gap-2"><span class="w-7 h-7 rounded-full flex items-center justify-center">2</span>確認</li>
+        <li class="w-8 h-px bg-[#D8CDBB]"></li>
+        <li data-step="3" class="step flex items-center gap-2"><span class="w-7 h-7 rounded-full flex items-center justify-center">3</span>完了</li>
+      </ol>
+
+      <!-- STEP1 入力 -->
+      <form id="requestForm" novalidate>
+        <div class="grid gap-6">
+          <div>
+            <div class="lbl">ご利用形態<span class="req">必須</span></div>
+            <div class="flex flex-wrap gap-3">
+              <label class="radio-card"><input type="radio" name="type" value="法人（IT企業など）" checked> 法人（IT企業など）</label>
+              <label class="radio-card"><input type="radio" name="type" value="個人・フリーランス"> 個人・フリーランス</label>
+            </div>
+          </div>
+          <div class="corp-only">
+            <label class="lbl" for="company">会社名<span class="req">必須</span></label>
+            <input class="inp" id="company" name="company" placeholder="例：株式会社レオンアーツ" data-label="会社名">
+          </div>
+          <div class="corp-only grid sm:grid-cols-2 gap-4">
+            <div><label class="lbl" for="dept">部署名<span class="opt">任意</span></label><input class="inp" id="dept" name="dept" placeholder="例：人事部" data-label="部署名"></div>
+            <div><label class="lbl" for="position">役職<span class="opt">任意</span></label><input class="inp" id="position" name="position" placeholder="例：部長" data-label="役職"></div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div><label class="lbl" for="name">お名前<span class="req">必須</span></label><input class="inp" id="name" name="name" placeholder="例：獅子 太郎" required data-label="お名前"></div>
+            <div><label class="lbl" for="kana">フリガナ<span class="req">必須</span></label><input class="inp" id="kana" name="kana" placeholder="例：シシ タロウ" required data-label="フリガナ"></div>
+          </div>
+          <div><label class="lbl" for="email">メールアドレス<span class="req">必須</span></label><input class="inp" type="email" id="email" name="email" placeholder="例：taro@example.co.jp" required data-label="メールアドレス"></div>
+          <div><label class="lbl" for="tel">電話番号<span class="opt">任意</span></label><input class="inp" type="tel" id="tel" name="tel" placeholder="例：06-1234-5678" data-label="電話番号"></div>
+          <div class="corp-only">
+            <label class="lbl" for="size">従業員数<span class="req">必須</span></label>
+            <select class="inp" id="size" name="size" data-label="従業員数">
+              <option value="">選択してください</option><option>1〜9名</option><option>10〜49名</option><option>50〜99名</option><option>100〜299名</option><option>300〜999名</option><option>1,000名以上</option>
+            </select>
+          </div>
+          <div>
+            <div class="lbl">ご興味のあるサービス<span class="opt">任意</span></div>
+            <div class="flex flex-wrap gap-3">
+              <label class="radio-card"><input type="checkbox" name="service" value="KEIGAN for IT BUSINESSES"> KEIGAN for IT BUSINESSES</label>
+              <label class="radio-card"><input type="checkbox" name="service" value="KEIGAN for FREELANCERS"> KEIGAN for FREELANCERS</label>
+            </div>
+          </div>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="lbl" for="timing">導入検討時期<span class="opt">任意</span></label>
+              <select class="inp" id="timing" name="timing" data-label="導入検討時期"><option value="">選択してください</option><option>すぐにでも</option><option>3か月以内</option><option>半年以内</option><option>1年以内</option><option>情報収集中</option></select>
+            </div>
+            <div>
+              <label class="lbl" for="source">KEIGANを知ったきっかけ<span class="opt">任意</span></label>
+              <select class="inp" id="source" name="source" data-label="知ったきっかけ"><option value="">選択してください</option><option>Web検索</option><option>SNS</option><option>知人・取引先の紹介</option><option>展示会・セミナー</option><option>その他</option></select>
+            </div>
+          </div>
+          <div><label class="lbl" for="message">ご質問・ご要望<span class="opt">任意</span></label><textarea class="inp" id="message" name="message" rows="5" placeholder="導入に関するご相談など、お気軽にご記入ください" data-label="ご質問・ご要望"></textarea></div>
+          <label class="flex items-start gap-3 text-[14px]"><input type="checkbox" id="agree" class="mt-1 w-4 h-4 accent-[#E8590C]"><span><a href="#" class="text-[#E8590C] underline">プライバシーポリシー</a>に同意する<span class="req">必須</span></span></label>
+          <p id="formError" class="hidden text-[13.5px] font-bold text-[#C2410C] bg-[#FFF1E6] rounded-lg px-4 py-3"></p>
+          <button type="submit" class="w-full py-4 rounded-md font-bold text-white text-[15px]" style="background:#E8590C;">入力内容を確認する</button>
+        </div>
+      </form>
+
+      <!-- STEP2 確認 -->
+      <div id="confirmView" class="hidden">
+        <p class="text-[14px] text-[#6B645C] mb-6">以下の内容でよろしければ「送信する」を押してください。</p>
+        <dl id="confirmList" class="divide-y divide-[#ECE3D6] border-y border-[#ECE3D6] mb-8 text-[14px]"></dl>
+        <div class="grid sm:grid-cols-2 gap-3">
+          <button type="button" id="backBtn" class="py-4 rounded-md font-bold border border-[#C9BFAF] bg-white">入力画面に戻る</button>
+          <button type="button" id="sendBtn" class="py-4 rounded-md font-bold text-white" style="background:#E8590C;">送信する</button>
+        </div>
+      </div>
+
+      <!-- STEP3 完了 -->
+      <div id="doneView" class="hidden text-center py-6">
+        <div class="w-16 h-16 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-[28px] font-black" style="background:#E8590C;">✓</div>
+        <h2 class="text-[24px] font-bold mb-4">資料請求を受け付けました</h2>
+        <p class="text-[14.5px] leading-[2] text-[#514A42] mb-8">お問い合わせいただき、ありがとうございます。<br>ご入力いただいたメールアドレスに、資料をお送りいたします。<br>しばらく経ってもメールが届かない場合は、お手数ですがお問い合わせください。</p>
+        <a href="index.html" class="inline-flex items-center gap-2 px-8 py-3.5 rounded-md font-bold border border-[#C9BFAF] text-[#1C1917]">トップページへ戻る</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .lbl { display:flex; align-items:center; gap:8px; font-size:14px; font-weight:700; margin-bottom:8px; }
+    .req { display:inline-block; margin-left:8px; padding:1px 8px; border-radius:4px; font-size:11px; font-weight:700; color:#fff; background:#E8590C; }
+    .opt { display:inline-block; margin-left:8px; padding:1px 8px; border-radius:4px; font-size:11px; font-weight:700; color:#6B645C; background:#EFE9E0; }
+    .inp { width:100%; padding:13px 14px; border:1px solid #D8CDBB; border-radius:8px; font:inherit; font-size:15px; background:#fff; color:#1C1917; }
+    .inp:focus { outline:none; border-color:#E8590C; box-shadow:0 0 0 3px rgba(232,89,12,0.15); }
+    .inp.is-error { border-color:#C2410C; background:#FFF8F3; }
+    .radio-card { display:inline-flex; align-items:center; gap:8px; padding:11px 16px; border:1px solid #D8CDBB; border-radius:8px; font-size:14px; cursor:pointer; }
+    .radio-card:has(input:checked) { border-color:#E8590C; background:#FFF6EE; font-weight:700; }
+    .radio-card input { accent-color:#E8590C; }
+    .step span { background:#EFE9E0; color:#9C9186; }
+    .step { color:#9C9186; }
+    .step.is-active span { background:#E8590C; color:#fff; }
+    .step.is-active { color:#1C1917; }
+  </style>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-[#ECE3D6] px-6 md:px-12 pt-14 pb-10">
+    <div class="max-w-[1280px] mx-auto flex justify-between flex-wrap gap-10">
+      <div class="max-w-[280px]">
+        <img src="source/logo.png" alt="KEIGAN" class="h-6 block mb-4">
+        <div class="text-[13px] text-[#9C9186] leading-[1.8]">属人的な評価をなくす、新しい人事評価SaaS。</div>
+      </div>
+      <div class="flex gap-20">
+        <div>
+          <div class="text-[12px] text-[#9C9186] font-bold mb-4">サービス</div>
+          <div class="flex flex-col gap-3 text-[13px]">
+            <a href="business.html" class="text-[#1C1917]">KEIGAN <span style="color:#E8590C;">for IT BUSINESSES</span></a>
+            <a href="freelancers.html" class="text-[#1C1917]">KEIGAN <span style="color:#2461C2;">for FREELANCERS</span></a>
+            <a href="index.html#pricing" class="text-[#514A42]">料金</a>
+          </div>
+        </div>
+        <div>
+          <div class="text-[12px] text-[#9C9186] font-bold mb-4">会社情報</div>
+          <div class="flex flex-col gap-3 text-[13px]">
+            <a href="#" class="text-[#514A42]">運営会社</a>
+            <a href="#" class="text-[#514A42]">お問い合わせ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-[1280px] mx-auto mt-8 pt-6 border-t border-[#ECE3D6] text-[12px] text-[#9C9186]">© 2026 LEON ARTS, Inc. KEIGAN</div>
+  </footer>
+
+  <script>
+  // 資料請求フォーム：入力 → 確認 → 完了（※送信先は未設定のため、現在は画面遷移のみ）
+  // TODO: 送信先（メール配信サービス・自社API など）が決まったら sendBtn の処理を差し替え
+  (function(){
+    var form = document.getElementById('requestForm');
+    var confirmView = document.getElementById('confirmView');
+    var doneView = document.getElementById('doneView');
+    var errBox = document.getElementById('formError');
+
+    function setStep(n){
+      document.querySelectorAll('.step').forEach(function(s){ s.classList.toggle('is-active', Number(s.dataset.step) <= n); });
+      window.scrollTo({ top: form.closest('section').offsetTop - 90, behavior: 'smooth' });
+    }
+    function isCorp(){ return form.type.value === '法人（IT企業など）'; }
+    function toggleCorp(){
+      document.querySelectorAll('.corp-only').forEach(function(el){ el.style.display = isCorp() ? '' : 'none'; });
+    }
+    form.querySelectorAll('input[name="type"]').forEach(function(r){ r.addEventListener('change', toggleCorp); });
+    toggleCorp();
+    setStep(1);
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var required = ['name','kana','email'];
+      if (isCorp()) required.unshift('company'), required.push('size');
+      var missing = [];
+      form.querySelectorAll('.inp').forEach(function(el){ el.classList.remove('is-error'); });
+      required.forEach(function(id){
+        var el = document.getElementById(id);
+        if (!el.value.trim()) { el.classList.add('is-error'); missing.push(el.dataset.label); }
+      });
+      var email = document.getElementById('email');
+      var msgs = [];
+      if (missing.length) msgs.push('未入力の必須項目があります：' + missing.join('、'));
+      if (email.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) { email.classList.add('is-error'); msgs.push('メールアドレスの形式が正しくありません'); }
+      if (!document.getElementById('agree').checked) msgs.push('プライバシーポリシーへの同意が必要です');
+      if (msgs.length) { errBox.innerHTML = msgs.join('<br>'); errBox.classList.remove('hidden'); return; }
+      errBox.classList.add('hidden');
+
+      // 確認画面の生成
+      var rows = [['ご利用形態', form.type.value]];
+      form.querySelectorAll('.inp').forEach(function(el){
+        if (el.closest('.corp-only') && !isCorp()) return;
+        rows.push([el.dataset.label, el.value.trim() || '—']);
+      });
+      var services = Array.from(form.querySelectorAll('input[name="service"]:checked')).map(function(c){ return c.value; });
+      rows.splice(isCorp() ? 9 : 5, 0, ['ご興味のあるサービス', services.join('、') || '—']);
+      var dl = document.getElementById('confirmList');
+      dl.innerHTML = '';
+      rows.forEach(function(r){
+        var wrap = document.createElement('div'); wrap.className = 'grid grid-cols-[9em_1fr] gap-4 py-3';
+        var dt = document.createElement('dt'); dt.className = 'font-bold text-[#6B645C]'; dt.textContent = r[0];
+        var dd = document.createElement('dd'); dd.className = 'whitespace-pre-wrap break-words'; dd.textContent = r[1];
+        wrap.appendChild(dt); wrap.appendChild(dd); dl.appendChild(wrap);
+      });
+      form.classList.add('hidden'); confirmView.classList.remove('hidden'); setStep(2);
+    });
+
+    document.getElementById('backBtn').addEventListener('click', function(){
+      confirmView.classList.add('hidden'); form.classList.remove('hidden'); setStep(1);
+    });
+    document.getElementById('sendBtn').addEventListener('click', function(){
+      confirmView.classList.add('hidden'); doneView.classList.remove('hidden'); setStep(3);
+    });
+  })();
+  </script>
+</body>
+</html>
