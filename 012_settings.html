@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜設定画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/012_settings.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: SettingsBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span>設定</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="is-current">組織管理の設定</span>
+      </div>
+      <!-- /Component: SettingsBreadcrumb -->
+
+      <!-- Component: SettingsTopBar -->
+      <div class="stg-topbar">
+        <span class="stg-topbar-title">組織管理の設定</span>
+        <span class="stg-topbar-desc">雇用形態、職種、グループ、役職の情報の設定を行えます</span>
+      </div>
+      <!-- /Component: SettingsTopBar -->
+
+      <!-- Component: SettingsPanel -->
+      <div class="stg-panel">
+
+        <!-- Component: SettingsTabs -->
+        <div class="stg-tabs" id="stg-tabs">
+          <button type="button" class="stg-tab" data-tab="employment" onclick="setActiveTab('employment')">雇用形態</button>
+          <button type="button" class="stg-tab" data-tab="job" onclick="setActiveTab('job')">職種</button>
+          <button type="button" class="stg-tab" data-tab="group" onclick="setActiveTab('group')">グループ</button>
+          <button type="button" class="stg-tab" data-tab="title" onclick="setActiveTab('title')">役職</button>
+        </div>
+        <!-- /Component: SettingsTabs -->
+
+        <!-- Component: SettingsListTab（雇用形態／職種／役職：1階層の一覧。表示中のタブのデータを描画） -->
+        <div class="stg-tab-body" id="stg-list-tab">
+          <div class="stg-toolbar">
+            <button type="button" class="stg-tool-btn" onclick="saveActiveList()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+            <button type="button" class="stg-tool-btn" onclick="cancelActiveList()">
+              <i class="fa-solid fa-circle-minus"></i>キャンセル
+            </button>
+            <button type="button" class="stg-tool-btn" onclick="addListRow()">
+              <i class="fa-solid fa-plus"></i>行を追加
+            </button>
+          </div>
+
+          <div class="stg-list">
+            <div class="stg-list-header" id="stg-list-header"></div>
+            <div id="stg-list-body"></div>
+          </div>
+        </div>
+        <!-- /Component: SettingsListTab -->
+
+        <!-- Component: SettingsGroupTab（グループ：階層ツリー） -->
+        <div class="stg-tab-body" id="stg-group-tab">
+          <div class="stg-toolbar">
+            <button type="button" class="stg-tool-btn" onclick="setAllGroupsExpanded(true)">
+              <i class="fa-solid fa-angles-down"></i>全て展開
+            </button>
+            <button type="button" class="stg-tool-btn" onclick="setAllGroupsExpanded(false)">
+              <i class="fa-solid fa-angles-up"></i>全て閉じる
+            </button>
+            <button type="button" class="stg-tool-btn" onclick="addGroupNode(null)">
+              <i class="fa-solid fa-plus"></i>追加
+            </button>
+            <button type="button" class="stg-tool-btn" onclick="saveGroups()">
+              <i class="fa-solid fa-floppy-disk"></i>保存
+            </button>
+            <button type="button" class="stg-tool-btn" onclick="cancelGroups()">
+              <i class="fa-solid fa-circle-minus"></i>キャンセル
+            </button>
+          </div>
+          <p class="stg-tree-note">≡ をドラッグして並べ替え。行の上端／下端にドロップで前後へ、中央にドロップでそのグループの配下へ移動します。</p>
+
+          <div class="stg-tree-root" id="stg-group-tree"></div>
+        </div>
+        <!-- /Component: SettingsGroupTab -->
+
+      </div>
+      <!-- /Component: SettingsPanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('設定画面');
+    mountFooter();
+
+    // ========== 共通ユーティリティ ==========
+    let nextItemId = 1;
+    function newId() {
+      return `n${nextItemId++}`;
+    }
+
+    function deepClone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function escapeAttr(value) {
+      return String(value ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+    }
+
+    // ========== タブ定義 ==========
+    // type: list = 1階層の一覧（雇用形態／職種／役職）、tree = 階層ツリー（グループ）
+    const SETTINGS_TABS = {
+      employment: { label: "雇用形態", type: "list" },
+      job:        { label: "職種",     type: "list" },
+      group:      { label: "グループ", type: "tree" },
+      title:      { label: "役職",     type: "list" },
+    };
+
+    // ========== モックデータ：雇用形態／職種／役職 ==========
+    const withIds = rows => rows.map(([code, name]) => ({ id: newId(), code, name }));
+
+    const INITIAL_LISTS = {
+      employment: withIds([
+        ["01", "役員"],
+        ["02", "正社員"],
+        ["03", "契約社員"],
+        ["04", "アルバイト"],
+      ]),
+      job: withIds([
+        ["J01", "アプリケーションスペシャリスト"],
+        ["J02", "ITサービスマネジメント"],
+        ["J03", "ITアーキテクト"],
+        ["J04", "プロジェクトマネジメント"],
+        ["J05", "技術職"],
+      ]),
+      title: withIds([
+        ["T01", "部長"],
+        ["T02", "マネージャ"],
+        ["T03", "アシスタントマネージャー"],
+        ["T04", "チーフ"],
+        ["T05", "主任"],
+      ]),
+    };
+
+    // ========== モックデータ：グループ（階層） ==========
+    const withNodeIds = nodes => nodes.map(n => ({
+      id: newId(),
+      code: n.code,
+      name: n.name,
+      expanded: true,
+      children: withNodeIds(n.children || []),
+    }));
+
+    const INITIAL_GROUPS = withNodeIds([
+      { code: "ID", name: "インダストリーズ本部", children: [
+        { code: "XT", name: "X－TECH事業部" },
+        { code: "DS", name: "デジタルソリューション事業部", children: [
+          { code: "4201",  name: "K-BIT" },
+          { code: "4202",  name: "SD" },
+          { code: "4303",  name: "TBS（NES）" },
+          { code: "42041", name: "HSC（APT）" },
+          { code: "42042", name: "HSC（VL）" },
+        ] },
+      ] },
+      { code: "SL", name: "営業本部" },
+      { code: "MG", name: "管理本部" },
+    ]);
+
+    // ========== 状態 ==========
+    // saved*：最後に保存した内容（キャンセル時の戻し先）／current*：編集中の内容
+    let activeTab = "employment";
+    let savedLists = deepClone(INITIAL_LISTS);
+    let currentLists = deepClone(INITIAL_LISTS);
+    let savedGroups = deepClone(INITIAL_GROUPS);
+    let currentGroups = deepClone(INITIAL_GROUPS);
+
+    // ========== タブ切り替え ==========
+    function setActiveTab(tabKey) {
+      activeTab = tabKey;
+      const isTree = SETTINGS_TABS[tabKey].type === "tree";
+      document.querySelectorAll(".stg-tab").forEach(tab => {
+        tab.classList.toggle("is-active", tab.dataset.tab === tabKey);
+      });
+      document.getElementById("stg-list-tab").classList.toggle("is-active", !isTree);
+      document.getElementById("stg-group-tab").classList.toggle("is-active", isTree);
+      if (isTree) {
+        renderGroupTree();
+      } else {
+        renderList();
+      }
+    }
+
+    // ========== 一覧（雇用形態／職種／役職） ==========
+    function renderList() {
+      const label = SETTINGS_TABS[activeTab].label;
+      const rows = currentLists[activeTab];
+      document.getElementById("stg-list-header").textContent = `${label}名`;
+      document.getElementById("stg-list-body").innerHTML = rows.map(row => `
+        <div class="stg-row" data-id="${row.id}"
+             ondragstart="onListDragStart(event)" ondragover="onListDragOver(event)"
+             ondragleave="clearDropMarks()" ondrop="onListDrop(event)" ondragend="onDragEnd(event)">
+          <span class="stg-drag-handle" title="ドラッグで並べ替え" onmousedown="armRowDrag(this)"><i class="fa-solid fa-bars"></i></span>
+          <input type="text" class="stg-inp stg-inp-code" value="${escapeAttr(row.code)}" placeholder="コード"
+                 oninput="updateListItem('${row.id}', 'code', this.value)">
+          <input type="text" class="stg-inp stg-inp-name" value="${escapeAttr(row.name)}" placeholder="${label}名を入力してください"
+                 oninput="updateListItem('${row.id}', 'name', this.value)">
+          <button type="button" class="stg-icon-btn" title="削除" onclick="deleteListRow('${row.id}')"><i class="fa-regular fa-trash-can"></i></button>
+        </div>`).join("") || `<div class="stg-empty">データがありません。「行を追加」から追加してください。</div>`;
+    }
+
+    function updateListItem(id, key, value) {
+      const row = currentLists[activeTab].find(r => r.id === id);
+      if (row) row[key] = value;
+    }
+
+    function addListRow() {
+      currentLists[activeTab].push({ id: newId(), code: "", name: "" });
+      renderList();
+    }
+
+    function deleteListRow(id) {
+      currentLists[activeTab] = currentLists[activeTab].filter(r => r.id !== id);
+      renderList();
+    }
+
+    function saveActiveList() {
+      savedLists[activeTab] = deepClone(currentLists[activeTab]);
+      alert(`${SETTINGS_TABS[activeTab].label}を保存しました（モック）`);
+    }
+
+    function cancelActiveList() {
+      currentLists[activeTab] = deepClone(savedLists[activeTab]);
+      renderList();
+    }
+
+    // ========== ドラッグ共通 ==========
+    // ハンドル（≡）を押したときだけ行をドラッグ可能にし、入力欄の文字選択と干渉しないようにする
+    let dragState = null; // { type: "list" | "tree", id }
+
+    function armRowDrag(handle) {
+      const row = handle.closest("[data-id]");
+      row.setAttribute("draggable", "true");
+      // ドラッグせずにボタンを離した場合はドラッグ可能状態を解除する
+      document.addEventListener("mouseup", () => {
+        if (!dragState) row.removeAttribute("draggable");
+      }, { once: true });
+    }
+
+    function clearDropMarks() {
+      document.querySelectorAll(".is-drop-before, .is-drop-after, .is-drop-into")
+        .forEach(el => el.classList.remove("is-drop-before", "is-drop-after", "is-drop-into"));
+    }
+
+    function onDragEnd(event) {
+      event.currentTarget.removeAttribute("draggable");
+      event.currentTarget.classList.remove("is-dragging");
+      clearDropMarks();
+      dragState = null;
+    }
+
+    // ========== 一覧：ドラッグで並べ替え ==========
+    function onListDragStart(event) {
+      dragState = { type: "list", id: event.currentTarget.dataset.id };
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", dragState.id);
+      event.currentTarget.classList.add("is-dragging");
+    }
+
+    function getListDropPosition(event) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      return event.clientY < rect.top + rect.height / 2 ? "before" : "after";
+    }
+
+    function onListDragOver(event) {
+      if (!dragState || dragState.type !== "list") return;
+      event.preventDefault();
+      clearDropMarks();
+      if (event.currentTarget.dataset.id === dragState.id) return;
+      event.currentTarget.classList.add(getListDropPosition(event) === "before" ? "is-drop-before" : "is-drop-after");
+    }
+
+    function onListDrop(event) {
+      if (!dragState || dragState.type !== "list") return;
+      event.preventDefault();
+      const targetId = event.currentTarget.dataset.id;
+      const position = getListDropPosition(event);
+      const rows = currentLists[activeTab];
+      const fromIdx = rows.findIndex(r => r.id === dragState.id);
+      if (fromIdx < 0 || targetId === dragState.id) return;
+      const [moved] = rows.splice(fromIdx, 1);
+      const targetIdx = rows.findIndex(r => r.id === targetId);
+      rows.splice(position === "before" ? targetIdx : targetIdx + 1, 0, moved);
+      dragState = null;
+      renderList();
+    }
+
+    // ========== グループ：ツリー操作の共通関数 ==========
+    // 指定 id のノードと、その親の children 配列を返す
+    function findGroupNode(id, nodes = currentGroups) {
+      for (let i = 0; i < nodes.length; i++) {
+        if (nodes[i].id === id) return { node: nodes[i], siblings: nodes, index: i };
+        const found = findGroupNode(id, nodes[i].children);
+        if (found) return found;
+      }
+      return null;
+    }
+
+    function isDescendant(ancestor, id) {
+      return ancestor.children.some(child => child.id === id || isDescendant(child, id));
+    }
+
+    function forEachGroupNode(nodes, fn) {
+      nodes.forEach(node => {
+        fn(node);
+        forEachGroupNode(node.children, fn);
+      });
+    }
+
+    // ========== グループ：描画 ==========
+    function renderGroupNodes(nodes) {
+      return `<ul class="stg-tree">${nodes.map(node => {
+        const hasChildren = node.children.length > 0;
+        const toggle = hasChildren
+          ? `<button type="button" class="stg-tree-toggle ${node.expanded ? "is-expanded" : ""}" title="${node.expanded ? "閉じる" : "開く"}"
+                     onclick="toggleGroupNode('${node.id}')"><i class="fa-solid fa-chevron-down"></i></button>`
+          : `<span class="stg-tree-toggle-spacer"></span>`;
+        const children = hasChildren && node.expanded ? renderGroupNodes(node.children) : "";
+        return `
+          <li class="stg-tree-item">
+            <div class="stg-tree-line">
+              ${toggle}
+              <div class="stg-row stg-tree-row" data-id="${node.id}"
+                   ondragstart="onTreeDragStart(event)" ondragover="onTreeDragOver(event)"
+                   ondragleave="clearDropMarks()" ondrop="onTreeDrop(event)" ondragend="onDragEnd(event)">
+                <span class="stg-drag-handle" title="ドラッグで移動" onmousedown="armRowDrag(this)"><i class="fa-solid fa-bars"></i></span>
+                <input type="text" class="stg-inp stg-inp-code" value="${escapeAttr(node.code)}" placeholder="グループコード"
+                       oninput="updateGroupNode('${node.id}', 'code', this.value)">
+                <input type="text" class="stg-inp stg-inp-name" value="${escapeAttr(node.name)}" placeholder="グループ名を入力してください"
+                       oninput="updateGroupNode('${node.id}', 'name', this.value)">
+                <button type="button" class="stg-icon-btn" title="配下にグループを追加" onclick="addGroupNode('${node.id}')"><i class="fa-solid fa-plus"></i></button>
+                <button type="button" class="stg-icon-btn" title="削除" onclick="deleteGroupNode('${node.id}')"><i class="fa-regular fa-trash-can"></i></button>
+              </div>
+            </div>
+            ${children}
+          </li>`;
+      }).join("")}</ul>`;
+    }
+
+    function renderGroupTree() {
+      document.getElementById("stg-group-tree").innerHTML = currentGroups.length
+        ? renderGroupNodes(currentGroups)
+        : `<div class="stg-empty">データがありません。「追加」から追加してください。</div>`;
+    }
+
+    // ========== グループ：編集操作 ==========
+    function updateGroupNode(id, key, value) {
+      const found = findGroupNode(id);
+      if (found) found.node[key] = value;
+    }
+
+    function toggleGroupNode(id) {
+      const found = findGroupNode(id);
+      if (!found) return;
+      found.node.expanded = !found.node.expanded;
+      renderGroupTree();
+    }
+
+    function setAllGroupsExpanded(expanded) {
+      forEachGroupNode(currentGroups, node => { node.expanded = expanded; });
+      renderGroupTree();
+    }
+
+    // parentId が null の場合は最上位に追加、指定時はそのグループの配下末尾に追加
+    function addGroupNode(parentId) {
+      const newNode = { id: newId(), code: "", name: "", expanded: true, children: [] };
+      if (parentId === null) {
+        currentGroups.push(newNode);
+      } else {
+        const found = findGroupNode(parentId);
+        if (!found) return;
+        found.node.children.push(newNode);
+        found.node.expanded = true;
+      }
+      renderGroupTree();
+    }
+
+    function deleteGroupNode(id) {
+      const found = findGroupNode(id);
+      if (!found) return;
+      if (found.node.children.length > 0) {
+        const label = found.node.name || "このグループ";
+        if (!confirm(`「${label}」には配下のグループがあります。配下のグループもまとめて削除しますか？`)) return;
+      }
+      found.siblings.splice(found.index, 1);
+      renderGroupTree();
+    }
+
+    function saveGroups() {
+      savedGroups = deepClone(currentGroups);
+      alert("グループを保存しました（モック）");
+    }
+
+    function cancelGroups() {
+      currentGroups = deepClone(savedGroups);
+      renderGroupTree();
+    }
+
+    // ========== グループ：ドラッグで移動（前後への並べ替え／他グループの配下への移動） ==========
+    function onTreeDragStart(event) {
+      event.stopPropagation();
+      dragState = { type: "tree", id: event.currentTarget.dataset.id };
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", dragState.id);
+      event.currentTarget.classList.add("is-dragging");
+    }
+
+    // 行の上端25%：前、下端25%：後、中央：配下（子）
+    function getTreeDropPosition(event) {
+      const rect = event.currentTarget.getBoundingClientRect();
+      const offset = event.clientY - rect.top;
+      if (offset < rect.height * 0.25) return "before";
+      if (offset > rect.height * 0.75) return "after";
+      return "into";
+    }
+
+    // 自分自身・自分の配下へのドロップは不可
+    function canDropOnTree(targetId) {
+      if (!dragState || dragState.type !== "tree" || targetId === dragState.id) return false;
+      const dragged = findGroupNode(dragState.id);
+      return !!dragged && !isDescendant(dragged.node, targetId);
+    }
+
+    function onTreeDragOver(event) {
+      const targetId = event.currentTarget.dataset.id;
+      clearDropMarks();
+      if (!canDropOnTree(targetId)) return;
+      event.preventDefault();
+      event.currentTarget.classList.add(`is-drop-${getTreeDropPosition(event)}`);
+    }
+
+    function onTreeDrop(event) {
+      const targetId = event.currentTarget.dataset.id;
+      if (!canDropOnTree(targetId)) return;
+      event.preventDefault();
+      const position = getTreeDropPosition(event);
+
+      const dragged = findGroupNode(dragState.id);
+      dragged.siblings.splice(dragged.index, 1);
+
+      const target = findGroupNode(targetId);
+      if (position === "into") {
+        target.node.children.push(dragged.node);
+        target.node.expanded = true;
+      } else {
+        target.siblings.splice(position === "before" ? target.index : target.index + 1, 0, dragged.node);
+      }
+      dragState = null;
+      renderGroupTree();
+    }
+
+    // ========== 初期化 ==========
+    setActiveTab("employment");
+  </script>
+
+</body>
+</html>
