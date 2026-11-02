@@ -1,0 +1,225 @@
+/* Component: FinalizeTopBar */
+.afl-topbar {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.afl-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.afl-topbar-sub {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* Component: FinalizePanel */
+.afl-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: FinalizeInfoBanner */
+.afl-info-banner {
+  margin: 14px 14px 0;
+  padding: 10px 14px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #7c2d12;
+}
+.afl-info-banner strong {
+  font-weight: 700;
+  color: #c2410c;
+}
+
+/* Component: FinalizeFilterForm */
+.afl-filter-form {
+  padding: 14px 14px 0;
+}
+table.afl-table {
+  width: 100%;
+  max-width: 640px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.afl-table td {
+  border: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+.afl-table td.afl-label {
+  background: #f3f4f6;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.afl-table td.afl-value {
+  padding: 5px 10px;
+  background: #fff;
+}
+.afl-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.afl-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.afl-clear-btn {
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  background: #fff;
+  color: #9ca3af;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.afl-clear-btn:hover {
+  color: #6b7280;
+  border-color: #9ca3af;
+}
+
+/* Component: FinalizeListToolbar */
+.afl-list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 0;
+}
+.afl-list-toolbar-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+.afl-list-toolbar-count {
+  font-size: 11px;
+  color: #9ca3af;
+  margin-left: 4px;
+}
+.afl-checkall-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #6b7280;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Component: FinalizeListTable */
+.afl-list-wrap {
+  margin: 10px 14px 10px;
+  overflow-x: auto;
+}
+table.afl-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.afl-list-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.afl-list-table th.afl-col-check {
+  width: 36px;
+  text-align: center;
+}
+.afl-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.afl-list-table td.afl-col-check {
+  text-align: center;
+}
+.afl-list-table tbody tr:hover {
+  background: #fff7ed;
+}
+.afl-list-table tbody tr.is-checked {
+  background: #fff7ed;
+}
+.afl-empty-row {
+  text-align: center;
+  color: #9ca3af;
+  padding: 20px 10px !important;
+}
+
+/* Component: FinalizeStatusTag */
+.afl-status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.afl-status-tag.is-diagnosed { background: #dbeafe; color: #2563eb; }
+.afl-status-tag.is-evaluated { background: #d1fae5; color: #059669; }
+.afl-status-tag.is-none      { background: #f3f4f6; color: #9ca3af; }
+.afl-status-tag.is-fixed     { background: #e2e8f0; color: #334155; }
+
+/* Component: FinalizeActionBar */
+.afl-action-bar {
+  padding: 10px 14px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.afl-selected-count {
+  font-size: 12px;
+  color: #9ca3af;
+}
+.afl-selected-count.is-active {
+  color: #ea580c;
+  font-weight: 600;
+}
+.afl-btn-primary {
+  height: 32px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 4px;
+  background: #f97316;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.afl-btn-primary:hover:not(:disabled) {
+  background: #ea580c;
+}
+.afl-btn-primary:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}

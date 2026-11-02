@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜MBO一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/070_mbo_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: MboListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">MBO一覧</span>
+      </div>
+      <!-- /Component: MboListBreadcrumb -->
+
+      <!-- Component: MboListTopBar -->
+      <div class="mbl-topbar">
+        <span class="mbl-topbar-title">MBO一覧</span>
+      </div>
+      <!-- /Component: MboListTopBar -->
+
+      <!-- Component: MboListPanel -->
+      <div class="mbl-panel">
+
+        <!-- Component: MboListFilterForm -->
+        <div class="mbl-filter-form">
+          <table class="mbl-table">
+            <tbody>
+              <tr>
+                <td class="mbl-label">グループ</td>
+                <td class="mbl-value">
+                  <select id="mbl-f-group" class="mbl-sel w-full" onchange="applyMboFilter()">
+                    <option>全て</option>
+                    <option selected>インダストリーズ本部＞デジタルソリューション事業部＞製造・流通グループ</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="mbl-label">承認者</td>
+                <td class="mbl-value">
+                  <select id="mbl-f-approver" class="mbl-sel w-56" onchange="applyMboFilter()">
+                    <option>全て</option>
+                    <option selected>木田　清春</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="mbl-label">氏名</td>
+                <td class="mbl-value">
+                  <select id="mbl-f-name" class="mbl-sel w-56" onchange="applyMboFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="mbl-label">年度</td>
+                <td class="mbl-value">
+                  <select id="mbl-f-year" class="mbl-sel w-48" onchange="applyMboFilter()">
+                    <option>全て</option>
+                    <option selected>2026(25/4-26/3)</option>
+                    <option>2025(24/4-25/3)</option>
+                    <option>2024(23/4-24/3)</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="mbl-label">役職</td>
+                <td class="mbl-value">
+                  <select id="mbl-f-title" class="mbl-sel w-full" onchange="applyMboFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="mbl-label">職種</td>
+                <td class="mbl-value">
+                  <select id="mbl-f-job" class="mbl-sel w-full" onchange="applyMboFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td class="mbl-label">専門分野</td>
+                <td class="mbl-value">
+                  <select id="mbl-f-field" class="mbl-sel w-full" onchange="applyMboFilter()">
+                    <option selected>全て</option>
+                  </select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /Component: MboListFilterForm -->
+
+        <!-- Component: MboListStatusTabs -->
+        <div class="mbl-status-tabs" id="mbl-status-tabs">
+          <button type="button" class="mbl-status-tab is-active" onclick="setMboStatusTab('全て', this)">全て</button>
+          <button type="button" class="mbl-status-tab" onclick="setMboStatusTab('未', this)">未</button>
+          <button type="button" class="mbl-status-tab" onclick="setMboStatusTab('差し戻し', this)">差し戻し</button>
+          <button type="button" class="mbl-status-tab" onclick="setMboStatusTab('承認済み', this)">承認済み</button>
+        </div>
+        <!-- /Component: MboListStatusTabs -->
+
+        <!-- Component: MboListTable -->
+        <div class="mbl-list-wrap">
+          <table class="mbl-list-table">
+            <colgroup>
+              <col style="width: 6%">
+              <col style="width: 10%">
+              <col style="width: 12%">
+              <col style="width: 15%">
+              <col style="width: 12%">
+              <col style="width: 15%">
+              <col style="width: 12%">
+              <col style="width: 10%">
+              <col style="width: 4%">
+              <col style="width: 6%">
+            </colgroup>
+            <thead>
+              <tr>
+                <th class="mbl-col-center">承認</th>
+                <th>氏名</th>
+                <th>年度</th>
+                <th>職種</th>
+                <th>役職</th>
+                <th>職種</th>
+                <th>専門分野</th>
+                <th>備考</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="mbl-body"></tbody>
+          </table>
+        </div>
+        <!-- /Component: MboListTable -->
+
+      </div>
+      <!-- /Component: MboListPanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('MBO一覧画面');
+    mountFooter();
+
+    // ========== モックデータ：MBO一覧 ==========
+    const MBO_APPROVE_TAG = {
+      "未":     "is-review",
+      "差し戻し": "is-rejected",
+      "承認済み": "is-done",
+    };
+
+    const MBO_LIST = [
+      { approve: "未", name: "獅子　太郎", year: "2026(25/4-26/3)", job1: "アプリケーションスペシャリスト", title: "チーフ",             job2: "アプリケーションスペシャリスト", field: "業務パッケージ", note: "" },
+      { approve: "未", name: "怜王　花子", year: "2026(25/4-26/3)", job1: "アプリケーションスペシャリスト", title: "チーフ",             job2: "アプリケーションスペシャリスト", field: "業務パッケージ", note: "" },
+      { approve: "未", name: "獅子　次郎", year: "2026(25/4-26/3)", job1: "アプリケーションスペシャリスト", title: "アシスタントマネージャー", job2: "アプリケーションスペシャリスト", field: "業務システム",   note: "" },
+      { approve: "未", name: "怜王　裕美", year: "2026(25/4-26/3)", job1: "アプリケーションスペシャリスト", title: "",                   job2: "アプリケーションスペシャリスト", field: "業務システム",   note: "" },
+      { approve: "未", name: "獅子　三郎", year: "2026(25/4-26/3)", job1: "アプリケーションスペシャリスト", title: "",                   job2: "アプリケーションスペシャリスト", field: "業務パッケージ", note: "" },
+      { approve: "未", name: "怜王　明美", year: "2026(25/4-26/3)", job1: "アプリケーションスペシャリスト", title: "",                   job2: "アプリケーションスペシャリスト", field: "業務システム",   note: "" },
+      { approve: "未", name: "獅子　四郎", year: "2026(25/4-26/3)", job1: "アプリケーションスペシャリスト", title: "",                   job2: "アプリケーションスペシャリスト", field: "業務パッケージ", note: "" },
+      { approve: "未", name: "怜王　夏美", year: "2026(25/4-26/3)", job1: "ITサービスマネジメント",        title: "",                   job2: "ITサービスマネジメント",        field: "サービスデスク", note: "" },
+    ];
+
+    // ========== 検索フォーム：選択肢の動的生成 ==========
+    function renderSelectOptions(selectId, values) {
+      const select = document.getElementById(selectId);
+      const current = select.value;
+      select.innerHTML = ['<option>全て</option>']
+        .concat(values.map(v => `<option>${v}</option>`))
+        .join("");
+      if (values.includes(current)) select.value = current;
+    }
+
+    function initFilterOptions() {
+      renderSelectOptions("mbl-f-name", [...new Set(MBO_LIST.map(r => r.name))]);
+      renderSelectOptions("mbl-f-title", [...new Set(MBO_LIST.map(r => r.title).filter(v => v))]);
+      renderSelectOptions("mbl-f-job", [...new Set(MBO_LIST.map(r => r.job1))]);
+      renderSelectOptions("mbl-f-field", [...new Set(MBO_LIST.map(r => r.field))]);
+    }
+
+    // ========== 承認状態タブ ==========
+    let mboStatusTab = "全て";
+
+    function setMboStatusTab(status, btnEl) {
+      mboStatusTab = status;
+      document.querySelectorAll(".mbl-status-tab").forEach(btn => btn.classList.remove("is-active"));
+      btnEl.classList.add("is-active");
+      applyMboFilter();
+    }
+
+    // ========== 一覧描画・絞り込み ==========
+    function renderMboList(rows) {
+      const tbody = document.getElementById("mbl-body");
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="10" class="mbl-empty-row">該当するMBOが見つかりません</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = rows.map(r => `
+        <tr>
+          <td class="mbl-col-center"><span class="mbl-approve-tag ${MBO_APPROVE_TAG[r.approve]}">${r.approve}</span></td>
+          <td title="${r.name}">${r.name}</td>
+          <td title="${r.year}">${r.year}</td>
+          <td title="${r.job1}">${r.job1}</td>
+          <td title="${r.title}">${r.title}</td>
+          <td title="${r.job2}">${r.job2}</td>
+          <td title="${r.field}">${r.field}</td>
+          <td title="${r.note}">${r.note}</td>
+          <td class="mbl-col-center"><a href="#" class="mbl-action-link mbl-action-approve" onclick="openMboApproval('${r.name}', '${r.year}'); return false;">承認</a></td>
+          <td class="mbl-col-center"><a href="#" class="mbl-action-link mbl-action-interview" onclick="openMboInterview('${r.name}'); return false;">面談結果</a></td>
+        </tr>`).join("");
+    }
+
+    function applyMboFilter() {
+      const group = document.getElementById("mbl-f-group").value;
+      const approver = document.getElementById("mbl-f-approver").value;
+      const name = document.getElementById("mbl-f-name").value;
+      const year = document.getElementById("mbl-f-year").value;
+      const title = document.getElementById("mbl-f-title").value;
+      const job = document.getElementById("mbl-f-job").value;
+      const field = document.getElementById("mbl-f-field").value;
+
+      const rows = MBO_LIST.filter(r =>
+        (mboStatusTab === "全て" || r.approve === mboStatusTab) &&
+        (name === "全て" || r.name === name) &&
+        (year === "全て" || r.year === year) &&
+        (title === "全て" || r.title === title) &&
+        (job === "全て" || r.job1 === job) &&
+        (field === "全て" || r.field === field)
+      );
+      renderMboList(rows);
+    }
+
+    function openMboApproval(name, year) {
+      // c=3: 承認モード（年間目標は照会のみ、下部のコメント入力のみ有効）
+      window.open(`072_mbo.html?c=3&name=${encodeURIComponent(name)}&year=${encodeURIComponent(year)}`, "_blank", "noopener");
+    }
+
+    function openMboInterview(name) {
+      alert(`${name}さんの面談結果を開きます（モック）`);
+    }
+
+    // ========== 初期化 ==========
+    initFilterOptions();
+    applyMboFilter();
+  </script>
+
+</body>
+</html>

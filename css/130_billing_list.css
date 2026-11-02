@@ -1,0 +1,107 @@
+/* Component: BillingListTopBar */
+.bil-topbar {
+  margin-bottom: 14px;
+}
+.bil-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Component: BillingListPanel */
+.bil-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: BillingListFilterBar */
+.bil-filter-bar {
+  display: flex;
+  gap: 10px;
+  padding: 14px 14px 0;
+}
+.bil-sel {
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  box-sizing: border-box;
+}
+.bil-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+
+/* Component: BillingListTable */
+.bil-list-wrap {
+  margin: 14px 14px 10px;
+  overflow-x: auto;
+}
+table.bil-list-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.bil-list-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.bil-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  vertical-align: middle;
+}
+.bil-list-table td.bil-col-num,
+.bil-list-table td.bil-col-amount {
+  text-align: right;
+  white-space: nowrap;
+}
+.bil-list-table td.bil-col-date {
+  white-space: nowrap;
+}
+.bil-list-table tbody tr:hover {
+  background: #fff7ed;
+}
+.bil-empty-row {
+  text-align: center;
+  color: #9ca3af;
+  padding: 20px 10px !important;
+}
+
+/* Component: BillingReceiptLink */
+.bil-receipt-link {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.bil-receipt-link:hover {
+  text-decoration: underline;
+}
+
+/* Component: BillingStatusTag */
+.bil-status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.bil-status-tag.is-unissued { background: #ffedd5; color: #ea580c; }
+.bil-status-tag.is-issued   { background: #d1fae5; color: #059669; }

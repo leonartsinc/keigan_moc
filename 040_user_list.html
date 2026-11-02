@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜ユーザ一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/040_user_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: UserListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">ユーザ一覧</span>
+      </div>
+      <!-- /Component: UserListBreadcrumb -->
+
+      <!-- Component: UserListTopBar -->
+      <div class="ul-topbar">
+        <span class="ul-topbar-title">ユーザ一覧</span>
+      </div>
+      <!-- /Component: UserListTopBar -->
+
+      <!-- Component: UserListSearchPanel -->
+      <div class="ul-panel">
+
+        <!-- 検索 -->
+        <div class="ul-search-row">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="ul-search" class="ul-search-inp"
+                 placeholder="ユーザ検索（姓、名、メールアドレス、スタッフコード）"
+                 oninput="applyFilters()">
+        </div>
+
+        <!-- 招待状況フィルタ -->
+        <div class="ul-filter-group">
+          <label class="ul-filter-check">
+            <input type="checkbox" id="ul-filter-active" class="accent-orange-500" checked onchange="applyFilters()">
+            招待状況「有効化」を表示する
+          </label>
+          <label class="ul-filter-check">
+            <input type="checkbox" id="ul-filter-sent" class="accent-orange-500" checked onchange="applyFilters()">
+            「送信済」を表示する
+          </label>
+          <label class="ul-filter-check">
+            <input type="checkbox" id="ul-filter-expired" class="accent-orange-500" onchange="applyFilters()">
+            「期限切れ」を表示する
+          </label>
+          <label class="ul-filter-check">
+            <input type="checkbox" id="ul-filter-unsent" class="accent-orange-500" checked onchange="applyFilters()">
+            「未送信」を表示する
+          </label>
+        </div>
+
+        <!-- 管理者・利用停止フィルタ -->
+        <div class="ul-filter-group">
+          <label class="ul-filter-check">
+            <input type="checkbox" id="ul-filter-admin-only" class="accent-orange-500" onchange="applyFilters()">
+            管理者のみ表示する
+          </label>
+        </div>
+        <div class="ul-filter-group">
+          <label class="ul-filter-check">
+            <input type="checkbox" id="ul-filter-suspended" class="accent-orange-500" checked onchange="applyFilters()">
+            利用停止中のユーザも表示する
+          </label>
+        </div>
+
+        <!-- 一括アクション／新規招待 -->
+        <div class="ul-bulk-row">
+          <div class="ul-bulk-left">
+            <select id="ul-bulk-action" class="ul-bulk-sel">
+              <option value="">一括アクションを選択</option>
+              <option value="resend">招待メールを再送信する</option>
+              <option value="suspend">利用停止にする</option>
+              <option value="resume">利用を再開する</option>
+              <option value="delete">削除する</option>
+            </select>
+            <button type="button" class="ul-bulk-exec-btn" onclick="executeBulkAction()">実行</button>
+          </div>
+          <button type="button" class="ul-invite-btn" onclick="openInviteModal()">
+            <i class="fa-solid fa-user-plus"></i>新規ユーザ招待
+          </button>
+        </div>
+
+      </div>
+      <!-- /Component: UserListSearchPanel -->
+
+      <!-- Component: UserListTable -->
+      <div class="ul-table-wrap">
+        <table class="ul-table">
+          <thead>
+            <tr>
+              <th class="ul-col-check">
+                <input type="checkbox" id="ul-check-all" class="accent-orange-500" onchange="toggleAllChecks(this)">
+              </th>
+              <th>宛先：メールアドレス</th>
+              <th>権限</th>
+              <th>氏名</th>
+              <th>カナ</th>
+              <th>生年月日</th>
+              <th>招待状況</th>
+            </tr>
+          </thead>
+          <tbody id="ul-table-body"></tbody>
+        </table>
+      </div>
+      <!-- /Component: UserListTable -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <!-- Component: InviteModal -->
+  <div id="ul-invite-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+    <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" onclick="closeInviteModal()"></div>
+    <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden">
+
+      <div class="flex items-center justify-between px-6 pt-5 pb-3">
+        <h2 class="text-base font-semibold text-gray-800">新規ユーザ招待</h2>
+        <button onclick="closeInviteModal()" class="text-gray-400 hover:text-gray-600">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="px-6">
+        <!-- 権限 -->
+        <div class="ul-modal-field flex items-center gap-6">
+          <span class="ul-modal-label mb-0">権限<span class="req-mark">*</span></span>
+          <label class="ul-invite-radio">
+            <input type="radio" name="ul-invite-role" value="管理者" class="accent-orange-500"> 管理者
+          </label>
+          <label class="ul-invite-radio">
+            <input type="radio" name="ul-invite-role" value="ユーザ" class="accent-orange-500" checked> ユーザ
+          </label>
+        </div>
+      </div>
+
+      <!-- 招待するメールアドレス -->
+      <div class="ul-invite-email-bar">招待するメールアドレス<span class="req-mark">*</span></div>
+      <div class="px-6 pt-3">
+        <textarea id="ul-invite-emails" class="ul-invite-textarea"
+                  placeholder="改行区切りで複数人同時に招待できます"></textarea>
+        <p class="ul-modal-err hidden" id="ul-invite-email-err">招待するメールアドレスを入力してください</p>
+      </div>
+
+      <div class="flex gap-3 px-6 py-5">
+        <button type="button" onclick="submitInvite()" class="ul-invite-submit-btn">
+          招待する
+        </button>
+        <button type="button" onclick="closeInviteModal()" class="ul-invite-cancel-btn">
+          キャンセル
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- /Component: InviteModal -->
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('ユーザ一覧画面');
+    mountFooter();
+
+    // ========== モックデータ ==========
+    let nextUserId = 6;
+    const USERS = [
+      { id: 1, email: "aaa@bbb.co.jp", role: "管理者",     name: "",           kana: "",             birth: "",                inviteStatus: "未送信", suspended: false },
+      { id: 2, email: "ccc@ddd.co.jp", role: "一般ユーザ", name: "",           kana: "",             birth: "",                inviteStatus: "未送信", suspended: false },
+      { id: 3, email: "eee@fff.co.jp", role: "一般ユーザ", name: "",           kana: "",             birth: "",                inviteStatus: "送信済", suspended: false },
+      { id: 4, email: "ggg@hhh.co.jp", role: "一般ユーザ", name: "",           kana: "",             birth: "",                inviteStatus: "送信済", suspended: true  },
+      { id: 5, email: "jjj@jjj.co.jp", role: "一般ユーザ", name: "田中　太郎", kana: "タナカ　タロウ", birth: "1975/04/02(木)", inviteStatus: "有効化", suspended: false },
+    ];
+
+    const STATUS_TAG = {
+      "未送信": { cls: "is-unsent",  icon: "fa-regular fa-paper-plane" },
+      "送信済": { cls: "is-sent",    icon: "fa-solid fa-paper-plane" },
+      "有効化": { cls: "is-active",  icon: "fa-solid fa-circle-check" },
+      "期限切れ": { cls: "is-expired", icon: "fa-solid fa-triangle-exclamation" },
+    };
+
+    const checkedIds = new Set();
+    let filteredUsers = [...USERS];
+
+    // ========== フィルタリング ==========
+    function applyFilters() {
+      const query = document.getElementById("ul-search").value.trim().toLowerCase();
+      const showActive   = document.getElementById("ul-filter-active").checked;
+      const showSent     = document.getElementById("ul-filter-sent").checked;
+      const showExpired  = document.getElementById("ul-filter-expired").checked;
+      const showUnsent   = document.getElementById("ul-filter-unsent").checked;
+      const adminOnly    = document.getElementById("ul-filter-admin-only").checked;
+      const showSuspended = document.getElementById("ul-filter-suspended").checked;
+
+      const statusVisible = {
+        "未送信": showUnsent,
+        "送信済": showSent,
+        "有効化": showActive,
+        "期限切れ": showExpired,
+      };
+
+      filteredUsers = USERS.filter(u => {
+        if (u.suspended && !showSuspended) return false;
+        if (adminOnly && u.role !== "管理者") return false;
+        if (!statusVisible[u.inviteStatus]) return false;
+        if (query) {
+          const haystack = (u.email + u.name + u.kana).toLowerCase();
+          if (!haystack.includes(query)) return false;
+        }
+        return true;
+      });
+
+      renderTable();
+    }
+
+    // ========== テーブル描画 ==========
+    function renderTable() {
+      const tbody = document.getElementById("ul-table-body");
+
+      if (filteredUsers.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="ul-empty-row">該当するユーザが見つかりません</td></tr>`;
+        syncCheckAll();
+        return;
+      }
+
+      tbody.innerHTML = filteredUsers.map(u => {
+        const tag = STATUS_TAG[u.inviteStatus] || STATUS_TAG["未送信"];
+        const isChecked = checkedIds.has(u.id);
+        return `
+          <tr class="${isChecked ? "is-checked" : ""}">
+            <td class="ul-col-check">
+              <input type="checkbox" class="accent-orange-500 ul-row-check" data-id="${u.id}"
+                     ${isChecked ? "checked" : ""} onchange="onRowCheckChange(this)">
+            </td>
+            <td><a href="mailto:${u.email}" class="ul-email-link">${u.email}</a></td>
+            <td>${u.role}</td>
+            <td>${u.name || ""}</td>
+            <td>${u.kana || ""}</td>
+            <td>${u.birth || ""}</td>
+            <td><span class="ul-status-tag ${tag.cls}"><i class="${tag.icon} mr-1"></i>${u.inviteStatus}</span></td>
+          </tr>`;
+      }).join("");
+
+      syncCheckAll();
+    }
+
+    // ========== 選択チェックボックス ==========
+    function onRowCheckChange(cb) {
+      const id = Number(cb.dataset.id);
+      cb.checked ? checkedIds.add(id) : checkedIds.delete(id);
+      cb.closest("tr").classList.toggle("is-checked", cb.checked);
+      syncCheckAll();
+    }
+
+    function toggleAllChecks(masterCb) {
+      document.querySelectorAll(".ul-row-check").forEach(cb => {
+        cb.checked = masterCb.checked;
+        const id = Number(cb.dataset.id);
+        masterCb.checked ? checkedIds.add(id) : checkedIds.delete(id);
+        cb.closest("tr").classList.toggle("is-checked", masterCb.checked);
+      });
+    }
+
+    function syncCheckAll() {
+      const total = document.querySelectorAll(".ul-row-check").length;
+      const checked = document.querySelectorAll(".ul-row-check:checked").length;
+      const masterCb = document.getElementById("ul-check-all");
+      masterCb.indeterminate = checked > 0 && checked < total;
+      masterCb.checked = total > 0 && checked === total;
+    }
+
+    // ========== 一括アクション ==========
+    function executeBulkAction() {
+      const action = document.getElementById("ul-bulk-action").value;
+      if (!action) {
+        alert("一括アクションを選択してください");
+        return;
+      }
+      if (checkedIds.size === 0) {
+        alert("対象ユーザを選択してください");
+        return;
+      }
+      alert(`${checkedIds.size}件のユーザに対して「${document.getElementById("ul-bulk-action").selectedOptions[0].text}」を実行しました（モック）`);
+    }
+
+    // ========== 新規ユーザ招待モーダル ==========
+    function openInviteModal() {
+      document.getElementById("ul-invite-emails").value = "";
+      document.querySelector('input[name="ul-invite-role"][value="ユーザ"]').checked = true;
+      document.getElementById("ul-invite-email-err").classList.add("hidden");
+      document.getElementById("ul-invite-modal").classList.remove("hidden");
+    }
+
+    function closeInviteModal() {
+      document.getElementById("ul-invite-modal").classList.add("hidden");
+    }
+
+    function submitInvite() {
+      const textarea = document.getElementById("ul-invite-emails");
+      const errEl = document.getElementById("ul-invite-email-err");
+
+      const emails = textarea.value
+        .split("\n")
+        .map(line => line.trim())
+        .filter(line => line !== "");
+
+      if (emails.length === 0) {
+        errEl.classList.remove("hidden");
+        return;
+      }
+      errEl.classList.add("hidden");
+
+      const roleValue = document.querySelector('input[name="ul-invite-role"]:checked').value;
+      const role = roleValue === "ユーザ" ? "一般ユーザ" : roleValue;
+      emails.forEach(email => {
+        USERS.unshift({
+          id: nextUserId++,
+          email, role,
+          name: "", kana: "", birth: "",
+          inviteStatus: "未送信",
+          suspended: false,
+        });
+      });
+
+      window.location.href = `041_invite_mail_mock.html?email=${encodeURIComponent(emails[0])}`;
+    }
+
+    // ========== 初期化 ==========
+    applyFilters();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,295 @@
+@import url(sanitize.css);
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+body {
+    background-color: #f0f0f0;
+    padding: 10px;
+    font-size: 11px;
+    color: #666;
+    font-family: "Rubik", "Noto Sans JP", sans-serif;
+}
+
+.l-content-wrapper {
+    display: grid;
+    box-shadow: 0 0 10px rgba(0,0,0,.3);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+header {
+    background-color: #000000;
+    padding: 5px 10px;
+    color: #fff;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 12px;
+    font-weight: normal;
+    text-align: center;
+    font-family: "Raleway", sans-serif;
+}
+
+section {
+    padding: 20px;
+    background-color: #fff;
+    overflow-x: auto;
+}
+
+/* 過去列2つ分(70px×2=140px)がスクロール領域 */
+.c-tier,
+.c-tier__body,
+.c-section,
+.c-subsection,
+.c-page-footer {
+    min-width: calc(100% + 140px);
+}
+
+.c-tier {
+    clear: both;
+    display: block;
+    flex-direction: row;
+}
+
+div.c-tier__header {
+    display: grid;
+    grid-template-columns: 1fr 70px 70px 70px 70px;
+    background-color: #000000;
+    color: #fff;
+}
+
+div.c-tier__header h1 {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    padding: 3px 5px 3px 10px;
+    grid-column: 1 / -1;
+}
+
+div.c-tier__header h2 {
+    background-color: rgb(247, 160, 47);
+    color: #fff;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+    margin: 0;
+    padding: 3px 5px 3px 5px;
+}
+
+div.c-tier__header h3 {
+    background-color:#666;
+    color: #fff;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+    margin: 0;
+    padding: 3px 5px 3px 10px;
+}
+
+div.c-tier__header h4 {
+    background-color:#666;
+    color: #fff;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+    border-left: 1px solid #ccc;
+    margin: 0;
+    padding: 3px 5px 3px 10px;
+}
+
+div.c-tier__body {
+    display: grid;
+    grid-template-columns: 5fr 14fr;
+    background-color:#f0f0f0;
+}
+
+div.c-tier__body h1 {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    padding: 3px 5px 3px 10px;
+}
+
+div.c-tier__body dl {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    padding: 5px 5px 5px 0px;
+}
+
+.c-section {
+    clear: both;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #b9b8b2;
+}
+
+div.c-section h1 {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
+    padding: 3px 0px 3px 10px;
+}
+
+.c-subsection {
+    clear: both;
+}
+
+div.c-subsection h1 {
+    font-size: 1em;
+    font-weight: normal;
+    background-color: #e6e4dd;
+    margin: 0;
+    padding: 3px 0px 3px 20px;
+}
+
+div.c-subsection h2 {
+    font-size: 1em;
+    font-weight: normal;
+    background-color: #fcfaf3;
+    margin: 0;
+    padding: 3px 0px 3px 20px;
+}
+
+div.c-subsection dl {
+    display: grid;
+    grid-template-columns: minmax(120px, 5fr) minmax(280px, 12fr) 70px 70px 70px 70px;
+    border-top: 1px solid  #ccc;
+    margin: 0;
+    padding: 5px 0px 5px 0px;
+}
+
+div.c-subsection dt {
+    margin: 0;
+    padding: 5px 0px 5px 30px;
+}
+
+div.c-subsection dd {
+    margin: 0;
+    padding: 5px 0px 5px 0px;
+}
+
+div.c-subsection li {
+    list-style: none;
+/*    border-right: 1px solid #ccc;*/
+    margin: 0px 0px 0px -15px;
+    padding: 2px 10px 2px 0px;
+}
+
+input {
+    margin: 0 0.4rem 0 0;
+}
+
+.c-page-footer {
+    display: grid;
+    grid-template-columns: 3fr 5fr 3fr;
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+    min-width: unset;
+}
+
+section > .c-page-footer {
+    margin-top: 40px;
+}
+
+.c-page-footer button {
+    width: 95%;
+}
+
+/* キャンセル：グレー系（ページ基調色に合わせた控えめな色） */
+.c-btn--cancel {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 11px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #999;
+}
+
+.c-btn--cancel:hover {
+    background-color: #777;
+}
+
+.c-btn--cancel:active {
+    box-shadow:
+      inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+      inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* 診断する：ページアクセントのオレンジ（c-tier__header h2 と同色） */
+.c-btn--primary {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 11px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    background-color: rgb(247, 160, 47);
+}
+
+.c-btn--primary:hover {
+    background-color: rgb(220, 140, 25);
+}
+
+.c-btn--primary:active {
+    box-shadow:
+      inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+      inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* 一次保存：ダークグレー（ヘッダー黒とグレーの中間） */
+.c-btn--secondary {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 11px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    background-color: #555;
+}
+
+.c-btn--secondary:hover {
+    background-color: #333;
+}
+
+.c-btn--secondary:active {
+    box-shadow:
+      inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+      inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}
+
+footer {
+    text-align: center;
+    font-size: .9em;
+    margin: 0;
+    padding: 5px;
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        padding: 5px;
+    }
+
+    header h1 {
+        font-size: 10px;
+    }
+
+    div.c-tier dl {
+        font-size: 9px;
+        display: block;
+    }
+
+    div.c-section h1 {
+        font-size: 9px;
+    }
+
+    div.c-subsection dl {
+        display: block;
+    }
+}

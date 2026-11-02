@@ -1,0 +1,175 @@
+/* Component: MboListTopBar */
+.mbl-topbar {
+  margin-bottom: 14px;
+}
+.mbl-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Component: MboListPanel */
+.mbl-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: MboListFilterForm */
+.mbl-filter-form {
+  padding: 14px 14px 0;
+}
+table.mbl-table {
+  width: 100%;
+  max-width: 640px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.mbl-table td {
+  border: 1px solid #e5e7eb;
+  vertical-align: middle;
+}
+.mbl-table td.mbl-label {
+  background: #f3f4f6;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.mbl-table td.mbl-value {
+  padding: 5px 10px;
+  background: #fff;
+}
+.mbl-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #1f2937;
+  background: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.mbl-sel:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+
+/* Component: MboListStatusTabs */
+.mbl-status-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px 0;
+}
+.mbl-status-tab {
+  height: 28px;
+  padding: 0 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  color: #374151;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mbl-status-tab:hover {
+  border-color: #fb923c;
+  color: #f97316;
+}
+.mbl-status-tab.is-active {
+  background: #d1d5db;
+  border-color: #9ca3af;
+  color: #1f2937;
+}
+
+/* Component: MboListTable */
+.mbl-list-wrap {
+  margin: 14px 14px 10px;
+  overflow-x: auto;
+}
+table.mbl-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.mbl-list-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+.mbl-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mbl-list-table tbody tr:hover {
+  background: #fff7ed;
+}
+.mbl-col-center {
+  text-align: center;
+}
+.mbl-empty-row {
+  text-align: center;
+  color: #9ca3af;
+  padding: 20px 10px !important;
+}
+
+/* Component: MboListApproveTag（承認：未／差し戻し／承認済み） */
+.mbl-approve-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mbl-approve-tag.is-review {
+  background: #ffedd5;
+  color: #ea580c;
+}
+.mbl-approve-tag.is-rejected {
+  background: #fee2e2;
+  color: #dc2626;
+}
+.mbl-approve-tag.is-done {
+  background: #d1fae5;
+  color: #059669;
+}
+
+/* Component: MboListActionLink */
+.mbl-action-link {
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.mbl-action-approve {
+  color: #2563eb;
+}
+.mbl-action-approve:hover {
+  text-decoration: underline;
+}
+.mbl-action-interview {
+  color: #0891b2;
+}
+.mbl-action-interview:hover {
+  text-decoration: underline;
+}

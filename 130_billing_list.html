@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜請求一覧画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/130_billing_list.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-y: auto; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 py-5 flex-1 w-full">
+
+      <!-- Component: BillingListBreadcrumb -->
+      <div class="site-breadcrumb">
+        <span class="is-current">請求一覧</span>
+      </div>
+      <!-- /Component: BillingListBreadcrumb -->
+
+      <!-- Component: BillingListTopBar -->
+      <div class="bil-topbar">
+        <span class="bil-topbar-title">請求一覧</span>
+      </div>
+      <!-- /Component: BillingListTopBar -->
+
+      <!-- Component: BillingListPanel -->
+      <div class="bil-panel">
+
+        <!-- Component: BillingListFilterBar -->
+        <div class="bil-filter-bar">
+          <select id="bil-f-period" class="bil-sel" onchange="applyBillingFilter()">
+            <option value="">全ての期間</option>
+          </select>
+          <select id="bil-f-service" class="bil-sel" onchange="applyBillingFilter()">
+            <option value="">全てのサービス</option>
+          </select>
+        </div>
+        <!-- /Component: BillingListFilterBar -->
+
+        <!-- Component: BillingListTable -->
+        <div class="bil-list-wrap">
+          <table class="bil-list-table">
+            <thead>
+              <tr>
+                <th>領収書番号</th>
+                <th>領収日付</th>
+                <th>サービス</th>
+                <th>取引内容</th>
+                <th>請求金額</th>
+                <th>ステータス</th>
+              </tr>
+            </thead>
+            <tbody id="bil-body"></tbody>
+          </table>
+        </div>
+        <!-- /Component: BillingListTable -->
+
+      </div>
+      <!-- /Component: BillingListPanel -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('請求一覧画面');
+    mountFooter();
+
+    // ========== モックデータ：請求一覧 ==========
+    const BILLING_LIST = [
+      { no: 112, date: "25/6/30", service: "標準（50ライセンス）＋オプション", detail: "ご利用料金（2025/6分）", amount: 10000, status: "未発行" },
+      { no: 108, date: "25/5/31", service: "標準（50ライセンス）＋オプション", detail: "ご利用料金（2025/5分）", amount: 10000, status: "発行済" },
+      { no: 92,  date: "25/4/30", service: "標準（50ライセンス）＋オプション", detail: "ご利用料金（2025/4分）", amount: 10000, status: "発行済" },
+      { no: 65,  date: "25/3/31", service: "標準（10ライセンス）",             detail: "ご利用料金（2025/3分）", amount: 5000,  status: "発行済" },
+    ];
+
+    const STATUS_TAG_CLASS = {
+      "未発行": "is-unissued",
+      "発行済": "is-issued",
+    };
+
+    // ========== 検索フォーム：選択肢の動的生成 ==========
+    function periodLabel(dateStr) {
+      // "25/6/30" → "2025年6月"
+      const [yy, mm] = dateStr.split("/");
+      return `20${yy}年${mm}月`;
+    }
+
+    function initFilterOptions() {
+      const periods = [...new Set(BILLING_LIST.map(r => periodLabel(r.date)))];
+      const pSel = document.getElementById("bil-f-period");
+      periods.forEach(p => { const o = document.createElement("option"); o.value = p; o.textContent = p; pSel.appendChild(o); });
+
+      const services = [...new Set(BILLING_LIST.map(r => r.service))];
+      const sSel = document.getElementById("bil-f-service");
+      services.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sSel.appendChild(o); });
+    }
+
+    // ========== 一覧描画・絞り込み ==========
+    function renderBillingList(rows) {
+      const tbody = document.getElementById("bil-body");
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="bil-empty-row">該当する請求が見つかりません</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = rows.map(r => {
+        const tagClass = STATUS_TAG_CLASS[r.status] || "is-unissued";
+        return `
+          <tr>
+            <td class="bil-col-num">
+              <a href="files/sample.pdf" target="_blank" rel="noopener" class="bil-receipt-link" title="領収書PDFを別タブで開く">${r.no}</a>
+            </td>
+            <td class="bil-col-date">${r.date}</td>
+            <td>${r.service}</td>
+            <td>${r.detail}</td>
+            <td class="bil-col-amount">${r.amount.toLocaleString()}</td>
+            <td><span class="bil-status-tag ${tagClass}">${r.status}</span></td>
+          </tr>`;
+      }).join("");
+    }
+
+    function applyBillingFilter() {
+      const period  = document.getElementById("bil-f-period").value;
+      const service = document.getElementById("bil-f-service").value;
+      const rows = BILLING_LIST.filter(r =>
+        (!period || periodLabel(r.date) === period) &&
+        (!service || r.service === service)
+      );
+      renderBillingList(rows);
+    }
+
+    // ========== 初期化 ==========
+    initFilterOptions();
+    applyBillingFilter();
+  </script>
+
+</body>
+</html>

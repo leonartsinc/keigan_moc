@@ -1,0 +1,251 @@
+/* Component: SettingsTopBar */
+.stg-topbar {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.stg-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+.stg-topbar-desc {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Component: SettingsPanel */
+.stg-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
+
+/* Component: SettingsTabs */
+.stg-tabs {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+.stg-tab {
+  min-width: 140px;
+  padding: 14px 20px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #9ca3af;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+.stg-tab:hover {
+  color: #4b5563;
+}
+.stg-tab.is-active {
+  color: #1f2937;
+  border-bottom-color: #f97316;
+}
+
+/* Component: SettingsTabBody（表示中のタブのみ .is-active で表示） */
+.stg-tab-body {
+  display: none;
+  padding: 20px 24px 28px;
+}
+.stg-tab-body.is-active {
+  display: block;
+}
+
+/* Component: SettingsToolbar */
+.stg-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.stg-tool-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: #fff;
+  font-size: 12px;
+  color: #4b5563;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.stg-tool-btn i {
+  color: #9ca3af;
+}
+.stg-tool-btn:hover {
+  border-color: #fb923c;
+  color: #ea580c;
+}
+.stg-tool-btn:hover i {
+  color: #f97316;
+}
+
+/* Component: SettingsRow（≡・コード・名称・操作アイコン。一覧とツリーで共通） */
+.stg-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  position: relative;
+}
+.stg-row.is-dragging {
+  opacity: 0.4;
+}
+.stg-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  color: #9ca3af;
+  cursor: grab;
+}
+.stg-drag-handle:active {
+  cursor: grabbing;
+}
+.stg-inp {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #9ca3af;
+  border-radius: 3px;
+  font-size: 13px;
+  color: #1f2937;
+  background: #fff;
+}
+.stg-inp::placeholder {
+  color: #9ca3af;
+}
+.stg-inp:focus {
+  outline: none;
+  border-color: #fb923c;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.stg-inp-code {
+  width: 120px;
+}
+.stg-inp-name {
+  flex: 1;
+  min-width: 200px;
+}
+.stg-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.stg-icon-btn:hover {
+  color: #f97316;
+}
+.stg-empty {
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+/* ドロップ位置の表示（前／後：境界線、配下：枠） */
+.stg-row.is-drop-before {
+  box-shadow: inset 0 3px 0 #f97316;
+}
+.stg-row.is-drop-after {
+  box-shadow: inset 0 -3px 0 #f97316;
+}
+.stg-row.is-drop-into {
+  outline: 2px dashed #f97316;
+  outline-offset: -2px;
+  background: #fff7ed;
+}
+
+/* Component: SettingsList（雇用形態／職種／役職） */
+.stg-list {
+  max-width: 640px;
+}
+.stg-list-header {
+  padding: 12px 24px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-bottom: none;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+.stg-list .stg-row + .stg-row {
+  border-top: none;
+}
+
+/* Component: SettingsGroupTree（階層ごとに左へ罫線付きでインデント） */
+.stg-tree-note {
+  margin: -6px 0 14px;
+  font-size: 11px;
+  color: #9ca3af;
+}
+.stg-tree-root {
+  max-width: 720px;
+}
+.stg-tree {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.stg-tree .stg-tree {
+  margin-left: 13px;
+  padding-left: 32px;
+  border-left: 1px solid #d1d5db;
+}
+.stg-tree-item {
+  padding-top: 8px;
+}
+.stg-tree-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stg-tree-toggle,
+.stg-tree-toggle-spacer {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+}
+.stg-tree-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  border-radius: 3px;
+  background: #fff;
+  color: #6b7280;
+  font-size: 10px;
+  cursor: pointer;
+}
+.stg-tree-toggle i {
+  transform: rotate(-90deg);
+  transition: transform 0.15s;
+}
+.stg-tree-toggle.is-expanded i {
+  transform: rotate(0deg);
+}
+.stg-tree-row {
+  flex: 1;
+  border-radius: 3px;
+}
+.stg-tree-row .stg-inp-name {
+  min-width: 160px;
+}

@@ -1,0 +1,5176 @@
+{
+  "meta": {
+    "fixedmonth": "2025-03-01",
+    "payrisemonth": 4,
+    "employeeName": "八木 亮介"
+  },
+  "items": {
+    "A11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A11_1_r1",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A11_1_r1",
+          "value": "3",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 2
+        }
+      ],
+      "comment": "NES_PJで加工サーバ(基幹SysからBOへデータを連携する中継Sys)のミドルウェア構築(DB(Oracle)、Job(ジョブセンター)、g通信ツール(NISMAIL))を自身が中心となり実現した。\n    本番稼働に向けた課題洗い出し・解決なども主導した。\n    本作業については自分が前面に出て基幹側メンバとも会話を行い、責任をもって仕事を完遂した",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": [
+        "入社して数年のDKI社員にほぼ中身が同じバッチファイルを大量に作成させることになったため、パラメータを渡せば中身をほぼ作成してくれるExcelマクロを自分の提案で作成し、実務で利用するところまで仕上げた",
+        ""
+      ]
+    },
+    "A12": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A12_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A12_1_i[]",
+          "value": "2",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "checkbox",
+          "name": "A12_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "3",
+          ""
+        ],
+        [
+          "",
+          "3",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": [
+        "",
+        ""
+      ]
+    },
+    "A13": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A13_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A13_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A13_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A13_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A13_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "2",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": [
+        "ジョブ設計を担当するにあたり、有識者である高木さんへのヒアリングや、基幹側のジョブ設計を参照するなど事前に知識を吸収した上で資料を作成し、会議に挑む用心掛けている。",
+        "ベネッセは問題なかった。＝技術部分は問題ない"
+      ]
+    },
+    "A14": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A14_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A14_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A14_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A14_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A21": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A21_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A21_1_i[]",
+          "value": "2",
+          "checked": true,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A21_1_r1",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A21_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A21_1_r1",
+          "value": "3",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A21_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A21_1_r1",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "K-BIT_PJは何の作業をするにしても行き当たりばったりで挑んでいたため、同じミスを繰り返していた。NES_PJでは作業を行うことでの影響範囲を常に意識し、テストは徹底的に行うことで同じミスを繰り返さないよう心掛けた。結果、本番稼働も大きな問題なく迎えることができた。NES_PJでは受けた質問に対して、必ず最初に意図を確認するよう心掛けた。この心掛けはHSC_PJでも意識するようにしている",
+      "pastValues": [
+        [
+          "1",
+          "3",
+          "",
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "3",
+          "3",
+          "",
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": [
+        "前回PJは何の作業をするにしても行き当たりばったりで挑んでいたため、前回と同じミスを繰り返していた。本PJでは作業を行うことでの影響範囲を常に意識し、テストは徹底的に行うことで同じミスを繰り返さないよう心掛けている⇒(北村)ここまでは意識できている。これからPJ稼働に向けて忙しく　なったときに、継続できるか見る。PJ稼働後に振り返り、問題なければ　-0.05⇒0評価とする。"
+      ]
+    },
+    "A22": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "A22_1_r1",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A22_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A22_1_r1",
+          "value": "3",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A22_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "NES_PJにて加工サーバの各種概要設計やジョブネットフローの設計・製造の予定を自分主体で立案し、スケジュールに従って作業に従事した。",
+      "pastValues": [
+        [
+          "3",
+          "",
+          "",
+          ""
+        ],
+        [
+          "3",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A23": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A23_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A23_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A23_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A23_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A24": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A24_1_i[]",
+          "value": "1",
+          "checked": true,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A24_1_r1",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A24_1_r1",
+          "value": "2",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A24_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A24_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "●常にリーダとの認識合わせを意識し、実施するようにした。継続することで-0.05⇒0を目指す",
+      "pastValues": [
+        [
+          "3",
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "3",
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A25": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A25_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A25_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A25_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A25_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "A25_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "3",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "3",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A26": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "A26_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A26_1_r1",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A26_1_r1",
+          "value": "2",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A26_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A26_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "1",
+          "3",
+          "",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "3",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A31": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "A3m1_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A3m1_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A3m1_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A3m1_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A32": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "A3m1_2_r1",
+          "value": "1",
+          "checked": true,
+          "status": 0,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A3m1_2_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A3m1_2_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "A3m1_2_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "1"
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "A33": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "A3m1_3_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "A3m1_3_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          "1"
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "B11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "B11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B11_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "B11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B11_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B11_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "1",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "1",
+          "",
+          "1"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "B12": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "B12_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "B12_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B12_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B12_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "3"
+        ],
+        [
+          "",
+          "2",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "B13": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "B13_1_p[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "B13_1_p[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c2",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c2",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c2",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "B13_1_p[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c3",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c3",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c3",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "B13_1_p[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c4",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c4",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B13_1_c4",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "2",
+          "",
+          "3"
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "B14": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "B14_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B14_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "B14_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "B14_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "0"
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "G11": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "G11_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 0,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "G11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "G11_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "G11_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G11_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G11_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G11_1_c1[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G11_1_c1[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G11_1_c1[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G11_1_c1[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G11_1_c1[]",
+          "value": "7",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "1",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "G12": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "G12_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 0,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "G12_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "G12_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "G12_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G12_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G12_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G12_1_c1[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G12_1_c1[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "G13": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "G13_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 0,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "G13_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "G13_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "G13_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G13_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G13_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G13_1_c1[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G13_1_c1[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "2",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "1",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "G14": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "G14_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G14_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G14_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "G14_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "0",
+          "2"
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "J11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "J11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "J11_3_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "J11_3_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "J11_3_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "0",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "J12": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "J12_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 0,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "J12_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "J12_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "J12_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "3",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "M11": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "M11_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "M11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "M11_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "M13": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "M13_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "M13_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "M13_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "M13_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "M14": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "M14_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "M14_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "M14_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "M14_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "N11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "N11_2_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "N11_2_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "N13": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "N13_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "N13_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "N13_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "N13_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "N13_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "3",
+          "",
+          "",
+          "0",
+          "2"
+        ],
+        [
+          "",
+          "",
+          "",
+          "2",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "N14": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "N14_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "N14_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "N14_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "N14_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "N14_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "O11": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "O11_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "O11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "O11_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "O11_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "O11_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "O11_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "2"
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "O12": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "O12_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "O12_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "O12_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "O12_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "O12_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "O12_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "O12_1_c1[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "3",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "Q11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "Q11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q11_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "Q11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q11_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q11_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q11_1_r1",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "Q12": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "Q12_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q12_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q12_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q12_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q12_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "Q12_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q12_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "1",
+          "",
+          "",
+          "",
+          "0"
+        ],
+        [
+          "",
+          "",
+          "1",
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "Q13": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "Q13_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "Q13_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q13_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "Q21": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "Q21_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "Q21_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q21_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q21_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q21_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q21_1_c1[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "Q22": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "Q22_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q22_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q22_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q22_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "1",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "2",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "Q32": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "Q32_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "Q32_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q32_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "Q32_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q32_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q32_1_c1[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "Q33": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "Q33_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q33_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "Q33_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "R11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "R11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R11_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R11_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R11_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "2",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "R12": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "R12_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R12_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R12_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "R13": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "R13_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R13_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R13_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R13_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R13_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "1",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "R22": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "R22_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R22_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R22_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R22_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R22_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R22_1_i[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "1",
+          "1",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "R23": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "R23_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R23_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R23_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R23_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "0",
+          "",
+          ""
+        ],
+        [
+          "",
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "R31": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "R31_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R31_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R31_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R31_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R31_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R31_1_i[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "R32": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "R32_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R32_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "R32_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "2",
+          "3",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S21": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "S21_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S21_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S21_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S21_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S21_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "2",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "3"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S22": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "7",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S22_1_i[]",
+          "value": "8",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "1",
+          "",
+          "",
+          "",
+          "",
+          "0",
+          "0",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S31": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "S31_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S31_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S31_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S31_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S31_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "2",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S41": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "S41_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "S41_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "S41_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "S41_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "S41_1_r1",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "2",
+          "",
+          "1",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S42": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "S42_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "S42_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "S42_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "S42_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "S42_1_r1",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S51": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "S51_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S51_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S51_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S51_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S51_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S51_1_i[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "0",
+          "2",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "1"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S52": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "S52_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S52_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S52_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S52_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S52_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "0",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S53": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "S53_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S53_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S53_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S53_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S53_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S53_1_i[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "S54": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "S54_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S54_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S54_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S54_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S54_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "S54_1_i[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "0"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "T11": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "T11_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "T11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "T11_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "T11_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "T11_1_r1",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "T31": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "T31_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "T31_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "T31_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "T31_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "T31_1_r1",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "2",
+          "",
+          "",
+          "3"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "T32": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "T32_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "T32_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "U11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "U11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "U11_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "U11_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "U11_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "U11_1_r1",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "0",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "1",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "U12": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "U12_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "U12_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "U12_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "U12_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "U12_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "U12_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "0"
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "1",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "U13": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "U13_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "U13_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "U13_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "0",
+          "",
+          ""
+        ],
+        [
+          "",
+          "2",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "U21": {
+      "selections": [
+        {
+          "type": "radio",
+          "name": "U21_1_r1",
+          "value": "1",
+          "checked": true,
+          "status": 1,
+          "sliderValue": 3
+        },
+        {
+          "type": "radio",
+          "name": "U21_1_r1",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "radio",
+          "name": "U21_1_r1",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "U21_1_c1[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "3",
+          "",
+          ""
+        ],
+        [
+          "",
+          "1",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "U22": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "U22_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "U22_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "U22_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "U22_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "1",
+          "3"
+        ],
+        [
+          "",
+          "",
+          "",
+          "2"
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "W11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "W11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W11_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W11_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "0",
+          ""
+        ],
+        [
+          "",
+          "1",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "W12": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "W12_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W12_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W12_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W12_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W12_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "W21": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "W21_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W21_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W21_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W21_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "2",
+          "3",
+          ""
+        ],
+        [
+          "",
+          "",
+          "1",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "W22": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "W22_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W22_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W22_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W22_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "W22_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "1",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "X11": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "X11_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X11_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X11_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "2",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "3"
+        ],
+        [
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "X12": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "X12_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X12_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          ""
+        ],
+        [
+          "0",
+          ""
+        ],
+        [
+          "",
+          ""
+        ],
+        [
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "X21": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "X21_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X21_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X21_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X21_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X21_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "X22": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "X22_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X22_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X22_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X22_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X22_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "0",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    },
+    "X23": {
+      "selections": [
+        {
+          "type": "checkbox",
+          "name": "X23_1_i[]",
+          "value": "1",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X23_1_i[]",
+          "value": "2",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X23_1_i[]",
+          "value": "3",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X23_1_i[]",
+          "value": "4",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X23_1_i[]",
+          "value": "5",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        },
+        {
+          "type": "checkbox",
+          "name": "X23_1_i[]",
+          "value": "6",
+          "checked": false,
+          "status": 1,
+          "sliderValue": 1
+        }
+      ],
+      "comment": "",
+      "pastValues": [
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "1",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "pastComments": []
+    }
+  }
+}

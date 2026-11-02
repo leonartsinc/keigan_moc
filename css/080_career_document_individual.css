@@ -1,0 +1,162 @@
+/* Component: CareerDocIndividualTopBar */
+.cdi-topbar {
+  margin-bottom: 14px;
+}
+.cdi-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+/* Component: CareerDocIndividualTargetPanel */
+.cdi-target-table {
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+.cdi-target-table td {
+  border: 1px solid #9ca3af;
+  vertical-align: middle;
+}
+.cdi-target-label {
+  background: #f3f4f6;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+  white-space: nowrap;
+}
+.cdi-target-value {
+  background: #f9fafb;
+  padding: 8px 24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+/* Component: CareerDocIndividualPanel */
+.cdi-panel {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin-bottom: 16px;
+}
+.cdi-panel-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 14px;
+}
+
+/* Component: CareerDocIndividualOptionGroup */
+.cdi-option-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.cdi-option-col {
+  flex: 1;
+  min-width: 280px;
+}
+.cdi-option-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #374151;
+  margin-bottom: 10px;
+}
+.cdi-option-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 6px 0;
+}
+.cdi-option-label {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+}
+.cdi-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.cdi-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #374151;
+  cursor: pointer;
+}
+.cdi-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0 4px 148px;
+}
+.cdi-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+  cursor: pointer;
+}
+.cdi-check-label:has(input:disabled) {
+  cursor: not-allowed;
+  color: #d1d5db;
+}
+
+/* Component: CareerDocIndividualFormatNote */
+.cdi-format-note {
+  font-size: 11px;
+  color: #6b7280;
+  margin-left: 24px;
+}
+
+/* Component: CareerDocIndividualActionBar */
+.cdi-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cdi-download-btn {
+  height: 36px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 5px;
+  background: #f97316;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.cdi-download-btn:hover {
+  background: #ea580c;
+}
+.cdi-cancel-btn {
+  height: 36px;
+  padding: 0 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  background: #f3f4f6;
+  color: #4b5563;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cdi-cancel-btn:hover {
+  background: #e5e7eb;
+}
+.cdi-action-note {
+  font-size: 11px;
+  color: #9ca3af;
+}
