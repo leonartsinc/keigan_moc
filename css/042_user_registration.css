@@ -1,0 +1,158 @@
+/* Component: UserRegTopBar */
+.usr-topbar {
+  margin-bottom: 14px;
+}
+.usr-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+
+/* Component: UserRegSidebar */
+.usr-side-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.usr-side-title {
+  background: #545454;
+  color: #bdbdbd;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid #5b5b5b;
+}
+.usr-nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #bdbdbd;
+  background: #171717;
+  border: none;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.usr-nav-link:hover {
+  background: #242424;
+  color: #fbbd23;
+}
+.usr-nav-link.is-active {
+  background: #242424;
+  color: #fbbd23;
+  font-weight: 600;
+  border-left-color: #fbbd23;
+}
+
+/* Component: UserRegActionButtons */
+.usr-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.usr-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.usr-btn-save {
+  background: #fbbd23;
+  color: #ffffff;
+  border: 1px solid #fbbd23;
+}
+.usr-btn-save:hover {
+  background: #fbbd23;
+  border-color: #fbbd23;
+}
+/* Component: UserRegPanel */
+.usr-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.usr-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #545454;
+  font-size: 13px;
+  font-weight: 600;
+  color: #bdbdbd;
+  padding: 8px 14px;
+  border-bottom: 1px solid #5b5b5b;
+}
+
+/* Component: UserRegFormTable */
+table.usr-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.usr-table td {
+  border: 1px solid #393939;
+  vertical-align: middle;
+}
+.usr-table td.usr-label {
+  background: #272727;
+  width: 150px;
+  padding: 8px 12px;
+  text-align: right;
+  color: #bdbdbd;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.usr-table td.usr-value {
+  padding: 6px 12px;
+  background: #171717;
+}
+.usr-table tr.usr-divider-row td {
+  padding: 0;
+  border: none;
+  border-top: 2px solid #444444;
+  height: 0;
+}
+.req-mark {
+  color: #ef4444;
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+.usr-inp {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+}
+.usr-inp:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.usr-sep {
+  margin: 0 4px;
+  color: #a6a6a6;
+}
+.usr-computed {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  color: #909090;
+}

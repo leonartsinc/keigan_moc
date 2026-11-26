@@ -1,0 +1,171 @@
+/* =========================================================
+   ダッシュボード（index.html）専用スタイル
+   - 共通の topstyle.css に影響を与えないよう、
+     グローバルに効くセレクタは .p-dashboard 配下に限定する
+========================================================= */
+
+/* 業界選択リスト：背景を黒、文字を白にする */
+.p-dashboard select option {
+  background-color: #171717 !important;
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   ベンチマークカード（STANDARD / 上位20% / 上位5%）
+========================================================= */
+.standard-card,
+.top20-card,
+.top5-card {
+  background: linear-gradient(to right, #262626, #292929, #171717);
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.standard-card:hover,
+.top20-card:hover,
+.top5-card:hover {
+  background: #525252 !important;
+}
+
+/* =========================================================
+   ベンチマーク比較
+========================================================= */
+.benchmark-big-row {
+  background: #262626;
+  border-top: 1px solid #000000;
+}
+
+.benchmark-middle-row {
+  background: #404040;
+  border-bottom: 1px solid #000000;
+}
+
+.benchmark-small-row {
+  border-bottom: 1px solid #404040;
+}
+
+.benchmark-big-row td,
+.benchmark-middle-row td,
+.benchmark-small-row td {
+  padding-top: 11px;
+  padding-bottom: 11px;
+}
+
+.benchmark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.benchmark-arrow {
+  display: inline-block;
+  width: 14px;
+  color: #ffffff;
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+
+.benchmark-arrow.open {
+  transform: rotate(90deg);
+}
+
+.benchmark-code {
+  color: #ffffff;
+  font-size: 10px;
+  min-width: 22px;
+}
+
+.benchmark-diff-track {
+  position: relative;
+  height: 10px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: visible;
+}
+
+/* 自社スコアの棒 */
+.benchmark-diff-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+/* ベンチマーク以上 */
+.benchmark-diff-positive {
+  background: #fbbf24;
+}
+
+/* ベンチマーク未満 */
+.benchmark-diff-negative {
+  background: #a1a1aa;
+}
+
+/* ベンチマークの縦線 */
+.benchmark-diff-center {
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 18px;
+  background: #ffffff;
+  transform: translateX(-50%);
+  z-index: 3;
+  border-radius: 2px;
+}
+
+.benchmark-score {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.benchmark-gap-positive {
+  color: #fbbf24;
+}
+
+.benchmark-gap-negative {
+  color: #00a6f4;
+}
+
+.benchmark-gap-zero {
+  color: #71717a;
+}
+
+/* ベンチマーク表：明細部分の文字色（評価項目・自社スコア・ベンチマークのみ白） */
+#benchmarkTable tbody td:nth-child(-n+3),
+#benchmarkTable tbody td:nth-child(-n+3) * {
+  color: #ffffff !important;
+}
+
+/* =========================================================
+   グラフ（Chart.js）
+========================================================= */
+.p-dashboard canvas {
+  display: block;
+  max-width: 100%;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  min-height: 250px;
+}
+
+/* 円グラフの表示領域 */
+.p-dashboard .w-\[160px\] {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+
+/* その他のグラフの表示領域 */
+.p-dashboard .relative.h-\[240px\] {
+  position: relative;
+  height: 240px;
+  width: 100%;
+}

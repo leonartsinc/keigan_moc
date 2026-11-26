@@ -1,0 +1,521 @@
+/* =========================================================
+   Theme: 新デザイン（ダッシュボード準拠）共通スタイル
+   - 各ページCSSの後に読み込み、Tailwind ユーティリティ等の配色を上書きする
+   - 読み込み順：各ページCSS → 本ファイル（最後）
+   - セレクタ先頭の :root は Tailwind（CDN が後から挿入する <style>）より
+     詳細度を 1 段上げて確実に上書きするためのもの。外さないこと
+
+   配色トークン（index.html のダッシュボードに準拠）
+     --dk-bg       : #262626  ページ背景（neutral-800）
+     --dk-surface  : #171717  カード・メイン（neutral-900）
+     --dk-panel    : #404040  パネル・区切り（neutral-700）
+     --dk-text     : #f5f5f5  本文
+     --dk-muted    : #a1a1aa  補助テキスト（zinc-400）
+     --dk-accent   : #fbbf24  アクセント（amber-400）
+========================================================= */
+:root {
+  --dk-bg: #E5E5E5;
+  --dk-surface: #171717;
+  --dk-panel: #E5E5E5;
+  --dk-line: #404040;
+  --dk-text: #f5f5f5;
+  --dk-muted: #a1a1aa;
+  --dk-accent: #fbbf24;
+  --dk-accent-soft: rgba(251, 191, 36, 0.14);
+}
+
+/* =========================
+   Base
+========================= */
+:root body {
+  background-color: var(--dk-bg);
+  color: var(--dk-text);
+}
+
+:root select option {
+  background-color: var(--dk-surface);
+  color: #ffffff;
+}
+
+:root ::placeholder {
+  color: #71717a;
+}
+
+/* =========================
+   Tailwind utilities（背景）
+========================= */
+:root .bg-white { background-color: var(--dk-surface); }
+:root .bg-white\/80 { background-color: rgba(38, 38, 38, 0.85); }
+:root .bg-gray-50 { background-color: #1f1f1f; }
+:root .bg-gray-100 { background-color: var(--dk-bg); }
+:root .bg-gray-200 { background-color: #333333; }
+:root .bg-gray-200\/95 { background-color: var(--dk-surface); }
+:root .bg-gray-300 { background-color: var(--dk-panel); }
+:root .bg-orange-50 { background-color: var(--dk-accent-soft); }
+:root .bg-orange-100 { background-color: rgba(251, 191, 36, 0.22); }
+
+:root .hover\:bg-gray-50:hover { background-color: var(--dk-bg); }
+:root .hover\:bg-orange-50:hover,
+:root .hover\:bg-orange-50\/60:hover { background-color: var(--dk-accent-soft); }
+:root .hover\:bg-red-50:hover { background-color: rgba(239, 68, 68, 0.15); }
+
+/* =========================
+   Tailwind utilities（文字）
+========================= */
+:root .text-gray-900,
+:root .text-gray-800,
+:root .text-gray-700 { color: var(--dk-text); }
+:root .text-gray-600 { color: #d4d4d4; }
+:root .text-gray-500,
+:root .text-gray-400 { color: var(--dk-muted); }
+:root .text-orange-400,
+:root .text-orange-500 { color: var(--dk-accent); }
+:root .text-blue-500 { color: #38bdf8; }
+
+:root .hover\:text-gray-600:hover { color: var(--dk-text); }
+:root .hover\:text-orange-400:hover,
+:root .hover\:text-orange-500:hover,
+:root .group:hover .group-hover\:text-orange-400 { color: var(--dk-accent); }
+
+/* =========================
+   Tailwind utilities（罫線）
+========================= */
+:root .border:not([class*="border-"]),
+:root .border-gray-100,
+:root .border-gray-200,
+:root .border-gray-300 { border-color: var(--dk-line); }
+:root .ring-orange-300,
+:root .hover\:ring-orange-300:hover { --tw-ring-color: var(--dk-accent); }
+
+/* =========================
+   Component: Header / Sidebar / SubSidebar / Footer（js/common.js）
+========================= */
+:root header {
+  color: #ffffff;
+}
+
+:root #sidebar {
+  background-color: var(--dk-surface);
+  color: #ffffff;
+  border-color: var(--dk-surface);
+  box-shadow: none;
+}
+
+:root #subSidebar {
+  background-color: #262626; /* index.html のサブメニューと同じ（neutral-800） */
+}
+/* 閉じた状態（幅12pxの帯）はページ背景になじませる */
+:root #subSidebar.sub-sidebar-collapsed {
+  background-color: transparent;
+}
+
+:root #subSidebarTitle {
+  color: #ffffff;
+}
+
+:root #subSidebarContent {
+  color: #ffffff;
+}
+
+:root #subSidebarContent a:hover {
+  background-color: var(--dk-accent);
+  color: #ffffff;
+}
+
+/* ユーザーメニュー：index.html と同じ白基調（上の Tailwind 上書きを打ち消す） */
+:root #userMenu {
+  background-color: #ffffff;
+  border-color: #f3f4f6;
+  color: #000000;
+}
+:root #userMenu .bg-gray-100 { background-color: #f3f4f6; }
+:root #userMenu .text-gray-500 { color: #6b7280; }
+:root #userMenu .text-blue-500 { color: #3b82f6; }
+:root #userMenu .border-gray-100 { border-color: #f3f4f6; }
+
+:root footer {
+  background-color: #262626; /* index.html のフッターと同じ（neutral-800） */
+}
+
+/* =========================
+   Layout: AppFrame（index.html と同様に、ヘッダー・サイドバー・フッターの内側を角丸の枠にする）
+   - 外枠（body）は #262626、枠の中（#mainContent）は従来のページ背景 #E5E5E5
+   - 各ページはウィンドウスクロールのため（sticky 見出し等が依存）、枠自体はスクロール容器にしない
+   - 上側の角はスクロールしても見えるよう、sticky の疑似要素で角の外側を塗る
+========================= */
+:root body:has(#mainContent) {
+  background-color: #262626;
+}
+:root #mainContent {
+  margin-top: 56px;          /* ヘッダー高さ（pt-14 の代わりに外側の余白で確保） */
+  padding-top: 0;
+  min-height: calc(100vh - 56px);
+  background-color: var(--dk-bg);
+  border-radius: 12px;
+  overflow: clip;            /* 角丸でフッター等を切り抜く（sticky を壊さない clip を使用） */
+}
+:root #mainContent::before {
+  content: "";
+  position: sticky;
+  top: 56px;
+  z-index: 35;               /* ページ内の sticky 見出し（z-index: 20 等）より前面、ヘッダー（z-40）より背面 */
+  display: block;
+  height: 12px;
+  margin-bottom: -12px;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12px 12px, transparent 11.5px, #262626 12px) left top / 12px 12px no-repeat,
+    radial-gradient(circle at 0 12px, transparent 11.5px, #262626 12px) right top / 12px 12px no-repeat;
+}
+
+/* =========================
+   Component: V3 Design System（component-v3.css）
+   ブランドカラー（emerald）→ ダッシュボードのアクセント（amber）
+========================= */
+:root .page-hero {
+  background: linear-gradient(135deg, #404040 0%, #262626 60%, #171717 100%);
+  border-left: 4px solid var(--dk-accent);
+}
+
+:root .info-banner {
+  border-left-color: var(--dk-accent);
+  background: linear-gradient(to right, #2a2620, var(--dk-surface));
+}
+
+:root .stat-card {
+  border-color: var(--dk-line);
+  box-shadow: none;
+}
+:root .stat-card:hover {
+  border-color: var(--dk-accent);
+  box-shadow: 0 4px 14px rgba(251, 191, 36, 0.12);
+}
+
+:root .user-row:hover {
+  border-color: var(--dk-accent);
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.10);
+}
+:root .user-row.is-checked {
+  border-color: var(--dk-accent);
+  background: #2a2620;
+}
+
+:root .filter-pill:focus-within,
+:root .filter-pill:hover {
+  border-color: var(--dk-accent);
+  background: var(--dk-bg);
+}
+:root .filter-pill:focus-within select,
+:root .filter-pill:hover select {
+  color: var(--dk-accent);
+}
+
+:root .btn-v3 {
+  background: var(--dk-accent);
+  color: var(--dk-surface);
+  box-shadow: 0 6px 20px rgba(251, 191, 36, 0.25);
+}
+:root .btn-v3:hover:not(:disabled) {
+  box-shadow: 0 10px 28px rgba(251, 191, 36, 0.35);
+}
+:root .btn-v3:disabled {
+  background: var(--dk-panel);
+  color: var(--dk-muted);
+}
+
+:root .col-hdr {
+  border-bottom-color: var(--dk-line);
+}
+:root .col-hdr span.sortable:hover {
+  color: var(--dk-accent);
+}
+
+:root .sel-badge.active {
+  background: var(--dk-accent-soft);
+  color: var(--dk-accent);
+}
+
+/* =========================================================
+   Component: Modal（新デザイン）
+   構造：.fixed.inset-0（ルート）> .absolute.inset-0（暗幕）+ .relative.bg-white（本体）
+   枠線・上辺アクセント・濃い暗幕・ヘッダー／フッター区切りで境界を明確にする
+========================================================= */
+:root {
+  --dk-modal-bg: #1f1f1f;
+  --dk-modal-border: #525252;
+}
+
+:root .fixed.inset-0 > .absolute.inset-0.bg-black\/40 {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+:root .fixed.inset-0 > .relative.bg-white {
+  background-color: var(--dk-modal-bg);
+  border: 1px solid var(--dk-modal-border);
+  border-top: 3px solid var(--dk-accent);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 24px 64px rgba(0, 0, 0, 0.75);
+}
+
+/* ヘッダー（タイトル＋閉じる） */
+:root .fixed.inset-0 > .relative.bg-white > .justify-between:first-child {
+  border-bottom: 1px solid var(--dk-line);
+  padding-bottom: 14px;
+  margin-bottom: 4px;
+}
+:root .fixed.inset-0 > .relative.bg-white > .justify-between:first-child h2 {
+  color: #ffffff;
+}
+
+/* 閉じる（×）ボタン */
+:root .fixed.inset-0 > .relative.bg-white > .justify-between:first-child button {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  color: var(--dk-muted);
+  transition: background-color 0.15s, color 0.15s;
+}
+:root .fixed.inset-0 > .relative.bg-white > .justify-between:first-child button:hover {
+  background-color: var(--dk-panel);
+  color: #ffffff;
+}
+
+/* フッター（ボタン欄） */
+:root .fixed.inset-0 > .relative.bg-white > .flex.gap-3.px-6,
+:root .fixed.inset-0 > .relative.bg-white > .prf-form-actions {
+  border-top: 1px solid var(--dk-line);
+  padding-top: 16px;
+  background-color: rgba(0, 0, 0, 0.18);
+}
+
+/* モーダル内の補助エリア（bg-gray-50） */
+:root .fixed.inset-0 > .relative.bg-white .bg-gray-50 {
+  background-color: var(--dk-surface);
+  border: 1px solid var(--dk-line);
+}
+
+/* =========================================================
+   Component: Button（新デザイン）
+   各ページ固有のボタンクラスを役割ごとに 4 種類へ統一する
+     Primary   : 保存・確定・送信・ダウンロード（amber 塗り）
+     Secondary : キャンセル・戻る（グレー枠線）
+     Danger    : 削除・差し戻し（赤枠線 → hover で赤塗り）
+     Neutral   : 追加・ツール系（濃グレー塗り → hover で amber 枠）
+========================================================= */
+
+/* ---------- Primary ---------- */
+:root .apply-submit-btn,
+:root .login-submit-btn,
+:root .reg-btn-save,
+:root .usr-btn-save,
+:root .prf-btn-save,
+:root .prf-form-btn-save,
+:root .wkh-btn-save,
+:root .wkh-approval-btn-approve,
+:root .mbo-btn-save,
+:root .ul-invite-btn,
+:root .ul-invite-submit-btn,
+:root .cdi-download-btn,
+:root .cdl-download-btn,
+:root .eml-modal-download-btn,
+:root .asl-btn-primary,
+:root .tsl-btn-primary,
+:root .mbl-search-btn,
+:root .eml-search-btn,
+:root .cdl-search-btn,
+:root .whl-search-btn,
+:root .asl-search-btn,
+:root .afl-btn-primary {
+  background: var(--dk-accent);
+  border: 1px solid var(--dk-accent);
+  color: #171717;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(251, 191, 36, 0.25);
+  transition: background-color 0.15s, border-color 0.15s, box-shadow 0.15s, color 0.15s;
+}
+:root .apply-submit-btn:hover:not(:disabled),
+:root .login-submit-btn:hover:not(:disabled),
+:root .reg-btn-save:hover:not(:disabled),
+:root .usr-btn-save:hover:not(:disabled),
+:root .prf-btn-save:hover:not(:disabled),
+:root .prf-form-btn-save:hover:not(:disabled),
+:root .wkh-btn-save:hover:not(:disabled),
+:root .wkh-approval-btn-approve:hover:not(:disabled),
+:root .mbo-btn-save:hover:not(:disabled),
+:root .ul-invite-btn:hover:not(:disabled),
+:root .ul-invite-submit-btn:hover:not(:disabled),
+:root .cdi-download-btn:hover:not(:disabled),
+:root .cdl-download-btn:hover:not(:disabled),
+:root .eml-modal-download-btn:hover:not(:disabled),
+:root .asl-btn-primary:hover:not(:disabled),
+:root .tsl-btn-primary:hover:not(:disabled),
+:root .mbl-search-btn:hover:not(:disabled),
+:root .eml-search-btn:hover:not(:disabled),
+:root .cdl-search-btn:hover:not(:disabled),
+:root .whl-search-btn:hover:not(:disabled),
+:root .asl-search-btn:hover:not(:disabled),
+:root .afl-btn-primary:hover:not(:disabled) {
+  background: #fcd34d;
+  border-color: #fcd34d;
+  color: #171717;
+  box-shadow: 0 4px 16px rgba(251, 191, 36, 0.4);
+}
+:root .apply-submit-btn:disabled,
+:root .login-submit-btn:disabled,
+:root .ul-invite-submit-btn:disabled,
+:root .asl-btn-primary:disabled,
+:root .tsl-btn-primary:disabled,
+:root .afl-btn-primary:disabled {
+  background: var(--dk-panel);
+  border-color: var(--dk-panel);
+  color: #8a8a8a;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* ---------- Secondary ---------- */
+:root .reg-btn-cancel,
+:root .prf-form-btn-cancel,
+:root .wkh-btn-cancel,
+:root .wkh-approval-btn-cancel,
+:root .mbo-btn-cancel,
+:root .ul-invite-cancel-btn,
+:root .cdi-cancel-btn,
+:root .cdl-cancel-btn,
+:root .eml-modal-cancel-btn,
+:root .afl-clear-btn,
+:root .fixed.inset-0 button.border-gray-300 {
+  background: transparent;
+  border: 1px solid #737373;
+  color: #e5e5e5;
+  font-weight: 600;
+  box-shadow: none;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+:root .reg-btn-cancel:hover,
+:root .prf-form-btn-cancel:hover,
+:root .wkh-btn-cancel:hover,
+:root .wkh-approval-btn-cancel:hover,
+:root .mbo-btn-cancel:hover,
+:root .ul-invite-cancel-btn:hover,
+:root .cdi-cancel-btn:hover,
+:root .cdl-cancel-btn:hover,
+:root .eml-modal-cancel-btn:hover,
+:root .afl-clear-btn:hover,
+:root .fixed.inset-0 button.border-gray-300:hover {
+  background: var(--dk-panel);
+  border-color: #a3a3a3;
+  color: #ffffff;
+}
+
+/* ---------- Danger ---------- */
+:root .prf-form-btn-delete,
+:root .wkh-btn-delete,
+:root .wkh-approval-btn-reject,
+:root .mbo-btn-reject {
+  background: transparent;
+  border: 1px solid #ef4444;
+  color: #f87171;
+  font-weight: 600;
+  box-shadow: none;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+:root .prf-form-btn-delete:hover:not(:disabled),
+:root .wkh-btn-delete:hover:not(:disabled),
+:root .wkh-approval-btn-reject:hover:not(:disabled),
+:root .mbo-btn-reject:hover:not(:disabled) {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #ffffff;
+}
+
+/* ---------- Neutral ---------- */
+:root .prf-btn-resume,
+:root .stg-tool-btn,
+:root .wkh-add-btn,
+:root .mbo-add-row-btn,
+:root .ul-bulk-exec-btn,
+:root .eml-download-btn,
+:root .wkh-comment-reply-btn,
+:root .mbo-comment-reply-btn {
+  background: #333333;
+  border: 1px solid #525252;
+  color: #f5f5f5;
+  font-weight: 600;
+  box-shadow: none;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+:root .prf-btn-resume:hover,
+:root .stg-tool-btn:hover,
+:root .wkh-add-btn:hover,
+:root .mbo-add-row-btn:hover,
+:root .ul-bulk-exec-btn:hover,
+:root .eml-download-btn:hover,
+:root .wkh-comment-reply-btn:hover,
+:root .mbo-comment-reply-btn:hover {
+  background: var(--dk-panel);
+  border-color: var(--dk-accent);
+  color: var(--dk-accent);
+}
+:root .prf-btn-resume i,
+:root .stg-tool-btn i {
+  color: inherit;
+}
+
+/* モーダル内フォームボタン（050）：押しやすいサイズに */
+:root .prf-form-btn {
+  height: 34px;
+  padding: 0 22px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+/* 設定画面ツールバー（012）：保存＝Primary／キャンセル＝Secondary */
+:root .stg-tool-btn--save {
+  background: var(--dk-accent);
+  border-color: var(--dk-accent);
+  color: #171717;
+  font-weight: 700;
+}
+:root .stg-tool-btn--save:hover {
+  background: #fcd34d;
+  border-color: #fcd34d;
+  color: #171717;
+}
+:root .stg-tool-btn--cancel {
+  background: transparent;
+  border-color: #737373;
+  color: #e5e5e5;
+}
+:root .stg-tool-btn--cancel:hover {
+  background: var(--dk-panel);
+  border-color: #a3a3a3;
+  color: #ffffff;
+}
+
+/* MBO（072）：無効状態のボタン（承認完了後・照会モード） */
+:root .mbo-btn:disabled,
+:root .mbo-btn:disabled:hover {
+  background: var(--dk-panel);
+  border-color: var(--dk-panel);
+  color: #8a8a8a;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+:root .mbo-comment-input-label {
+  color: var(--dk-accent);
+}
+
+/* Neutral ボタンの無効状態（照会・承認・面談結果モードの行追加など） */
+:root .wkh-add-btn:disabled,
+:root .mbo-add-row-btn:disabled,
+:root .stg-tool-btn:disabled,
+:root .wkh-add-btn:disabled:hover,
+:root .mbo-add-row-btn:disabled:hover,
+:root .stg-tool-btn:disabled:hover {
+  background: transparent;
+  border-color: var(--dk-line);
+  color: #5c5c5c;
+  cursor: not-allowed;
+}

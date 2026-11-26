@@ -1,0 +1,781 @@
+/* ── 最上部／最下部ジャンプボタン 共通 ── */
+#scroll-to-top,
+#scroll-to-bottom {
+    position: fixed;
+    right: 24px;
+    z-index: 9999;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    padding: 7px 11px 6px;
+    background-color: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.45);
+    cursor: pointer;
+    font-family: "Raleway", sans-serif;
+    transition: background-color 0.15s, box-shadow 0.15s;
+}
+
+#scroll-to-top {
+    top: 52px;
+}
+
+#scroll-to-bottom {
+    top: 104px;
+}
+
+#scroll-to-top:hover,
+#scroll-to-bottom:hover {
+    background-color: #333;
+    box-shadow: 0 4px 14px rgba(0,0,0,.55);
+}
+
+#scroll-to-top:active,
+#scroll-to-bottom:active {
+    box-shadow: inset -1px -1px 3px rgba(255,255,255,.2), inset 1px 1px 3px rgba(0,0,0,.5);
+}
+
+#scroll-to-top .stb-arrow,
+#scroll-to-bottom .stb-arrow {
+    font-size: 13px;
+    line-height: 1;
+    color: rgb(247, 160, 47);
+}
+
+#scroll-to-top .stb-label,
+#scroll-to-bottom .stb-label {
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    opacity: 0.7;
+}
+
+/* ── ページレイアウト ── */
+.page-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.page-wrapper .l-content-wrapper {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+
+/* ── TOCラッパー（flex item） ── */
+.toc-wrapper {
+    width: 180px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 10px;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.3s ease;
+}
+
+.toc-wrapper.toc-collapsed {
+    width: 28px;
+}
+
+/* ── トグルボタン（常に表示） ── */
+.toc-toggle-btn {
+    width: 100%;
+    background-color: #1a1a1a;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-family: "Raleway", sans-serif;
+    font-size: 13px;
+    border-radius: 3px 3px 0 0;
+    box-sizing: border-box;
+    transition: background-color 0.15s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.toc-toggle-btn:hover {
+    background-color: #333;
+}
+
+.toc-toggle-btn::after {
+    content: '«';
+    font-size: 13px;
+    letter-spacing: -0.15em;
+    flex-shrink: 0;
+}
+
+/* 折りたたみ時：アイコン切り替え、中央揃え */
+.toc-wrapper.toc-collapsed .toc-toggle-btn {
+    border-radius: 3px;
+    justify-content: center;
+    padding: 4px 0;
+}
+
+.toc-wrapper.toc-collapsed .toc-toggle-btn::after {
+    content: '»';
+}
+
+/* ── 目次本体 ── */
+.toc-nav {
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.3);
+    border-radius: 0 0 5px 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    max-height: calc(100vh - 60px);
+    opacity: 1;
+    visibility: visible;
+    /* 開くとき：幅が広がり始めてからフェードイン */
+    transition: opacity 0.2s ease 0.15s, visibility 0s linear 0s;
+}
+
+.toc-nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* 折りたたみ時：即フェードアウト → visibility で完全非表示 */
+.toc-wrapper.toc-collapsed .toc-nav {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.1s ease, visibility 0s linear 0.1s;
+}
+
+.toc-header {
+    background-color: #000;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: normal;
+    font-family: "Raleway", sans-serif;
+    letter-spacing: 0.05em;
+}
+
+/* 全て展開/閉じる */
+.toc-controls {
+    display: flex;
+    gap: 4px;
+    padding: 5px 8px;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+}
+
+.toc-btn {
+    flex: 1;
+    padding: 3px 0;
+    font-size: 10px;
+    color: #555;
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 2px;
+    text-align: center;
+}
+
+.toc-btn:hover {
+    background-color: #e6e4dd;
+}
+
+/* リスト */
+.toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.toc-nav li {
+    border-right: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 大分類 */
+.toc-large > a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+    background-color: #000000;
+    color: #fff;
+    text-decoration: none;
+    font-size: 11px;
+    border-top: 1px solid #333;
+    cursor: pointer;
+    user-select: none;
+}
+
+.toc-large > a::after {
+    content: '▶';
+    font-size: 8px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.toc-large.toc-open > a::after {
+    transform: rotate(90deg);
+}
+
+/* 大分類アコーディオン */
+.toc-sub-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+}
+
+.toc-large.toc-open > .toc-sub-list {
+    display: block;
+}
+
+/* 中分類 */
+.toc-medium > a {
+    display: block;
+    padding: 3px 10px 3px 18px;
+    background-color: #b9b8b2;
+    color: #fff;
+    text-decoration: none;
+    font-size: 10px;
+    border-top: 1px solid #a5a49e;
+}
+
+.toc-large > a:hover,
+.toc-medium > a:hover {
+    opacity: 0.75;
+}
+
+/* 小さい画面では目次を非表示 */
+@media (max-width: 960px) {
+    .toc-wrapper { display: none; }
+}
+
+/* 目次下部ボタンエリア */
+.toc-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px;
+    border-top: 1px solid #ccc;
+    background-color: #f0f0f0;
+}
+
+.toc-actions .c-btn--primary,
+.toc-actions .c-btn--secondary {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* ── トースト通知 ── */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 280px;
+    pointer-events: none;
+}
+
+.toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 8px 10px 8px 12px;
+    background-color: #1a1a1a;
+    color: #fff;
+    border-radius: 5px;
+    border-left: 4px solid #555;
+    box-shadow: 0 3px 10px rgba(0,0,0,.45);
+    font-size: 11px;
+    font-family: "Rubik", "Noto Sans JP", sans-serif;
+    line-height: 1.5;
+    pointer-events: auto;
+    animation: toast-in 0.2s ease forwards;
+    transition: opacity 0.25s, transform 0.25s;
+}
+
+.toast-error   { border-left-color: #c0392b; }
+.toast-warning { border-left-color: rgb(247, 160, 47); }
+.toast-result  { border-left-color: #888; }
+
+.toast.toast-out {
+    opacity: 0;
+    transform: translateX(16px);
+}
+
+@keyframes toast-in {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+.toast-icon {
+    font-size: 13px;
+    line-height: 1.45;
+    flex-shrink: 0;
+}
+.toast-error   .toast-icon { color: #c0392b; }
+.toast-warning .toast-icon { color: rgb(247, 160, 47); }
+.toast-result  .toast-icon { color: #888; }
+
+.toast-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.toast-label {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    opacity: 0.55;
+    margin-bottom: 2px;
+    font-family: "Raleway", sans-serif;
+}
+
+.toast-msg {
+    word-break: break-word;
+}
+
+.toast-close {
+    background: none;
+    border: none;
+    color: #fff;
+    opacity: 0.4;
+    cursor: pointer;
+    padding: 0;
+    font-size: 15px;
+    line-height: 1.2;
+    flex-shrink: 0;
+    align-self: flex-start;
+    width: auto !important;
+}
+.toast-close:hover { opacity: 0.9; }
+
+/* ── 大分類アコーディオン ── */
+.c-tier__header.tier-acc-trigger {
+    cursor: pointer;
+    user-select: none;
+}
+
+.c-tier__header.tier-acc-trigger:hover {
+    opacity: 0.85;
+}
+
+.c-tier__header.tier-acc-trigger h1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.c-tier__header.tier-acc-trigger h1::after {
+    content: '▶';
+    font-size: 9px;
+    margin-right: 8px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+}
+
+.c-tier.tier-open .c-tier__header.tier-acc-trigger h1::after {
+    transform: rotate(90deg);
+}
+
+/* ── コンテンツ側アコーディオン ── */
+div.c-section h1.acc-trigger {
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    user-select: none;
+    flex: 1;
+    min-width: 0;
+}
+
+div.c-section h1.acc-trigger:hover {
+    opacity: 0.8;
+}
+
+/* C3201: ラジオ＋チェックボックスを同一行に横並び */
+li.radio-cb-inline {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+}
+/* 下2行のチェックボックスをラジオボタン分インデント（縦位置を揃える） */
+li.cb-indent {
+    margin-left: calc(4px + 4px) !important; /* ラジオボタン幅(16px) + gap(4px) */
+    list-style: none !important;
+}
+/* 無効チェックボックスを薄く表示 */
+.C3201-sub-cb:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+/* 子グループ：親が未選択のとき薄く表示 */
+.child-group.cg-disabled label {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.child-group.cg-disabled input {
+    cursor: not-allowed;
+}
+/* スライダーUI */
+li.slider-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+}
+.slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+.value-slider {
+    width: 120px;
+    margin: 0;
+    cursor: pointer;
+}
+.slider-val {
+    min-width: 2em;
+    font-size: 10px;
+    color: #333;
+    text-align: center;
+}
+
+/* 評価スコアバッジ（選択肢テキスト末尾の得点表示） */
+.c-score-badge {
+    font-size: 0.9em;
+    color: #999;
+    margin-left: 4px;
+    white-space: nowrap;
+}
+
+/* 過去年度列 コメントツールチップ＆ラベル */
+dd.past-val[data-tooltip] {
+    cursor: help;
+}
+
+/* JS生成ツールチップ */
+.past-comment-tooltip {
+    display: none;
+    position: fixed;
+    max-width: 260px;
+    background: #333;
+    color: #fff;
+    font-size: 10px;
+    font-style: normal;
+    line-height: 1.6;
+    padding: 6px 10px;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    pointer-events: none;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0,0,0,.4);
+}
+
+/* コメントなし：灰色の空丸インジケータ */
+dd.past-val.past-no-comment::before {
+    content: '○';
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    font-size: 9px;
+    line-height: 1;
+    color: #bbb;
+    pointer-events: none;
+}
+
+/* コメントあり：青の塗り丸インジケータ */
+dd.past-val.past-has-comment::before {
+    content: '●';
+    position: absolute;
+    top: 2px;
+    right: 3px;
+    font-size: 9px;
+    line-height: 1;
+    color: #4a8ec2;
+    pointer-events: none;
+}
+
+/* コメントあり：セル背景を薄い青でハイライト */
+div.c-subsection dd.past-val.past-has-comment {
+    background-color: rgba(74, 142, 194, 0.08);
+}
+
+/* 小分類コメント欄 */
+.c-section-comment-box {
+    display: block;
+    width: calc(100% - 30px);
+    box-sizing: border-box;
+    margin-top: 4px;
+    margin-left: 25px;
+    margin-right: 5px;
+    padding: 4px 6px;
+    font-size: 11px;
+    font-family: inherit;
+    line-height: 1.5;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    resize: vertical;
+    overflow-y: auto;
+}
+
+/* 過去年度列 */
+dd.past-val {
+    border-left: 1px solid #ddd;
+    padding: 5px 0;
+}
+dd.past-val ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+div.c-subsection dd.past-val li {
+    font-size: 11px;
+    color: #888;
+    font-style: italic;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border-right: none;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* ── ローディングモーダル ── */
+#loading-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+#loading-modal.loading-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-box {
+    width: 220px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+    background-color: #fff;
+}
+
+.loading-header {
+    background-color: #000;
+    color: #fff;
+    padding: 7px 14px;
+    font-size: 10px;
+    font-family: "Raleway", sans-serif;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    border-left: 4px solid rgb(247, 160, 47);
+}
+
+.loading-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 24px 20px 22px;
+}
+
+.loading-spinner {
+    display: block;
+    width: 38px;
+    height: 38px;
+    border: 3px solid rgba(247, 160, 47, 0.2);
+    border-top-color: rgb(247, 160, 47);
+    border-radius: 50%;
+    animation: loading-spin 0.75s linear infinite;
+}
+
+@keyframes loading-spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 11px;
+    font-family: "Rubik", "Noto Sans JP", sans-serif;
+    color: #666;
+    letter-spacing: 0.04em;
+}
+
+.child-group {
+    margin-left: 1.5em;
+    margin-top: 0.3em;
+    padding-left: 0.8em;
+}
+.child-group.hidden {
+    display: none;
+}
+.has-children > label {
+    font-weight: 500;
+}
+.subtopic-section {
+    margin-bottom: 1em;
+}
+.subtopic-label {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 0.3em;
+    font-style: italic;
+}
+
+/* ── 人物のメイン年度評価列（assessment_approval 専用） ── */
+div.c-tier__header {
+    grid-template-columns: 1fr 70px 70px 70px 70px 70px;
+}
+div.c-subsection dl {
+    grid-template-columns: minmax(120px, 5fr) minmax(280px, 12fr) 70px 70px 70px 70px 70px;
+}
+div.c-tier__header h3.main-eval-hd {
+    background-color: #3a6ea5;
+    color: #fff;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+    margin: 0;
+    padding: 3px 5px;
+    border-left: 1px solid #2d5a87;
+}
+dd.main-eval-val {
+    border-left: 1px solid #aac4e0;
+    padding: 5px 0;
+    background-color: rgba(58, 110, 165, 0.04);
+}
+dd.main-eval-val ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+div.c-subsection dd.main-eval-val li {
+    font-size: 11px;
+    color: #3a6ea5;
+    font-style: italic;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* ── 上長評価列（manager2-page専用：本人評価の左に上長評価の％表示列を追加） ── */
+/* 編集エリア（dt / dd 先頭2列）の幅定義には手を加えず、70px列を1つ追加するだけに留める */
+body.manager2-page div.c-tier__header {
+    grid-template-columns: 1fr 70px 70px 70px 70px 70px 70px;
+}
+body.manager2-page div.c-subsection dl {
+    grid-template-columns: minmax(120px, 5fr) minmax(280px, 12fr) 70px 70px 70px 70px 70px 70px;
+}
+div.c-tier__header h3.manager-eval-hd {
+    background-color: #b5651d;
+    color: #fff;
+    font-size: 1em;
+    font-weight: normal;
+    text-align: center;
+    margin: 0;
+    padding: 3px 5px;
+    border-left: 1px solid #8a4b15;
+}
+dd.manager-eval-val {
+    border-left: 1px solid #ddb28f;
+    padding: 5px 0;
+    background-color: rgba(181, 101, 29, 0.05);
+}
+dd.manager-eval-val ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+div.c-subsection dd.manager-eval-val li {
+    font-size: 11px;
+    color: #b5651d;
+    font-style: italic;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   横スクロール／縦スクロール構造の修正
+   style.css の section{overflow-x:auto} は、overflow-x が visible でないと
+   overflow-y も自動的に auto へ計算される仕様のせいで、section 自身が
+   中間スクロールコンテナ化してしまう。section は高さ制限を持たずコンテンツの
+   高さ分だけ伸びるため、横スクロールバーがページ最下部（実質到達不能な位置）
+   に出てしまい、かつ position:sticky の基準が document ではなく section に
+   変わって機能しなくなる。
+   .l-content-wrapper を実際のスクロールコンテナ（100vh・overflow:auto）にし、
+   横・縦スクロールをそこへ集約することで、両方を正しく機能させる。
+   ══════════════════════════════════════════════════════════════ */
+html {
+    overflow: hidden;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+.page-wrapper {
+    width: 100vw;
+    max-width: 100vw;
+    box-sizing: border-box;
+    height: 100vh;
+    align-items: stretch;
+    overflow: hidden;
+}
+.toc-wrapper {
+    position: static;
+    top: auto;
+    align-self: stretch;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.page-wrapper .l-content-wrapper {
+    display: block;
+    overflow: auto;
+    height: 100vh;
+    flex: 1 1 0%;
+    min-width: 0;
+}
+.page-wrapper .l-content-wrapper section {
+    overflow: visible;
+}
+/* メイン評価列見出し行（JS で section 直下へ移動・sticky 化される）：
+   移動前と同じく section の content box を基準に .c-tier 等と同じ幅を確保する */
+.page-wrapper .l-content-wrapper section > .c-tier__header.main-tier-header--sticky {
+    min-width: calc(100% + 140px);
+}

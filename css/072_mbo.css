@@ -1,0 +1,532 @@
+/* Layout: MboPageHead（ぱんくず＋タイトル＋上部ボタンをヘッダー直下に固定。上下の余白も含めて背景で覆い、スクロールする内容を隠す） */
+.mbo-page-head {
+  position: sticky;
+  top: 56px;
+  z-index: 20;
+  padding: 20px 0 16px;
+  background: #272727;
+}
+/* 固定エリア内の上部ボタン：タイトルとの間隔は親側で制御 */
+.mbo-page-head > .mbo-actions-bar {
+  margin-top: 14px;
+}
+
+/* Component: MboTopBar */
+.mbo-topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.mbo-topbar-left {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.mbo-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mbo-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+.mbo-person-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+.mbo-person-company {
+  font-size: 12px;
+  color: #909090;
+}
+.mbo-year-label {
+  font-size: 12px;
+  color: #909090;
+}
+.mbo-year-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #d3d3d3;
+}
+.mbo-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.mbo-status-badge.is-pending {
+  background: #212121;
+  color: #ea7b7b;
+}
+.mbo-status-badge.is-rejected {
+  background: #2d2d2d;
+  color: #ea7b7b;
+}
+.mbo-status-badge.is-approved {
+  background: #163b28;
+  color: #79ecc8;
+}
+
+/* Component: MboActionButtons（上部・下部の横並びボタン列） */
+.mbo-actions-bar {
+  display: flex;
+  gap: 10px;
+}
+.mbo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: auto;
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mbo-btn-save {
+  background: #fbbd23;
+  color: #ffffff;
+  border: 1px solid #fbbd23;
+}
+.mbo-btn-save:hover {
+  background: #fbbd23;
+  border-color: #fbbd23;
+}
+.mbo-btn-cancel {
+  background: #171717;
+  color: #909090;
+  border: 1px solid #424242;
+}
+.mbo-btn-cancel:hover {
+  background: #1e1e1e;
+  color: #bdbdbd;
+}
+
+/* Component: MboPanel */
+.mbo-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+}
+.mbo-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #545454;
+  font-size: 13px;
+  font-weight: 600;
+  color: #bdbdbd;
+  padding: 8px 14px;
+  border-bottom: 1px solid #5b5b5b;
+}
+
+.mbo-panel-toggle-btn {
+  background: none;
+  border: none;
+  color: #909090;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+}
+.mbo-panel-toggle-btn:hover {
+  color: #fbbd23;
+}
+.mbo-panel-toggle-btn:disabled {
+  color: #616161;
+  cursor: not-allowed;
+}
+.mbo-panel-toggle-btn:disabled:hover {
+  color: #616161;
+}
+
+.mbo-textarea {
+  padding: 6px 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+.mbo-textarea:disabled {
+  background: #1e1e1e;
+  color: #bdbdbd;
+  resize: none;
+}
+
+/* Component: MboVisionRow（VISONボックスの2カラムレイアウト） */
+.mbo-annual-goal-body {
+  padding: 14px;
+}
+.mbo-vision-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+.mbo-vision-box {
+  flex: 1;
+  min-width: 0;
+  border: 2px solid #eab308;
+  border-radius: 4px;
+  padding: 10px;
+}
+.mbo-vision-box-title {
+  background: #393939;
+  color: #bdbdbd;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  margin: -10px -10px 10px;
+  padding: 6px 10px;
+  border-radius: 3px 3px 0 0;
+}
+.mbo-vision-box-title-input {
+  display: block;
+  width: calc(100% + 20px);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: #bdbdbd;
+  background: #393939;
+  border: 1px solid transparent;
+  border-radius: 3px 3px 0 0;
+  margin: -10px -10px 10px;
+  padding: 6px 10px;
+  box-sizing: border-box;
+  font-family: inherit;
+  -webkit-text-fill-color: #bdbdbd;
+  opacity: 1;
+}
+.mbo-vision-box-title-input:not(:disabled) {
+  cursor: text;
+}
+.mbo-vision-box-title-input:focus {
+  outline: none;
+  border-color: #eab308;
+  box-shadow: 0 0 0 2px rgba(234,179,8,0.2);
+}
+.mbo-vision-summary {
+  margin-bottom: 10px;
+}
+.mbo-vision-question {
+  text-align: center;
+  font-size: 12px;
+  color: #909090;
+  margin-bottom: 10px;
+}
+.mbo-goal-row {
+  display: flex;
+  gap: 8px;
+}
+.mbo-goal-label-input {
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+  writing-mode: vertical-rl;
+  background: #eab308;
+  color: #eab07b;
+  -webkit-text-fill-color: #eab07b;
+  opacity: 1;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  border-radius: 3px;
+  padding: 8px 2px;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+.mbo-goal-label-input:not(:disabled) {
+  cursor: text;
+}
+.mbo-goal-label-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(234,179,8,0.4);
+}
+.mbo-goal-list {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Component: MboBreakdownNote */
+.mbo-breakdown-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #909090;
+  margin-bottom: 14px;
+}
+.mbo-breakdown-note i {
+  color: #a6a6a6;
+}
+
+/* Component: MboSubtitle */
+.mbo-subtitle-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.mbo-subtitle {
+  flex: 1;
+  background: #393939;
+  color: #bdbdbd;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 10px;
+}
+
+/* Component: MboChallengeTable（課題／定量ゴール／アクションプラン／重点項目・リスク） */
+.mbo-add-row-btn {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: #909090;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.mbo-add-row-btn:hover {
+  background: #eab308;
+  color: #eab07b;
+}
+.mbo-add-row-btn:disabled {
+  color: #616161;
+  cursor: not-allowed;
+}
+.mbo-add-row-btn:disabled:hover {
+  background: transparent;
+  color: #616161;
+}
+.mbo-col-center {
+  text-align: center;
+}
+.mbo-row-delete-icon {
+  color: #ef4444;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.mbo-row-delete-icon:hover {
+  color: #eb7a7a;
+}
+.mbo-row-delete-icon.is-disabled {
+  color: #616161;
+  cursor: not-allowed;
+}
+table.mbo-challenge-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border: 2px solid #eab308;
+}
+.mbo-challenge-table th {
+  background: #1e1e1e;
+  color: #909090;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #eab308;
+  font-size: 12px;
+}
+.mbo-challenge-table th.mbo-col-center {
+  width: 32px;
+}
+.mbo-challenge-table td {
+  border: 1px solid #eab308;
+  padding: 6px;
+  vertical-align: top;
+}
+.mbo-inp {
+  padding: 4px 6px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+.mbo-inp:disabled {
+  background: #1e1e1e;
+  color: #bdbdbd;
+  resize: none;
+}
+
+/* Component: MboCommentList（コメント履歴） */
+.mbo-comment-list {
+  margin: 0 0 20px;
+  border: 1px solid #393939;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.mbo-comment {
+  border-top: 1px solid #393939;
+}
+.mbo-comment:first-child {
+  border-top: none;
+}
+.mbo-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #1e1e1e;
+  cursor: pointer;
+}
+.mbo-comment-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: #bdbdbd;
+}
+.mbo-comment-datetime {
+  font-size: 11px;
+  color: #a6a6a6;
+}
+.mbo-comment-reply-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #a6a6a6;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.mbo-comment-reply-btn:hover {
+  color: #fbbd23;
+}
+.mbo-comment-toggle {
+  color: #a6a6a6;
+  transition: transform 0.15s ease;
+}
+/* 返信ボタンが無い（承認モード以外の）場合はトグルアイコン自体を右寄せする */
+.mbo-comment-datetime + .mbo-comment-toggle {
+  margin-left: auto;
+}
+.mbo-comment.is-collapsed .mbo-comment-toggle {
+  transform: rotate(-90deg);
+}
+.mbo-comment-body {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #d3d3d3;
+}
+.mbo-comment.is-collapsed .mbo-comment-body {
+  display: none;
+}
+
+/* 返信コメント：インデント＋左アクセント枠で返信元コメントに付随して見えるようにする */
+.mbo-comment.is-reply {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #7a5529;
+  border-left: 3px solid #fbbd23;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.mbo-comment.is-reply .mbo-comment-header {
+  background: #242424;
+}
+.mbo-comment.is-reply:last-child {
+  margin-bottom: 0;
+}
+
+/* Component: MboReplyIndicator（返信先の表示バー） */
+.mbo-reply-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: #242424;
+  border: 1px solid #7a5529;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fbbd23;
+}
+.mbo-reply-indicator button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #fbbd23;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* Component: MboCommentInput（承認モード専用：コメント入力） */
+.mbo-comment-input-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0 0 20px;
+}
+.mbo-comment-textarea {
+  flex: 1;
+}
+.mbo-comment-input-row .mbo-btn {
+  flex-shrink: 0;
+}
+.mbo-btn:disabled {
+  background: #272727;
+  border-color: #393939;
+  color: #a6a6a6;
+  cursor: not-allowed;
+}
+.mbo-btn:disabled:hover {
+  background: #272727;
+  border-color: #393939;
+  color: #a6a6a6;
+}
+
+/* Component: MboApprovalActions（承認モード：承認／差し戻し） */
+.mbo-approval-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.mbo-btn-reject {
+  background: #171717;
+  color: #ea7b7b;
+  border: 1px solid #7a2929;
+}
+.mbo-btn-reject:hover {
+  background: #212121;
+  border-color: #dc2626;
+}
+
+/* Component: MboCommentInputLabel（承認モードの入力欄見出し） */
+.mbo-comment-input-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #bdbdbd;
+  padding-bottom: 6px;
+}

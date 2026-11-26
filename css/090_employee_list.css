@@ -1,0 +1,284 @@
+/* Component: EmployeeListTopBar */
+.eml-topbar {
+  margin-bottom: 14px;
+}
+.eml-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+
+/* Component: EmployeeListPanel */
+.eml-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: EmployeeListFilterBar */
+.eml-filter-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 14px 0;
+}
+
+/* Component: EmployeeListFilterForm */
+table.eml-table {
+  width: 100%;
+  max-width: 640px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.eml-table td {
+  border: 1px solid #393939;
+  vertical-align: middle;
+}
+.eml-table td.eml-label {
+  background: #272727;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #bdbdbd;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.eml-table td.eml-value {
+  padding: 5px 10px;
+  background: #171717;
+}
+.eml-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.eml-sel:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+
+/* Component: EmployeeListDownloadButton */
+.eml-download-btn {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 18px;
+  border: 1px solid #5b5b5b;
+  border-radius: 4px;
+  background: #272727;
+  color: #bdbdbd;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+.eml-download-btn:hover {
+  background: #393939;
+  border-color: #767676;
+}
+.eml-download-btn i {
+  font-size: 14px;
+  color: #909090;
+}
+
+/* Component: EmployeeListStatusTabs */
+.eml-status-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px 0;
+}
+.eml-status-tab {
+  height: 28px;
+  padding: 0 16px;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  background: #171717;
+  color: #bdbdbd;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.eml-status-tab:hover {
+  border-color: #fbbd23;
+  color: #fbbd23;
+}
+.eml-status-tab.is-active {
+  background: #545454;
+  border-color: #5b5b5b;
+  color: #d3d3d3;
+}
+
+/* Component: EmployeeListTable */
+.eml-list-wrap {
+  margin: 14px 14px 10px;
+  overflow-x: auto;
+}
+table.eml-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.eml-list-table th {
+  background: #1e1e1e;
+  color: #909090;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  white-space: nowrap;
+}
+.eml-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  color: #d3d3d3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 260px;
+}
+.eml-list-table tbody tr:hover {
+  background: #242424;
+}
+/* Component: EmployeeListAction（照会アイコン：横スクロール時も右端に固定） */
+.eml-list-table .eml-col-action {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  width: 44px;
+  min-width: 44px;
+  text-align: center;
+  box-shadow: inset 1px 0 0 #e5e7eb, -2px 0 4px rgba(0, 0, 0, 0.06);
+}
+.eml-list-table th.eml-col-action {
+  background: #1e1e1e;
+}
+.eml-list-table td.eml-col-action {
+  background: #171717;
+}
+.eml-list-table tbody tr:hover td.eml-col-action {
+  background: #242424;
+}
+.eml-row-action-icon {
+  color: #a6a6a6;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.eml-row-action-icon:hover {
+  color: #fbbd23;
+}
+.eml-empty-row {
+  text-align: center;
+  color: #a6a6a6;
+  padding: 20px 10px !important;
+}
+
+/* Component: EmployeeDownloadModal */
+.eml-modal-field {
+  margin-bottom: 20px;
+}
+.eml-modal-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #d3d3d3;
+  margin-bottom: 10px;
+}
+.eml-modal-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+.eml-modal-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #bdbdbd;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.eml-modal-note {
+  font-size: 11px;
+  line-height: 1.6;
+  color: #909090;
+  margin-top: 10px;
+}
+.eml-modal-cancel-btn {
+  flex: 1;
+  height: 38px;
+  border: 1px solid #424242;
+  border-radius: 5px;
+  background: #171717;
+  color: #acacac;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.eml-modal-cancel-btn:hover {
+  background: #272727;
+}
+.eml-modal-download-btn {
+  flex: 1;
+  height: 38px;
+  border: none;
+  border-radius: 5px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.eml-modal-download-btn:hover {
+  background: #fbbd23;
+}
+
+/* Layout: EmployeeListFilterMain（検索条件＋検索ボタン） */
+.eml-filter-main {
+  flex: 1;
+  min-width: 0;
+  max-width: 640px;
+}
+
+/* Component: EmployeeListSearchActions */
+.eml-search-actions {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 10px;
+}
+.eml-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 4px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.eml-search-btn:hover {
+  background: #fbbd23;
+}

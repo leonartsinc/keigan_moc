@@ -1,0 +1,268 @@
+/* Component: CareerDocListTopBar */
+.cdl-topbar {
+  margin-bottom: 14px;
+}
+.cdl-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+
+/* Component: CareerDocListPanel */
+.cdl-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin-bottom: 16px;
+}
+.cdl-panel-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #d3d3d3;
+  margin-bottom: 14px;
+}
+.cdl-panel-divider {
+  border: none;
+  border-top: 1px solid #393939;
+  margin: 18px 0;
+}
+
+/* Component: CareerDocListOptionGroup */
+.cdl-option-cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.cdl-option-col {
+  flex: 1;
+  min-width: 280px;
+}
+.cdl-option-col-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #bdbdbd;
+  margin-bottom: 10px;
+}
+.cdl-option-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 6px 0;
+}
+.cdl-option-label {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #bdbdbd;
+}
+.cdl-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.cdl-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #bdbdbd;
+  cursor: pointer;
+}
+.cdl-sub-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 0 4px 148px;
+}
+.cdl-check-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #909090;
+  cursor: pointer;
+}
+.cdl-check-label input:disabled + span {
+  color: #616161;
+}
+.cdl-check-label:has(input:disabled) {
+  cursor: not-allowed;
+  color: #616161;
+}
+
+/* Component: CareerDocListFormatNote */
+.cdl-format-note {
+  font-size: 11px;
+  color: #909090;
+  margin-left: 24px;
+}
+
+/* Component: CareerDocListTable */
+.cdl-table-wrap {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+table.cdl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  table-layout: fixed;
+}
+.cdl-table thead th {
+  background: #272727;
+  border: 1px solid #393939;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 600;
+  color: #acacac;
+  white-space: nowrap;
+}
+.cdl-table thead th.cdl-col-check {
+  width: 36px;
+  text-align: center;
+}
+.cdl-table tbody td {
+  border: 1px solid #393939;
+  padding: 8px 10px;
+  color: #d3d3d3;
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.cdl-table tbody td.cdl-col-check {
+  text-align: center;
+}
+.cdl-table tbody tr:hover {
+  background: #242424;
+}
+.cdl-table tbody tr.is-checked {
+  background: #242424;
+}
+.cdl-empty-row {
+  text-align: center;
+  color: #a6a6a6;
+  padding: 24px;
+  font-size: 12px;
+}
+
+/* Component: CareerDocListActionBar */
+.cdl-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.cdl-download-btn {
+  height: 36px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 5px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.15s;
+}
+.cdl-download-btn:hover {
+  background: #fbbd23;
+}
+.cdl-cancel-btn {
+  height: 36px;
+  padding: 0 20px;
+  border: 1px solid #424242;
+  border-radius: 5px;
+  background: #272727;
+  color: #acacac;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.cdl-cancel-btn:hover {
+  background: #393939;
+}
+.cdl-action-note {
+  font-size: 11px;
+  color: #a6a6a6;
+}
+
+/* Component: CareerDocListSearchForm */
+table.cdl-search-table {
+  width: 100%;
+  max-width: 640px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.cdl-search-table td {
+  border: 1px solid #393939;
+  vertical-align: middle;
+}
+.cdl-search-table td.cdl-search-label {
+  background: #272727;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #bdbdbd;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.cdl-search-table td.cdl-search-value {
+  padding: 5px 10px;
+  background: #171717;
+}
+.cdl-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.cdl-sel:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+
+/* Component: CareerDocListSearchActions */
+.cdl-search-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+}
+.cdl-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 4px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.cdl-search-btn:hover {
+  background: #fbbd23;
+}
+.cdl-search-count {
+  font-size: 12px;
+  color: #909090;
+}

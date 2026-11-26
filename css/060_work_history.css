@@ -1,0 +1,615 @@
+/* Layout: WorkHistoryPageHead（ぱんくず＋タイトルをヘッダー直下に固定。上下の余白も含めて背景で覆い、スクロールする内容を隠す） */
+.wkh-page-head {
+  position: sticky;
+  top: 56px;
+  z-index: 20;
+  padding: 20px 0 14px;
+  background: #272727;
+}
+
+/* Component: WorkHistoryTopBar（見出し＋氏名／所属企業） */
+.wkh-topbar {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 0;
+}
+.wkh-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+.wkh-person-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+.wkh-person-company {
+  font-size: 12px;
+  color: #909090;
+}
+.wkh-topbar-tab {
+  margin-left: 18px;
+  font-size: 12px;
+  color: #909090;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+}
+.wkh-topbar-tab.is-active {
+  color: #fbbd23;
+  border-bottom-color: #fbbd23;
+  font-weight: 600;
+}
+
+/* Component: WorkHistorySidebar */
+.wkh-side-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wkh-side-title {
+  background: #545454;
+  color: #bdbdbd;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid #5b5b5b;
+}
+.wkh-nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #bdbdbd;
+  background: #171717;
+  border: none;
+  border-top: 1px solid #333333;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.wkh-nav-link:first-child {
+  border-top: none;
+}
+.wkh-nav-link:hover {
+  background: #242424;
+  color: #fbbd23;
+}
+.wkh-nav-link.is-active {
+  background: #242424;
+  color: #fbbd23;
+  font-weight: 600;
+  border-left-color: #fbbd23;
+}
+
+/* Component: WorkHistoryActionButtons */
+.wkh-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.wkh-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.wkh-btn-save {
+  background: #fbbd23;
+  color: #ffffff;
+  border: 1px solid #fbbd23;
+}
+.wkh-btn-save:hover {
+  background: #fbbd23;
+  border-color: #fbbd23;
+}
+.wkh-btn-cancel {
+  background: #171717;
+  color: #909090;
+  border: 1px solid #424242;
+}
+.wkh-btn-cancel:hover {
+  background: #1e1e1e;
+  color: #bdbdbd;
+}
+.wkh-btn-delete {
+  background: #171717;
+  color: #ef4444;
+  border: 1px solid #7a2929;
+}
+.wkh-btn-delete:hover {
+  background: #212121;
+}
+
+/* Component: WorkHistorySidebar（目次：初期表示の縦位置のままスクロールに追従） */
+.wkh-side-sticky {
+  position: sticky;
+  top: 144px;
+}
+
+/* Component: WorkHistoryPanel */
+.wkh-panel {
+  scroll-margin-top: 144px; /* 目次クリック時、固定ヘッダー（ぱんくず＋タイトル）の下に見出しを表示 */
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+}
+.wkh-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #545454;
+  font-size: 13px;
+  font-weight: 600;
+  color: #bdbdbd;
+  padding: 8px 14px;
+  border-bottom: 1px solid #5b5b5b;
+}
+.wkh-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 14px 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #799dec;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.wkh-add-btn:hover {
+  text-decoration: underline;
+}
+.wkh-panel-toggle-btn {
+  background: none;
+  border: none;
+  color: #909090;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 2px 6px;
+}
+.wkh-panel-toggle-btn:hover {
+  color: #fbbd23;
+}
+
+/* Component: WorkHistoryFormTable（概要／顧客情報など：ラベル・値テーブル） */
+.wkh-cols {
+  display: flex;
+  gap: 16px;
+  padding: 12px 14px 0;
+}
+.wkh-cols > table {
+  min-width: 0;
+}
+table.wkh-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+table.wkh-table-single {
+  margin: 12px 14px 10px;
+  width: calc(100% - 28px);
+}
+.wkh-table td {
+  border: 1px solid #393939;
+  vertical-align: middle;
+}
+.wkh-table td.wkh-label {
+  background: #272727;
+  width: 130px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #bdbdbd;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.wkh-table td.wkh-value {
+  padding: 5px 10px;
+  background: #171717;
+}
+.req-mark {
+  color: #ef4444;
+  margin-right: 4px;
+  font-weight: 700;
+}
+.wkh-inp, .wkh-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.wkh-inp:focus, .wkh-sel:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.wkh-textarea {
+  padding: 6px 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  resize: vertical;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.wkh-sep {
+  margin: 0 4px;
+  color: #a6a6a6;
+}
+
+/* Component: WorkHistoryListTable（動作環境／開発環境：行追加・削除可能な一覧） */
+.wkh-list-wrap {
+  margin: 10px 14px 14px;
+  overflow-x: auto;
+}
+table.wkh-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.wkh-list-table th {
+  background: #1e1e1e;
+  color: #909090;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  white-space: nowrap;
+}
+.wkh-list-table td {
+  padding: 4px 6px;
+  border: 1px solid #393939;
+  white-space: nowrap;
+}
+.wkh-list-table .wkh-inp,
+.wkh-list-table .wkh-sel {
+  width: 130px;
+}
+.wkh-list-table .wkh-inp.wkh-qty {
+  width: 60px;
+  text-align: center;
+}
+.wkh-col-center {
+  text-align: center;
+}
+.wkh-row-delete-icon {
+  color: #ef4444;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.wkh-row-delete-icon:hover {
+  color: #eb7a7a;
+}
+
+/* Component: WorkHistoryChecklist（複雑性） */
+.wkh-checklist {
+  margin: 14px 14px 0;
+  border: 1px solid #393939;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wkh-checklist-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 8px 12px;
+  font-size: 12px;
+  color: #d3d3d3;
+  border-top: 1px solid #333333;
+}
+.wkh-checklist-item:first-child {
+  border-top: none;
+}
+.wkh-checklist-item input[type="checkbox"] {
+  margin-top: 2px;
+  accent-color: #f97316;
+}
+.wkh-checklist-item .wkh-checklist-label {
+  flex: 1;
+}
+.wkh-checklist-item .wkh-checklist-note {
+  flex-shrink: 0;
+  width: 260px;
+  color: #909090;
+  font-size: 11px;
+}
+.wkh-checklist-note-text {
+  padding: 10px 14px 0;
+  font-size: 12px;
+  color: #909090;
+}
+
+/* Component: WorkHistoryResponsibilityTable（責任性） */
+table.wkh-resp-table {
+  margin: 12px 14px 12px;
+  width: calc(100% - 28px);
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.wkh-resp-table td {
+  border: 1px solid #393939;
+  padding: 6px 10px;
+  vertical-align: top;
+}
+.wkh-resp-table td.wkh-resp-group-label {
+  background: #272727;
+  width: 60px;
+  text-align: center;
+  font-weight: 600;
+  color: #bdbdbd;
+  vertical-align: middle;
+}
+.wkh-radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #d3d3d3;
+  cursor: pointer;
+}
+.wkh-radio-label input[type="radio"] {
+  margin-top: 2px;
+  accent-color: #f97316;
+}
+.wkh-resp-table tr.wkh-resp-spacer td {
+  border: none;
+  background: transparent;
+  padding: 0;
+  height: 10px;
+}
+
+/* Component: WorkHistoryScopeTable（担当範囲：工程／大工程の階層テーブル） */
+table.wkh-scope-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.wkh-scope-table th {
+  background: #1e1e1e;
+  color: #909090;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  white-space: nowrap;
+}
+.wkh-scope-table td {
+  padding: 5px 8px;
+  border: 1px solid #393939;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.wkh-scope-table td.wkh-scope-process {
+  background: #1e1e1e;
+  vertical-align: top;
+}
+.wkh-check-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #d3d3d3;
+  cursor: pointer;
+}
+.wkh-check-label input[type="checkbox"] {
+  accent-color: #f97316;
+}
+.wkh-role-radio-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wkh-role-radio-group label {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #d3d3d3;
+  cursor: pointer;
+}
+.wkh-role-radio-group input[type="radio"] {
+  accent-color: #f97316;
+}
+
+/* Component: WorkHistoryReview（総評） */
+.wkh-review-row {
+  display: flex;
+  gap: 14px;
+  margin: 14px 14px 12px;
+}
+.wkh-review-labels {
+  flex-shrink: 0;
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #bdbdbd;
+  font-weight: 600;
+  text-align: center;
+}
+.wkh-review-textarea {
+  flex: 1;
+}
+
+/* Component: WorkHistoryReviewDivider（総評／コメントの区切り） */
+.wkh-review-divider {
+  border: none;
+  border-top: 2px solid #424242;
+  margin: 0 0 20px;
+}
+
+/* Component: WorkHistoryCommentList（コメント履歴） */
+.wkh-comment-list {
+  margin: 0 0 20px;
+  border: 1px solid #393939;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wkh-comment {
+  border-top: 1px solid #393939;
+}
+.wkh-comment:first-child {
+  border-top: none;
+}
+.wkh-comment-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #1e1e1e;
+  cursor: pointer;
+}
+.wkh-comment-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: #bdbdbd;
+}
+.wkh-comment-datetime {
+  font-size: 11px;
+  color: #a6a6a6;
+}
+.wkh-comment-reply-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  color: #a6a6a6;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+.wkh-comment-reply-btn:hover {
+  color: #fbbd23;
+}
+.wkh-comment-toggle {
+  color: #a6a6a6;
+  transition: transform 0.15s ease;
+}
+/* 返信ボタンが無い（承認モード以外の）場合はトグルアイコン自体を右寄せする */
+.wkh-comment-datetime + .wkh-comment-toggle {
+  margin-left: auto;
+}
+.wkh-comment.is-collapsed .wkh-comment-toggle {
+  transform: rotate(-90deg);
+}
+.wkh-comment-body {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #d3d3d3;
+}
+.wkh-comment.is-collapsed .wkh-comment-body {
+  display: none;
+}
+
+/* 返信コメント：インデント＋左アクセント枠で返信元コメントに付随して見えるようにする */
+.wkh-comment.is-reply {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #7a5529;
+  border-left: 3px solid #fbbd23;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.wkh-comment.is-reply .wkh-comment-header {
+  background: #242424;
+}
+.wkh-comment.is-reply:last-child {
+  margin-bottom: 0;
+}
+
+/* Component: WorkHistoryReplyIndicator（返信先の表示バー） */
+.wkh-reply-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  background: #242424;
+  border: 1px solid #7a5529;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fbbd23;
+}
+.wkh-reply-indicator button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: #fbbd23;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* Component: WorkHistoryApprovalPanel（コメント入力＋承認アクション） */
+.wkh-approval-body {
+  padding: 12px 14px 14px;
+}
+.wkh-approval-body.is-collapsed {
+  display: none;
+}
+.wkh-approval-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+.wkh-approval-btn {
+  height: 30px;
+  padding: 0 18px;
+  border-radius: 4px;
+  border: 1px solid #424242;
+  background: #171717;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.wkh-approval-btn-approve {
+  color: #799dec;
+  border-color: #294d7a;
+}
+.wkh-approval-btn-approve:hover {
+  background: #232323;
+}
+.wkh-approval-btn-reject {
+  color: #e07bea;
+  border-color: #6a297a;
+}
+.wkh-approval-btn-reject:hover {
+  background: #1f1f1f;
+}
+.wkh-approval-btn-cancel {
+  color: #bdbdbd;
+}
+.wkh-approval-btn-cancel:hover {
+  background: #1e1e1e;
+}

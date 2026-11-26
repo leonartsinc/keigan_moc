@@ -1,0 +1,206 @@
+/* Component: AssessmentListTopBar */
+.asl-topbar {
+  margin-bottom: 14px;
+}
+.asl-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+
+/* Component: AssessmentListPanel */
+.asl-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: AssessmentListFilterForm */
+.asl-filter-form {
+  padding: 14px 14px 0;
+}
+table.asl-table {
+  width: 100%;
+  max-width: 640px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.asl-table td {
+  border: 1px solid #393939;
+  vertical-align: middle;
+}
+.asl-table td.asl-label {
+  background: #272727;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #bdbdbd;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.asl-table td.asl-value {
+  padding: 5px 10px;
+  background: #171717;
+}
+.asl-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.asl-sel:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+
+/* Component: AssessmentListStatusTabs */
+.asl-status-tabs {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px 0;
+}
+.asl-status-tab {
+  height: 28px;
+  padding: 0 16px;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  background: #171717;
+  color: #bdbdbd;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.asl-status-tab:hover {
+  border-color: #fbbd23;
+  color: #fbbd23;
+}
+.asl-status-tab.is-active {
+  background: #545454;
+  border-color: #5b5b5b;
+  color: #d3d3d3;
+}
+
+/* Component: AssessmentListTable */
+.asl-list-wrap {
+  margin: 14px 14px 10px;
+  overflow-x: auto;
+}
+table.asl-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.asl-list-table th {
+  background: #1e1e1e;
+  color: #909090;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  white-space: nowrap;
+}
+.asl-list-table th.asl-col-check {
+  width: 36px;
+  text-align: center;
+}
+.asl-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  color: #d3d3d3;
+  vertical-align: middle;
+}
+.asl-list-table td.asl-col-check {
+  text-align: center;
+}
+.asl-list-table td.asl-col-slot {
+  min-width: 140px;
+  white-space: nowrap;
+}
+.asl-list-table tbody tr:hover {
+  background: #242424;
+}
+.asl-list-table tbody tr.is-checked {
+  background: #242424;
+}
+.asl-empty-row {
+  text-align: center;
+  color: #a6a6a6;
+  padding: 20px 10px !important;
+}
+
+/* Component: AssessmentListSlot（自己評価／360°／上長評価の実施状況） */
+.asl-slot-name {
+  font-size: 12px;
+  color: #d3d3d3;
+}
+.asl-slot-time {
+  font-size: 10px;
+  color: #a6a6a6;
+}
+.asl-slot-empty {
+  color: #616161;
+}
+
+/* Component: AssessmentListActionBar */
+.asl-action-bar {
+  padding: 10px 14px 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+.asl-btn-primary {
+  height: 32px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 4px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.asl-btn-primary:hover:not(:disabled) {
+  background: #fbbd23;
+}
+.asl-btn-primary:disabled {
+  background: #545454;
+  cursor: not-allowed;
+}
+
+/* Component: AssessmentListSearchActions */
+.asl-search-actions {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 640px;
+  padding-top: 10px;
+}
+.asl-search-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 4px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.asl-search-btn:hover {
+  background: #fbbd23;
+}

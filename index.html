@@ -1,0 +1,5581 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（keigen）</title>
+
+  <link rel="icon" href="img/siteicon01.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+
+  <script src="https://unpkg.com/heroicons@2.0.18/dist/heroicons.min.js"></script>
+</head>
+
+<body class="p-dashboard bg-neutral-800">
+
+  <!-- Desktop Header -->
+  <header class="hidden md:flex fixed z-40
+                  top-0 left-0 right-0 
+                  h-14
+                  py-2 px-3
+                  backdrop-blur-md 
+                  justify-between items-center">
+
+    <!-- 左エリア -->
+    <div class="flex items-center gap-3">
+
+      <!-- ロゴ＋ダッシュボード -->
+      <div id="sidebarLogo"
+          class="pl-16 pr-2 py-2 flex items-center gap-3">
+
+        <!-- ロゴ -->
+        <div class="flex items-center pr-4 shrink-0">
+          <a href="index.html">
+            <img src="img/LOGO02.png"
+                alt="ロゴ"
+                class="h-9 object-contain">
+          </a>
+        </div>
+
+      </div>
+
+      <!-- タイトル -->
+      <h1 class="sticky top-0 z-30
+                pl-12 pt-5 pb-4
+                text-white">
+        <span class="text-sm">丸尾　幹</span>
+        <span class="ml-2 text-xs">さんのダッシュボード</span>
+        <span class="ml-2 text-xs">【　株式会社レオンアーツ　】</span>
+      </h1>
+
+    </div>
+
+    <!-- 右エリア -->
+    <div class="flex items-center gap-4 relative">
+
+      <!-- ヘルプ -->
+      <button
+        class="w-8 h-8 flex items-center justify-center 
+              rounded-full
+              text-white
+              hover:bg-amber-400
+              hover:text-white
+              transition"
+        title="ヘルプ">
+
+        <span class="text-sm font-semibold">?</span>
+
+      </button>
+
+      <!-- ユーザーアイコン -->
+      <button onclick="toggleUserMenu(event)"
+              class="w-8 h-8 rounded-full overflow-hidden hover:ring-1 hover:ring-orange-300 transition"
+              title="アカウント">
+
+        <img src="img/丸アイコン_丸尾2.png"
+            class="w-full h-full object-cover"
+            alt="ユーザー画像">
+
+      </button>
+
+      <!-- ユーザーメニュー -->
+      <div id="userMenu"
+          onclick="event.stopPropagation()"
+          class="p-2 hidden absolute right-0 top-11 w-72 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 transition duration-200">
+
+        <!-- 上部プロフィール -->
+        <div class="p-4 bg-gray-100">
+          <div class="flex items-center gap-3">
+
+            <div class="w-20 h-20 rounded-full overflow-hidden">
+              <img src="img/丸アイコン_丸尾2.png"
+                  class="w-full h-full object-cover">
+            </div>
+
+            <div>
+              <p class="font-bold text-sm">丸尾 幹</p>
+              <p class="text-xs text-gray-500">株式会社レオンアーツ</p>
+              <p class="text-xs text-blue-500">k-maruo@leonarts.co.jp</p>
+              <p class="text-xs text-gray-500">一般ユーザ</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="p-4 border-b border-gray-100 ">
+          <!-- タイトル -->
+          <div class="flex items-center gap-3">
+            <div>
+              <p class="font-bold text-xs">問い合わせ番号</p>
+            </div>
+          </div>
+
+          <!-- 問い合せ番号（中央寄せ） -->
+          <div class="pt-2 flex items-center justify-center gap-3">
+            <div>
+              <p class="p-3 
+                        rounded-xl 
+                        text-lg text-neutral-700
+                        border border-neutral-200 
+                        justify-center">S133185-65127</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- メニュー -->
+        <div class="py-0 text-xs font-medium">
+          <a href="#"
+            class="flex items-center px-4 py-3 rounded hover:bg-amber-400 hover:text-white">
+            パスワード変更
+          </a>
+          <div class="border-t border-gray-100"></div>
+          <a href="020_login.html"
+            class="flex items-center px-4 py-3 rounded hover:bg-amber-400 hover:text-white">
+            ログアウト
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </header>
+
+  <!-- =====================
+    Mobile Header
+  ===================== -->
+  <div class="flex">
+
+    <!-- =====================
+      Sidebar
+    ===================== -->
+    <aside id="sidebar"
+      class="fixed z-50 top-0 left-0 
+            w-[66px]
+            h-screen
+            bg-neutral-900
+            text-white
+            backdrop-blur-md
+            transition-all duration-300 ease-out
+            overflow-visible">
+
+      <nav class="pl-0 pr-0 pt-0 pb-0 text-sm space-y-0">
+
+        <!-- ダッシュボードアイコン -->
+        <div>
+          <button
+            onclick="toggleSubSidebar()"
+            class="w-full flex justify-between items-center 
+                    px-3 py-3 
+                    hover:text-amber-400 
+                    hover:bg-neutral-800
+                    transition-all duration-200 ease-out group">
+
+            <!-- 9-grid launcher icon -->
+            <div class="flex items-center justify-center w-full">
+              <svg xmlns="http://www.w3.org/2000/svg"
+                  class="w-4 h-8"
+                  fill="currentColor"
+                  viewBox="0 0 24 24">
+
+                <circle cx="5" cy="5" r="1.5"/>
+                <circle cx="12" cy="5" r="1.5"/>
+                <circle cx="19" cy="5" r="1.5"/>
+
+                <circle cx="5" cy="12" r="1.5"/>
+                <circle cx="12" cy="12" r="1.5"/>
+                <circle cx="19" cy="12" r="1.5"/>
+
+                <circle cx="5" cy="19" r="1.5"/>
+                <circle cx="12" cy="19" r="1.5"/>
+                <circle cx="19" cy="19" r="1.5"/>
+              </svg>
+            </div>
+
+          </button>
+        </div>
+
+        <div class="py-2">
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="personal" onclick="openSubMenu('personal')" 
+              class="w-full flex justify-between items-center 
+                      px-3 py-3 
+                      hover:text-amber-400 
+                      hover:bg-neutral-800
+                      transition-all duration-200 ease-out group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" 
+                    class="w-4 h-8 group-hover:text-amber-400" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.75 6.75a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.118a7.5 7.5 0 0115 0A17.933 17.933 0 0112 21.75a17.933 17.933 0 01-7.5-1.632z"/>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="individual" onclick="openSubMenu('individual')" 
+              class="w-full flex justify-between items-center 
+                    px-3 py-3 
+                    hover:text-amber-400 
+                    hover:bg-neutral-800
+                    transition-all duration-200 ease-out group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-8 group-hover:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21h18M9 8h6m-6 4h6m-6 4h6M5 21V3h14v18"/>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="supervisor" onclick="openSubMenu('supervisor')" 
+              class="w-full flex justify-between items-center 
+                      px-3 py-3 
+                      hover:text-amber-400 
+                      hover:bg-neutral-800
+                      transition-all duration-200 ease-out  group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="relative flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-8 group-hover:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 21h16M7 21V7l5-4 5 4v14M9 10h.01M9 13h.01M9 16h.01M15 10h.01M15 13h.01M15 16h.01"/>
+                </svg>
+
+                <span class="absolute
+                              top-1
+                              right-0
+                              bg-gradient-to-r from-amber-400 via-amber-500 to-orange-400
+                              text-white
+                              text-[9px]
+                              w-4
+                              h-4
+                              rounded-full
+                              flex items-center justify-center">
+                  10
+                </span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1階層 -->
+        <div>
+          <div class="relative group">
+            <button data-menu="administrator" onclick="openSubMenu('administrator')" 
+              class="w-full flex justify-between items-center 
+                      px-3 py-3 
+                      hover:text-amber-400 
+                      hover:bg-neutral-800
+                      transition-all duration-200 ease-out  group">
+
+              <!-- 左側：アイコン＋テキスト -->
+              <div class="flex items-center justify-center w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-8 group-hover:text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M12 4l8 4-8 4-8-4 8-4z"/>
+
+                  <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M4 12l8 4 8-4"/>
+
+                  <path stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.8"
+                        d="M4 16l8 4 8-4"/>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+      </nav>
+
+    </aside>
+
+    <!-- Overlay -->
+    <div id="overlay" onclick="toggleSidebar()"
+      class="fixed inset-0 bg-opacity-50 hidden md:hidden">
+    </div>
+
+    <!-- サブサイドバー -->
+    <aside id="subSidebar"
+      class="fixed z-30 top-14
+            left-[66px]
+            h-[calc(100vh-56px)]
+            overflow-hidden
+            transition-all duration-300 ease-out">
+        
+      <!-- タイトル -->
+      <div class="px-4 pt-9 pb-4">
+
+        <h2 id="subSidebarTitle"
+            class="font-semibold text-sm text-white text-center">
+          メニュー
+        </h2>
+
+      </div>
+
+      <!-- メニュー表示領域 -->
+      <div id="subSidebarContent"
+            class="text-xs text-white">
+      </div>
+    </aside>    
+
+    <!-- =====================
+      Main
+    ===================== -->
+    <main id="mainContent"
+      class="flex flex-col
+            h-[calc(100vh-56px)]
+            overflow-y-auto
+            mt-[56px]
+            bg-neutral-900
+            rounded-xl
+            transition-all duration-300"
+      style="
+            margin-left:290px;
+            width:calc(100% - 292px);
+      ">
+
+      <section class="flex-1 overflow-y-auto pt-4">
+
+        <!-- =====================
+          ToDo(個人)
+        ===================== -->
+        <section id="todoSection" class="px-4 pb-4 history-block">
+
+          <!-- ToDo リスト -->
+          <div class="text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+            <div class="pt-4 pb-2 mx-4 border-b border-zinc-400">
+              <h2>ToDo リスト</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+              <div class="relative">
+
+                <table class="table-fixed w-full text-left">
+
+                  <colgroup>
+                    <col style="width:10%">
+                    <col style="width:10%">
+                    <col style="width:10%">
+                    <col style="width:70%">
+                  </colgroup>
+
+                  <tbody class="historyTable">
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">職務経歴</td>
+                      <td class="px-4 py-2">2025</td>
+                      <td class="px-4 py-2">職務経歴を最新にして下さい</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">ＭＢＯ</td>
+                      <td class="px-4 py-2">2026</td>
+                      <td class="px-4 py-2">今年の年間目標を登録してください</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">ＭＢＯ</td>
+                      <td class="px-4 py-2">2026</td>
+                      <td class="px-4 py-2">今月の１ｏｎ１を実施してください</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-10</td>
+                      <td class="px-4 py-2">アセスメント</td>
+                      <td class="px-4 py-2">１件</td>
+                      <td class="px-4 py-2">自身のアセスメント診断を実施して下さい</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c]
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-10</td>
+                      <td class="px-4 py-2">アセスメント</td>
+                      <td class="px-4 py-2">３件</td>
+                      <td class="px-4 py-2">３６０℃評価の依頼があります。実施して下さい</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-neutral-600 to-transparent"></div>
+              </div>
+
+              <div class="p-2 text-center">
+                <button onclick="toggleHistory(this)" class="text-amber-400 hover:underline">
+                  もっと見る
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =====================
+          共通テーブル（パーソナルナレッジ・能力向上への取り組み・結果／スコア）
+        ===================== -->
+        <section id="assessmentSection" class="grid grid-cols-4 items-start mr-3 mb-4">
+
+          <!-- パーソナルナレッジ -->
+          <section class="col-span-1 gap-4">
+
+            <div class="p-4 ml-4 
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-visible">
+
+              <div class="pb-2 border-b border-zinc-400">
+                <h2>パーソナルナレッジ</h2>
+              </div>
+
+              <div class="overflow-visible mt-2">
+                <div class="relative">
+
+                  <table class="table-fixed w-full text-left">
+
+                    <colgroup>
+                      <col style="width:40%">
+                      <col style="width:60%">
+                    </colgroup>
+
+                    <tbody class="historyTable">
+                      <tr>
+                        <td class="py-2 text-zinc-400 text-[10px]">年齢・性別・血液型</td>
+                        <td class="py-2">51歳／男／A</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 text-zinc-400 text-[10px]">MBTI</td>
+                        <td class="py-2">ENTJ-AC:指揮官</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 text-zinc-400 text-[10px]">最終学歴</td>
+                        <td class="py-2">短大卒</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 text-zinc-400 text-[10px]">社会人</td>
+                        <td class="py-2">30年</td>
+                      </tr>
+                      <tr>
+                        <td class="py-2 text-zinc-400 text-[10px]">経験業界数</td>
+                        <td class="py-2">
+                          <span class="relative inline-block group cursor-pointer">
+
+                            <span class="border-b border-dotted border-amber-400">
+                              ２つ
+                            </span>
+
+                            <!-- ツールチップ -->
+                            <span class="
+                              absolute
+                              left-0
+                              top-full
+                              mt-2
+                              hidden
+                              group-hover:block
+                              z-10
+                              whitespace-nowrap
+                              rounded-md
+                              bg-neutral-700
+                              border border-neutral-500
+                              px-3 py-2
+                              text-white
+                              text-[11px]
+                              shadow-lg
+                            ">
+                              <span class="block">情報通信業（ソフトウェア業）</span>
+                              <span class="block">製造業（食品）</span>
+                            </span>
+
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="pt-2 text-zinc-400 text-[10px]">最長業界</td>
+                        <td class="pt-2">情報通信業（ソフトウェア業）</td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- 能力向上への取り組み・結果 -->
+          <section class="col-span-1 gap-4">
+
+            <div class="p-4 ml-4 
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-visible">
+
+              <div class="pb-2 border-b border-zinc-400">
+                <h2>能力向上への取り組み・結果</h2>
+              </div>
+
+              <div class="overflow-visible">
+                <div class="relative">
+
+                  <table class="table-fixed w-full text-left">
+
+                    <colgroup>
+                      <col style="width:10%">  <!-- アイコン -->
+                      <col style="width:30%">  <!-- タイトル -->
+                      <col style="width:20%">  <!-- 取得数 -->
+                      <col style="width:40%">  <!-- 最上位資格 -->
+                    </colgroup>
+
+                    <thead>
+                      <tr class="text-zinc-400 text-xs">
+                        <th class="pt-3"></th>
+                        <th class="pt-3">種類</th>
+                        <th class="pt-3">取得数</th>
+                        <th class="pt-3">最上位資格</th>
+                      </tr>
+                    </thead>
+
+                    <tbody class="historyTable">
+
+                      <!-- 国家資格 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-award-17-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="国家資格">
+                          </div>
+                        </td>
+
+                        <!-- 資格区分 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">国家資格</td>
+
+                        <!-- 取得数 -->
+                        <td class="py-2">
+                          <span class="relative inline-block group cursor-pointer">
+                            <span class="border-b border-dotted border-amber-400">３つ</span>
+
+                            <span class="
+                              absolute left-0 top-full mt-2
+                              hidden group-hover:block
+                              z-50 whitespace-nowrap
+                              rounded-md bg-neutral-700
+                              border border-neutral-500
+                              px-3 py-2 text-white text-[11px]
+                              shadow-lg
+                            ">
+                              <span class="block">応用情報技術者</span>
+                              <span class="block">基本情報技術者</span>
+                              <span class="block">ＩＴパスポート</span>
+                            </span>
+                          </span>
+                        </td>
+
+                        <!-- 最上位資格 -->
+                        <td class="py-2">応用情報技術者</td>
+                      </tr>
+
+
+                      <!-- ベンダー資格 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-award-5-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="ベンダー資格">
+                          </div>
+                        </td>
+
+                        <!-- 資格区分 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">企業資格</td>
+
+                        <!-- 取得数 -->
+                        <td class="py-2">
+                          <span class="relative inline-block group cursor-pointer">
+                            <span class="border-b border-dotted border-amber-400">１０個</span>
+
+                            <span class="
+                              absolute left-0 top-full mt-2
+                              hidden group-hover:block
+                              z-50 whitespace-nowrap
+                              rounded-md bg-neutral-700
+                              border border-neutral-500
+                              px-3 py-2 text-white text-[11px]
+                              shadow-lg
+                            ">
+                              <span class="block">Oracle Gold 10g</span>
+                              <span class="block">Oracle Silver 10g</span>
+                              <span class="block">Oracle Silver 9i</span>
+                              <span class="block">Oracle Silver 8i</span>
+                              <span class="block">Oracle Bronze 9i</span>
+                              <span class="block">Oracle Silver PL/SQL 8i</span>
+                              <span class="block">Oracle Java Programmer</span>
+                              <span class="block">Oracle Associate、Java SE 5/SE 6</span>
+                              <span class="block">MCP</span>
+                              <span class="block">UMLファンダメンタル</span>
+                            </span>
+                          </span>
+                        </td>
+
+                        <!-- 最上位資格 -->
+                        <td class="py-2">Oracle Gold 10g</td>
+                      </tr>
+
+
+                      <!-- その他資格 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-award-1-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="その他資格">
+                          </div>
+                        </td>
+
+                        <!-- 資格区分 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">その他資格</td>
+
+                        <!-- 取得数 -->
+                        <td class="py-2">１つ</td>
+
+                        <!-- 最上位資格 -->
+                        <td class="py-2">日商簿記３級</td>
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+              </div>
+
+              <div class="pb-2 border-b border-zinc-400">
+              </div>
+
+              <div class="overflow-visible">
+                <div class="relative">
+
+                  <table class="table-fixed w-full text-left">
+
+                    <colgroup>
+                      <col style="width:10%">  <!-- アイコン -->
+                      <col style="width:30%">  <!-- タイトル -->
+                      <col style="width:20%">  <!-- 取得数 -->
+                      <col style="width:40%">  <!-- 最上位資格 -->
+                    </colgroup>
+
+                    <tbody class="historyTable">
+
+                      <!-- 研修 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-school-29-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="研修">
+                          </div>
+                        </td>
+
+                        <!-- 資格区分 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">研修</td>
+
+                        <!-- 取得数 -->
+                        <td class="py-2">
+                          <span class="relative inline-block group cursor-pointer">
+                            <span class="border-b border-dotted border-amber-400">５つ</span>
+
+                            <span class="
+                              absolute left-0 top-full mt-2
+                              hidden group-hover:block
+                              z-50 whitespace-nowrap
+                              rounded-md bg-neutral-700
+                              border border-neutral-500
+                              px-3 py-2 text-white text-[11px]
+                              shadow-lg
+                            ">
+                              <span class="block">説得力を高めるロジカルシンキング講座:2日間</span>
+                              <span class="block">問題発見・課題解決の考え方:2日間</span>
+                              <span class="block">若手リーダ研修:2日間</span>
+                              <span class="block">【JavaのWebアプリ決定版】ゼロから環境構築,ツール,基礎文法,JSP,サーブレット,DB接続,MVCを一気に学ぶ。:35h</span>
+                              <span class="block">大人のテーブルマナー研修:2h</span>
+                            </span>
+                          </span>
+                        </td>
+
+                        <!-- 最上位資格 -->
+                        <td class="py-2"></td>
+                      </tr>
+                    </tbody>
+
+                  </table>
+
+                </div>
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- 現在のキャリア -->
+          <section class="col-span-1 gap-4">
+
+            <div class="p-4 ml-4 
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-hidden">
+
+              <div class="pb-2 border-b border-zinc-400">
+                <h2>現在のキャリア</h2>
+              </div>
+
+              <div class="overflow-x-auto mt-2">
+                <div class="relative">
+
+                  <table class="table-fixed w-full text-left">
+
+                    <colgroup>
+                      <col style="width:10%">  <!-- アイコン -->
+                      <col style="width:25%">  <!-- 項目名 -->
+                      <col style="width:65%">  <!-- 内容 -->
+                    </colgroup>
+
+                    <tbody class="historyTable">
+
+                      <!-- 所属 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-sitemap-25-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="所属">
+                          </div>
+                        </td>
+
+                        <!-- 項目名 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">所属</td>
+
+                        <!-- 内容 -->
+                        <td class="py-2">インダストリーズ本部　デジタルソリューション事業部</td>
+                      </tr>
+
+                      <!-- 勤続年数 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-calendar-8-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="勤続年数">
+                          </div>
+                        </td>
+
+                        <!-- 項目名 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">勤続年数</td>
+
+                        <!-- 内容 -->
+                        <td class="py-2">4.3年</td>
+                      </tr>
+
+                      <!-- 役職 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-sitemap-24-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="勤続年数">
+                          </div>
+                        </td>
+
+                        <!-- 項目名 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">役職</td>
+
+                        <!-- 内容 -->
+                        <td class="py-2">シニアマネージャ</td>
+                      </tr>
+
+                      <!-- 職種 -->
+                      <tr>
+                        <!-- アイコン -->
+                        <td class="py-2">
+                          <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                            <img src="icon/iconmonstr-award-23-72.png"
+                                class="w-5 h-5 object-contain"
+                                alt="勤続年数">
+                          </div>
+                        </td>
+
+                        <!-- 項目名 -->
+                        <td class="py-2 text-zinc-400 text-[10px]">職種</td>
+
+                        <!-- 内容 -->
+                        <td class="py-2">チーフ・エキスパート</td>
+                      </tr>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+              </div>
+            </div>
+
+          </section>
+
+          <!-- スコア -->
+          <div class="col-span-1 
+                      p-4 mx-4
+                      text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+            <h1 class="text-xs pb-1">総合スコア</h1>
+            <h2 class="text-xs text-zinc-400 pb-2">2026/3末のアセスメント</h2>
+
+            <div class="relative w-[220px] h-[165px] mx-auto my-2">
+              <!-- ランク -->
+              <div class="absolute left-7 top-6
+                          w-10 h-10
+                          rounded-full
+                          bg-gradient-to-r from-amber-400 via-amber-500 to-orange-400
+                          text-white
+                          flex items-center justify-center
+                          z-10">
+
+                <span class="text-xl leading-none">A</span>
+                <span class="absolute
+                            top-1
+                            right-2
+                            text-sm
+                            font-semibold">+</span>
+              </div>
+
+              <!-- ゲージ -->
+              <svg width="200"
+                  height="200"
+                  viewBox="0 0 200 200">
+
+                <!-- 背景 -->
+                <circle
+                  cx="105"
+                  cy="80"
+                  r="70"
+                  fill="none"
+                  stroke="#262626"
+                  stroke-width="18"
+                  stroke-linecap="round" />
+
+                <!-- スコア -->
+                <circle
+                  id="scoreCircle"
+                  cx="131"
+                  cy="100"
+                  r="70"
+                  fill="none"
+                  stroke="#fbbf24"
+                  stroke-width="18"
+                  stroke-linecap="round"
+                  transform="rotate(-95 109 102)" />
+              </svg>
+
+              <!-- スコア -->
+              <div class="absolute inset-0
+                          flex items-center justify-center">
+                <span id="scoreValue"
+                      class="mr-2
+                            text-[35px]
+                            font-light">
+                  91.25
+                </span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-2 mt-0">
+              <div class="text-center">
+                <p class="text-zinc-400 text-[10px]">製品内</p>
+                <p class="text-xs">上位5%</p>
+              </div>
+
+              <div class="text-center">
+                <p class="text-zinc-400 text-[10px]">同規模企業内</p>
+                <p class="text-xs">上位2%</p>
+              </div>
+
+              <div class="text-center">
+                <p class="text-zinc-400 text-[10px]">企業内順位</p>
+                <p class="text-xs">2位/47</p>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- =====================
+          チャート
+        ===================== -->
+        <section id="chartSection" 
+              class="flex mx-4 mb-4 gap-4 items-start ">
+
+          <!-- 経験したプロジェクトのITSSレベル -->
+          <div class="w-[260px] 
+                      px-4 pt-4 pb-2
+                      text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+            <h3 class="pb-2">経験したプロジェクトのITSSレベル</h3>
+
+            <div class="relative my-3">
+              <div class="flex justify-center">
+                <div class="w-[160px] h-[160px]">
+                  <canvas id="scaleChart"></canvas>
+                </div>
+              </div>
+
+              <div id="scaleLegend"
+                class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 経験したプログラム言語 -->
+          <div class="w-[267px]
+                      px-4 pt-4 pb-2
+                      text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+            <h3 class="pb-2">経験したプログラム言語</h3>
+
+            <div class="h-[260px] text-white">
+              <canvas id="languageChart"></canvas>
+            </div>
+          </div>
+
+          <!-- 職種と専門分野 -->
+          <div class="w-[260px]
+                      px-4 pt-4 pb-2 
+                      text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+            <h3 class="pb-2">職種と専門分野</h3>
+
+            <div class="relative my-3">
+              <div class="flex justify-center">
+                <div class="w-[160px] h-[160px]">
+                  <canvas id="careerChart"></canvas>
+                </div>
+              </div>
+
+              <div id="careerLegend"
+                  class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+            </div>
+          </div>
+
+          <!-- 経験した産業 -->
+          <div class="w-[260px]
+                      px-4 pt-4 pb-2 
+                      text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+            <h3 class="pb-2">経験した産業</h3>
+
+            <div class="relative my-3">
+              <div class="flex justify-center">
+                <div class="w-[160px] h-[160px]">
+                  <canvas id="industryChart"></canvas>
+                </div>
+              </div>
+
+              <div id="industryLegend"
+                class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+            </div>
+          </div>
+
+          <!-- 経験した立場 -->
+          <div class="w-[260px]
+                      px-4 pt-4 pb-2
+                      text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+            <h3 class="pb-2">経験した立場</h3>
+
+            <div class="relative my-3">
+              <div class="flex justify-center">
+                <div class="w-[160px] h-[160px]">
+                  <canvas id="positionChart"></canvas>
+                </div>
+              </div>
+
+              <div id="positionLegend"
+                class="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs justify-start">
+              </div>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =====================
+          ToDo(管理者)
+        ===================== -->
+        <section id="todoSection2" class="px-4 pb-4 history-block">
+
+          <!-- 4：1 レイアウト -->
+          <div class="grid grid-cols-1 xl:grid-cols-4 gap-4">
+
+            <!-- 左側：ToDoリスト -->
+            <div class="xl:col-span-3">
+
+              <div class="text-white text-xs
+                          bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                          rounded-lg
+                          shadow shadow-neutral-500/30
+                          overflow-hidden">
+
+                <div class="pt-4 pb-2 mx-4 border-b border-zinc-400">
+                  <h2>ToDo リスト【管理】</h2>
+                </div>
+
+                <div class="overflow-x-auto">
+                  <div class="relative">
+
+                    <table class="table-fixed w-full text-left">
+
+                      <colgroup>
+                        <col style="width:13.5%">
+                        <col style="width:13.5%">
+                        <col style="width:13%">
+                        <col style="width:60%">
+                      </colgroup>
+
+                      <tbody class="historyTable">
+
+                        <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                          <td class="px-4 py-2">2026-03-01</td>
+                          <td class="px-4 py-2">従業員</td>
+                          <td class="px-4 py-2">２件</td>
+                          <td class="px-4 py-2">承認待ちがあります。</td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                          <td class="px-4 py-2">2026-03-01</td>
+                          <td class="px-4 py-2">経歴書</td>
+                          <td class="px-4 py-2">１件</td>
+                          <td class="px-4 py-2">承認待ちがあります。</td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                          <td class="px-4 py-2">2026-03-01</td>
+                          <td class="px-4 py-2">職務経歴</td>
+                          <td class="px-4 py-2">２件</td>
+                          <td class="px-4 py-2">承認待ちがあります。</td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                          <td class="px-4 py-2">2026-03-01</td>
+                          <td class="px-4 py-2">ＭＢＯ</td>
+                          <td class="px-4 py-2">１件</td>
+                          <td class="px-4 py-2">年間目標の承認待ちがあります。</td>
+                        </tr>
+
+                        <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                          <td class="px-4 py-2">2026-03-10</td>
+                          <td class="px-4 py-2">アセスメント</td>
+                          <td class="px-4 py-2">２件</td>
+                          <td class="px-4 py-2">承認待ちがあります。</td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+
+                    <div class="historyFade absolute bottom-0 left-0 w-full h-8
+                                bg-gradient-to-t from-neutral-600 to-transparent"></div>
+
+                  </div>
+
+                  <div class="p-2 text-center">
+                    <button onclick="toggleHistory(this)"
+                            class="text-amber-400 hover:underline">
+                      もっと見る
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 右側：アラート -->
+            <div class="xl:col-span-1">
+              
+              <div class="p-4
+                          text-white text-xs
+                          bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                          rounded-lg
+                          shadow shadow-neutral-500/30
+                          overflow-hidden
+                          h-full">
+
+                <!-- バッチ -->
+                <div class="flex justify-between items-center mb-1">
+
+                  <h2 class="text-xs font-medium">
+                    要確認
+                  </h2>
+
+                  <span class="px-2 py-0.5
+                              text-xs text-white
+                              rounded-2xl
+                              bg-amber-400">
+                    3件
+                  </span>
+
+                </div>
+
+                <div class="space-y-0.5">
+
+                  <!-- 組織 -->
+                  <div class="px-3 py-1.5
+                              bg-gradient-to-r from-neutral-700 via-neutral-750 to-neutral-800">
+
+                    <div class="flex items-center justify-between">
+
+                      <!-- 左寄せ -->
+                      <div class="text-orange-400 font-bold">
+                        組織
+                      </div>
+
+                      <!-- 右寄せ -->
+                      <button class="text-[11px] text-orange-400 hover:text-amber-300">
+                        詳細を見る →
+                      </button>
+
+                    </div>
+
+                    <div class="mt-0.5 text-[11px]">
+                      管理層が１名、指導層が４名不足しています
+                    </div>
+
+                  </div>
+
+                  <!-- 営業部 -->
+                  <div class="px-3 py-1.5
+                              bg-gradient-to-r from-neutral-700 via-neutral-750 to-neutral-800">
+
+                    <div class="flex items-center justify-between">
+
+                      <!-- 左寄せ -->
+                      <div class="text-amber-400 font-bold">
+                        営業部
+                      </div>
+
+                      <!-- 右寄せ -->
+                      <button class="text-[11px] text-amber-400 hover:text-amber-300 whitespace-nowrap">
+                        詳細を見る →
+                      </button>
+
+                    </div>
+
+                    <div class="mt-0.5 text-[11px]">
+                      管理職候補が不足しています
+                    </div>
+
+                  </div>
+
+                  <!-- アセスメント -->
+                  <div class="px-3 py-1.5
+                              bg-gradient-to-r from-neutral-700 via-neutral-750 to-neutral-800">
+
+                    <div class="flex items-center justify-between">
+
+                      <!-- 左寄せ -->
+                      <div class="text-yellow-400 font-bold">
+                        アセスメント
+                      </div>
+
+                      <!-- 右寄せ -->
+                      <button class="text-[11px] text-yellow-400 hover:text-amber-300 whitespace-nowrap">
+                        詳細を見る →
+                      </button>
+
+                    </div>
+
+                    <div class="mt-0.5 text-[11px]">
+                      未実施者が８名います
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- =========================================================
+            管理者ダッシュボード
+        ========================================================= -->
+        <section id="managerDashboard" class="px-4 min-h-screen">
+
+          <!-- ヘッダー -->
+          <div class="flex items-center justify-between
+                      text-white text-xs 
+                      ">
+
+            <div class="px-4">
+              <h1 class="text-xl">
+                人材ダッシュボード
+              </h1>
+
+              <p class="mt-1 text-zinc-400">
+                組織と人材の現在地を把握します
+              </p>
+            </div>
+
+            <div class="flex  gap-4">
+
+              <select
+                class="px-3 py-1 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg">
+                <option>全社</option>
+                <option>アプリケーションスペシャリストＧ</option>
+                <option>ＩＴサービスマネジメントＧ</option>
+                <option>カスタマサービスＧ</option>
+              </select>
+
+              <select
+                class="px-3 py-1 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg">
+                <option>2026年度</option>
+                <option>2025年度</option>
+                <option>2024年度</option>
+              </select>
+
+            </div>
+          </div>
+
+          <!-- =====================================================
+              KPI
+          ====================================================== -->
+          <div class="pt-2 pb-3 grid grid-cols-2 xl:grid-cols-9 gap-3">
+
+            <!-- 在籍人数 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        rounded-l-lg
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-user-29-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="在籍人数">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">在籍人数</p>
+                  <h1 class="pb-2 text-[15px]">18人</h1>
+                  <div class="text-[11px] text-sky-500">
+                    ↑ 3人 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 平均総合スコア -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-chart-4-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="平均総合スコア">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">平均総合スコア</p>
+                  <h1 class="pb-2 text-[15px]">24.6</h1>
+                  <div class="text-[11px] text-red-500">
+                    ↓ 2.5 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 平均共通スコア -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-chart-16-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="平均共通スコア">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">平均共通スコア</p>
+                  <h1 class="pb-2 text-[15px]">43.6</h1>
+                  <div class="text-[11px] text-sky-500">
+                    ↑ 1.2 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 平均指導層スコア -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-chart-7-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="平均指導層スコア">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">平均指導層スコア</p>
+                  <h1 class="pb-2 text-[15px]">6.6</h1>
+                  <div class="text-[11px] text-sky-500">
+                    ↑ 0.4 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 平均管理層スコア -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-chart-5-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="平均管理層スコア">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">平均管理層スコア</p>
+                  <h1 class="pb-2 text-[15px]">8.1</h1>
+                  <div class="text-[11px] text-sky-500">
+                    ↑ 0.5 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 平均経営層スコア -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-chart-6-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="平均経営層スコア">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">平均経営層スコア</p>
+                  <h1 class="pb-2 text-[15px]">0.0</h1>
+                  <div class="text-[11px] text-white">
+                    → 0 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 指導層候補 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-user-1-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="指導層候補">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">指導層候補</p>
+                  <h1 class="pb-2 text-[15px]">
+                      <span class="relative inline-block group cursor-pointer">
+                        <span class="border-b border-dotted border-amber-400">２人</span>
+
+                        <span class="
+                          absolute left-0 top-full mt-2
+                          hidden group-hover:block
+                          z-50 whitespace-nowrap
+                          rounded-md bg-neutral-700
+                          border border-neutral-500
+                          px-3 py-2 text-white text-[11px]
+                          shadow-lg
+                        ">
+                          <span class="block">八木　亮介</span>
+                          <span class="block">道澤　あかり</span>
+                        </span>
+                      </span>
+                  </h1>
+                  <div class="text-[11px] text-white">
+                    → 0 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 管理層候補 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-user-21-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="管理層候補">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">管理層候補</p>
+                  <h1 class="pb-2 text-[15px]">
+                      <span class="relative inline-block group cursor-pointer">
+                        <span class="border-b border-dotted border-amber-400">１人</span>
+
+                        <span class="
+                          absolute left-0 top-full mt-2
+                          hidden group-hover:block
+                          z-50 whitespace-nowrap
+                          rounded-md bg-neutral-700
+                          border border-neutral-500
+                          px-3 py-2 text-white text-[11px]
+                          shadow-lg
+                        ">
+                          <span class="block">小林　豊</span>
+                        </span>
+                      </span>
+                  </h1>
+                  <div class="text-[11px] text-white">
+                    → 0 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 経営層候補 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        rounded-r-lg
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-user-29-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="経営層候補">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">経営層候補</p>
+                  <h1 class="pb-2 text-[15px]">
+                      <span class="relative inline-block group cursor-pointer">
+                        <span class="border-b border-dotted border-amber-400">２人</span>
+
+                        <span class="
+                          absolute left-0 top-full mt-2
+                          hidden group-hover:block
+                          z-50 whitespace-nowrap
+                          rounded-md bg-neutral-700
+                          border border-neutral-500
+                          px-3 py-2 text-white text-[11px]
+                          shadow-lg
+                        ">
+                          <span class="block">本田　委敬</span>
+                          <span class="block">高木　宏江</span>
+                        </span>
+                      </span>
+                  </h1>
+                  <div class="text-[11px] text-sky-500">
+                    ↑ 1 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 人材充足率 -->
+
+            <!-- 要フォロー -->
+
+          </div>
+
+          <!-- =====================================================
+              人材ポートフォリオ
+          ====================================================== -->
+          <div class="pb-4 grid grid-cols-1 xl:grid-cols-5 gap-3">
+
+            <!-- 職種 -->
+           <div class="p-4 
+                      text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+              <div class="flex items-start justify-between mb-5">
+
+                <div>
+                  <h2 class="text-[14px] font-medium">
+                    職種
+                  </h2>
+
+                  <p class="mt-1 text-zinc-400">
+                    職種別の人材構成
+                  </p>
+                </div>
+
+                <button
+                  class="text-xs text-amber-400 hover:text-orange-500">
+                  詳細を見る →
+                </button>
+
+              </div>
+
+              <div class="relative h-[240px]">
+
+                <canvas id="managerJobChart"></canvas>
+
+                <!-- 中央 -->
+                <div class="absolute inset-0 flex flex-col
+                            items-center justify-center
+                            pointer-events-none">
+
+                  <span class="text-[45px] text-white font-light pb-5">
+                    18
+                  </span>
+
+                  <span class="text-zinc-400 pb-12">
+                    PERSON
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- スキル構成 -->
+            <div class="p-4 
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-hidden">
+
+              <div class="mb-3">
+
+                <h2 class="text-[14px] font-medium">
+                  スキル構成
+                </h2>
+
+                <p class="mt-1 text-zinc-400">
+                  組織全体の主要スキル保有状況
+                </p>
+
+              </div>
+
+              <div class="space-y-3">
+
+                <!-- Java -->
+                <div>
+
+                  <div class="flex justify-between mb-1">
+                    <span>
+                      Java
+                    </span>
+
+                    <span class="text-white">
+                      68%
+                    </span>
+                  </div>
+
+                  <div class="h-2 
+                              bg-gradient-to-r from-neutral-400 via-neutral-450 to-neutral-500 
+                              rounded-full">
+                    <div
+                      class="h-2 bg-orange-800 rounded-full"
+                      style="width:68%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- JavaScript -->
+                <div>
+
+                  <div class="flex justify-between mb-1">
+                    <span>
+                      HTML/CSS/JavaScript
+                    </span>
+
+                    <span class="text-white">
+                      61%
+                    </span>
+                  </div>
+
+                  <div class="h-2 
+                              bg-gradient-to-r from-neutral-400 via-neutral-450 to-neutral-500 
+                              rounded-full">
+                    <div
+                      class="h-2 bg-orange-700 rounded-full"
+                      style="width:61%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- Python -->
+                <div>
+
+                  <div class="flex justify-between mb-1">
+                    <span>
+                      Python
+                    </span>
+
+                    <span class="text-white">
+                      58%
+                    </span>
+                  </div>
+
+                  <div class="h-2 
+                              bg-gradient-to-r from-neutral-400 via-neutral-450 to-neutral-500 
+                              rounded-full">
+                    <div
+                      class="h-2 bg-orange-600 rounded-full"
+                      style="width:58%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- VB -->
+                <div>
+
+                  <div class="flex justify-between mb-1">
+                    <span>
+                      VusialBase
+                    </span>
+
+                    <span class="text-white">
+                      54%
+                    </span>
+                  </div>
+
+                  <div class="h-2 
+                              bg-gradient-to-r from-neutral-500 via-neutral-450 to-neutral-500 
+                              rounded-full">
+                    <div
+                      class="h-2 bg-orange-500 rounded-full"
+                      style="width:54%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- C# -->
+                <div>
+
+                  <div class="flex justify-between mb-1">
+                    <span>
+                      C#
+                    </span>
+
+                    <span class="text-white">
+                      48%
+                    </span>
+                  </div>
+
+                  <div class="h-2 
+                              bg-gradient-to-r from-neutral-400 via-neutral-450 to-neutral-500 
+                              rounded-full">
+                    <div
+                      class="h-2 bg-orange-400 rounded-full"
+                      style="width:48%">
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- PHP -->
+                <div>
+
+                  <div class="flex justify-between mb-1">
+                    <span>
+                      PHP
+                    </span>
+
+                    <span class="text-white">
+                      36%
+                    </span>
+                  </div>
+
+                  <div class="h-2 
+                              bg-gradient-to-r from-neutral-400 via-neutral-450 to-neutral-500 
+                              rounded-full">
+                    <div
+                      class="h-2 bg-orange-300 rounded-full"
+                      style="width:36%">
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- 職責 -->
+            <div class="p-4 
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-hidden">
+
+              <div class="flex items-start justify-between mb-5">
+
+                <div>
+                  <h2 class="text-[14px] font-medium">
+                    職責
+                  </h2>
+
+                  <p class="mt-1 text-zinc-400">
+                    職責別の人材構成
+                  </p>
+                </div>
+
+                <button
+                  class="text-xs text-amber-400 hover:text-orange-500">
+                  詳細を見る →
+                </button>
+
+              </div>
+
+              <div class="relative h-[240px]">
+
+                <canvas id="responsibilitiesChart"></canvas>
+
+                <!-- 中央 -->
+                <div class="absolute inset-0 flex flex-col
+                            items-center justify-center
+                            pointer-events-none">
+
+                  <span class="text-[45px] text-white font-light pb-5">
+                    18
+                  </span>
+
+                  <span class="text-zinc-400 pb-12">
+                    PERSON
+                  </span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+            <!-- 人材マトリクス -->
+            <div class="xl:col-span-2 p-4 
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-hidden">
+
+              <div class="flex items-start justify-between mb-5">
+
+                <div>
+
+                  <h2 class="text-[14px] font-medium">
+                    人材マトリクス
+                  </h2>
+
+                  <p class="mt-1 text-zinc-400">
+                    能力 × 経験から見る人材ポートフォリオ
+                  </p>
+
+                </div>
+
+                <button
+                  class="text-amber-400 hover:text-orange-500">
+                  人材一覧 →
+                </button>
+
+              </div>
+
+              <div class="relative h-[240px]">
+
+                <canvas id="talentMatrixChart"></canvas>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- =====================================================
+              ベンチマーク
+          ====================================================== -->
+          <!-- ヘッダー -->
+          <div class="flex items-center justify-between
+                      text-white text-xs 
+                      ">
+
+            <div class="px-4">
+              <h1 class="text-xl">
+                ベンチマーク
+              </h1>
+
+              <p class="mt-1 text-zinc-400">
+                評価項目別の自社スコアとベンチマークの比較
+              </p>
+            </div>
+
+            <div class="flex  gap-4">
+
+              <select
+                class="px-3 py-1 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg">
+                <option>全ての業界</option>
+                <option>A:農業，林業</option>
+                <option>B:漁業</option>
+                <option>C:鉱業，採石業，砂利採取業</option>
+                <option>D:建設業</option>
+                <option>E:製造業</option>
+                <option>F:電気・ガス・熱供給・水道業</option>
+                <option>G:情報通信業</option>
+                <option>H:運輸業，郵便業</option>
+                <option>I:卸売業，小売業</option>
+                <option>J:金融業，保険業</option>
+                <option>K:不動産業，物品賃貸業</option>
+                <option>L:学術研究，専門・技術サービス業</option>
+                <option>M:宿泊業，飲食サービス業</option>
+                <option>N:生活関連サービス業，娯楽業</option>
+                <option>O:教育，学習支援業</option>
+                <option>P:医療，福祉</option>
+                <option>Q:複合サービス事業</option>
+                <option>R:サービス業（他に分類されないもの）</option>
+                <option>S:公務（他に分類されるものを除く）</option>
+                <option>T:分類不能の産業</option>
+              </select>
+
+              <select
+                class="px-3 py-1 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg">
+                <option>全ての企業規模</option>
+                <option>～10人</option>
+                <option>11～50人</option>
+                <option>51～100人</option>
+                <option>101～200人</option>
+                <option>201～500人</option>
+                <option>501～1000人</option>
+                <option>1001～10000人</option>
+                <option>10001～人</option>
+              </select>
+
+            </div>
+          </div>
+
+          <!-- ヘッダー２ -->
+          <div class="pt-2 pb-3 grid grid-cols-2 xl:grid-cols-5 gap-3">
+
+            <!-- 凡例 -->
+            <div class="p-1 h-full flex flex-col">
+
+              <!-- 凡例 -->
+              <div class="px-4 flex flex-col items-start gap-2 text-[11px] text-zinc-400 mt-auto">
+
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shrink-0"></span>
+                  自社が上回っている
+                </span>
+
+                <span class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sky-500 shrink-0"></span>
+                  自社が下回っている
+                </span>
+
+              </div>
+
+            </div>
+
+            <!-- STANDERD -->
+            <div class="standard-card p-1
+                        text-white text-xs
+                        rounded-lg
+                        shadow shadow-neutral-500/30
+                        overflow-visible
+                        h-full flex items-center justify-center">
+
+              <div class="flex items-center justify-center gap-4 w-full">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                  <img src="icon/iconmonstr-trophy-7-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="STANDERD">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">平均的なチーム</p>
+                  <h1 class="pb-2 text-[15px]">STANDERD</h1>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 上位20% -->
+            <div class="top20-card p-1
+                        text-white text-xs
+                        rounded-lg
+                        shadow shadow-neutral-500/30
+                        overflow-visible
+                        h-full flex items-center justify-center">
+
+              <div class="flex items-center justify-center gap-4 w-full">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                  <img src="icon/iconmonstr-trophy-11-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="上位20%">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">上位のチーム</p>
+                  <h1 class="pb-2 text-[15px]">上位20%</h1>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- 上位5% -->
+            <div class="top5-card p-1
+                        text-white text-xs
+                        rounded-lg
+                        shadow shadow-neutral-500/30
+                        overflow-visible
+                        h-full flex items-center justify-center">
+
+              <div class="flex items-center justify-center gap-4 w-full">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5 flex items-center justify-center shrink-0">
+                  <img src="icon/iconmonstr-trophy-13-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="上位5%">
+                </div>
+
+                <!-- テキスト -->
+                <div class="min-w-0 flex flex-col justify-center">
+                  <p class="text-zinc-400 text-[11px] leading-tight">
+                    トップのチーム
+                  </p>
+                  <h1 class="text-[15px] leading-tight mt-1">
+                    上位5%
+                  </h1>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ボタン -->
+            <div class="p-1 h-full flex flex-col">
+
+              <div class="flex justify-center items-end flex-wrap gap-3 mt-auto">
+
+                <div class="flex gap-2">
+                  <button
+                    type="button"
+                    onclick="expandAllBenchmark()"
+                    class="px-3 py-1.5
+                          text-xs text-white
+                          rounded-lg hover:bg-amber-400">
+                    全 て 開 く
+                  </button>
+
+                  <button
+                    type="button"
+                    onclick="collapseAllBenchmark()"
+                    class="px-3 py-1.5
+                          text-xs text-white
+                          rounded-lg hover:bg-amber-400">
+                    全て 閉じる
+                  </button>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- ベンチマーク -->
+          <section id="benchmarkSection" class=" pb-4">
+
+            <!-- テーブル -->
+            <div class="overflow-x-auto">
+
+              <table class="w-full min-w-[850px] text-xs border-collapse"
+                    id="benchmarkTable">
+
+                <thead>
+                  <tr class="text-zinc-400 
+                            bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                            ">
+
+                    <th class="text-left py-3 px-3 font-semibold w-[38%]">
+                      キー項目
+                    </th>
+
+                    <th class="text-center py-3 px-3 font-semibold w-[13%]">
+                      自社スコア
+                    </th>
+
+                    <th class="text-center py-3 px-3 font-semibold w-[13%]">
+                      ベンチマーク
+                    </th>
+
+                    <th class="text-center py-3 px-3 font-semibold w-[24%]">
+                      スコアの乖離
+                    </th>
+
+                    <th class="text-center py-3 px-3 font-semibold w-[12%]">
+                      差異
+                    </th>
+
+                  </tr>
+                </thead>
+
+                <tbody id="benchmarkTableBody">
+                </tbody>
+
+              </table>
+
+            </div>
+
+            <div class="text-[10px] text-zinc-400 mt-3 text-right">
+              ※ スコアは100点満点。差異 ＝ 自社スコア − ベンチマーク
+            </div>
+
+          </section>
+
+        </section>
+
+        <!-- =====================
+          ToDo(システム管理者)
+        ===================== -->
+        <section id="todoSection3" class="px-4 pb-4 history-block">
+
+          <!-- ToDo リスト -->
+          <div class="text-white text-xs 
+                      bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                      rounded-lg 
+                      shadow shadow-neutral-500/30 
+                      overflow-hidden">
+
+            <div class="pt-4 pb-2 mx-4 border-b border-zinc-400">
+              <h2>ToDo リスト【システム全般】</h2>
+            </div>
+
+            <div class="overflow-x-auto">
+              <div class="relative">
+
+                <table class="table-fixed w-full text-left">
+
+                  <colgroup>
+                    <col style="width:10%">
+                    <col style="width:10%">
+                    <col style="width:10%">
+                    <col style="width:70%">
+                  </colgroup>
+
+                  <tbody class="historyTable">
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/7</td>
+                      <td class="px-4 py-2">支払が完了しています</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/6</td>
+                      <td class="px-4 py-2">支払が完了しています</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/5</td>
+                      <td class="px-4 py-2">支払が完了しています</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">年度確定</td>
+                      <td class="px-4 py-2">2025</td>
+                      <td class="px-4 py-2">全ての承認完了後、今年度の年度確定を実施して下さい</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/4</td>
+                      <td class="px-4 py-2">支払が完了しています</td>
+                    </tr>
+                    <tr class="hover:bg-gray-50/40
+                                hover:shadow-[inset_3px_0_0_#fb923c] 
+                                hover:text-amber-400">
+                      <td class="px-4 py-2">2026-03-01</td>
+                      <td class="px-4 py-2">請求管理</td>
+                      <td class="px-4 py-2">2026/3</td>
+                      <td class="px-4 py-2">支払が完了しています</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-neutral-600 to-transparent"></div>
+              </div>
+
+              <div class="p-2 text-center">
+                <button onclick="toggleHistory(this)" class="text-amber-400 hover:underline">
+                  もっと見る
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- =========================================================
+            システム管理者ダッシュボード
+        ========================================================= -->
+        <section id="systemDashboard" class="px-4 pb-4">
+
+          <!-- ヘッダー -->
+          <div class="flex items-center justify-between
+                      text-white text-xs 
+                      ">
+
+            <div class="px-4">
+              <h1 class="text-xl">
+                システムダッシュボード
+              </h1>
+
+              <p class="mt-1">
+                慧眼サービス全体の利用状況と稼働状態
+              </p>
+            </div>
+
+          </div>
+
+          <!-- =====================================================
+              KPI
+          ====================================================== -->
+          <div class="pt-2 pb-3 grid grid-cols-2 xl:grid-cols-7 gap-3">
+
+            <!-- 契約開始日 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        rounded-l-lg
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-calendar-6-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="契約開始日">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">契約開始日</p>
+                  <h1 class="pb-2 text-[15px]">2023/12/12</h1>
+                  <div class="text-[11px] text-zinc-400">
+                    2年3ヶ月
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- トライアル期間 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-calendar-9-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="トライアル期間">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">トライアル期間</p>
+                  <h1 class="pb-2 text-[15px]">2024/1まで</h1>
+                  <div class="text-[11px] text-red-500">
+                    残り27日
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- プラン適用人数 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-user-23-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="プラン適用人数">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">プラン適用人数</p>
+                  <h1 class="pb-2 text-[15px]">18人</h1>
+                  <div class="text-[11px] text-sky-500">
+                    ↑ 2人 前年比
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 未登録・承認待ち -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-user-24-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="未登録・承認待ち">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">未登録・承認待ち</p>
+                  <h1 class="pb-2 text-[15px]">0人</h1>
+                  <div class="text-[11px] text-sky-500">
+                    　
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 管理者 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-user-22-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="管理者">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">管理者</p>
+                  <h1 class="pb-2 text-[15px]">
+                      <span class="relative inline-block group cursor-pointer">
+                        <span class="border-b border-dotted border-amber-400">３人</span>
+
+                        <span class="
+                          absolute left-0 top-full mt-2
+                          hidden group-hover:block
+                          z-50 whitespace-nowrap
+                          rounded-md bg-neutral-700
+                          border border-neutral-500
+                          px-3 py-2 text-white text-[11px]
+                          shadow-lg
+                        ">
+                          <span class="block">本田　委敬</span>
+                          <span class="block">高木　宏江</span>
+                          <span class="block">北村　清和</span>
+                        </span>
+                      </span>
+                  </h1>
+                  <div class="text-[11px] text-zinc-400">
+                    メンバ：１５名
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- オプション契約 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-idea-8-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="オプション契約">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">オプション契約</p>
+                  <h1 class="pb-2 text-[15px]">
+                      <span class="relative inline-block group cursor-pointer">
+                        <span class="border-b border-dotted border-amber-400">２つ</span>
+
+                        <span class="
+                          absolute left-0 top-full mt-2
+                          hidden group-hover:block
+                          z-50 whitespace-nowrap
+                          rounded-md bg-neutral-700
+                          border border-neutral-500
+                          px-3 py-2 text-white text-[11px]
+                          shadow-lg
+                        ">
+                          <span class="block">組織</span>
+                          <span class="block">エンゲージメント</span>
+                        </span>
+                      </span>
+                  </h1>
+                  <div class="text-[11px] text-white">
+                    　
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 現在の年度 -->
+            <div class="p-1
+                        text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900
+                        rounded-r-lg
+                        shadow shadow-neutral-500/30
+                        overflow-visible">
+              <div class="flex items-center gap-2 pl-2">
+
+                <!-- アイコン -->
+                <div class="w-5 h-5
+                            flex items-center justify-center
+                            shrink-0">
+                  <img src="icon/iconmonstr-calendar-7-72.png"
+                      class="w-5 h-5 object-contain"
+                      alt="現在の年度">
+                </div>
+
+                <!-- テキスト -->
+                <div class="py-2 min-w-0">
+                  <p class="pb-2 text-zinc-400 text-[11px]">現在の年度</p>
+                  <h1 class="pb-2 text-[15px]">2025年度</h1>
+                  <div class="text-[11px] text-zinc-400">
+                    2024/04-2025/03
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- アカウント情報 -->
+          <div class="">
+
+            <h2 class="text-sm font-bold text-white pt-2 pl-4">
+              アカウント情報
+            </h2>
+
+            <div class="overflow-hidden rounded-lg">
+
+              <table class="w-full text-xs text-white">
+                <tbody class="divide-y divide-zinc-400">
+
+                  <tr>
+                    <td class="w-1/5 px-4 py-3 text-zinc-400">氏名</td>
+                    <td class="px-4 py-3">丸尾 幹</td>
+                  </tr>
+
+                  <tr>
+                    <td class="px-4 py-3 text-zinc-400">メールアドレス</td>
+                    <td class="px-4 py-3">k-maruo@leonarts.co.jp</td>
+                  </tr>
+
+                  <tr>
+                    <td class="px-4 py-3 text-zinc-400">連絡先</td>
+                    <td class="px-4 py-3">090-1234-5678</td>
+                  </tr>
+
+                  <tr>
+                    <td class="px-4 py-3 text-zinc-400">共通ID権限</td>
+                    <td class="px-4 py-3">システム管理者</td>
+                  </tr>
+
+                  <tr>
+                    <td class="px-4 py-3 text-zinc-400">2要素認証</td>
+                    <td class="px-4 py-3">
+                      <span class="px-2 py-1 rounded bg-neutral-700 text-neutral-300">
+                        無効
+                      </span>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+          <!-- 会社情報 -->
+          <div class="">
+
+            <h2 class="text-sm font-bold text-white pl-4">
+              会社情報
+            </h2>
+
+            <div class="overflow-hidden rounded-lg">
+
+              <table class="w-full text-xs text-white">
+                <tbody class="divide-y divide-zinc-400">
+
+                  <tr>
+                    <td class="w-1/5 px-4 py-3 text-zinc-400">会社名</td>
+                    <td class="px-4 py-3">株式会社レオンアーツ</td>
+                  </tr>
+
+                  <tr>
+                    <td class="w-1/5 px-4 py-3 text-zinc-400">産業</td>
+                    <td class="px-4 py-3">G:情報通信業</td>
+                  </tr>
+
+                  <tr>
+                    <td class="px-4 py-3 text-zinc-400">会社ID</td>
+                    <td class="px-4 py-3">S133185-65127</td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+
+        </section>
+
+        <!-- =====================
+          お知らせ
+        ===================== -->
+        <section id="newsSection" class="grid grid-cols-2 items-start px-4 pb-4">
+
+          <!-- 管理者からの通知 -->
+          <section id="newsmgrSection" class="col-span-1 gap-4 history-block">
+
+            <div class="text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-hidden">
+
+              <div class="pt-4 pb-2 mx-4 border-b border-zinc-400">
+                <h2>管理者からの通知</h2>
+              </div>
+
+              <div class="overflow-x-auto">
+                <div class="relative">
+
+                  <table class="table-fixed w-full text-left">
+
+                    <colgroup>
+                      <col style="width:20%">
+                      <col style="width:80%">
+                    </colgroup>
+
+                    <tbody class="historyTable">
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c] 
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-03-31</td>
+                        <td class="px-4 py-2">2025年度のアセスメント診断が承認されました</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-02-16</td>
+                        <td class="px-4 py-2">１ｏｎ１のコメントが登録されました</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-12-08</td>
+                        <td class="px-4 py-2">１ｏｎ１のコメントが登録されました</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-10-21</td>
+                        <td class="px-4 py-2">１ｏｎ１のコメントが登録されました</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-08-11</td>
+                        <td class="px-4 py-2">１ｏｎ１のコメントが登録されました</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-06-01</td>
+                        <td class="px-4 py-2">今年の年間目標（MBO）が承認されました</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-neutral-600 to-transparent"></div>
+                </div>
+
+                <div class="p-2 text-center">
+                  <button onclick="toggleHistory(this)" class="text-amber-400 hover:underline">
+                    もっと見る
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </section>  
+
+          <!-- お知らせ -->
+          <section id="newssysSection" class="col-span-1 gap-4 history-block">
+
+            <div class="text-white text-xs 
+                        bg-gradient-to-r from-neutral-800 via-neutral-850 to-neutral-900 
+                        rounded-lg 
+                        shadow shadow-neutral-500/30 
+                        overflow-hidden">
+
+              <div class="pt-4 pb-2 mx-4 border-b border-zinc-400">
+                <h2>お知らせ</h2>
+              </div>
+
+              <div class="overflow-x-auto">
+                <div class="relative">
+
+                  <table class="table-fixed w-full text-left">
+
+                    <colgroup>
+                      <col style="width:20%">
+                      <col style="width:80%">
+                    </colgroup>
+
+                    <tbody class="historyTable">
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c] 
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-11-02</td>
+                        <td class="px-4 py-2">KEIGAN基本規約改定のお知らせ（改定日2026年11月2日）</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-11-01</td>
+                        <td class="px-4 py-2">【影響なし】PHPの脆弱性による影響について</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-10-07</td>
+                        <td class="px-4 py-2">システムメンテナンス終了のお知らせ（2026/10/07）</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-10-07</td>
+                        <td class="px-4 py-2">【重要】本日実施のシステムメンテナンスのお知らせ（2026/10/07）</td>
+                      </tr>
+                      <tr class="hover:bg-gray-50/40
+                                  hover:shadow-[inset_3px_0_0_#fb923c]
+                                  hover:text-amber-400">
+                        <td class="px-4 py-2">2026-03-10</td>
+                        <td class="px-4 py-2">アセスメントのお問い合わせ・サポート窓口の混雑について</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="historyFade absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-neutral-600 to-transparent"></div>
+                </div>
+
+                <div class="p-2 text-center">
+                  <button onclick="toggleHistory(this)" class="text-amber-400 hover:underline">
+                    もっと見る
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </section>  
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-auto bg-neutral-800">
+          <div class="px-6 py-4
+                      flex flex-col md:flex-row
+                      items-center justify-between
+                      gap-3 text-xs text-white">
+
+            <!-- 左 -->
+            <div class="flex items-center gap-4">
+              <a href="#"
+                class="hover:text-amber-400 transition">
+                利用規約
+              </a>
+              <span>|</span>
+              <a href="#"
+                class="hover:text-amber-400 transition">
+                プライバシーポリシー
+              </a>
+              <span>|</span>
+              <a href="#"
+                class="hover:text-amber-400 transition">
+                お問い合わせ
+              </a>
+            </div>
+
+            <!-- 右 -->
+            <div class="flex items-center gap-2">
+              <img src="img/siteicon.png" class="w-8 h-8">
+              <span class="text-xs">© 2026 LEON ARTS Inc.</span>
+            </div>
+
+          </div>
+        </footer>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <script>
+
+    const score = 91.25;
+
+    const circle = document.getElementById("scoreCircle");
+
+    const radius = 65;
+    const circumference = 2 * Math.PI * radius;
+
+    circle.style.strokeDasharray = circumference;
+
+    const offset =
+      circumference - (score / 100) * circumference;
+
+    circle.style.strokeDashoffset = offset;
+
+    function getRank(score) {
+      if (score >= 90) return "A+";
+      if (score >= 80) return "B+";
+      if (score >= 70) return "C+";
+      if (score >= 60) return "D";
+      return "E";
+    }
+
+    // ======================
+    // ITSSレベルチャート
+    // ======================
+    const itssLevel = 6;
+    const itssMaxLevel = 7;
+
+    const itssCircle =
+      document.getElementById("itssCircle");
+
+    if (itssCircle) {
+
+      const radius = 72;
+
+      const circumference =
+        2 * Math.PI * radius;
+
+      itssCircle.style.strokeDasharray =
+        circumference;
+
+      const offset =
+        circumference -
+        ((itssLevel / itssMaxLevel) * circumference);
+
+      itssCircle.style.strokeDashoffset =
+        offset;
+    }
+
+  </script>
+
+  <script>
+
+    const careerData = [
+      {
+        category: 'アプリケーションスペシャリスト',
+        skill: '業務パッケージ',
+        years: 19
+      },
+      {
+        category: 'アプリケーションスペシャリスト',
+        skill: '業務システム',
+        years: 5
+      },
+      {
+        category: 'ＩＴサービスマネジメント',
+        skill: 'サービスデスク',
+        years: 2
+      },
+      {
+        category: 'その他業種',
+        skill: 'その他',
+        years: 1
+      }
+    ];
+
+    const industryData = [
+      {
+        industry: '卸売業，小売業',
+        years: 15
+      },
+      {
+        industry: '建設業',
+        years: 4.5
+      },
+      {
+        industry: '複合サービス事業',
+        years: 2.5
+      },
+      {
+        industry: '製造業',
+        years: 2
+      },
+      {
+        industry: '生活関連サービス',
+        years: 1.5
+      },
+      {
+        industry: '公務',
+        years: 1.5
+      }
+    ];
+
+    const positionData = [
+      {
+        position:'PM',
+        years:10
+      },
+      {
+        position:'PSL',
+        years:7.5
+      },
+      {
+        position:'リーダ',
+        years:3
+      },
+      {
+        position:'メンバ',
+        years:6.5
+      }
+    ];
+
+    const scaleData = [
+      {
+        scale:'Level 6',
+        years:9
+      },
+      {
+        scale:'Level 5',
+        years:7.5
+      },
+      {
+        scale:'Level 4',
+        years:1.5
+      },
+      {
+        scale:'Level 3',
+        years:7
+      },
+      {
+        scale:'Level 2',
+        years:2
+      }
+    ];
+
+    const languageData = [
+      { language:'Java', years:17 },
+      { language:'PL/SQL', years:14 },
+      { language:'VB.NET', years:10 },
+      { language:'C#', years:8 },
+      { language:'JavaScript', years:5 },
+      { language:'Angular/React', years:5 }
+    ];
+
+    const industryLabels =
+      industryData.map(
+        item => item.industry
+      );
+
+    const industryYears =
+      industryData.map(
+        item => item.years
+      );
+
+    const industryTotal =
+      industryYears.reduce(
+        (a, b) => a + b,
+        0
+      );
+      
+    const industryColors = [
+      '#2e7d32', // 濃い緑
+      '#43a047', // 緑
+      '#66bb6a', // やや明るい緑
+      '#81c784', // 明るい緑
+      '#a5d6a7', // 薄緑
+      '#c8e6c9'  // 淡緑（追加）
+    ];
+
+    const positionLabels =
+      positionData.map(item => item.position);
+
+    const positionYears =
+      positionData.map(item => item.years);
+
+    const positionTotal =
+      positionYears.reduce((a,b)=>a+b,0);
+
+    const positionColors = [
+      '#1e88e5',
+      '#42a5f5',
+      '#64b5f6',
+      '#90caf9',
+      '#bbdefb'
+    ];
+
+    const scaleLabels =
+      scaleData.map(item => item.scale);
+
+    const scaleYears =
+      scaleData.map(item => item.years);
+
+    const scaleTotal =
+      scaleYears.reduce((a,b)=>a+b,0);
+
+    const scaleColors = [
+      '#ff6b00', // Level 6
+      '#ff8a00', // Level 5
+      '#ffad1f', // Level 4
+      '#ffc94d', // Level 3
+      '#ffe08a'  // Level 2
+    ];
+
+    const languageLabels =
+      languageData.map(item => item.language);
+
+    const languageYears =
+      languageData.map(item => item.years);
+      
+    const categoryMap = {};
+    const skillLabels = [];
+    const skillYears = [];
+    const skillColors = [];
+
+    careerData.forEach(item => {
+
+      if (!categoryMap[item.category]) {
+        categoryMap[item.category] = 0;
+      }
+
+      categoryMap[item.category] += item.years;
+
+      skillLabels.push(item.skill);
+      skillYears.push(item.years);
+
+      if (item.category === 'アプリケーションスペシャリスト') {
+        if (item.skill === '業務パッケージ') {
+          skillColors.push('#ec4899');
+        } else {
+          skillColors.push('#f472b6');
+        }
+      } else if (item.category === 'ＩＴサービスマネジメント') {
+        skillColors.push('#f9a8d4');
+      } else {
+        // その他
+        skillColors.push('#fbcfe8');
+      }
+
+    });
+
+    const categoryLabels =
+      Object.keys(categoryMap);
+
+    const categoryColors = [];
+
+    categoryLabels.forEach(label => {
+      if (label === 'アプリケーションスペシャリスト') {
+        categoryColors.push('#be185d');
+      } else if (label === 'ＩＴサービスマネジメント') {
+        categoryColors.push('#f9a8d4');
+      } else if (label === 'その他業種') {
+        categoryColors.push('#fbcfe8');
+      }
+    });
+
+    const categoryYears =
+      Object.values(categoryMap);
+
+    const totalYears =
+      categoryYears.reduce((a,b)=>a+b,0);
+
+    // ======================
+    // 職種チャート中央表示
+    // ======================
+    const centerTextPlugin = {
+
+      id: 'centerText',
+
+      beforeDraw(chart) {
+
+        const { ctx } = chart;
+        const meta =
+          chart.getDatasetMeta(0);
+
+        if (!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+        ctx.textAlign = 'center';
+        // 数字
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '35px Inter';
+
+        ctx.fillText(
+          totalYears,
+          x - 2,
+          y + 5 
+        );
+
+        // 単位（年）
+        ctx.font = '14px sans-serif';
+
+        ctx.fillText(
+          '年',
+          x + 28,
+          y + 5 
+        );
+
+        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#a1a1aa';
+        ctx.fillText(
+          'Career',
+          x,
+          y + 30
+        );
+
+        ctx.restore();
+      }
+    };
+
+    // ======================
+    // 経験産業チャート中央表示
+    // ======================
+    const industryCenterTextPlugin = {
+
+      id: 'industryCenterText',
+
+      beforeDraw(chart) {
+
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+
+        if (!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+
+        ctx.textAlign = 'center';
+
+        // 数字
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '35px Inter';
+
+        ctx.fillText(
+          industryTotal,
+          x - 2,
+          y + 5
+        );
+
+        // 単位（年）
+        ctx.font = '14px sans-serif';
+
+        ctx.fillText(
+          '年',
+          x + 28,
+          y + 5 
+        );
+
+        ctx.font = '12px sans-serif';
+        ctx.fillStyle = '#a1a1aa';
+
+        ctx.fillText(
+          'Industry',
+          x,
+          y + 30
+        );
+
+        ctx.restore();
+
+      }
+
+    };
+
+    const positionCenterTextPlugin = {
+
+      id:'positionCenterText',
+
+      beforeDraw(chart){
+
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+
+        if(!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+
+        ctx.textAlign='center';
+
+        ctx.fillStyle='#ffffff';
+        ctx.font='35px Inter';
+
+        ctx.fillText(
+          positionTotal,
+          x - 2,
+          y + 5
+        );
+
+        ctx.font='14px sans-serif';
+        ctx.fillText(
+          '年',
+          x + 28,
+          y + 5
+        );
+
+        ctx.font='12px sans-serif';
+        ctx.fillStyle='#a1a1aa';
+
+        ctx.fillText(
+          'Position',
+          x,
+          y + 30
+        );
+
+        ctx.restore();
+      }
+    };
+
+    const scaleCenterTextPlugin = {
+
+      id:'scaleCenterText',
+
+      beforeDraw(chart){
+
+        const { ctx } = chart;
+        const meta = chart.getDatasetMeta(0);
+
+        if(!meta.data.length) return;
+
+        const x = meta.data[0].x;
+        const y = meta.data[0].y;
+
+        ctx.save();
+
+        ctx.textAlign='center';
+
+        ctx.fillStyle='#ffffff';
+        ctx.font='35px Inter';
+
+        ctx.fillText(
+          scaleTotal,
+          x - 2,
+          y + 5
+        );
+
+        ctx.font='14px sans-serif';
+        ctx.fillText(
+          '年',
+          x + 28,
+          y + 5
+        );
+
+        ctx.font='12px sans-serif';
+        ctx.fillStyle='#a1a1aa';
+
+        ctx.fillText(
+          'ITSS',
+          x,
+          y + 30
+        );
+
+        ctx.restore();
+      }
+    };
+
+    // ======================
+    // 経験産業 凡例
+    // ======================
+    const industryLegendPlugin = {
+
+      id: 'industryLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('industryLegend');
+
+        if (!legendContainer) return;
+
+        // 初期化
+        legendContainer.innerHTML = '';
+
+        industryLabels.forEach((label, index) => {
+
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          // 色マーク
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            industryColors[index];
+
+          // テキスト
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-[8pt]';
+
+          text.textContent =
+            `${label} (${industryYears[index]}年)`;
+
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    const positionLegendPlugin = {
+
+      id: 'positionLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('positionLegend');
+
+        if (!legendContainer) return;
+
+        legendContainer.innerHTML = '';
+
+        positionLabels.forEach((label, index) => {
+
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            positionColors[index];
+
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-[8pt]';
+
+          text.textContent =
+            `${label} (${positionYears[index]}年)`;
+
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    const scaleLegendPlugin = {
+
+      id: 'scaleLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('scaleLegend');
+
+        if (!legendContainer) return;
+
+        legendContainer.innerHTML = '';
+
+        scaleLabels.forEach((label, index) => {
+
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            scaleColors[index];
+
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-[8pt]';
+
+          text.textContent =
+            `${label} (${scaleYears[index]}年)`;
+
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    const htmlLegendPlugin = {
+
+      id: 'htmlLegend',
+
+      afterUpdate(chart) {
+
+        const legendContainer =
+          document.getElementById('careerLegend');
+
+        if (!legendContainer) return;
+
+        // 再描画時に一旦クリア
+        legendContainer.innerHTML = '';
+
+        categoryLabels.forEach((label, index) => {
+
+          // 1行分作成
+          const item =
+            document.createElement('div');
+
+          item.className =
+            'flex items-center gap-1';
+
+          // 色マーク作成
+          const colorBox =
+            document.createElement('span');
+
+          colorBox.className =
+            'w-3 h-3 rounded-full inline-block';
+
+          colorBox.style.backgroundColor =
+            categoryColors[index];
+
+          // テキスト作成
+          const text =
+            document.createElement('span');
+
+          text.className =
+            'text-[8pt]';
+
+          text.textContent =
+            `${label} (${categoryYears[index]}年)`;
+
+          // 組み立て
+          item.appendChild(colorBox);
+          item.appendChild(text);
+
+          legendContainer.appendChild(item);
+
+        });
+
+      }
+
+    };
+
+    new Chart(
+      document.getElementById('careerChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: skillLabels,
+
+          datasets: [
+            // 外リング（職種）
+            {
+              label: '職種',
+              data: categoryYears,
+              backgroundColor: categoryColors,
+              weight: 0.5,
+              borderWidth: 1,
+              borderColor: '#262626'
+            },
+            // 内リング（専門領域）
+            {
+              label: '専門領域',
+              data: skillYears,
+              backgroundColor: skillColors,
+              weight: 0.5,
+              borderWidth: 1,
+              borderColor: '#262626'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          cutout: '60%',
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+              callbacks: {
+
+                title(context) {
+
+                  const datasetIndex =
+                    context[0].datasetIndex;
+
+                  const dataIndex =
+                    context[0].dataIndex;
+
+                  // 職種
+                  if (datasetIndex === 0) {
+                    return categoryLabels[dataIndex];
+                  }
+
+                  // 専門領域
+                  return skillLabels[dataIndex];
+                },
+
+                label(context) {
+
+                  const datasetIndex =
+                    context.datasetIndex;
+
+                  const years = context.raw;
+
+                  const rate =
+                    ((years / totalYears) * 100)
+                    .toFixed(1);
+
+                  if (datasetIndex === 0) {
+
+                    return [
+                      '職種：アプリケーションスペシャリスト',
+                      `経験年数：${years}年`,
+                      `構成比：${rate}%`
+                    ];
+                  }
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+                }
+              }
+            }
+          }
+        },
+
+        plugins: [
+          centerTextPlugin,
+          htmlLegendPlugin
+          ]
+          
+        }
+    );
+
+    new Chart(
+      document.getElementById('industryChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: industryLabels,
+
+          datasets: [
+            {
+              data: industryYears,
+              backgroundColor: industryColors,
+              borderWidth: 1,
+              borderColor: '#262626'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          cutout: '75%',
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+
+              callbacks: {
+
+                title(context) {
+
+                  return industryLabels[
+                    context[0].dataIndex
+                  ];
+
+                },
+
+                label(context) {
+
+                  const years =
+                    context.raw;
+
+                  const rate =
+                    (
+                      years /
+                      industryTotal *
+                      100
+                    ).toFixed(1);
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+
+                }
+
+              }
+
+            }
+
+          }
+
+        },
+
+        plugins: [
+          industryCenterTextPlugin,
+          industryLegendPlugin
+        ]
+
+      }
+    );
+
+    new Chart(
+      document.getElementById('positionChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: positionLabels,
+
+          datasets: [
+            {
+              data: positionYears,
+              backgroundColor: positionColors,
+              borderWidth: 1,
+              borderColor: '#262626'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          cutout: '75%',
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+
+              callbacks: {
+
+                title(context) {
+
+                  return positionLabels[
+                    context[0].dataIndex
+                  ];
+
+                },
+
+                label(context) {
+
+                  const years =
+                    context.raw;
+
+                  const rate =
+                    (
+                      years /
+                      positionTotal *
+                      100
+                    ).toFixed(1);
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+
+                }
+
+              }
+
+            }
+
+          }
+
+        },
+
+        plugins: [
+          positionCenterTextPlugin,
+          positionLegendPlugin
+        ]
+
+      }
+    );
+
+    new Chart(
+      document.getElementById('scaleChart'),
+      {
+        type: 'doughnut',
+
+        data: {
+          labels: scaleLabels,
+
+          datasets: [
+            {
+              data: scaleYears,
+              backgroundColor: scaleColors,
+              borderWidth: 1,
+              borderColor: '#262626'
+            }
+          ]
+        },
+
+        options: {
+
+          responsive: true,
+          maintainAspectRatio: false,
+
+          cutout: '75%',
+
+          plugins: {
+
+            legend: {
+              display: false
+            },
+
+            tooltip: {
+
+              callbacks: {
+
+                title(context) {
+
+                  return scaleLabels[
+                    context[0].dataIndex
+                  ];
+
+                },
+
+                label(context) {
+
+                  const years =
+                    context.raw;
+
+                  const rate =
+                    (
+                      years /
+                      scaleTotal *
+                      100
+                    ).toFixed(1);
+
+                  return [
+                    `経験年数：${years}年`,
+                    `構成比：${rate}%`
+                  ];
+
+                }
+
+              }
+
+            }
+
+          }
+
+        },
+
+        plugins: [
+          scaleCenterTextPlugin,
+          scaleLegendPlugin
+        ]
+
+      }
+    );
+
+    new Chart(
+      document.getElementById('languageChart'),
+      {
+        type:'bar',
+
+        data:{
+          labels:languageLabels,
+
+          datasets:[
+            {
+              data:languageYears,
+              backgroundColor:'#fbbf24',
+              borderRadius:1,
+              barThickness:16
+            }
+          ]
+        },
+
+        options:{
+
+          indexAxis:'y',
+
+          responsive:true,
+          maintainAspectRatio:false,
+
+          plugins:{
+            legend:{
+              display:false
+            }
+          },
+
+          scales:{
+
+            x:{
+              beginAtZero:true,
+              max:20,
+
+              ticks:{
+                stepSize:5,
+                color:'#FFFFFF'
+              },
+
+              grid:{
+                color:'#FFFFFF'
+              },
+
+              border:{
+                display:false
+              },
+
+              title:{
+                display:true,
+                text:'年数（年）',
+                color:'#FFFFFF'
+              }
+            },
+
+            y:{
+              grid:{
+                display:false
+              },
+              ticks:{
+                color:'#FFFFFF'
+              }
+            }
+
+          }
+
+        }
+
+      }
+    );
+
+  </script>
+
+  <script>
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("overlay");
+
+      sidebar.classList.toggle("-translate-x-full");
+      overlay.classList.toggle("hidden");
+    }
+
+    function toggleNotificationMenu(event) {
+
+      event.stopPropagation();
+
+      const menu =
+        document.getElementById("notificationMenu");
+
+      const userMenu =
+        document.getElementById("userMenu");
+
+      userMenu.classList.add("hidden");
+
+      menu.classList.toggle("hidden");
+    }
+
+    function toggleMenu(menu) {
+      const el = document.getElementById("menu-" + menu);
+      const icon = document.getElementById("icon-" + menu);
+
+      el.classList.toggle("hidden");
+
+      if (icon) {
+        icon.classList.toggle("rotate-90");
+      }
+    }
+
+    let expandedMap = new WeakMap();
+
+    function toggleHistory(button) {
+
+      const container =
+        button.closest(".history-block");
+
+      const table =
+        container.querySelector(".historyTable");
+
+      const rows =
+        container.querySelectorAll(".historyTable tr");
+
+      const fade =
+        container.querySelector(".historyFade");
+
+      const limit =
+        Number(table.dataset.collapse || 4);
+
+      let expanded =
+        expandedMap.get(container) || false;
+
+      expanded = !expanded;
+
+      expandedMap.set(container, expanded);
+
+      rows.forEach((row, index) => {
+
+        if (index >= limit) {
+
+          row.style.display =
+            expanded ? "" : "none";
+
+        }
+
+      });
+
+      button.textContent =
+        expanded ? "閉じる" : "もっと見る";
+
+      if (fade) {
+
+        fade.style.display =
+          expanded ? "none" : "block";
+
+      }
+    }
+
+    // 初期表示
+    window.addEventListener("DOMContentLoaded", () => {
+
+      const data = menuData.personal;
+  
+      // ========================================
+      // サイドバー初期選択：personal
+      // ========================================
+
+      // 選択中メニューを設定
+      currentMenu = "personal";
+
+      // personalをアクティブ表示
+      document
+        .querySelector('[data-menu="personal"]')
+        ?.classList.add(
+          "bg-neutral-800",
+          "text-white"
+        );
+
+      // 初期状態は「個人」なのでMBOを非表示
+      const mboSection = document.getElementById("mboSection");
+      if (mboSection) {
+        mboSection.style.display = "none";
+      }
+
+      // 初期状態は「個人」なのでMBOを非表示
+      const mboSection2 = document.getElementById("mboSection2");
+      if (mboSection2) {
+        mboSection2.style.display = "none";
+      }
+
+      const todoSection2 = document.getElementById("todoSection2");
+      if (todoSection2) {
+        todoSection2.style.display = "none";
+      }
+
+      const todoSection3 = document.getElementById("todoSection3");
+      if (todoSection3) {
+        todoSection3.style.display = "none";
+      }
+
+      const managerDashboard = document.getElementById("managerDashboard");
+      if (managerDashboard) {
+        managerDashboard.style.display = "none";
+      }
+
+      const systemDashboard = document.getElementById("systemDashboard");
+      if (systemDashboard) {
+        systemDashboard.style.display = "none";
+      }
+
+      subSidebarTitle.textContent = data.title;
+
+      subSidebarContent.innerHTML = "";
+
+      data.items.forEach(item => {
+
+        // タイトル行
+        if (typeof item === "object" && item.section) {
+
+          subSidebarContent.innerHTML += `
+            <div class="px-4 mt-2 mb-2">
+              <div class="flex items-center gap-2 py-2 border-b border-zinc-400">
+                <span class="
+                  text-xs
+                  text-zinc-400
+                  tracking-wider
+                  whitespace-nowrap">
+                  ${item.section}
+                </span>
+              </div>
+            </div>
+          `;
+
+          return;
+        }
+
+        // 通常メニュー
+        let clickAction = "";
+
+        switch(item){
+
+            case "アセスメント":
+                clickAction = `onclick="scrollToSection('assessmentSection');return false;"`;
+                break;
+
+            case "職歴":
+                clickAction = `onclick="scrollToSection('workhistorySection');return false;"`;
+                break;
+
+            case "ＭＢＯ":
+                clickAction = `onclick="scrollToSection('mboSection');return false;"`;
+                break;
+
+            default:
+                clickAction = "";
+        }
+
+        subSidebarContent.innerHTML += `
+        <a href="${PAGE_LINKS['personal:' + item] || '#'}"
+          ${pageLinkAttrs(PAGE_LINKS['personal:' + item])}
+          ${clickAction}
+          class="
+              block
+              px-4 py-3
+              mx-2 my-1
+              rounded
+              font-semibold
+              hover:bg-amber-400
+              hover:text-white
+              transition-all">
+            ${item}
+        </a>
+        `;
+
+        // 表の初期表示件数設定
+        document.querySelectorAll(".history-block").forEach(container => {
+
+          const table =
+            container.querySelector(".historyTable");
+
+          if (!table) return;
+
+          const rows =
+            table.querySelectorAll("tr");
+
+          const limit =
+            Number(table.dataset.collapse || 4);
+
+          const button =
+            container.querySelector('[onclick^="toggleHistory"]');
+
+          const fade =
+            container.querySelector(".historyFade");
+
+          rows.forEach((row, index) => {
+
+            if (index >= limit) {
+              row.style.display = "none";
+            }
+
+          });
+
+          if (rows.length <= limit) {
+
+            if (button) button.style.display = "none";
+            if (fade) fade.style.display = "none";
+
+          }
+
+        });
+
+      });
+
+      subSidebar.classList.remove("hidden");
+
+      mainContent.style.marginLeft = "290px"; // サブサイドバー幅に合わせる
+      subSidebar.classList.remove("sub-sidebar-collapsed");
+    });
+
+    function toggleUserMenu(event) {
+
+      event.stopPropagation();
+
+      const userMenu =
+        document.getElementById("userMenu");
+
+      const notificationMenu =
+        document.getElementById("notificationMenu");
+
+      // 通知メニューが存在する場合だけ閉じる
+      if (notificationMenu) {
+        notificationMenu.classList.add("hidden");
+      }
+
+      // ユーザーメニューを開閉
+      if (userMenu) {
+        userMenu.classList.toggle("hidden");
+      }
+
+    }
+
+    // メニュー外クリックで閉じる
+    document.addEventListener("click", function() {
+
+      const userMenu =
+        document.getElementById("userMenu");
+
+      const notificationMenu =
+        document.getElementById("notificationMenu");
+
+      if (userMenu) {
+        userMenu.classList.add("hidden");
+      }
+
+      if (notificationMenu) {
+        notificationMenu.classList.add("hidden");
+      }
+
+    });
+
+  </script>
+
+  <script>
+    const subSidebar =
+      document.getElementById("subSidebar");
+
+    const subSidebarTitle =
+      document.getElementById("subSidebarTitle");
+
+    const subSidebarContent =
+      document.getElementById("subSidebarContent");
+
+    const mainContent =
+      document.getElementById("mainContent");
+
+    const menuData = {
+
+      personal: {
+        title: "フリーランス",
+        items: [
+           { section: "パーソナルナレッジ" },
+          "プロフィール"
+        ]
+      },
+
+      individual: {
+        title: "個　人",
+        items: [
+           { section: "パーソナルナレッジ" },
+          "プロフィール",
+           { section: "目標管理" },
+          "ＭＢＯ一覧",
+           { section: "アセスメント" },
+          "３６０℃評価"
+        ]
+      },
+
+      supervisor: {
+        title: "管　理　者",
+        items: [
+           { section: "管理業務" },
+          "従業員一覧",
+          "経歴書一覧",
+          "職務経歴一覧",
+          "ＭＢＯ一覧",
+          "アセスメント一覧",
+           { section: "組織" },
+          "組織ツリー",
+          "配属シミュレーション",
+          "相性分析",
+           { section: "エンゲージメント" },
+          "パルスサーベイ",
+          "ストレスチェック"
+        ]
+      },
+
+      administrator: {
+        title: "システム管理者",
+        items: [
+           { section: "締め処理" },
+          "年度確定",
+           { section: "請求管理" },
+          "支払履歴（カード払い）",
+           { section: "情報管理" },
+          "設定"
+        ]
+      }
+
+    };
+
+    let currentMenu = null;
+
+    // ========== サブメニュー項目 → 作成済みページのリンク先（メニュー種別ごと） ==========
+    const PAGE_LINKS = {
+      "personal:プロフィール": "050_profile.html?c=2",
+      "individual:プロフィール": "050_profile.html?c=1",
+      "individual:ＭＢＯ一覧": "070_mbo_list.html",
+      "individual:３６０℃評価": "110_360_list.html",
+      "supervisor:従業員一覧": "090_employee_list.html",
+      "supervisor:経歴書一覧": "082_career_document_list.html",
+      "supervisor:職務経歴一覧": "084_work_history_list.html",
+      "supervisor:ＭＢＯ一覧": "070_mbo_list.html",
+      "supervisor:アセスメント一覧": "100_assessment_list.html",
+      "administrator:年度確定": "120_assessment_finalize.html",
+      "administrator:支払履歴（カード払い）": "130_billing_list.html",
+      "administrator:ユーザ一覧": "040_user_list.html",
+      "administrator:設定": "012_settings.html",
+    };
+
+    // ヘッダー・フッターが共通コンポーネント化済みのページ
+    // → 同一タブで遷移。未対応のページ → 別タブで開く
+    const UNIFIED_HEADER_PAGES = new Set([
+      "000_new_application.html",
+      "010_system_admin_registration.html",
+      "012_settings.html",
+      "040_user_list.html",
+      "042_user_registration.html",
+      "050_profile.html",
+      "060_work_history.html",
+      "070_mbo_list.html",
+      "072_mbo.html",
+      "080_career_document_individual.html",
+      "082_career_document_list.html",
+      "084_work_history_list.html",
+      "090_employee_list.html",
+      "100_assessment_list.html",
+      "110_360_list.html",
+      "120_assessment_finalize.html",
+      "130_billing_list.html",
+    ]);
+
+    function pageLinkAttrs(href) {
+      if (!href || href === "#") return "";
+      const file = href.split("?")[0].split("#")[0];
+      return UNIFIED_HEADER_PAGES.has(file) ? "" : 'target="_blank" rel="noopener"';
+    }
+
+    function openSubMenu(menu) {
+
+      document
+        .querySelectorAll("[data-menu]")
+        .forEach(btn => {
+
+          btn.classList.remove(
+            "bg-neutral-800",
+            "text-white"
+          );
+
+        });
+  
+      if (currentMenu === menu) {
+
+        currentMenu = null;
+
+        document
+          .querySelector(`[data-menu="${menu}"]`)
+          ?.classList.remove(
+            "bg-neutral-800",
+            "text-white"
+          );
+
+        subSidebar.classList.add("sub-sidebar-collapsed");
+
+        mainContent.style.marginLeft = "78px";
+        mainContent.style.width = "calc(100% - 80px)";
+
+        return;
+      }
+
+      currentMenu = menu;
+
+      document
+        .querySelector(`[data-menu="${menu}"]`)
+        ?.classList.add(
+          "bg-neutral-800",
+          "text-white"
+        );
+  
+      const data = menuData[menu];
+
+      if (!data) return;
+
+      subSidebarTitle.textContent = data.title;
+
+// ========================================
+// ダッシュボード表示切り替え
+// ========================================
+
+const assessmentSection =
+  document.getElementById("assessmentSection");
+
+const mboSection =
+  document.getElementById("mboSection");
+
+const mboSection2 =
+  document.getElementById("mboSection2");
+
+const chartSection =
+  document.getElementById("chartSection");
+
+const newsSection =
+  document.getElementById("newsSection");
+
+// ----------------------------------------
+// 個人
+// ----------------------------------------
+if (menu === "personal") {
+
+  if (todoSection)
+    todoSection.style.display = "";
+
+    if (assessmentSection)
+    assessmentSection.style.display = "";
+
+  if (mboSection)
+    mboSection.style.display = "none";
+
+  if (mboSection2)
+    mboSection2.style.display = "none";
+
+  if (chartSection)
+    chartSection.style.display = "";
+
+  if (todoSection2)
+    todoSection2.style.display = "none";
+
+  if (todoSection3)
+    todoSection3.style.display = "none";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "none";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "none";
+
+  if (newsSection)
+    newsSection.style.display = "";
+
+  }
+// ----------------------------------------
+// 企業【個人】
+// ----------------------------------------
+else if (menu === "individual") {
+
+  if (todoSection)
+    todoSection.style.display = "";
+
+    if (assessmentSection)
+    assessmentSection.style.display = "";
+
+  if (mboSection)
+    mboSection.style.display = "";
+
+  if (mboSection2)
+    mboSection2.style.display = "none";
+
+  if (chartSection)
+    chartSection.style.display = "";
+
+  if (todoSection2)
+    todoSection2.style.display = "none";
+
+  if (todoSection3)
+    todoSection3.style.display = "none";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "none";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "none";
+
+  if (newsSection)
+    newsSection.style.display = "";
+
+  }
+// ----------------------------------------
+// 企業【管理者】
+// ----------------------------------------
+else if (menu === "supervisor") {
+
+  if (todoSection)
+    todoSection.style.display = "none";
+
+  if (assessmentSection)
+    assessmentSection.style.display = "none";
+
+  if (mboSection)
+    mboSection.style.display = "none";
+
+  if (mboSection2)
+    mboSection2.style.display = "";
+
+  if (chartSection)
+    chartSection.style.display = "none";
+
+  if (todoSection2)
+    todoSection2.style.display = "";
+
+  if (todoSection3)
+    todoSection3.style.display = "none";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "none";
+
+  if (newsSection)
+    newsSection.style.display = "none";
+
+  }
+// ----------------------------------------
+// 企業【システム管理者】
+// ★ MBOだけ表示
+// ----------------------------------------
+else if (menu === "administrator") {
+
+  if (todoSection)
+    todoSection.style.display = "none";
+
+  if (assessmentSection)
+    assessmentSection.style.display = "none";
+
+  if (mboSection)
+    mboSection.style.display = "none";
+
+  if (mboSection2)
+    mboSection2.style.display = "none";
+
+  if (chartSection)
+    chartSection.style.display = "none";
+
+  if (todoSection2)
+    todoSection2.style.display = "none";
+
+  if (todoSection3)
+    todoSection3.style.display = "";
+
+  if (managerDashboard)
+    managerDashboard.style.display = "none";
+
+  if (systemDashboard)
+    systemDashboard.style.display = "";
+
+  if (newsSection)
+    newsSection.style.display = "none";
+
+}
+
+      subSidebarContent.innerHTML = "";
+
+      data.items.forEach(item => {
+
+        // タイトル行
+        if (typeof item === "object" && item.section) {
+
+          subSidebarContent.innerHTML += `
+            <div class="px-4 mt-2 mb-2">
+              <div class="flex items-center gap-2 py-2 border-b border-zinc-400">
+                <span class="
+                  text-xs
+                  text-zinc-400
+                  tracking-wider
+                  whitespace-nowrap">
+                  ${item.section}
+                </span>
+              </div>
+            </div>
+          `;
+
+          return;
+        }
+
+        // 通常メニュー
+        let clickAction = "";
+        const linkHref = PAGE_LINKS[menu + ':' + item] || "#";
+        const linkTarget = pageLinkAttrs(linkHref);
+
+        switch(item){
+
+            // ========================================
+            // プロフィール
+            // ========================================
+            // ========================================
+            // アセスメント
+            // ========================================
+            case "アセスメント":
+                clickAction =
+                  `onclick="scrollToSection('assessmentSection'); return false;"`;
+                break;
+
+            // ========================================
+            // ＭＢＯ
+            // ========================================
+            case "ＭＢＯ":
+                clickAction =
+                  `onclick="scrollToSection('mboSection'); return false;"`;
+                break;
+
+        }
+
+        subSidebarContent.innerHTML += `
+        <a href="${linkHref}"
+          ${linkTarget}
+          ${clickAction}
+          class="
+              block
+              px-4 py-3
+              mx-2 my-1
+              rounded
+              font-semibold 
+              hover:bg-amber-400
+              hover:text-white
+              transition-all">
+            ${item}
+        </a>
+        `;
+      });
+
+      subSidebar.classList.remove("sub-sidebar-collapsed");
+      mainContent.style.marginLeft = "290px";
+      mainContent.style.width = "calc(100% - 292px)";
+
+    }
+
+    function toggleSubSidebar() {
+
+      // 閉じる
+      if (!subSidebar.classList.contains("sub-sidebar-collapsed")) {
+
+        subSidebar.classList.add("sub-sidebar-collapsed");
+
+        mainContent.style.marginLeft = "78px";
+        mainContent.style.width = "calc(100% - 80px)";
+
+        return;
+      }
+
+      // 開く
+      subSidebar.classList.remove("sub-sidebar-collapsed");
+
+      mainContent.style.marginLeft = "290px";
+      mainContent.style.width = "calc(100% - 292px)";
+    }
+
+    function scrollToSection(id){
+
+        const scrollArea =
+            document.querySelector("#mainContent > section");
+
+        const target =
+            document.getElementById(id);
+
+        if(!scrollArea || !target){
+            console.log("見つかりません");
+            return;
+        }
+
+        const top =
+            target.offsetTop -60;
+
+        scrollArea.scrollTo({
+            top: top,
+            behavior: "smooth"
+        });
+
+    }
+
+  </script>
+
+  <script>
+
+  /* =========================================================
+    人材ポートフォリオ
+  ========================================================= */
+  const managerJobCtx =
+    document.getElementById('managerJobChart');
+
+  new Chart(managerJobCtx, {
+
+    type: 'doughnut',
+
+    data: {
+
+      labels: [
+        'SE',
+        'PG',
+        'PM',
+        '営業',
+        'その他'
+      ],
+
+      datasets: [{
+
+        data: [
+          8,
+          6,
+          2,
+          1,
+          1
+        ],
+
+        backgroundColor: [
+          '#ff6b00',
+          '#ff8a00',
+          '#ffad1f',
+          '#ffc94d',
+          '#ffe08a'
+        ],
+
+        borderColor: '#000000',
+
+        borderWidth: 1,
+
+        borderRadius: 0,
+
+        hoverOffset: 10
+
+      }]
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false,
+
+      cutout: '75%',
+
+      plugins: {
+
+        legend: {
+          position: 'bottom',
+
+          labels: {
+            usePointStyle: true,
+            padding: 12,
+            font: {
+              size: 11
+            },
+            color:'#FFFFFF'
+          }
+        },
+
+        tooltip: {
+
+          backgroundColor: '#18181B',
+
+          padding: 12,
+
+          cornerRadius: 10,
+
+          callbacks: {
+
+            label: function(context) {
+
+              const total =
+                context.dataset.data.reduce(
+                  (a, b) => a + b,
+                  0
+                );
+
+              const value = context.raw;
+
+              const percent =
+                ((value / total) * 100).toFixed(1);
+
+              return ` ${value}人  ${percent}%`;
+
+            }
+          }
+        }
+
+      },
+
+      animation: {
+        duration: 900,
+        easing: 'easeOutQuart'
+      }
+    }
+  });
+
+  /* =========================================================
+    職責ポートフォリオ
+  ========================================================= */
+  const responsibilitiesCtx =
+    document.getElementById('responsibilitiesChart');
+
+  new Chart(responsibilitiesCtx, {
+
+    type: 'doughnut',
+
+    data: {
+
+      labels: [
+        'ﾏﾈｰｼﾞｬ',
+        'Aﾏﾈｰｼﾞｬ',
+        'ﾁｰﾌ',
+        'Aﾁｰﾌ',
+        'ﾒﾝﾊﾞ'
+      ],
+
+      datasets: [{
+
+        data: [
+          1,
+          0,
+          1,
+          1,
+          15
+        ],
+
+        backgroundColor: [
+          '#ffe08a',
+          '#ffc94d',
+          '#ffad1f',
+          '#ff8a00',
+          '#ff6b00'
+        ],
+
+        borderColor: '#000000',
+
+        borderWidth: 1,
+
+        borderRadius: 0,
+
+        hoverOffset: 10
+
+      }]
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false,
+
+      cutout: '75%',
+
+      plugins: {
+
+        legend: {
+          position: 'bottom',
+
+          labels: {
+            usePointStyle: true,
+            padding: 12,
+            font: {
+              size: 11
+            },
+            color:'#FFFFFF'
+          }
+        },
+
+        tooltip: {
+
+          backgroundColor: '#18181B',
+
+          padding: 12,
+
+          cornerRadius: 10,
+
+          callbacks: {
+
+            label: function(context) {
+
+              const total =
+                context.dataset.data.reduce(
+                  (a, b) => a + b,
+                  0
+                );
+
+              const value = context.raw;
+
+              const percent =
+                ((value / total) * 100).toFixed(1);
+
+              return ` ${value}人  ${percent}%`;
+
+            }
+          }
+        }
+
+      },
+
+      animation: {
+        duration: 900,
+        easing: 'easeOutQuart'
+      }
+    }
+  });
+
+  /* =========================================================
+    人材マトリクス
+    X = 経験
+    Y = 能力
+  ========================================================= */
+  const matrixCtx =
+    document.getElementById('talentMatrixChart');
+
+  new Chart(matrixCtx, {
+
+    type: 'scatter',
+
+    data: {
+
+      datasets: [{
+
+        label: '社員',
+
+        data: [
+
+          { x: 1,  y: 26 },
+          { x: 2,  y: 42 },
+          { x: 3,  y: 51 },
+          { x: 4,  y: 57 },
+          { x: 5,  y: 63 },
+          { x: 6,  y: 68 },
+          { x: 7,  y: 72 },
+          { x: 8,  y: 78 },
+          { x: 9,  y: 81 },
+          { x: 10, y: 85 },
+          { x: 11, y: 83 },
+          { x: 12, y: 91 },
+          { x: 13, y: 88 },
+          { x: 14, y: 79 },
+          { x: 15, y: 94 }
+        ],
+
+        backgroundColor: '#fbbf24',
+
+        pointRadius: 4,
+
+        pointHoverRadius: 11
+
+      }]
+
+    },
+
+    options: {
+
+      responsive: true,
+
+      maintainAspectRatio: false,
+
+      scales: {
+
+        x: {
+
+          min: 0,
+          max: 16,
+
+          ticks:{
+            color:'#FFFFFF'
+          },
+
+          title: {
+            display: true,
+            text: '経験年数',
+            color:'#FFFFFF'
+          },
+
+
+        },
+
+        y: {
+
+          min: 0,
+          max: 100,
+
+          ticks:{
+            stepSize: 10,
+            color:'#FFFFFF'
+          },
+
+          title: {
+            display: true,
+            text: '能力スコア',
+            color:'#FFFFFF'
+          },
+
+          grid: {
+            color: '#F3F4F6'
+          }
+
+        }
+
+      },
+
+      plugins: {
+
+        legend: {
+          display: false,
+
+        },
+
+        tooltip: {
+
+          backgroundColor: '#18181B',
+          padding: 12,
+          cornerRadius: 10,
+
+          callbacks: {
+
+            label: function(context) {
+
+              return [
+                `経験：${context.parsed.x}年`,
+                `能力：${context.parsed.y}`
+              ];
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  });
+
+  </script>
+
+  <script>
+
+    /* =========================================================
+      ベンチマーク比較
+    ========================================================= */
+
+    /*
+      データ構造
+      大分類 → 中分類 → 小分類
+
+      items:
+      [小分類コード, 小分類名, 自社スコア, ベンチマーク]
+
+      ※ スコアは表示確認用のサンプル値
+    */
+
+    const benchmarkData = [
+
+      {
+        name: "一般",
+        role: "",
+        categories: [
+          { code: "A", name: "基礎力", items: [
+            ["A1","仕事の取り組む姿勢",68,65],
+            ["A2","仕事の取り組み方",75,70],
+            ["A3","ビジネスレター",82,75]
+          ]},
+          { code: "B", name: "応用力", items: [
+            ["B1","未経験の仕事",89,80]
+          ]},
+          { code: "C", name: "コミュニケーション", items: [
+            ["C1","対話力",96,85],
+            ["C2","報・連・相",74,90],
+            ["C3","エスカレーション",81,68]
+          ]},
+          { code: "D", name: "企業人意識", items: [
+            ["D1","振る舞い",88,73],
+            ["D2","倫理観",95,78]
+          ]},
+          { code: "E", name: "自己啓発", items: [
+            ["E1","ナレッジ",73,83],
+            ["E2","資格(IT関連)",80,88],
+            ["E3","資格（IT以外）",87,66]
+          ]},
+          { code: "F", name: "プレゼンテーション", items: [
+            ["F1","運営",94,71],
+            ["F2","資料のクオリティ",72,76]
+          ]},
+          { code: "G", name: "運営・参加", items: [
+            ["G1","会の運営",79,81]
+          ]},
+          { code: "H", name: "業務改善", items: [
+            ["H1","企業貢献",86,86]
+          ]}
+        ]
+      },
+
+      {
+        name: "指導",
+        role: "副主任・主任",
+        categories: [
+          { code: "I", name: "実務", items: [
+            ["I1","高い実務遂行力",93,91],
+            ["I2","高い問題解決力",71,69]
+          ]},
+          { code: "J", name: "上司や管理職のサポート", items: [
+            ["J1","上司と部下のパイプ役",78,74],
+            ["J2","上長の仕事のサポート",85,79]
+          ]},
+          { code: "K", name: "メンバーの指導", items: [
+            ["K1","一般職員の管理・指導",92,84]
+          ]}
+        ]
+      },
+
+      {
+        name: "管理補佐",
+        role: "アシスタントマネージャー",
+        categories: [
+          { code: "L", name: "仕事の創出", items: [
+            ["L1","仕事の規模を発展",70,89]
+          ]},
+          { code: "M", name: "実務", items: [
+            ["M1","部下の模範となる現場プレイヤー",77,67]
+          ]},
+          { code: "N", name: "責任者としての対応", items: [
+            ["N1","組織のパイプ役",84,72],
+            ["N2","上長の仕事のサポート",91,77]
+          ]},
+          { code: "O", name: "メンバーのマネジメント", items: [
+            ["O1","部下の業務遂行及び管理",69,82],
+            ["O2","部下の人材育成",76,87]
+          ]}
+        ]
+      },
+
+      {
+        name: "管理",
+        role: "マネージャ・次長",
+        categories: [
+          { code: "P", name: "課の仕事の創出", items: [
+            ["P1","新しい事業開拓",83,65],
+            ["P2","方針策定",90,70]
+          ]},
+          { code: "Q", name: "課の仕事の管理", items: [
+            ["Q1","業績",68,75],
+            ["Q2","金額の承認・決裁・内容の妥当性・契約責任",75,80],
+            ["Q3","運営",82,85]
+          ]},
+          { code: "R", name: "責任者としての対応", items: [
+            ["R1","対内的対応",89,90],
+            ["R2","対外的対応",96,68],
+            ["R3","ネゴシエーション",74,73],
+            ["R4","上長の仕事のサポート",81,78]
+          ]},
+          { code: "S", name: "メンバーのマネジメント", items: [
+            ["S1","部下の仕事の割り振り・指示・伝達",88,83],
+            ["S2","部下の管理",95,88],
+            ["S3","部下の労務管理",73,66],
+            ["S4","部下の育成",80,71],
+            ["S5","部下の評価",87,76]
+          ]}
+        ]
+      },
+
+      {
+        name: "経営",
+        role: "部長",
+        categories: [
+          { code: "T", name: "部の仕事の創出", items: [
+            ["T1","事業開拓・拡大",94,81],
+            ["T2","方針策定",72,86],
+            ["T3","組織作り",79,91]
+          ]},
+          { code: "U", name: "部の仕事の管理", items: [
+            ["U1","業績",86,69],
+            ["U2","金額の承認・決裁・内容の妥当性・契約責任",93,74],
+            ["U3","運営",71,79]
+          ]},
+          { code: "W", name: "責任者としての対応", items: [
+            ["W1","対内的対応",78,84],
+            ["W2","対外的対応",85,89]
+          ]},
+          { code: "X", name: "メンバーのマネジメント", items: [
+            ["X1","部下の管理",92,67],
+            ["X2","部下の査定",70,72]
+          ]}
+        ]
+      }
+
+    ];
+
+
+    /* ---------------------------------------------------------
+      平均値計算
+    --------------------------------------------------------- */
+
+    function benchmarkAverage(items, index) {
+
+      if (!items.length) return 0;
+
+      const total = items.reduce((sum, item) => {
+        return sum + item[index];
+      }, 0);
+
+      return total / items.length;
+    }
+
+
+    /* ---------------------------------------------------------
+      数値表示
+    --------------------------------------------------------- */
+
+    function benchmarkNumber(value) {
+      return value.toFixed(1);
+    }
+
+
+    /* ---------------------------------------------------------
+      乖離バー作成
+    --------------------------------------------------------- */
+
+    function createBenchmarkBar(score, benchmark) {
+
+      // 0～100の範囲に制限
+      const ownScore = Math.max(0, Math.min(100, score));
+      const benchmarkScore = Math.max(0, Math.min(100, benchmark));
+
+      // 自社スコアがベンチマーク以上ならオレンジ
+      const barClass = ownScore >= benchmarkScore
+        ? "benchmark-diff-positive"
+        : "benchmark-diff-negative";
+
+      return `
+        <div class="benchmark-diff-track">
+
+          <!-- 自社スコア -->
+          <div
+            class="benchmark-diff-bar ${barClass}"
+            style="width:${ownScore}%;">
+          </div>
+
+          <!-- ベンチマークの縦線 -->
+          <div
+            class="benchmark-diff-center"
+            style="left:${benchmarkScore}%;">
+          </div>
+
+        </div>
+      `;
+    }
+
+
+    /* ---------------------------------------------------------
+      差異表示
+    --------------------------------------------------------- */
+    function createBenchmarkGap(diff) {
+
+      const cls = diff > 0
+        ? "benchmark-gap-positive"
+        : diff < 0
+          ? "benchmark-gap-negative"
+          : "benchmark-gap-zero";
+
+      const sign = diff > 0 ? "+" : "";
+
+      return `
+        <span class="${cls} font-bold tabular-nums">
+          ${sign}${benchmarkNumber(diff)}
+        </span>
+      `;
+    }
+
+
+    /* ---------------------------------------------------------
+      テーブル行作成
+    --------------------------------------------------------- */
+
+    function createBenchmarkRow(
+      level,
+      code,
+      name,
+      score,
+      benchmark,
+      extraClass = "",
+      toggleId = "",
+      parentId = ""
+    ) {
+
+      const diff = score - benchmark;
+
+      let title = "";
+
+      if (level === "big") {
+        title = `
+          <button
+            type="button"
+            class="benchmark-toggle font-bold text-zinc-800"
+            onclick="toggleBenchmark('${toggleId}')">
+
+            <span class="benchmark-arrow open"
+                  id="arrow-${toggleId}">▶</span>
+
+            <span>${name}</span>
+
+            ${code ? `
+              <span class="text-[10px] text-zinc-400 font-normal">
+                ${code}
+              </span>
+            ` : ""}
+          </button>
+        `;
+      }
+
+      else if (level === "middle") {
+        title = `
+          <button
+            type="button"
+            class="benchmark-toggle font-semibold text-zinc-700 pl-5"
+            onclick="toggleBenchmark('${toggleId}')">
+
+            <span class="benchmark-arrow"
+                  id="arrow-${toggleId}">▶</span>
+
+            <span class="benchmark-code">${code}</span>
+
+            <span>${name}</span>
+          </button>
+        `;
+      }
+
+      else {
+        title = `
+          <div class="flex items-center gap-2 pl-12 text-zinc-600">
+            <span class="benchmark-code">${code}</span>
+            <span>${name}</span>
+          </div>
+        `;
+      }
+
+      return `
+        <tr
+          class="${extraClass}"
+          ${level !== "big" ? `data-parent="${parentId}"` : ""}
+          ${level === "small" ? `data-level="small"` : ""}
+          >
+
+          <td class="px-3">
+            ${title}
+          </td>
+
+          <td class="text-center">
+            <span class="benchmark-score text-zinc-700">
+              ${benchmarkNumber(score)}
+            </span>
+          </td>
+
+          <td class="text-center">
+            <span class="text-zinc-500 tabular-nums">
+              ${benchmarkNumber(benchmark)}
+            </span>
+          </td>
+
+          <td class="px-4">
+            ${createBenchmarkBar(score, benchmark)}
+          </td>
+
+          <td class="text-center">
+            ${createBenchmarkGap(diff)}
+          </td>
+
+        </tr>
+      `;
+    }
+
+
+    /* ---------------------------------------------------------
+      テーブル描画
+    --------------------------------------------------------- */
+
+    function renderBenchmarkTable() {
+
+      const tbody =
+        document.getElementById("benchmarkTableBody");
+
+      if (!tbody) return;
+
+      let html = "";
+
+      benchmarkData.forEach((big, bigIndex) => {
+
+        const bigId = `big-${bigIndex}`;
+
+        const allItems = big.categories.flatMap(
+          category => category.items
+        );
+
+        const bigScore =
+          benchmarkAverage(allItems, 2);
+
+        const bigBenchmark =
+          benchmarkAverage(allItems, 3);
+
+        // 大分類
+        html += createBenchmarkRow(
+          "big",
+          "",
+          big.name + (big.role ? `（${big.role}）` : ""),
+          bigScore,
+          bigBenchmark,
+          "benchmark-big-row",
+          bigId
+        );
+
+        big.categories.forEach((middle, middleIndex) => {
+
+          const middleId = `${bigId}-middle-${middleIndex}`;
+
+          const middleScore =
+            benchmarkAverage(middle.items, 2);
+
+          const middleBenchmark =
+            benchmarkAverage(middle.items, 3);
+
+          // 中分類
+          html += createBenchmarkRow(
+            "middle",
+            middle.code,
+            middle.name,
+            middleScore,
+            middleBenchmark,
+            "benchmark-middle-row",
+            middleId,
+            bigId
+          );
+
+          middle.items.forEach(item => {
+
+            // 小分類
+            html += createBenchmarkRow(
+              "small",
+              item[0],
+              item[1],
+              item[2],
+              item[3],
+              "benchmark-small-row",
+              "",
+              middleId
+            );
+
+          });
+
+        });
+
+      });
+
+      tbody.innerHTML = html;
+
+      // 初期状態：大分類は展開、中分類は折りたたみ
+      document.querySelectorAll(
+        '#benchmarkTableBody tr[data-parent]'
+      ).forEach(row => {
+        row.style.display = "none";
+      });
+
+      document.querySelectorAll(
+        '#benchmarkTableBody .benchmark-big-row .benchmark-arrow'
+      ).forEach(arrow => {
+        arrow.classList.add("open");
+      });
+
+    }
+
+
+    /* ---------------------------------------------------------
+      展開・折りたたみ
+    --------------------------------------------------------- */
+
+    function toggleBenchmark(id) {
+
+      const arrow =
+        document.getElementById(`arrow-${id}`);
+
+      const isOpen =
+        arrow.classList.contains("open");
+
+      arrow.classList.toggle("open", !isOpen);
+
+      // 対象階層の行を表示・非表示
+      document.querySelectorAll(
+        `#benchmarkTableBody tr[data-parent="${id}"]`
+      ).forEach(row => {
+
+        row.style.display = isOpen ? "none" : "";
+
+        // 中分類を閉じたら小分類も閉じる
+        if (isOpen && row.dataset.level === "small") {
+          row.style.display = "none";
+        }
+
+      });
+
+      // 大分類を閉じた場合、配下の中分類も閉じた状態にする
+      if (id.startsWith("big-") && isOpen) {
+
+        document.querySelectorAll(
+          `#benchmarkTableBody tr[data-level="small"]`
+        ).forEach(row => {
+
+          const parentMiddle = row.dataset.parent;
+
+          const middleRow = document.querySelector(
+            `#benchmarkTableBody tr[data-parent="${id}"] button[onclick="toggleBenchmark('${parentMiddle}')"]`
+          );
+
+          if (middleRow) {
+            const middleArrow =
+              document.getElementById(`arrow-${parentMiddle}`);
+
+            if (middleArrow) {
+              middleArrow.classList.remove("open");
+            }
+          }
+
+        });
+
+      }
+
+    }
+
+
+    /* ---------------------------------------------------------
+      全展開
+    --------------------------------------------------------- */
+
+    function expandAllBenchmark() {
+
+      document.querySelectorAll(
+        "#benchmarkTableBody tr[data-parent]"
+      ).forEach(row => {
+        row.style.display = "";
+      });
+
+      document.querySelectorAll(
+        "#benchmarkTableBody .benchmark-arrow"
+      ).forEach(arrow => {
+        arrow.classList.add("open");
+      });
+
+    }
+
+
+    /* ---------------------------------------------------------
+      全折りたたみ
+    --------------------------------------------------------- */
+
+    function collapseAllBenchmark() {
+
+      document.querySelectorAll(
+        "#benchmarkTableBody tr[data-parent]"
+      ).forEach(row => {
+        row.style.display = "none";
+      });
+
+      document.querySelectorAll(
+        "#benchmarkTableBody .benchmark-arrow"
+      ).forEach(arrow => {
+        arrow.classList.remove("open");
+      });
+
+    }
+
+
+    /* ---------------------------------------------------------
+      初期化
+    --------------------------------------------------------- */
+
+    renderBenchmarkTable();
+
+  </script>
+
+</body>
+</html>

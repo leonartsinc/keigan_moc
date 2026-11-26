@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>慧眼（egen）｜MBO画面</title>
+  <link rel="icon" href="img/siteicon.png" sizes="192x192" />
+  <link rel="stylesheet" href="css/topstyle.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/component-v3.css">
+  <link rel="stylesheet" href="css/072_mbo.css">
+  <link rel="stylesheet" href="css/theme-dark.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { overflow-y: auto; height: auto; }
+    /* body をスクロールコンテナにすると sticky が効かないため、見た目は hidden と同じ clip にする */
+    body { overflow: clip; height: auto; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div id="app-header"></div>
+
+  <div id="mainContent" class="pt-14 min-h-screen flex flex-col transition-all duration-300" style="margin-left:78px; width:calc(100% - 80px);">
+
+    <main class="max-w-6xl mx-auto px-4 pb-5 flex-1 w-full">
+
+      <!-- Layout: MboPageHead（ぱんくず＋タイトル＋上部ボタン：ヘッダー直下に固定） -->
+      <div class="mbo-page-head">
+
+      <!-- Component: MboBreadcrumb -->
+      <div class="site-breadcrumb">
+        <a href="070_mbo_list.html" class="hover:text-orange-400 transition">MBO一覧</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>MBO</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="is-current" id="mbo-breadcrumb-mode">編集</span>
+      </div>
+      <!-- /Component: MboBreadcrumb -->
+
+      <!-- Component: MboTopBar -->
+      <div class="mbo-topbar">
+        <div class="mbo-topbar-left">
+          <span class="mbo-topbar-title">MBO</span>
+          <span class="mbo-person-name">獅子　太郎</span>
+          <span class="mbo-person-company">株式会社△△△△△△</span>
+        </div>
+        <div class="mbo-topbar-right">
+          <span class="mbo-year-label">年度</span>
+          <span class="mbo-year-value" id="mbo-year">2026(25/4-26/3)</span>
+          <span class="mbo-status-badge is-pending" id="mbo-status-badge">未承認</span>
+        </div>
+      </div>
+      <!-- /Component: MboTopBar -->
+
+      <!-- Component: MboActionButtons -->
+      <div class="mbo-actions-bar" id="mbo-actions-bar">
+        <button type="button" class="mbo-btn mbo-btn-save" onclick="submitMbo()">
+          <i class="fa-solid fa-floppy-disk"></i>保存
+        </button>
+        <button type="button" class="mbo-btn mbo-btn-cancel" onclick="cancelMbo()">
+          <i class="fa-solid fa-xmark"></i>キャンセル
+        </button>
+      </div>
+      <!-- /Component: MboActionButtons -->
+
+      </div>
+      <!-- /Layout: MboPageHead -->
+
+      <!-- Component: MboContent -->
+      <div class="w-full">
+
+          <!-- Section: 年間目標 -->
+          <section id="mbo-sec-main" class="mbo-panel">
+            <div class="mbo-panel-title">
+              <span>年間目標</span>
+              <button type="button" class="mbo-panel-toggle-btn" onclick="toggleAnnualGoalEdit()" title="編集に切り替え">
+                <i class="fa-solid fa-pen" id="mbo-annual-goal-toggle-icon"></i>
+              </button>
+            </div>
+
+            <div class="mbo-annual-goal-body" id="mbo-annual-goal-body">
+
+              <!-- Component: MboVisionRow（5年後VISON／自分VISON） -->
+              <div class="mbo-vision-row">
+                <div class="mbo-vision-box">
+                  <div class="mbo-vision-box-title" id="mbo-vision-year-age-label"></div>
+                  <textarea class="mbo-textarea mbo-vision-summary" rows="2">プロジェクトにPLとして参画できるスキルを取得</textarea>
+                  <div class="mbo-goal-row">
+                    <input type="text" class="mbo-goal-label-input" value="ゴール">
+                    <textarea class="mbo-textarea mbo-goal-list" rows="7">①１つ１つの仕事に対して最適解を見つけられる
+　-思考スピード向上、思考の幅が広がる
+②スケジュール管理力向上
+③人員までの全体計画立案、推し進める能力向上
+　-個人の成長を促せる
+④品質管理力向上</textarea>
+                  </div>
+                </div>
+
+                <div class="mbo-vision-box">
+                  <input type="text" class="mbo-vision-box-title-input" value="自分　VISON（最終ゴール）">
+                  <textarea class="mbo-textarea mbo-vision-summary" rows="2"></textarea>
+                  <div class="mbo-vision-question">どうなりたいか？</div>
+                  <div class="mbo-goal-row">
+                    <input type="text" class="mbo-goal-label-input" value="ゴール">
+                    <textarea class="mbo-textarea mbo-goal-list" rows="7">①50代、60代で食うに困らないスキルの習得（PL、PMとしてのスキル取得）
+②
+③
+④
+⑤</textarea>
+                  </div>
+                </div>
+              </div>
+              <!-- /Component: MboVisionRow -->
+
+              <!-- Component: MboBreakdownNote -->
+              <div class="mbo-breakdown-note">
+                <i class="fa-solid fa-arrow-down"></i>
+                １年単位にブレイクダウンしたVISON
+              </div>
+              <!-- /Component: MboBreakdownNote -->
+
+              <!-- Component: MboVisionRow（今期のMY VISON／ゴール） -->
+              <div class="mbo-vision-row">
+                <div class="mbo-vision-box">
+                  <div class="mbo-vision-box-title">今期のMY　VISON</div>
+                  <textarea class="mbo-textarea mbo-goal-list" rows="4">インダストリーズ　主任
+スペシャリスト</textarea>
+                </div>
+
+                <div class="mbo-vision-box">
+                  <input type="text" class="mbo-vision-box-title-input" value="ゴール">
+                  <textarea class="mbo-textarea mbo-goal-list" rows="4">①思考の幅が広がる⇒他者からの意見を鵜呑みせず、１つ１つ紐解く。目指すべきゴールを正しく理解する
+②説明下手からの脱却
+③現PJ（もしくは別のNESのPJ）での増員</textarea>
+                </div>
+              </div>
+              <!-- /Component: MboVisionRow -->
+
+              <!-- Component: MboSubtitle -->
+              <div class="mbo-subtitle-row">
+                <div class="mbo-subtitle">今期のMY　VISONを達成するために修得すること</div>
+                <button type="button" id="mbo-add-row-btn" class="mbo-add-row-btn" onclick="addMboChallengeRow()" title="新規行追加">
+                  <i class="fa-solid fa-plus"></i>
+                </button>
+              </div>
+              <!-- /Component: MboSubtitle -->
+
+              <!-- Component: MboChallengeTable（課題／定量ゴール／アクションプラン／重点項目・リスク） -->
+              <div class="mbo-challenge-wrap">
+                <table class="mbo-challenge-table">
+                  <thead>
+                    <tr>
+                      <th>課題</th>
+                      <th>定量ゴール</th>
+                      <th>アクションプラン</th>
+                      <th>重点項目・リスク</th>
+                      <th class="mbo-col-center"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="mbo-challenge-body"></tbody>
+                </table>
+              </div>
+              <!-- /Component: MboChallengeTable -->
+
+            </div>
+          </section>
+          <!-- /Section: 年間目標 -->
+
+          <!-- Component: MboCommentList -->
+          <div class="mbo-comment-list" id="mbo-comment-list"></div>
+          <!-- /Component: MboCommentList -->
+
+          <!-- Component: MboCommentInput（編集・新規・面談結果モードで入力可：コメント入力／承認モードは承認コメント） -->
+          <div class="mbo-reply-indicator hidden" id="mbo-reply-indicator"></div>
+          <div class="mbo-comment-input-label hidden" id="mbo-comment-input-label"></div>
+          <div class="mbo-comment-input-row" id="mbo-comment-input-row">
+            <textarea id="mbo-comment-input" class="mbo-textarea mbo-comment-textarea" rows="3" placeholder="コメントを入力してください" disabled></textarea>
+            <button type="button" id="mbo-comment-submit-btn" class="mbo-btn mbo-btn-save" onclick="submitMboComment()" disabled>
+              <i class="fa-solid fa-comment-dots"></i><span id="mbo-comment-submit-label">コメントを追加</span>
+            </button>
+
+            <!-- Component: MboApprovalActions（承認モードのみ表示） -->
+            <div class="mbo-approval-actions hidden" id="mbo-approval-actions">
+              <button type="button" id="mbo-approve-btn" class="mbo-btn mbo-btn-save" onclick="submitMboApproval('approved')">
+                <i class="fa-solid fa-check"></i>承認
+              </button>
+              <button type="button" id="mbo-reject-btn" class="mbo-btn mbo-btn-reject" onclick="submitMboApproval('rejected')">
+                <i class="fa-solid fa-rotate-left"></i>差し戻し
+              </button>
+            </div>
+            <!-- /Component: MboApprovalActions -->
+          </div>
+          <!-- /Component: MboCommentInput -->
+
+
+      </div>
+      <!-- /Component: MboContent -->
+
+    </main>
+
+    <div id="app-footer"></div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+    mountHeader('MBO画面');
+    mountFooter();
+
+    // ========== 保存・キャンセル ==========
+    function submitMbo() {
+      alert("MBOを保存しました（モック）");
+    }
+
+    function cancelMbo() {
+      alert("入力内容をキャンセルしました（モック）");
+    }
+
+    // ========== 年度（ラベル表示・固定） ==========
+    // 生年（1975年）は 050_profile.html の獅子太郎の生年月日（1975/04/02）に合わせている
+    const MBO_BIRTH_YEAR = 1975;
+
+    const MBO_DEFAULT_YEAR = "2026(25/4-26/3)";
+
+    // 070 からの遷移時は year パラメータ、未指定時は既定年度をラベルに表示する
+    function applyYearParam() {
+      const year = new URLSearchParams(window.location.search).get("year");
+      document.getElementById("mbo-year").textContent = year || MBO_DEFAULT_YEAR;
+    }
+
+    function getSelectedFiscalYear() {
+      return parseInt(document.getElementById("mbo-year").textContent, 10);
+    }
+
+    function updateVisionYearAgeLabel() {
+      const targetYear = getSelectedFiscalYear() + 5;
+      const targetAge = targetYear - MBO_BIRTH_YEAR;
+      document.getElementById("mbo-vision-year-age-label").textContent =
+        `${targetYear}年　MY　VISON（5年後＝${targetAge}歳）`;
+    }
+
+
+    // ========== 年間目標：編集／照会切り替え ==========
+    let mboAnnualGoalEditable = false;
+
+    function toggleAnnualGoalEdit() {
+      if (!getMboModeConfig().goalToggle) return;
+      mboAnnualGoalEditable = !mboAnnualGoalEditable;
+      document.querySelectorAll("#mbo-annual-goal-body textarea, #mbo-annual-goal-body input[type=text]").forEach(el => {
+        el.disabled = !mboAnnualGoalEditable;
+      });
+      document.getElementById("mbo-add-row-btn").disabled = !mboAnnualGoalEditable;
+      renderMboChallengeTable();
+      const icon = document.getElementById("mbo-annual-goal-toggle-icon");
+      icon.classList.toggle("fa-pen", !mboAnnualGoalEditable);
+      icon.classList.toggle("fa-eye", mboAnnualGoalEditable);
+      document.getElementById("mbo-breadcrumb-mode").textContent = mboAnnualGoalEditable ? "編集" : "照会";
+    }
+
+    // ========== モックデータ：課題／定量ゴール／アクションプラン／重点項目・リスク ==========
+    const MBO_CHALLENGES = [
+      {
+        issue: "・課題に対して正しいアプローチ（正解を導き基礎力\n関係各所を巻き込み、ストレスを与えない）",
+        quantGoal: "を1最短で仕事を終わらせる　　０．１点\n対話力\n　　曖昧な表現の質問に対しても、質０．２点",
+        actionPlan: "あいまいな指示に対してそのまま受け取るのではなく、\nゴールや、ゴールへの必要な作業をその場で共有できるよう心掛ける\n課題解決のキーマンをいち早く巻き込む",
+        focus: "",
+      },
+      { issue: "", quantGoal: "", actionPlan: "", focus: "" },
+    ];
+    const MBO_CHALLENGE_KEYS = ["issue", "quantGoal", "actionPlan", "focus"];
+    const MBO_CHALLENGE_MIN_ROWS = 3;
+    while (MBO_CHALLENGES.length < MBO_CHALLENGE_MIN_ROWS) {
+      MBO_CHALLENGES.push({ issue: "", quantGoal: "", actionPlan: "", focus: "" });
+    }
+
+    function renderMboChallengeTable() {
+      const disabledAttr = mboAnnualGoalEditable ? "" : "disabled";
+      const atMinimum = MBO_CHALLENGES.length <= MBO_CHALLENGE_MIN_ROWS;
+      const tbody = document.getElementById("mbo-challenge-body");
+      tbody.innerHTML = MBO_CHALLENGES.map((row, idx) => {
+        const deleteIcon = !mboAnnualGoalEditable
+          ? ""
+          : `<i class="fa-solid fa-xmark mbo-row-delete-icon ${atMinimum ? "is-disabled" : ""}"
+                onclick="deleteMboChallengeRow(${idx})"
+                title="${atMinimum ? `最低${MBO_CHALLENGE_MIN_ROWS}行は必要です` : "行を削除"}"></i>`;
+        return `
+        <tr>
+          ${MBO_CHALLENGE_KEYS.map(key => `
+            <td><textarea class="mbo-inp" rows="4" ${disabledAttr}
+                  onchange="updateMboChallengeCell(${idx}, '${key}', this.value)">${row[key]}</textarea></td>`).join("")}
+          <td class="mbo-col-center">${deleteIcon}</td>
+        </tr>`;
+      }).join("");
+    }
+
+    function updateMboChallengeCell(idx, key, value) {
+      MBO_CHALLENGES[idx][key] = value;
+    }
+
+    function addMboChallengeRow() {
+      if (!mboAnnualGoalEditable) return;
+      MBO_CHALLENGES.push({ issue: "", quantGoal: "", actionPlan: "", focus: "" });
+      renderMboChallengeTable();
+    }
+
+    function deleteMboChallengeRow(idx) {
+      if (MBO_CHALLENGES.length <= MBO_CHALLENGE_MIN_ROWS) return;
+      MBO_CHALLENGES.splice(idx, 1);
+      renderMboChallengeTable();
+    }
+
+    // ========== モックデータ：コメント ==========
+    const MBO_COMMENTS = [
+      { author: "木田　清春", datetime: "2026/05/12 11:31:22", text: "内容に齟齬があるので差し戻しました。", collapsed: false },
+    ];
+
+    // コメントは replyTo（返信元のインデックス）を辿って親の直下にインデント表示する
+    function renderMboComments() {
+      const el = document.getElementById("mbo-comment-list");
+      const childrenOf = {};
+      MBO_COMMENTS.forEach((c, idx) => {
+        const parent = c.replyTo !== undefined ? c.replyTo : "root";
+        (childrenOf[parent] = childrenOf[parent] || []).push(idx);
+      });
+
+      const renderNode = (idx, depth) => {
+        const c = MBO_COMMENTS[idx];
+        const replyBtn = getMboModeConfig().reply
+          ? `<button type="button" class="mbo-comment-reply-btn" onclick="replyToMboComment(${idx}, event)" title="このコメントに返信">
+              <i class="fa-solid fa-reply"></i>返信
+            </button>`
+          : "";
+        const row = `
+        <div class="mbo-comment ${depth > 0 ? "is-reply" : ""} ${c.collapsed ? "is-collapsed" : ""}" style="margin-left: ${depth * 22}px;">
+          <div class="mbo-comment-header" onclick="toggleMboComment(${idx})">
+            <span class="mbo-comment-author">${c.author}</span>
+            <span class="mbo-comment-datetime">${c.datetime}</span>
+            ${replyBtn}
+            <i class="fa-solid fa-chevron-down mbo-comment-toggle"></i>
+          </div>
+          <div class="mbo-comment-body">${c.text}</div>
+        </div>`;
+        const children = (childrenOf[idx] || []).map(childIdx => renderNode(childIdx, depth + 1)).join("");
+        return row + children;
+      };
+
+      el.innerHTML = (childrenOf["root"] || []).map(idx => renderNode(idx, 0)).join("");
+    }
+
+    function toggleMboComment(idx) {
+      MBO_COMMENTS[idx].collapsed = !MBO_COMMENTS[idx].collapsed;
+      renderMboComments();
+    }
+
+    // ========== コメントへの返信 ==========
+    let mboReplyToIndex = null;
+
+    function replyToMboComment(idx, event) {
+      event.stopPropagation();
+      mboReplyToIndex = idx;
+      renderMboReplyIndicator();
+      document.getElementById("mbo-comment-input").focus();
+    }
+
+    function cancelMboCommentReply() {
+      mboReplyToIndex = null;
+      renderMboReplyIndicator();
+    }
+
+    function renderMboReplyIndicator() {
+      const bar = document.getElementById("mbo-reply-indicator");
+      const submitBtn = document.getElementById("mbo-comment-submit-btn");
+      const isReplying = mboReplyToIndex !== null;
+
+      submitBtn.innerHTML = isReplying
+        ? '<i class="fa-solid fa-reply"></i>返信'
+        : '<i class="fa-solid fa-comment-dots"></i>コメントを追加';
+
+      if (!isReplying) {
+        bar.classList.add("hidden");
+        bar.innerHTML = "";
+        return;
+      }
+      const target = MBO_COMMENTS[mboReplyToIndex];
+      bar.classList.remove("hidden");
+      bar.innerHTML = `
+        <i class="fa-solid fa-reply"></i>
+        <span>${target.author}さんのコメントに返信</span>
+        <button type="button" onclick="cancelMboCommentReply()" title="返信を取り消す">×</button>
+      `;
+    }
+
+    // 編集・承認・新規モード：下部のコメント入力欄から新しいコメントを追加する
+    const MBO_APPROVER_NAME = "木田　清春";
+
+    // 投稿者名：承認・面談結果モードは承認者（面談者）、編集・新規モードは本人（トップバーの氏名）
+    function getCommentAuthorName() {
+      return getMboModeConfig().author === "approver"
+        ? MBO_APPROVER_NAME
+        : document.querySelector(".mbo-person-name").textContent;
+    }
+
+    // ========== 承認モード：承認コメント（承認／差し戻し） ==========
+    const MBO_APPROVAL_RESULT = {
+      approved: { label: "承認", badgeText: "承認済み", badgeClass: "is-approved" },
+      rejected: { label: "差し戻し", badgeText: "差し戻し", badgeClass: "is-rejected" },
+    };
+
+    // 状態：承認操作を完了したか（完了後は承認コメント欄を無効化）
+    let mboApprovalDone = false;
+
+    function submitMboApproval(result) {
+      if (mboApprovalDone) return;
+      const textarea = document.getElementById("mbo-comment-input");
+      const text = textarea.value.trim();
+      const r = MBO_APPROVAL_RESULT[result];
+      if (result === "rejected" && !text) {
+        alert("差し戻しの場合は承認コメントを入力してください。");
+        textarea.focus();
+        return;
+      }
+      MBO_COMMENTS.push({
+        author: MBO_APPROVER_NAME,
+        datetime: new Date().toLocaleString("ja-JP"),
+        text: `【${r.label}】${text}`,
+        collapsed: false,
+      });
+      const badge = document.getElementById("mbo-status-badge");
+      badge.textContent = r.badgeText;
+      badge.className = `mbo-status-badge ${r.badgeClass}`;
+      textarea.value = "";
+      mboApprovalDone = true;
+      renderMboComments();
+      applyMboModeState();
+    }
+
+    function submitMboComment() {
+      const textarea = document.getElementById("mbo-comment-input");
+      const text = textarea.value.trim();
+      if (!text) return;
+      const entry = {
+        author: getCommentAuthorName(),
+        datetime: new Date().toLocaleString("ja-JP"),
+        text,
+        collapsed: false,
+      };
+      if (mboReplyToIndex !== null) entry.replyTo = mboReplyToIndex;
+      MBO_COMMENTS.push(entry);
+      renderMboComments();
+      textarea.value = "";
+      cancelMboCommentReply();
+    }
+
+    // ========== 表示モード（URLパラメータ c ）==========
+    // c=1・未指定: 照会
+    // c=2: 編集
+    // c=3: 承認（070「承認」から遷移。承認コメント＋承認／差し戻しのみ操作可。他はすべて照会）
+    // c=4: 新規（編集・内容は空。プロフィール画面の「+」から遷移）
+    // c=5: 面談結果（070「面談結果」から遷移。コメントの追記・返信のみ操作可。他はすべて照会）
+    //
+    // 各モードで操作できる範囲（状態の定義）
+    //   label      : ぱんくずの表示
+    //   goalToggle : 年間目標の編集／照会切り替えボタンを使えるか
+    //   actions    : 上部の保存・キャンセルを表示するか
+    //   comment    : 通常のコメント入力（追加・追記）を使えるか
+    //   reply      : コメントへの返信を使えるか
+    //   approval   : 承認コメント（承認／差し戻し）を使えるか
+    //   author     : コメント投稿者（self = 本人 / approver = 承認者）
+    const MBO_MODES = {
+      view:      { label: "照会",     goalToggle: true,  actions: true,  comment: false, reply: false, approval: false, author: "self" },
+      edit:      { label: "編集",     goalToggle: true,  actions: true,  comment: true,  reply: true,  approval: false, author: "self" },
+      approval:  { label: "承認",     goalToggle: false, actions: false, comment: false, reply: false, approval: true,  author: "approver" },
+      new:       { label: "編集",     goalToggle: true,  actions: true,  comment: true,  reply: true,  approval: false, author: "self" },
+      interview: { label: "面談結果", goalToggle: false, actions: false, comment: true,  reply: true,  approval: false, author: "approver",
+                   submitLabel: "コメントを追記" },
+    };
+    const MBO_MODE_BY_PARAM = { "1": "view", "2": "edit", "3": "approval", "4": "new", "5": "interview" };
+
+    function getMboModeKey() {
+      return MBO_MODE_BY_PARAM[getPageModeParam()] || "view";
+    }
+
+    function getMboModeConfig() {
+      return MBO_MODES[getMboModeKey()];
+    }
+    function getPageModeParam() {
+      return new URLSearchParams(window.location.search).get("c");
+    }
+
+    function isEditParam() {
+      return getPageModeParam() === "2";
+    }
+
+    function isApprovalParam() {
+      return getPageModeParam() === "3";
+    }
+
+    function isNewEntry() {
+      return getPageModeParam() === "4";
+    }
+
+    // 070 からの遷移時は name パラメータで対象者名を表示する
+    function applyNameParam() {
+      const name = new URLSearchParams(window.location.search).get("name");
+      if (name) document.querySelector(".mbo-person-name").textContent = name;
+    }
+
+    // モードの状態を画面に反映する（クラスの付け替え・disabled の切り替えのみ）
+    function applyMboModeState() {
+      const mode = getMboModeConfig();
+      const approvalActive = mode.approval && !mboApprovalDone;
+
+      document.getElementById("mbo-actions-bar").classList.toggle("hidden", !mode.actions);
+      document.querySelector(".mbo-panel-toggle-btn").disabled = !mode.goalToggle;
+
+      // 通常コメント（追加・追記）
+      document.getElementById("mbo-comment-submit-btn").classList.toggle("hidden", mode.approval);
+      document.getElementById("mbo-comment-submit-btn").disabled = !mode.comment;
+      document.getElementById("mbo-comment-submit-label").textContent = mode.submitLabel || "コメントを追加";
+
+      // 承認コメント（承認／差し戻し）
+      document.getElementById("mbo-approval-actions").classList.toggle("hidden", !mode.approval);
+      document.getElementById("mbo-approve-btn").disabled = !approvalActive;
+      document.getElementById("mbo-reject-btn").disabled = !approvalActive;
+
+      const label = document.getElementById("mbo-comment-input-label");
+      label.classList.toggle("hidden", !mode.approval);
+      label.textContent = mboApprovalDone ? "承認コメント（登録済み）" : "承認コメント";
+
+      const input = document.getElementById("mbo-comment-input");
+      input.disabled = !(mode.comment || approvalActive);
+      input.placeholder = mode.approval
+        ? "承認コメントを入力してください（差し戻しの場合は必須）"
+        : "コメントを入力してください";
+    }
+
+    function resetToNewEntry() {
+      document.querySelectorAll("#mbo-annual-goal-body .mbo-textarea").forEach(el => { el.value = ""; });
+
+      MBO_CHALLENGES.length = 0;
+      while (MBO_CHALLENGES.length < MBO_CHALLENGE_MIN_ROWS) {
+        MBO_CHALLENGES.push({ issue: "", quantGoal: "", actionPlan: "", focus: "" });
+      }
+
+      MBO_COMMENTS.length = 0;
+
+      const badge = document.getElementById("mbo-status-badge");
+      badge.textContent = "未提出";
+      badge.className = "mbo-status-badge is-pending";
+
+      const company = new URLSearchParams(window.location.search).get("company");
+      if (company) {
+        document.querySelector(".mbo-person-company").textContent = company;
+      }
+    }
+
+    // ========== 初期化 ==========
+    if (isNewEntry()) {
+      resetToNewEntry();
+      mboAnnualGoalEditable = true;
+    } else if (isEditParam()) {
+      mboAnnualGoalEditable = true;
+    } else if (isApprovalParam()) {
+      mboAnnualGoalEditable = false;
+    }
+    document.querySelectorAll("#mbo-annual-goal-body textarea, #mbo-annual-goal-body input[type=text]").forEach(el => { el.disabled = !mboAnnualGoalEditable; });
+    document.getElementById("mbo-add-row-btn").disabled = !mboAnnualGoalEditable;
+    if (mboAnnualGoalEditable) {
+      document.getElementById("mbo-annual-goal-toggle-icon").classList.remove("fa-pen");
+      document.getElementById("mbo-annual-goal-toggle-icon").classList.add("fa-eye");
+    }
+    document.getElementById("mbo-breadcrumb-mode").textContent = getMboModeConfig().label;
+
+    applyMboModeState();
+    applyNameParam();
+    applyYearParam();
+    updateVisionYearAgeLabel();
+    renderMboChallengeTable();
+    renderMboComments();
+  </script>
+
+</body>
+</html>

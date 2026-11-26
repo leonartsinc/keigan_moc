@@ -1,0 +1,225 @@
+/* Component: FinalizeTopBar */
+.afl-topbar {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.afl-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+.afl-topbar-sub {
+  font-size: 11px;
+  color: #a6a6a6;
+}
+
+/* Component: FinalizePanel */
+.afl-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+/* Component: FinalizeInfoBanner */
+.afl-info-banner {
+  margin: 14px 14px 0;
+  padding: 10px 14px;
+  background: #242424;
+  border: 1px solid #7a5529;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #ec9679;
+}
+.afl-info-banner strong {
+  font-weight: 700;
+  color: #fbbd23;
+}
+
+/* Component: FinalizeFilterForm */
+.afl-filter-form {
+  padding: 14px 14px 0;
+}
+table.afl-table {
+  width: 100%;
+  max-width: 640px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.afl-table td {
+  border: 1px solid #393939;
+  vertical-align: middle;
+}
+.afl-table td.afl-label {
+  background: #272727;
+  width: 90px;
+  padding: 6px 10px;
+  text-align: right;
+  color: #bdbdbd;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.afl-table td.afl-value {
+  padding: 5px 10px;
+  background: #171717;
+}
+.afl-sel {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.afl-sel:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.afl-clear-btn {
+  height: 26px;
+  padding: 0 12px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  background: #171717;
+  color: #a6a6a6;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.afl-clear-btn:hover {
+  color: #909090;
+  border-color: #5b5b5b;
+}
+
+/* Component: FinalizeListToolbar */
+.afl-list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px 0;
+}
+.afl-list-toolbar-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #bdbdbd;
+}
+.afl-list-toolbar-count {
+  font-size: 11px;
+  color: #a6a6a6;
+  margin-left: 4px;
+}
+.afl-checkall-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #909090;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Component: FinalizeListTable */
+.afl-list-wrap {
+  margin: 10px 14px 10px;
+  overflow-x: auto;
+}
+table.afl-list-table {
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.afl-list-table th {
+  background: #1e1e1e;
+  color: #909090;
+  font-weight: 600;
+  text-align: left;
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  white-space: nowrap;
+}
+.afl-list-table th.afl-col-check {
+  width: 36px;
+  text-align: center;
+}
+.afl-list-table td {
+  padding: 6px 10px;
+  border: 1px solid #393939;
+  color: #d3d3d3;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.afl-list-table td.afl-col-check {
+  text-align: center;
+}
+.afl-list-table tbody tr:hover {
+  background: #242424;
+}
+.afl-list-table tbody tr.is-checked {
+  background: #242424;
+}
+.afl-empty-row {
+  text-align: center;
+  color: #a6a6a6;
+  padding: 20px 10px !important;
+}
+
+/* Component: FinalizeStatusTag */
+.afl-status-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.afl-status-tag.is-diagnosed { background: #333333; color: #799dec; }
+.afl-status-tag.is-evaluated { background: #163b28; color: #79ecc8; }
+.afl-status-tag.is-none      { background: #272727; color: #a6a6a6; }
+.afl-status-tag.is-fixed     { background: #383838; color: #bdbdbd; }
+
+/* Component: FinalizeActionBar */
+.afl-action-bar {
+  padding: 10px 14px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.afl-selected-count {
+  font-size: 12px;
+  color: #a6a6a6;
+}
+.afl-selected-count.is-active {
+  color: #fbbd23;
+  font-weight: 600;
+}
+.afl-btn-primary {
+  height: 32px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 4px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.afl-btn-primary:hover:not(:disabled) {
+  background: #fbbd23;
+}
+.afl-btn-primary:disabled {
+  background: #545454;
+  cursor: not-allowed;
+}

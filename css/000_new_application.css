@@ -1,0 +1,114 @@
+/* Component: ApplyWrap */
+.apply-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh; /* ログイン前画面のためヘッダー・フッターなしで画面中央に配置 */
+  padding: 40px 16px;
+}
+
+/* Component: ApplyCard */
+.apply-card {
+  width: 100%;
+  max-width: 360px;
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  padding: 32px 28px 28px;
+}
+/* Component: ApplyBrand */
+.apply-brand {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.apply-brand-logo {
+  height: 40px;
+  width: auto;
+}
+
+.apply-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #d3d3d3;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.apply-card-sub {
+  font-size: 12px;
+  color: #a6a6a6;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Component: ApplyField */
+.apply-field {
+  margin-bottom: 20px;
+}
+.apply-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #bdbdbd;
+  margin-bottom: 6px;
+}
+.apply-inp {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #424242;
+  border-radius: 5px;
+  font-size: 13px;
+  color: #d3d3d3;
+  background: #171717;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.apply-inp:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 3px rgba(251,146,60,0.15);
+}
+.apply-err {
+  font-size: 11px;
+  color: #ef4444;
+  margin-top: 4px;
+}
+
+/* Component: ApplySubmitButton */
+.apply-submit-btn {
+  width: 100%;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  background: #fbbd23;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.apply-submit-btn:hover {
+  background: #fbbd23;
+}
+
+/* Component: ApplyFooterLinks */
+.apply-footer-links {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #333333;
+  text-align: center;
+  font-size: 12px;
+  color: #a6a6a6;
+}
+.apply-footer-links a {
+  color: #fbbd23;
+  text-decoration: none;
+}
+.apply-footer-links a:hover {
+  text-decoration: underline;
+}

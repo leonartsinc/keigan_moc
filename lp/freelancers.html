@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KEIGAN for FREELANCERS｜自分の実績を、正しく可視化する</title>
+<meta name="description" content="KEIGAN for FREELANCERSは、フリーランス・個人のITエンジニア向けのキャリア管理サービス。法人版と同じ評価基準での自己診断、ITSSレベル自動算定、経歴書・職務経歴書の出力が永年無料。">
+<link rel="icon" type="image/png" href="source/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Noto+Sans+JP:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Rubik', 'Noto Sans JP', sans-serif; color: #1C1917; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; }
+  .chip { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px; font-size:13px; font-weight:700; background:#EAF1FC; color:#1F4FA0; }
+  .shot { background:#fff; border:1px solid #ECE3D6; border-radius:14px; overflow:hidden; box-shadow:0 30px 60px -28px rgba(28,25,23,0.35); }
+  .shot-bar { display:flex; gap:6px; padding:10px 14px; background:#F4EFE8; border-bottom:1px solid #ECE3D6; }
+  .shot-bar i { width:9px; height:9px; border-radius:50%; background:#D8CDBB; }
+  .slide { transition: opacity 2.5s ease-in-out; }
+</style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="sticky top-0 z-30 border-b border-[#ECE3D6]" style="background:rgba(250,247,242,0.92); backdrop-filter:blur(8px);">
+    <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-6 px-6 md:px-10 py-3">
+      <a href="index.html"><img src="source/logo.png" alt="KEIGAN" class="h-7 block shrink-0"></a>
+      <div class="flex items-center gap-7 md:gap-8">
+        <nav class="hidden xl:flex items-center gap-7 text-sm font-medium whitespace-nowrap">
+          <div class="relative group">
+            <button type="button" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-transparent group-hover:border-[#C9BFAF] font-medium text-[#1C1917] bg-transparent cursor-pointer">
+              サービス一覧
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="hidden group-hover:block absolute left-0 top-full pt-2 w-56 z-30">
+              <div class="rounded-lg bg-white border border-[#ECE3D6] shadow-xl py-1.5">
+                <a href="freelancers.html" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#2461C2;">KEIGAN for FREELANCERS</a>
+                <a href="business.html" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#E8590C;">KEIGAN for IT BUSINESSES</a>
+              </div>
+            </div>
+          </div>
+          <a href="index.html#pricing" class="text-[#1C1917] hover:text-[#E8590C]">料金</a>
+          <div class="relative group">
+            <button type="button" class="flex items-center gap-1.5 text-[#1C1917] bg-transparent border-0 font-medium text-sm cursor-pointer p-0 group-hover:text-[#E8590C]">
+              アカウントをお持ちの方へ
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="hidden group-hover:block absolute right-0 top-full pt-2 w-64 z-30">
+              <div class="rounded-lg bg-white border border-[#ECE3D6] shadow-xl py-1.5">
+                <a href="#" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#2461C2;">ログイン</a>
+                <a href="#" class="block px-5 py-2.5 text-[11.5px] font-semibold" style="color:#2461C2;">リリースノート<br><span class="text-[10.5px] font-normal">（新機能／仕様変更のご案内）</span></a>
+              </div>
+            </div>
+          </div>
+        </nav>
+        <div class="flex items-center gap-2.5 md:gap-3 shrink-0">
+          <a href="../000_new_application.html" class="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold px-4 py-2.5 rounded-md text-white" style="background:#E8590C;">for IT BUSINESSES（２ケ月無料）<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="../000_new_application.html" class="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold px-4 py-2.5 rounded-md text-white" style="background:#2461C2;">for FREELANCERS（永年無料）<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="request.html" class="hidden md:inline-flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold px-4 py-2.5 rounded-md border border-[#C9BFAF] bg-white text-[#1C1917]">資料請求<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="relative overflow-hidden" style="background:linear-gradient(160deg,#F7F9FD 0%,#EAF1FC 60%,#DCE8FA 100%);">
+    <div class="absolute -top-40 -right-40 w-[560px] h-[560px] rounded-full" style="background:radial-gradient(circle,rgba(36,97,194,0.22),transparent 70%);"></div>
+    <div class="relative max-w-[1280px] mx-auto px-6 md:px-10 pt-10 pb-20 md:pb-24">
+      <div class="text-[12px] text-[#8A93A3] mb-10"><a href="index.html" class="text-[#8A93A3] hover:text-[#2461C2]">TOP</a>　›　KEIGAN for FREELANCERS</div>
+      <div class="grid lg:grid-cols-[1fr_1.15fr] gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[13px] font-bold mb-6 text-white" style="background:#2461C2;">永年無料でご利用いただけます</div>
+          <h1 class="font-extrabold text-[30px] md:text-[40px] leading-tight mb-5">KEIGAN <span style="color:#2461C2;">for FREELANCERS</span></h1>
+          <p class="font-bold text-[30px] md:text-[42px] leading-[1.45] mb-6">自分の実績を、<br>正しく可視化する。</p>
+          <p class="text-[15px] leading-[2] text-[#3F4654] mb-9">KEIGAN for FREELANCERSは、フリーランス・個人のITエンジニアのためのキャリア管理サービスです。法人版と同じ評価基準での自己診断、職務経歴からのITSSレベル自動算定、経歴書・職務経歴書の出力まで。スキルの棚卸しから案件提案まで、ずっと無料でお使いいただけます。</p>
+          <div class="flex flex-wrap gap-4">
+            <a href="../000_new_application.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-md font-bold text-[15px] text-white" style="background:#2461C2; box-shadow:0 16px 32px -14px rgba(36,97,194,0.6);">無料で利用申請<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="request.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-md font-bold text-[15px] bg-white text-[#1C1917] border border-[#C9D3E3]">資料請求する<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <!-- 製品画面（5秒ごとに切り替え／マウスを乗せると停止） -->
+        <div>
+          <div class="rounded-t-[14px] p-5 md:p-7 pb-5" style="background:#15130F; box-shadow:0 30px 70px -24px rgba(20,30,50,0.5);">
+            <div class="w-2 h-2 rounded-full mx-auto mb-3" style="background:#3A3940;"></div>
+            <div class="hero-slider relative rounded overflow-hidden leading-[0]">
+              <img class="slide relative block w-full opacity-100" src="source/lineup-freelancer-1.jpg" alt="KEIGAN ダッシュボード画面">
+              <img class="slide absolute inset-0 w-full h-full object-cover object-left-top opacity-0" src="source/lineup-freelancer-2.jpg" alt="KEIGAN プロフィール画面">
+              <img class="slide absolute inset-0 w-full h-full object-cover object-left-top opacity-0" src="source/lineup-freelancer-3.jpg" alt="KEIGAN 職務経歴画面">
+              <img class="slide absolute inset-0 w-full h-full object-cover object-left-top opacity-0" src="source/lineup-freelancer-5.jpg" alt="KEIGAN 経歴書・職務経歴書出力画面">
+            </div>
+          </div>
+          <div class="h-4 rounded-b-[10px] relative" style="background:linear-gradient(#2C2A28,#1C1917);"><div class="absolute left-1/2 top-0 -translate-x-1/2 w-24 h-1.5 rounded-b-lg" style="background:#0C0A08;"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST STRIP ============ -->
+  <section style="background:#1F3B6E; color:#fff;" class="px-6 py-4">
+    <div class="max-w-[1280px] mx-auto flex flex-wrap justify-center gap-x-12 gap-y-3 text-[14px] font-semibold">
+      <span>✓ 永年無料</span><span>✓ 初期費用 0円</span><span>✓ 法人版と同じ評価基準</span><span>✓ ITSSレベルを自動算定</span><span>✓ 経歴書・職務経歴書を出力</span>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section class="max-w-[1200px] mx-auto px-6 md:px-10 py-24">
+    <div class="text-center mb-20">
+      <div class="text-[12px] tracking-[0.12em] font-bold mb-3" style="color:#2461C2;">FEATURES</div>
+      <h2 class="text-[28px] md:text-[34px] font-bold">KEIGAN for FREELANCERS の特徴</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+      <div>
+        <div class="text-[46px] font-black leading-none mb-4" style="color:transparent; -webkit-text-stroke:1.5px #2461C2;">01</div>
+        <h3 class="text-[22px] md:text-[26px] font-bold leading-snug mb-5">法人版と同じ評価基準で、<br>自分のスキルを棚卸し</h3>
+        <p class="text-[15px] leading-[2] text-[#3F4654] mb-6">IT企業の人事考課に使われているのと同じ、800項目超の評価基準で自己診断ができます。評価項目ごとに「何ができれば評価されるのか」が明文化されているため、今の自分の強みと伸ばすべきポイントがはっきりわかり、スキルアップの指針になります。</p>
+        <div class="flex flex-wrap gap-2"><span class="chip">800項目超の評価基準</span><span class="chip">自己診断</span><span class="chip">スキルアップの指針</span></div>
+      </div>
+      <div class="shot"><div class="shot-bar"><i></i><i></i><i></i></div><img src="source/feature-assessment-self.jpg" alt="アセスメント診断（個人）画面" class="w-full block"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+      <div class="md:order-2">
+        <div class="text-[46px] font-black leading-none mb-4" style="color:transparent; -webkit-text-stroke:1.5px #2461C2;">02</div>
+        <h3 class="text-[22px] md:text-[26px] font-bold leading-snug mb-5">職務経歴を入力するだけで、<br>ITSSレベルを自動算定</h3>
+        <p class="text-[15px] leading-[2] text-[#3F4654] mb-6">プロジェクトごとの役割・環境・規模・担当工程を、用意された項目に回答しながら登録するだけ。経済産業省が策定したITスキル標準（ITSS）に準拠したレベルが自動で算定され、自分の技術レベルを客観的な指標で示せるようになります。</p>
+        <div class="flex flex-wrap gap-2"><span class="chip">ITSS準拠</span><span class="chip">項目に回答するだけ</span><span class="chip">客観的なスキル証明</span></div>
+      </div>
+      <div class="shot md:order-1"><div class="shot-bar"><i></i><i></i><i></i></div><img src="source/feature-work-history.jpg" alt="職務経歴画面" class="w-full block"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+      <div>
+        <div class="text-[46px] font-black leading-none mb-4" style="color:transparent; -webkit-text-stroke:1.5px #2461C2;">03</div>
+        <h3 class="text-[22px] md:text-[26px] font-bold leading-snug mb-5">経歴書・職務経歴書を出力して、<br>提案活動をもっと効率的に</h3>
+        <p class="text-[15px] leading-[2] text-[#3F4654] mb-6">学歴・資格・研修・職歴などの情報をKEIGANに集約しておけば、経歴書・職務経歴書をExcel形式ですぐに出力できます。案件ごとに書類を作り直す手間がなくなり、企業への提案活動にかかる時間とコストを削減できます。</p>
+        <div class="flex flex-wrap gap-2"><span class="chip">Excel形式で出力</span><span class="chip">出力内容を選択</span><span class="chip">提案準備の時短</span></div>
+      </div>
+      <div class="shot"><div class="shot-bar"><i></i><i></i><i></i></div><img src="source/feature-career-doc.jpg" alt="経歴書・職務経歴書の出力画面" class="w-full block"></div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="md:order-2">
+        <div class="text-[46px] font-black leading-none mb-4" style="color:transparent; -webkit-text-stroke:1.5px #2461C2;">04</div>
+        <h3 class="text-[22px] md:text-[26px] font-bold leading-snug mb-5">ダッシュボードで、<br>自分のキャリアを見える化</h3>
+        <p class="text-[15px] leading-[2] text-[#3F4654] mb-6">登録したキャリア情報は、ダッシュボードで直感的に確認できます。総合スコアや保有資格、経験したプログラム言語・産業・立場がグラフで一目でわかり、あなたの"はたらく実感"と次のキャリアの選択を後押しします。</p>
+        <div class="flex flex-wrap gap-2"><span class="chip">総合スコア</span><span class="chip">経験のグラフ化</span><span class="chip">資格の一覧</span></div>
+      </div>
+      <div class="shot md:order-1"><div class="shot-bar"><i></i><i></i><i></i></div><img src="source/feature-dashboard.jpg" alt="ダッシュボード画面" class="w-full block"></div>
+    </div>
+  </section>
+
+  <!-- ============ TRUST (無料・安心) ============ -->
+  <section class="px-6 md:px-10 pb-24">
+    <div class="max-w-[1200px] mx-auto rounded-[24px] px-8 md:px-16 py-16 text-white relative overflow-hidden" style="background:linear-gradient(135deg,#2F6FD6,#1F3B6E);">
+      <div class="absolute -top-36 -left-24 w-[420px] h-[420px] rounded-full opacity-40" style="background:radial-gradient(circle,#8FB4FF,transparent 70%);"></div>
+      <div class="relative grid md:grid-cols-[1.1fr_1fr] gap-12 items-center">
+        <div>
+          <div class="text-[12px] tracking-[0.12em] font-bold mb-3 text-[#BFD3FF]">WHY FREE</div>
+          <h2 class="text-[26px] md:text-[32px] font-bold leading-snug mb-6">業界で通用する物差しを、<br>すべてのエンジニアに</h2>
+          <p class="text-[15px] leading-[2] opacity-95">KEIGANの評価基準は、特定の会社だけのローカルルールではなく、業界・社会全体で通用する基準として設計しています。だからこそ、会社に所属していないフリーランスの方にも使っていただきたい。個人でも価値のある機能は、制限なく無料でご利用いただけます。</p>
+        </div>
+        <div class="grid gap-4">
+          <div class="bg-white rounded-xl px-6 py-5 flex items-center gap-4 text-[#1C1917]"><span class="w-11 h-11 rounded-full flex items-center justify-center text-white font-black shrink-0" style="background:#2461C2;">✓</span><div><div class="font-bold">ずっと無料</div><div class="text-[13px] text-[#5B6575]">個人プランは永年無料・初期費用も不要</div></div></div>
+          <div class="bg-white rounded-xl px-6 py-5 flex items-center gap-4 text-[#1C1917]"><span class="w-11 h-11 rounded-full flex items-center justify-center text-white font-black shrink-0" style="background:#2461C2;">✓</span><div><div class="font-bold">法人版と同じ評価基準</div><div class="text-[13px] text-[#5B6575]">企業の人事考課と同じ物差しで自己診断</div></div></div>
+          <div class="bg-white rounded-xl px-6 py-5 flex items-center gap-4 text-[#1C1917]"><span class="w-11 h-11 rounded-full flex items-center justify-center text-white font-black shrink-0" style="background:#2461C2;">✓</span><div><div class="font-bold">ITSS（ITスキル標準）準拠</div><div class="text-[13px] text-[#5B6575]">社外でも通用するスキルの証明に</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FUNCTIONS ============ -->
+  <section style="background:#F5F8FD;" class="px-6 md:px-10 py-24">
+    <div class="max-w-[1200px] mx-auto">
+      <div class="text-center mb-14">
+        <div class="text-[12px] tracking-[0.12em] font-bold mb-3" style="color:#2461C2;">FUNCTIONS</div>
+        <h2 class="text-[28px] md:text-[34px] font-bold mb-4">キャリア管理に便利な機能が、すべて無料</h2>
+        <p class="text-[15px] text-[#5B6575]">あなたのキャリア情報を、ひとつの場所に。</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="bg-white rounded-2xl p-7 border border-[#DCE4F1]"><div class="font-bold text-[18px] mb-1">アセスメント診断</div><div class="text-[13px] font-bold mb-3" style="color:#2461C2;">法人版と同じ基準で自己診断</div><p class="text-[14px] leading-[1.9] text-[#5B6575]">評価項目ごとに自己評価し、コメントも記録。結果はスコアとして蓄積されます。</p></div>
+        <div class="bg-white rounded-2xl p-7 border border-[#DCE4F1]"><div class="font-bold text-[18px] mb-1">職務経歴管理</div><div class="text-[13px] font-bold mb-3" style="color:#2461C2;">ITSSレベルを自動算定</div><p class="text-[14px] leading-[1.9] text-[#5B6575]">プロジェクトごとの役割・動作環境・開発環境・規模・担当工程を登録できます。</p></div>
+        <div class="bg-white rounded-2xl p-7 border border-[#DCE4F1]"><div class="font-bold text-[18px] mb-1">プロフィール・経歴</div><div class="text-[13px] font-bold mb-3" style="color:#2461C2;">基本情報と学歴をまとめて</div><p class="text-[14px] leading-[1.9] text-[#5B6575]">基本情報や学歴などの経歴を登録し、いつでも最新の状態に保てます。</p></div>
+        <div class="bg-white rounded-2xl p-7 border border-[#DCE4F1]"><div class="font-bold text-[18px] mb-1">免許・資格、研修・訓練</div><div class="text-[13px] font-bold mb-3" style="color:#2461C2;">学びの記録を一元管理</div><p class="text-[14px] leading-[1.9] text-[#5B6575]">国家資格・ベンダー資格などの取得履歴や、研修の受講履歴を記録できます。</p></div>
+        <div class="bg-white rounded-2xl p-7 border border-[#DCE4F1]"><div class="font-bold text-[18px] mb-1">経歴書・職務経歴書の出力</div><div class="text-[13px] font-bold mb-3" style="color:#2461C2;">Excel形式ですぐに出力</div><p class="text-[14px] leading-[1.9] text-[#5B6575]">学歴・資格・研修・職歴の中から、出力する内容を選んで書類を作成できます。</p></div>
+        <div class="bg-white rounded-2xl p-7 border border-[#DCE4F1]"><div class="font-bold text-[18px] mb-1">ダッシュボード</div><div class="text-[13px] font-bold mb-3" style="color:#2461C2;">キャリアをひと目で</div><p class="text-[14px] leading-[1.9] text-[#5B6575]">総合スコア、資格、経験した言語・産業・立場をグラフで可視化します。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRICE + STEPS ============ -->
+  <section class="max-w-[1200px] mx-auto px-6 md:px-10 py-24 grid lg:grid-cols-2 gap-10">
+    <div class="rounded-[20px] p-10 md:p-12 text-center" style="background:#1F3B6E; color:#fff;">
+      <div class="text-[12px] tracking-[0.12em] font-bold mb-3 text-[#8FB4FF]">PRICING</div>
+      <div class="text-[14px] text-[#C7D5EE] mb-3">フリーランスプラン（KEIGAN for FREELANCERS）</div>
+      <div class="flex items-baseline justify-center gap-1.5 mb-3"><span class="text-[54px] font-bold">¥0</span><span class="text-[14px] text-[#C7D5EE]">/ 永年無料</span></div>
+      <div class="text-[13px] text-[#C7D5EE] mb-8">初期費用 0円・登録後すぐに利用開始</div>
+      <a href="../000_new_application.html" class="block py-4 rounded-md font-bold text-white" style="background:#2461C2; border:1px solid #5E8FE0;">無料ではじめる</a>
+      <a href="index.html#pricing" class="inline-block mt-5 text-[13px] text-[#8FB4FF] underline">料金プランを比較する</a>
+    </div>
+    <div>
+      <div class="text-[12px] tracking-[0.12em] font-bold mb-3" style="color:#2461C2;">HOW TO START</div>
+      <h2 class="text-[26px] md:text-[30px] font-bold mb-8">ご利用開始までの流れ</h2>
+      <ol class="grid gap-4">
+        <li class="flex gap-5 items-start"><span class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0" style="background:#2461C2;">1</span><div><div class="font-bold mb-1">利用申請</div><div class="text-[14px] text-[#5B6575] leading-[1.9]">Webフォームからお申し込み。ご登録のメールアドレスに案内が届きます。</div></div></li>
+        <li class="flex gap-5 items-start"><span class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0" style="background:#2461C2;">2</span><div><div class="font-bold mb-1">プロフィール登録</div><div class="text-[14px] text-[#5B6575] leading-[1.9]">基本情報と経歴を登録します。</div></div></li>
+        <li class="flex gap-5 items-start"><span class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0" style="background:#2461C2;">3</span><div><div class="font-bold mb-1">職歴・資格の入力</div><div class="text-[14px] text-[#5B6575] leading-[1.9]">職務経歴を入力すると、ITSSレベルが自動で算定されます。</div></div></li>
+        <li class="flex gap-5 items-start"><span class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0" style="background:#2461C2;">4</span><div><div class="font-bold mb-1">自己診断・書類出力</div><div class="text-[14px] text-[#5B6575] leading-[1.9]">アセスメント診断でスキルを棚卸し。経歴書・職務経歴書もすぐに出力できます。</div></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ CROSS LINK ============ -->
+  <section class="max-w-[1200px] mx-auto px-6 md:px-10 pb-24">
+    <div class="rounded-[20px] border border-[#F3D9C2] p-8 md:p-10 grid md:grid-cols-[1fr_auto] gap-6 items-center" style="background:#FFF6EE;">
+      <div>
+        <div class="font-extrabold text-[20px] mb-2">KEIGAN <span style="color:#E8590C;">for IT BUSINESSES</span></div>
+        <p class="text-[14.5px] leading-[1.9] text-[#514A42]">IT企業さまには、属人的な評価をなくす人事評価SaaSを月額1,000円/IDからご提供。ご登録後2か月間は無料でお試しいただけます。</p>
+      </div>
+      <a href="business.html" class="inline-flex items-center gap-2 px-7 py-3.5 rounded-md font-bold text-white whitespace-nowrap" style="background:#E8590C;">for IT BUSINESSESページを見る<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="px-6 py-[72px] text-center" style="background:linear-gradient(120deg,#F5F8FD,#E6EEFB 55%,#D9E5F8);">
+    <h2 class="text-[30px] md:text-[34px] font-bold mb-5">まずは無料ではじめてみませんか</h2>
+    <p class="text-[15px] text-[#5B6575] leading-[1.9] mb-9">登録後すぐにご利用いただけます。<br>サービスの詳細は資料でもご確認いただけます。</p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="../000_new_application.html" class="inline-flex items-center gap-2 px-10 py-4 rounded-md font-bold text-[15px] text-white" style="background:#2461C2;">無料で利用申請<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="request.html" class="inline-flex items-center gap-2 px-10 py-4 rounded-md font-bold text-[15px] bg-white text-[#1C1917] border border-[#C9D3E3]">資料請求する<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1C1917" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="border-t border-[#ECE3D6] px-6 md:px-12 pt-14 pb-10">
+    <div class="max-w-[1280px] mx-auto flex justify-between flex-wrap gap-10">
+      <div class="max-w-[280px]">
+        <img src="source/logo.png" alt="KEIGAN" class="h-6 block mb-4">
+        <div class="text-[13px] text-[#9C9186] leading-[1.8]">属人的な評価をなくす、新しい人事評価SaaS。</div>
+      </div>
+      <div class="flex gap-20">
+        <div>
+          <div class="text-[12px] text-[#9C9186] font-bold mb-4">サービス</div>
+          <div class="flex flex-col gap-3 text-[13px]">
+            <a href="business.html" class="text-[#1C1917]">KEIGAN <span style="color:#E8590C;">for IT BUSINESSES</span></a>
+            <a href="freelancers.html" class="text-[#1C1917]">KEIGAN <span style="color:#2461C2;">for FREELANCERS</span></a>
+            <a href="index.html#pricing" class="text-[#514A42]">料金</a>
+          </div>
+        </div>
+        <div>
+          <div class="text-[12px] text-[#9C9186] font-bold mb-4">会社情報</div>
+          <div class="flex flex-col gap-3 text-[13px]">
+            <a href="#" class="text-[#514A42]">運営会社</a>
+            <a href="#" class="text-[#514A42]">お問い合わせ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="max-w-[1280px] mx-auto mt-8 pt-6 border-t border-[#ECE3D6] text-[12px] text-[#9C9186]">© 2026 LEON ARTS, Inc. KEIGAN</div>
+  </footer>
+
+  <script>
+  // ヒーローの製品画面：5秒ごとにフェード切り替え（マウスを乗せている間は停止）
+  (function(){
+    document.querySelectorAll('.hero-slider').forEach(function(slider){
+      var slides = slider.querySelectorAll('.slide'), idx = 0, elapsed = 0;
+      setInterval(function(){
+        if (slider.matches(':hover')) return;
+        elapsed += 250;
+        if (elapsed < 5000) return;
+        elapsed = 0;
+        slides[idx].style.opacity = '0';
+        idx = (idx + 1) % slides.length;
+        slides[idx].style.opacity = '1';
+      }, 250);
+    });
+  })();
+  </script>
+</body>
+</html>

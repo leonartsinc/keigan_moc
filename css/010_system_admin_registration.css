@@ -1,0 +1,254 @@
+/* Component: RegistrationSidebar */
+.reg-side-panel {
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.reg-side-title {
+  background: #545454;
+  color: #bdbdbd;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid #5b5b5b;
+}
+.reg-nav-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: #bdbdbd;
+  background: #171717;
+  border: none;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+.reg-nav-link:hover {
+  background: #242424;
+  color: #fbbd23;
+}
+.reg-nav-link.is-active {
+  background: #242424;
+  color: #fbbd23;
+  font-weight: 600;
+  border-left-color: #fbbd23;
+}
+/* Component: RegistrationActionButtons */
+.reg-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.reg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  height: 36px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.reg-btn-save {
+  background: #fbbd23;
+  color: #ffffff;
+  border: 1px solid #fbbd23;
+}
+.reg-btn-save:hover {
+  background: #fbbd23;
+  border-color: #fbbd23;
+}
+.reg-btn-cancel {
+  background: #171717;
+  color: #909090;
+  border: 1px solid #424242;
+}
+.reg-btn-cancel:hover {
+  background: #272727;
+  color: #acacac;
+  border-color: #5b5b5b;
+}
+
+/* Layout: RegistrationPageHead（ぱんくず＋タイトルをヘッダー直下に固定。上下の余白も含めて背景で覆い、スクロールする内容を隠す） */
+.reg-page-head {
+  position: sticky;
+  top: 56px;
+  z-index: 20;
+  padding: 20px 0 14px;
+  background: #272727;
+}
+
+/* Component: RegistrationTopBar */
+.reg-topbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 0;
+}
+.reg-topbar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #d3d3d3;
+}
+.reg-topbar-tab {
+  margin-left: 18px;
+  font-size: 12px;
+  color: #909090;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+}
+.reg-topbar-tab.is-active {
+  color: #fbbd23;
+  border-bottom-color: #fbbd23;
+  font-weight: 600;
+}
+.reg-topbar-note {
+  font-size: 11px;
+  color: #909090;
+}
+.reg-topbar-note .req-mark {
+  color: #ef4444;
+  margin-right: 2px;
+}
+
+/* Component: RegistrationSidebar（目次：初期表示の縦位置のままスクロールに追従） */
+.reg-side-sticky {
+  position: sticky;
+  top: 144px;
+}
+
+/* Component: RegistrationPanel */
+.reg-panel {
+  scroll-margin-top: 144px; /* 目次クリック時、固定ヘッダー（ぱんくず＋タイトル）の下に見出しを表示 */
+  background: #171717;
+  border: 1px solid #424242;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.reg-panel-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #545454;
+  font-size: 13px;
+  font-weight: 600;
+  color: #bdbdbd;
+  padding: 8px 14px;
+  border-bottom: 1px solid #5b5b5b;
+}
+
+/* Component: RegistrationSectionToggle */
+.reg-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  border: 1px solid #5b5b5b;
+  background: #171717;
+  color: #909090;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.reg-toggle-btn:hover {
+  border-color: #fbbd23;
+  color: #fbbd23;
+  background: #242424;
+}
+
+/* 照会（表示専用）モード時の入力欄フラット化 */
+.reg-panel[data-mode="view"] .reg-inp,
+.reg-panel[data-mode="view"] .reg-sel {
+  border-color: transparent;
+  background: transparent;
+  color: #d3d3d3;
+  padding-left: 0;
+}
+.reg-panel[data-mode="view"] .reg-inp:focus,
+.reg-panel[data-mode="view"] .reg-sel:focus {
+  box-shadow: none;
+}
+
+/* Component: RegistrationFormTable */
+table.reg-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.reg-table td {
+  border: 1px solid #393939;
+  vertical-align: middle;
+}
+.reg-table td.reg-label {
+  background: #272727;
+  width: 150px;
+  padding: 8px 12px;
+  text-align: right;
+  color: #bdbdbd;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.reg-table td.reg-value {
+  padding: 6px 12px;
+  background: #171717;
+}
+.req-mark {
+  color: #ef4444;
+  margin-right: 4px;
+  font-weight: 700;
+}
+
+.reg-inp {
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #d3d3d3;
+  background: #171717;
+}
+.reg-inp:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.reg-sel {
+  height: 26px;
+  padding: 0 6px;
+  border: 1px solid #424242;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #bdbdbd;
+  background: #171717;
+}
+.reg-sel:focus {
+  outline: none;
+  border-color: #fbbd23;
+  box-shadow: 0 0 0 2px rgba(251,146,60,0.15);
+}
+.reg-sep {
+  margin: 0 4px;
+  color: #a6a6a6;
+}
+.reg-radio-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: #bdbdbd;
+  margin-right: 20px;
+  cursor: pointer;
+}
